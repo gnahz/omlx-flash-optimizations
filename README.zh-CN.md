@@ -2,7 +2,7 @@
 
 [English](README.md) · [完整复现说明](docs/REPRODUCE.zh-CN.md) · [测试方法与证据](docs/RESULTS.zh-CN.md)
 
-用于 Apple silicon 的 **DeepSeek V4.1 Flash LSQ3-G128** 与 **Qwen3.8 Flash Next oQ6e-MTP** 内核、引擎补丁。仓库包含我的新增优化、所需依赖补丁、固定请求样本及独立测试程序。两个模型分别从各自已测试的固定 oMLX 版本打补丁。
+用于 Apple silicon 的 **DeepSeek V4.1 Flash LSQ3-G128** 与 **Qwen3.8 Flash Next oQ6e-MTP** 内核、引擎补丁。仓库包含我的新增优化、所需依赖补丁、固定请求样本及独立测试程序。两个模型分别从已测试的固定 oMLX 版本打补丁：DeepSeek `0.7.0.dev4`，Qwen `0.7.0`。
 
 ## 我的新增工作
 

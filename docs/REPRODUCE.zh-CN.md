@@ -25,7 +25,7 @@ sudo sysctl iogpu.wired_limit_mb=245760
 
 | 组件 | 固定版本 |
 |---|---|
-| DeepSeek oMLX | `d4298ad1811bdd1b565660263380b52fc4ff71f0` |
+| DeepSeek oMLX | `0.7.0.dev4`，`d4298ad1811bdd1b565660263380b52fc4ff71f0` |
 | DeepSeek MLX | `59d600b5e64c238427d0f8d897ab7c682ef4d3d2`，另加有序 MLX 补丁 |
 | DeepSeek Python | 3.13.15，CPython 3.13 ABI |
 | Qwen oMLX | v0.7.0，`4d4f5a280bc1739ba2cf39c1cee44fd5cc89cb40` |

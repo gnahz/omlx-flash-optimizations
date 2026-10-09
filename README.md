@@ -2,7 +2,7 @@
 
 [中文](README.zh-CN.md) · [Full reproduction](docs/REPRODUCE.md) · [Methods and evidence](docs/RESULTS.md)
 
-Pinned, ordered kernel and engine patches for **DeepSeek V4.1 Flash LSQ3-G128** and **Qwen3.8 Flash Next oQ6e-MTP** on Apple silicon. The repository contains my additions, their dependencies, frozen request fixtures, and independent benchmark drivers. Each model uses its own tested oMLX base.
+Pinned, ordered kernel and engine patches for **DeepSeek V4.1 Flash LSQ3-G128** and **Qwen3.8 Flash Next oQ6e-MTP** on Apple silicon. The repository contains my additions, their dependencies, frozen request fixtures, and independent benchmark drivers. Each model uses its own tested oMLX base: DeepSeek `0.7.0.dev4`, Qwen `0.7.0`.
 
 ## My changes
 

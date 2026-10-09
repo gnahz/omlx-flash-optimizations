@@ -4,6 +4,8 @@
 
 These are the author's archived local measurements from 2026-10-07 and the later qualified cache smoke, on Apple M5 Ultra (30 CPU / 64 GPU cores, 256 GiB, macOS 27.0.1). The portable release's new validation is recorded separately in [VALIDATION](VALIDATION.md). The archived numbers are not overwritten by a new release run.
 
+Version baselines: DeepSeek oMLX `0.7.0.dev4`; Qwen oMLX `0.7.0`.
+
 ## Exact metadata compression
 
 The original mixed LSQ3-G128 checkpoint is already lossy. The additional compression described here is **lossless relative to that fixed checkpoint**: each original BF16 scale/bias pair is packed as a raw U32 word; a per-projection dictionary deduplicates those words, and fixed U16 indices select them. Across all 120 routed-expert projections, dictionaries contain 17,885–64,321 entries. The proof checks all raw-word round trips and full encoded readback. Integer quantization codes are unchanged; no model is requantized during packaging.
