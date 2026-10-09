@@ -15,6 +15,13 @@ import sys
 ROOT = Path(__file__).resolve().parents[1]
 MODEL = 'Qwen3.8-Flash-Next-oQ6e-mtp'
 
+def check_port_available(port, host='127.0.0.1'):
+    # A cleanly stopped previous server can leave accepted sockets in TIME_WAIT.
+    # SO_REUSEADDR permits that restart; an active listener still fails bind.
+    with socket.socket() as probe:
+        probe.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
+        probe.bind((host, port))
+
 def fingerprint(path):
     return hashlib.sha256(Path(path).read_bytes()).hexdigest()
 
@@ -117,8 +124,7 @@ def main(argv=None):
         env = environment('[ephemeral-or-explicit-env-key]', a.profile, a.variant)
         print(json.dumps({'argv': cmd, 'cwd': str(cwd), 'settings': settings(a.profile), 'environment': {k: v for k, v in env.items() if k.startswith('OMLX_') and k != 'OMLX_API_KEY'}, 'model_dir': str(model), 'runtime': str(runtime)}, indent=2)); return
     verify_model(model)
-    with socket.socket() as probe:
-        probe.bind((a.host, a.port))
+    check_port_available(a.port, a.host)
     identity = runtime_identity(workdir, model, a.variant, a.profile)
     prepare_runtime(runtime, model, a.profile, reuse=a.mode == 'cached', identity=identity)
     lock = (runtime / '.serve.lock').open('a')

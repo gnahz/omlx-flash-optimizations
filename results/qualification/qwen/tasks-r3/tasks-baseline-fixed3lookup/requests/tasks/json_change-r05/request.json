@@ -1,0 +1,31 @@
+{
+  "payload": {
+    "model": "Qwen3.8-Flash-Next-oQ6e-mtp",
+    "temperature": 0,
+    "top_p": 1,
+    "seed": 42,
+    "stream": true,
+    "stream_options": {
+      "include_usage": true
+    },
+    "messages": [
+      {
+        "role": "user",
+        "content": "In this JSON configuration, change only service.request_timeout_seconds from 30 to 45. Preserve every other key, value, list order, and value type. Return the whole valid JSON object without markdown or explanation.\n\n{\n  \"service\": {\n    \"name\": \"orders-api\",\n    \"version\": \"3.2.1\",\n    \"request_timeout_seconds\": 30,\n    \"bind_address\": \"127.0.0.1\",\n    \"port\": 8080,\n    \"graceful_shutdown_seconds\": 15,\n    \"max_request_bytes\": 1048576\n  },\n  \"database\": {\n    \"engine\": \"postgresql\",\n    \"host\": \"db.internal\",\n    \"port\": 5432,\n    \"name\": \"orders\",\n    \"pool_min\": 4,\n    \"pool_max\": 24,\n    \"statement_timeout_seconds\": 12,\n    \"ssl\": true\n  },\n  \"cache\": {\n    \"engine\": \"redis\",\n    \"host\": \"cache.internal\",\n    \"port\": 6379,\n    \"namespace\": \"orders:v3\",\n    \"default_ttl_seconds\": 300,\n    \"connect_timeout_seconds\": 2\n  },\n  \"workers\": [\n    {\"name\": \"receipts\", \"concurrency\": 4, \"retry_limit\": 3, \"queue\": \"receipts\"},\n    {\"name\": \"shipping\", \"concurrency\": 2, \"retry_limit\": 5, \"queue\": \"shipping\"},\n    {\"name\": \"refunds\", \"concurrency\": 2, \"retry_limit\": 2, \"queue\": \"refunds\"},\n    {\"name\": \"inventory\", \"concurrency\": 6, \"retry_limit\": 4, \"queue\": \"inventory\"}\n  ],\n  \"features\": {\n    \"coupons\": true,\n    \"express_shipping\": true,\n    \"international_shipping\": false,\n    \"guest_checkout\": true,\n    \"automatic_refunds\": false,\n    \"inventory_reservations\": true\n  },\n  \"logging\": {\n    \"level\": \"INFO\",\n    \"format\": \"json\",\n    \"include_request_id\": true,\n    \"redact_fields\": [\"authorization\", \"credit_card\", \"password\"],\n    \"sample_rate\": 1.0\n  },\n  \"metrics\": {\n    \"enabled\": true,\n    \"endpoint\": \"/metrics\",\n    \"histogram_buckets_ms\": [5, 10, 25, 50, 100, 250, 500, 1000],\n    \"labels\": {\"environment\": \"staging\", \"region\": \"us-west-2\"}\n  },\n  \"security\": {\n    \"allowed_origins\": [\"https://shop.example.com\", \"https://admin.example.com\"],\n    \"csrf_enabled\": true,\n    \"rate_limit_per_minute\": 120,\n    \"trusted_proxy_count\": 1\n  },\n  \"shipping\": {\n    \"standard_fee\": \"4.99\",\n    \"express_fee\": \"12.50\",\n    \"free_threshold\": \"100.00\",\n    \"carriers\": [\"local_post\", \"express_courier\"]\n  },\n  \"notifications\": {\n    \"sender_name\": \"Example Shop\",\n    \"sender_address\": \"receipts@example.com\",\n    \"receipt_template\": \"receipt-v3\",\n    \"shipping_template\": \"shipping-v2\",\n    \"refund_template\": \"refund-v1\"\n  },\n  \"health_checks\": {\n    \"liveness_path\": \"/health/live\",\n    \"readiness_path\": \"/health/ready\",\n    \"interval_seconds\": 10,\n    \"unhealthy_threshold\": 3\n  }\n}\n"
+      }
+    ],
+    "max_tokens": 3072,
+    "enable_thinking": false,
+    "chat_template_kwargs": {
+      "enable_thinking": false
+    }
+  },
+  "metadata": {
+    "id": "json_change",
+    "local_prompt_tokens": 880,
+    "required_min_completion_tokens": 1,
+    "prompt_kind": "chat_real_task"
+  },
+  "measured": true,
+  "cache_expectation": "cold"
+}

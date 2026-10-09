@@ -1,0 +1,510 @@
+{
+  "text": "```python\n            {\"id\": \"3\", \"data\": \"dup_c\"},\n        ]\n        result = dedupe_events(events)\n        self.assertEqual([e[\"id\"] for e in result], [\"3\", \"1\", \"2\"])\n\n    def test_dedupe_events_missing_id_raises_value_error(self):\n        \"\"\"Event without 'id' key raises ValueError.\"\"\"\n        events = [{\"data\": \"no_id\"}]\n        with self.assertRaises(ValueError):\n            dedupe_events(events)\n\n    def test_dedupe_events_none_id_raises_value_error(self):\n        \"\"\"Event with None id raises ValueError.\"\"\"\n        events = [{\"id\": None, \"data\": \"a\"}]\n        with self.assertRaises(ValueError):\n            dedupe_events(events)\n\n    def test_dedupe_events_empty_string_id_raises_value_error(self):\n        \"\"\"Event with empty string id raises ValueError.\"\"\"\n        events = [{\"id\": \"\", \"data\": \"a\"}]\n        with self.assertRaises(ValueError):\n            dedupe_events(events)\n\n    def test_dedupe_events_whitespace_id_raises_value_error(self):\n        \"\"\"Event with whitespace-only id raises ValueError.\"\"\"\n        events = [{\"id\": \"   \", \"data\": \"",
+  "reasoning": "",
+  "tool_calls": [],
+  "usage": {
+    "prompt_tokens": 8459,
+    "completion_tokens": 256,
+    "total_tokens": 8715,
+    "input_tokens": 8459,
+    "output_tokens": 256,
+    "prompt_tokens_details": {
+      "cached_tokens": 8452
+    },
+    "time_to_first_token": 0.14,
+    "time_to_first_visible_token": 0.14,
+    "total_time": 1.87,
+    "prompt_eval_duration": 0.14,
+    "generation_duration": 1.73,
+    "prompt_tokens_per_second": 51.49,
+    "generation_tokens_per_second": 147.69
+  },
+  "finish_reason": "length",
+  "done": true,
+  "stream_errors": [],
+  "sse_events": [
+    {
+      "relative_ns": 23780917,
+      "line": "data: {\"id\":\"chatcmpl-1e2a99e9\",\"object\":\"chat.completion.chunk\",\"created\":0,\"model\":\"keepalive\",\"choices\":[{\"index\":0,\"delta\":{\"role\":\"assistant\",\"content\":\"\"},\"finish_reason\":null}]}"
+    },
+    {
+      "relative_ns": 23784833,
+      "line": ""
+    },
+    {
+      "relative_ns": 31698500,
+      "line": "data: {\"id\":\"chatcmpl-1e2a99e9\",\"object\":\"chat.completion.chunk\",\"created\":1791566671,\"model\":\"Qwen3.8-Flash-Next-oQ6e-mtp\",\"choices\":[{\"index\":0,\"delta\":{\"role\":\"assistant\"}}]}"
+    },
+    {
+      "relative_ns": 31701125,
+      "line": ""
+    },
+    {
+      "relative_ns": 160494042,
+      "line": "data: {\"id\":\"chatcmpl-1e2a99e9\",\"object\":\"chat.completion.chunk\",\"created\":1791566671,\"model\":\"Qwen3.8-Flash-Next-oQ6e-mtp\",\"choices\":[{\"index\":0,\"delta\":{\"content\":\"```\"}}]}"
+    },
+    {
+      "relative_ns": 160502542,
+      "line": ""
+    },
+    {
+      "relative_ns": 263282125,
+      "line": "data: {\"id\":\"chatcmpl-1e2a99e9\",\"object\":\"chat.completion.chunk\",\"created\":1791566671,\"model\":\"Qwen3.8-Flash-Next-oQ6e-mtp\",\"choices\":[{\"index\":0,\"delta\":{\"content\":\"python\\n            {\\\"id\\\":\"}}]}"
+    },
+    {
+      "relative_ns": 263292125,
+      "line": ""
+    },
+    {
+      "relative_ns": 369022375,
+      "line": "data: {\"id\":\"chatcmpl-1e2a99e9\",\"object\":\"chat.completion.chunk\",\"created\":1791566671,\"model\":\"Qwen3.8-Flash-Next-oQ6e-mtp\",\"choices\":[{\"index\":0,\"delta\":{\"content\":\" \\\"3\\\", \\\"data\\\": \\\"dup_c\\\"},\"}}]}"
+    },
+    {
+      "relative_ns": 369031042,
+      "line": ""
+    },
+    {
+      "relative_ns": 481285667,
+      "line": "data: {\"id\":\"chatcmpl-1e2a99e9\",\"object\":\"chat.completion.chunk\",\"created\":1791566671,\"model\":\"Qwen3.8-Flash-Next-oQ6e-mtp\",\"choices\":[{\"index\":0,\"delta\":{\"content\":\"\\n        ]\\n        result = dedupe_events(events\"}}]}"
+    },
+    {
+      "relative_ns": 481294208,
+      "line": ""
+    },
+    {
+      "relative_ns": 618793583,
+      "line": "data: {\"id\":\"chatcmpl-1e2a99e9\",\"object\":\"chat.completion.chunk\",\"created\":1791566671,\"model\":\"Qwen3.8-Flash-Next-oQ6e-mtp\",\"choices\":[{\"index\":0,\"delta\":{\"content\":\")\\n        self.assertEqual([e[\\\"id\\\"] for e in result], [\\\"3\\\", \\\"1\\\",\"}}]}"
+    },
+    {
+      "relative_ns": 618802542,
+      "line": ""
+    },
+    {
+      "relative_ns": 731787917,
+      "line": "data: {\"id\":\"chatcmpl-1e2a99e9\",\"object\":\"chat.completion.chunk\",\"created\":1791566671,\"model\":\"Qwen3.8-Flash-Next-oQ6e-mtp\",\"choices\":[{\"index\":0,\"delta\":{\"content\":\" \\\"2\\\"])\\n\\n    def test_dedupe_events_missing_id_raises_value_error(self):\\n       \"}}]}"
+    },
+    {
+      "relative_ns": 731797167,
+      "line": ""
+    },
+    {
+      "relative_ns": 845163500,
+      "line": "data: {\"id\":\"chatcmpl-1e2a99e9\",\"object\":\"chat.completion.chunk\",\"created\":1791566671,\"model\":\"Qwen3.8-Flash-Next-oQ6e-mtp\",\"choices\":[{\"index\":0,\"delta\":{\"content\":\" \\\"\\\"\\\"Event without 'id' key raises ValueError.\\\"\\\"\\\"\\n        events =\"}}]}"
+    },
+    {
+      "relative_ns": 845173917,
+      "line": ""
+    },
+    {
+      "relative_ns": 959434625,
+      "line": "data: {\"id\":\"chatcmpl-1e2a99e9\",\"object\":\"chat.completion.chunk\",\"created\":1791566672,\"model\":\"Qwen3.8-Flash-Next-oQ6e-mtp\",\"choices\":[{\"index\":0,\"delta\":{\"content\":\" [{\\\"data\\\": \\\"no_id\\\"}]\\n        with self.assertRaises(ValueError):\\n            dedupe\"}}]}"
+    },
+    {
+      "relative_ns": 959444000,
+      "line": ""
+    },
+    {
+      "relative_ns": 1073579625,
+      "line": "data: {\"id\":\"chatcmpl-1e2a99e9\",\"object\":\"chat.completion.chunk\",\"created\":1791566672,\"model\":\"Qwen3.8-Flash-Next-oQ6e-mtp\",\"choices\":[{\"index\":0,\"delta\":{\"content\":\"_events(events)\\n\\n    def test_dedupe_events_none_id_raises_value_error(self\"}}]}"
+    },
+    {
+      "relative_ns": 1073587958,
+      "line": ""
+    },
+    {
+      "relative_ns": 1187751417,
+      "line": "data: {\"id\":\"chatcmpl-1e2a99e9\",\"object\":\"chat.completion.chunk\",\"created\":1791566672,\"model\":\"Qwen3.8-Flash-Next-oQ6e-mtp\",\"choices\":[{\"index\":0,\"delta\":{\"content\":\"):\\n        \\\"\\\"\\\"Event with None id raises ValueError.\\\"\\\"\\\"\\n        events = [{\\\"\"}}]}"
+    },
+    {
+      "relative_ns": 1187761208,
+      "line": ""
+    },
+    {
+      "relative_ns": 1303794583,
+      "line": "data: {\"id\":\"chatcmpl-1e2a99e9\",\"object\":\"chat.completion.chunk\",\"created\":1791566672,\"model\":\"Qwen3.8-Flash-Next-oQ6e-mtp\",\"choices\":[{\"index\":0,\"delta\":{\"content\":\"id\\\": None, \\\"data\\\": \\\"a\\\"}]\\n        with self.assertRaises(ValueError):\"}}]}"
+    },
+    {
+      "relative_ns": 1303802958,
+      "line": ""
+    },
+    {
+      "relative_ns": 1418178042,
+      "line": "data: {\"id\":\"chatcmpl-1e2a99e9\",\"object\":\"chat.completion.chunk\",\"created\":1791566672,\"model\":\"Qwen3.8-Flash-Next-oQ6e-mtp\",\"choices\":[{\"index\":0,\"delta\":{\"content\":\"\\n            dedupe_events(events)\\n\\n    def test_dedupe_events_empty_string_id\"}}]}"
+    },
+    {
+      "relative_ns": 1418186500,
+      "line": ""
+    },
+    {
+      "relative_ns": 1533163250,
+      "line": "data: {\"id\":\"chatcmpl-1e2a99e9\",\"object\":\"chat.completion.chunk\",\"created\":1791566672,\"model\":\"Qwen3.8-Flash-Next-oQ6e-mtp\",\"choices\":[{\"index\":0,\"delta\":{\"content\":\"_raises_value_error(self):\\n        \\\"\\\"\\\"Event with empty string id raises ValueError.\\\"\\\"\\\"\\n        events =\"}}]}"
+    },
+    {
+      "relative_ns": 1533172667,
+      "line": ""
+    },
+    {
+      "relative_ns": 1638973958,
+      "line": "data: {\"id\":\"chatcmpl-1e2a99e9\",\"object\":\"chat.completion.chunk\",\"created\":1791566672,\"model\":\"Qwen3.8-Flash-Next-oQ6e-mtp\",\"choices\":[{\"index\":0,\"delta\":{\"content\":\" [{\\\"id\\\": \\\"\\\", \\\"data\\\": \\\"a\\\"}]\\n        with self.assertRaises\"}}]}"
+    },
+    {
+      "relative_ns": 1638984042,
+      "line": ""
+    },
+    {
+      "relative_ns": 1753061417,
+      "line": "data: {\"id\":\"chatcmpl-1e2a99e9\",\"object\":\"chat.completion.chunk\",\"created\":1791566672,\"model\":\"Qwen3.8-Flash-Next-oQ6e-mtp\",\"choices\":[{\"index\":0,\"delta\":{\"content\":\"(ValueError):\\n            dedupe_events(events)\\n\\n    def test_dedupe_events_whitespace_id_raises_value_error(self\"}}]}"
+    },
+    {
+      "relative_ns": 1753069333,
+      "line": ""
+    },
+    {
+      "relative_ns": 1867457042,
+      "line": "data: {\"id\":\"chatcmpl-1e2a99e9\",\"object\":\"chat.completion.chunk\",\"created\":1791566672,\"model\":\"Qwen3.8-Flash-Next-oQ6e-mtp\",\"choices\":[{\"index\":0,\"delta\":{\"content\":\"):\\n        \\\"\\\"\\\"Event with whitespace-only id raises ValueError.\\\"\\\"\\\"\\n        events = [{\\\"id\\\": \\\"\"}}]}"
+    },
+    {
+      "relative_ns": 1867466375,
+      "line": ""
+    },
+    {
+      "relative_ns": 1892914458,
+      "line": "data: {\"id\":\"chatcmpl-1e2a99e9\",\"object\":\"chat.completion.chunk\",\"created\":1791566672,\"model\":\"Qwen3.8-Flash-Next-oQ6e-mtp\",\"choices\":[{\"index\":0,\"delta\":{\"content\":\"   \\\", \\\"data\\\": \\\"\"}}]}"
+    },
+    {
+      "relative_ns": 1892920417,
+      "line": ""
+    },
+    {
+      "relative_ns": 1893016000,
+      "line": "data: {\"id\":\"chatcmpl-1e2a99e9\",\"object\":\"chat.completion.chunk\",\"created\":1791566672,\"model\":\"Qwen3.8-Flash-Next-oQ6e-mtp\",\"choices\":[{\"index\":0,\"delta\":{},\"finish_reason\":\"length\"}]}"
+    },
+    {
+      "relative_ns": 1893019417,
+      "line": ""
+    },
+    {
+      "relative_ns": 1893195833,
+      "line": "data: {\"id\":\"chatcmpl-1e2a99e9\",\"object\":\"chat.completion.chunk\",\"created\":1791566672,\"model\":\"Qwen3.8-Flash-Next-oQ6e-mtp\",\"choices\":[],\"usage\":{\"prompt_tokens\":8459,\"completion_tokens\":256,\"total_tokens\":8715,\"input_tokens\":8459,\"output_tokens\":256,\"prompt_tokens_details\":{\"cached_tokens\":8452},\"time_to_first_token\":0.14,\"time_to_first_visible_token\":0.14,\"total_time\":1.87,\"prompt_eval_duration\":0.14,\"generation_duration\":1.73,\"prompt_tokens_per_second\":51.49,\"generation_tokens_per_second\":147.69}}"
+    },
+    {
+      "relative_ns": 1893198833,
+      "line": ""
+    },
+    {
+      "relative_ns": 1893271208,
+      "line": "data: [DONE]"
+    },
+    {
+      "relative_ns": 1893272792,
+      "line": ""
+    }
+  ],
+  "sse_frames": [
+    {
+      "id": "chatcmpl-1e2a99e9",
+      "object": "chat.completion.chunk",
+      "created": 0,
+      "model": "keepalive",
+      "choices": [
+        {
+          "index": 0,
+          "delta": {
+            "role": "assistant",
+            "content": ""
+          },
+          "finish_reason": null
+        }
+      ]
+    },
+    {
+      "id": "chatcmpl-1e2a99e9",
+      "object": "chat.completion.chunk",
+      "created": 1791566671,
+      "model": "Qwen3.8-Flash-Next-oQ6e-mtp",
+      "choices": [
+        {
+          "index": 0,
+          "delta": {
+            "role": "assistant"
+          }
+        }
+      ]
+    },
+    {
+      "id": "chatcmpl-1e2a99e9",
+      "object": "chat.completion.chunk",
+      "created": 1791566671,
+      "model": "Qwen3.8-Flash-Next-oQ6e-mtp",
+      "choices": [
+        {
+          "index": 0,
+          "delta": {
+            "content": "```"
+          }
+        }
+      ]
+    },
+    {
+      "id": "chatcmpl-1e2a99e9",
+      "object": "chat.completion.chunk",
+      "created": 1791566671,
+      "model": "Qwen3.8-Flash-Next-oQ6e-mtp",
+      "choices": [
+        {
+          "index": 0,
+          "delta": {
+            "content": "python\n            {\"id\":"
+          }
+        }
+      ]
+    },
+    {
+      "id": "chatcmpl-1e2a99e9",
+      "object": "chat.completion.chunk",
+      "created": 1791566671,
+      "model": "Qwen3.8-Flash-Next-oQ6e-mtp",
+      "choices": [
+        {
+          "index": 0,
+          "delta": {
+            "content": " \"3\", \"data\": \"dup_c\"},"
+          }
+        }
+      ]
+    },
+    {
+      "id": "chatcmpl-1e2a99e9",
+      "object": "chat.completion.chunk",
+      "created": 1791566671,
+      "model": "Qwen3.8-Flash-Next-oQ6e-mtp",
+      "choices": [
+        {
+          "index": 0,
+          "delta": {
+            "content": "\n        ]\n        result = dedupe_events(events"
+          }
+        }
+      ]
+    },
+    {
+      "id": "chatcmpl-1e2a99e9",
+      "object": "chat.completion.chunk",
+      "created": 1791566671,
+      "model": "Qwen3.8-Flash-Next-oQ6e-mtp",
+      "choices": [
+        {
+          "index": 0,
+          "delta": {
+            "content": ")\n        self.assertEqual([e[\"id\"] for e in result], [\"3\", \"1\","
+          }
+        }
+      ]
+    },
+    {
+      "id": "chatcmpl-1e2a99e9",
+      "object": "chat.completion.chunk",
+      "created": 1791566671,
+      "model": "Qwen3.8-Flash-Next-oQ6e-mtp",
+      "choices": [
+        {
+          "index": 0,
+          "delta": {
+            "content": " \"2\"])\n\n    def test_dedupe_events_missing_id_raises_value_error(self):\n       "
+          }
+        }
+      ]
+    },
+    {
+      "id": "chatcmpl-1e2a99e9",
+      "object": "chat.completion.chunk",
+      "created": 1791566671,
+      "model": "Qwen3.8-Flash-Next-oQ6e-mtp",
+      "choices": [
+        {
+          "index": 0,
+          "delta": {
+            "content": " \"\"\"Event without 'id' key raises ValueError.\"\"\"\n        events ="
+          }
+        }
+      ]
+    },
+    {
+      "id": "chatcmpl-1e2a99e9",
+      "object": "chat.completion.chunk",
+      "created": 1791566672,
+      "model": "Qwen3.8-Flash-Next-oQ6e-mtp",
+      "choices": [
+        {
+          "index": 0,
+          "delta": {
+            "content": " [{\"data\": \"no_id\"}]\n        with self.assertRaises(ValueError):\n            dedupe"
+          }
+        }
+      ]
+    },
+    {
+      "id": "chatcmpl-1e2a99e9",
+      "object": "chat.completion.chunk",
+      "created": 1791566672,
+      "model": "Qwen3.8-Flash-Next-oQ6e-mtp",
+      "choices": [
+        {
+          "index": 0,
+          "delta": {
+            "content": "_events(events)\n\n    def test_dedupe_events_none_id_raises_value_error(self"
+          }
+        }
+      ]
+    },
+    {
+      "id": "chatcmpl-1e2a99e9",
+      "object": "chat.completion.chunk",
+      "created": 1791566672,
+      "model": "Qwen3.8-Flash-Next-oQ6e-mtp",
+      "choices": [
+        {
+          "index": 0,
+          "delta": {
+            "content": "):\n        \"\"\"Event with None id raises ValueError.\"\"\"\n        events = [{\""
+          }
+        }
+      ]
+    },
+    {
+      "id": "chatcmpl-1e2a99e9",
+      "object": "chat.completion.chunk",
+      "created": 1791566672,
+      "model": "Qwen3.8-Flash-Next-oQ6e-mtp",
+      "choices": [
+        {
+          "index": 0,
+          "delta": {
+            "content": "id\": None, \"data\": \"a\"}]\n        with self.assertRaises(ValueError):"
+          }
+        }
+      ]
+    },
+    {
+      "id": "chatcmpl-1e2a99e9",
+      "object": "chat.completion.chunk",
+      "created": 1791566672,
+      "model": "Qwen3.8-Flash-Next-oQ6e-mtp",
+      "choices": [
+        {
+          "index": 0,
+          "delta": {
+            "content": "\n            dedupe_events(events)\n\n    def test_dedupe_events_empty_string_id"
+          }
+        }
+      ]
+    },
+    {
+      "id": "chatcmpl-1e2a99e9",
+      "object": "chat.completion.chunk",
+      "created": 1791566672,
+      "model": "Qwen3.8-Flash-Next-oQ6e-mtp",
+      "choices": [
+        {
+          "index": 0,
+          "delta": {
+            "content": "_raises_value_error(self):\n        \"\"\"Event with empty string id raises ValueError.\"\"\"\n        events ="
+          }
+        }
+      ]
+    },
+    {
+      "id": "chatcmpl-1e2a99e9",
+      "object": "chat.completion.chunk",
+      "created": 1791566672,
+      "model": "Qwen3.8-Flash-Next-oQ6e-mtp",
+      "choices": [
+        {
+          "index": 0,
+          "delta": {
+            "content": " [{\"id\": \"\", \"data\": \"a\"}]\n        with self.assertRaises"
+          }
+        }
+      ]
+    },
+    {
+      "id": "chatcmpl-1e2a99e9",
+      "object": "chat.completion.chunk",
+      "created": 1791566672,
+      "model": "Qwen3.8-Flash-Next-oQ6e-mtp",
+      "choices": [
+        {
+          "index": 0,
+          "delta": {
+            "content": "(ValueError):\n            dedupe_events(events)\n\n    def test_dedupe_events_whitespace_id_raises_value_error(self"
+          }
+        }
+      ]
+    },
+    {
+      "id": "chatcmpl-1e2a99e9",
+      "object": "chat.completion.chunk",
+      "created": 1791566672,
+      "model": "Qwen3.8-Flash-Next-oQ6e-mtp",
+      "choices": [
+        {
+          "index": 0,
+          "delta": {
+            "content": "):\n        \"\"\"Event with whitespace-only id raises ValueError.\"\"\"\n        events = [{\"id\": \""
+          }
+        }
+      ]
+    },
+    {
+      "id": "chatcmpl-1e2a99e9",
+      "object": "chat.completion.chunk",
+      "created": 1791566672,
+      "model": "Qwen3.8-Flash-Next-oQ6e-mtp",
+      "choices": [
+        {
+          "index": 0,
+          "delta": {
+            "content": "   \", \"data\": \""
+          }
+        }
+      ]
+    },
+    {
+      "id": "chatcmpl-1e2a99e9",
+      "object": "chat.completion.chunk",
+      "created": 1791566672,
+      "model": "Qwen3.8-Flash-Next-oQ6e-mtp",
+      "choices": [
+        {
+          "index": 0,
+          "delta": {},
+          "finish_reason": "length"
+        }
+      ]
+    },
+    {
+      "id": "chatcmpl-1e2a99e9",
+      "object": "chat.completion.chunk",
+      "created": 1791566672,
+      "model": "Qwen3.8-Flash-Next-oQ6e-mtp",
+      "choices": [],
+      "usage": {
+        "prompt_tokens": 8459,
+        "completion_tokens": 256,
+        "total_tokens": 8715,
+        "input_tokens": 8459,
+        "output_tokens": 256,
+        "prompt_tokens_details": {
+          "cached_tokens": 8452
+        },
+        "time_to_first_token": 0.14,
+        "time_to_first_visible_token": 0.14,
+        "total_time": 1.87,
+        "prompt_eval_duration": 0.14,
+        "generation_duration": 1.73,
+        "prompt_tokens_per_second": 51.49,
+        "generation_tokens_per_second": 147.69
+      }
+    }
+  ]
+}

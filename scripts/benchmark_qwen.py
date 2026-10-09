@@ -20,7 +20,7 @@ import urllib.error
 import urllib.request
 from typing import Any
 
-from serve_qwen import MODEL, ROOT, environment, launch_plan, prepare_runtime, runtime_identity, verify_model
+from serve_qwen import MODEL, ROOT, check_port_available, environment, launch_plan, prepare_runtime, runtime_identity, verify_model
 
 FIXTURES = ROOT / 'fixtures/qwen'
 
@@ -42,6 +42,42 @@ def load_fixtures():
             raise RuntimeError('Frozen fixture identity changed: ' + name)
         fixtures[p.stem] = json.loads(p.read_text())
     return fixtures
+
+def check_native_readiness(value):
+    required = ('bonsai', 'decode_fast', 'glm_moe_dsa', 'minimax_m3', 'qwen35_prefill')
+    groups = value.get('groups', {})
+    if (any(groups.get(name, {}).get('available') is not True for name in required)
+            or value.get('nax_available') is not True
+            or value.get('nax_qmm_kernels_built') is not True):
+        raise RuntimeError('Required native kernel groups or compiled NAX QMM unavailable')
+
+def native_preflight(source, env, path):
+    code = ('import json; from omlx.custom_kernels import native_kernel_status; '
+        'from omlx.custom_kernels.qwen35_prefill import fast; '
+        'print(json.dumps({"groups":native_kernel_status(),'
+        '"nax_available":fast.is_nax_available(),'
+        '"nax_qmm_kernels_built":fast.nax_qmm_kernels_built()}))')
+    completed = subprocess.run([str(source / '.venv/bin/python'), '-c', code],
+        cwd=source, env=env, capture_output=True, text=True, timeout=60)
+    value = {'returncode': completed.returncode, 'stderr': completed.stderr}
+    try:
+        value.update(json.loads(completed.stdout.strip().splitlines()[-1]))
+    except (ValueError, IndexError, TypeError):
+        value['invalid_native_status'] = True
+    save(path, value)
+    if completed.returncode:
+        raise RuntimeError('Prepared native kernel import preflight failed; see ' + str(path))
+    check_native_readiness(value)
+    return value
+
+def check_dispatch_log(suite, text):
+    # The bulk dispatcher logs lazily when selected. Archived task prompts
+    # (1344/880 tokens) are below its 2048-token floor; they use native short
+    # prefill/verify routes. Their native availability is checked separately.
+    if ': resident' not in text:
+        raise RuntimeError('Resident PLE route was not observed')
+    if suite != 'tasks' and 'Qwen qmm NAX dispatch enabled' not in text:
+        raise RuntimeError('Required long-prompt NAX bulk dispatch was not observed')
 
 class SSEAccumulator:
     """Parse SSE frames without mistaking frames, roles, or usage for tokens."""
@@ -235,6 +271,32 @@ def occupancy(cache):
         if kind != 'transient': values[kind + '_files'] += 1
     return values
 
+def writer_snapshot(runtime, cache):
+    """Allowlisted writer counters; do not retain the admin auth/settings body."""
+    models = [{
+        'id': row.get('id'), 'saves': row.get('saves'),
+        'saves_persisted': row.get('saves_persisted'), 'errors': row.get('errors'),
+        'gdn_pending_bytes': row.get('gdn_staging', {}).get('pending_bytes'),
+    } for row in runtime.get('models', [])]
+    temporary = 0
+    for path in cache.rglob('*'):
+        if path.is_file() and ('_tmp' in path.name or path.name.endswith('.tmp') or '.tmp.' in path.name):
+            temporary += 1
+    return {'models': models, 'temporary_files': temporary}
+
+def writer_quiet(snapshot):
+    if snapshot['temporary_files']:
+        return False
+    for row in snapshot['models']:
+        if not all(type(row[key]) is int and row[key] >= 0
+                for key in ('saves', 'saves_persisted', 'errors', 'gdn_pending_bytes')):
+            return False
+        if row['errors']:
+            raise RuntimeError('SSD writer reported errors before cache clear')
+        if row['saves'] != row['saves_persisted'] or row['gdn_pending_bytes']:
+            return False
+    return True
+
 class Client:
     def __init__(self, port, key, output, cache):
         self.origin = f'http://127.0.0.1:{port}'
@@ -254,8 +316,33 @@ class Client:
             self.logged_in = True
         return self.json('/admin/api/stats')
 
-    def clear(self):
+    def drain_writer(self, target=None):
+        # Response completion can precede the native async SSD rename. Deleting
+        # its temp file through /ssd-cache/clear would race that writer. Wait
+        # outside the request timer using the existing persisted-save counters.
+        deadline = time.monotonic() + 30
+        samples, previous, stable = [], None, 0
+        time.sleep(.3)
+        while time.monotonic() < deadline:
+            row = writer_snapshot(self.stats().get('runtime_cache', {}), self.cache)
+            samples.append(row)
+            try:
+                quiet = writer_quiet(row)
+            except RuntimeError:
+                if target is not None: save(target, {'ready': False, 'snapshots': samples})
+                raise
+            stable = stable + 1 if quiet and row == previous else 0
+            if stable >= 3:
+                if target is not None: save(target, {'ready': True, 'snapshots': samples})
+                return
+            previous = row
+            time.sleep(.1)
+        if target is not None: save(target, {'ready': False, 'snapshots': samples})
+        raise RuntimeError('SSD writer did not drain before cache clear')
+
+    def clear(self, target=None):
         self.stats()
+        self.drain_writer(target)
         for name in ('hot-cache', 'ssd-cache'):
             if self.json('/admin/api/' + name + '/clear', {}).get('status') != 'ok':
                 raise RuntimeError('Cache clear did not succeed')
@@ -294,7 +381,7 @@ class Client:
         payload = copy.deepcopy(fixture['payload'])
         metadata = fixture.get('metadata', {})
         save(path / 'request.json', {'payload': payload, 'metadata': metadata, 'measured': measured, 'cache_expectation': 'cold' if cold else 'observe'})
-        if cold: self.clear()
+        if cold: self.clear(path / 'pre-clear-writer-ready.json')
         acc = SSEAccumulator(); status = None; error = None
         t0 = time.perf_counter_ns()
         try:
@@ -422,7 +509,7 @@ def main(argv=None):
     if a.dry_run:
         print(json.dumps({'jobs': jobs, 'core_requests': 36 if a.suite in ('core', 'all') else 0, 'task_requests': 24 if a.suite in ('tasks', 'all') else 0, 'prefix_requests': 44 if a.suite in ('prefix', 'all') else 0, 'extra_semantic_requests': 7 if a.suite in ('prefix', 'all') else 0, 'fixtures': list(fixtures), 'output_dir': str(output), 'ephemeral_credentials': True, 'owns_only_its_servers': True}, indent=2)); return
     verify_model(model)
-    with socket.socket() as probe: probe.bind(('127.0.0.1', a.port))
+    check_port_available(a.port)
     output.mkdir(parents=True, exist_ok=False)
     save(output / 'manifest.json', {'jobs': jobs, 'fixture_manifest_sha256': hashlib.sha256((FIXTURES / 'manifest.json').read_bytes()).hexdigest(), 'model_config_sha256': hashlib.sha256((model / 'config.json').read_bytes()).hexdigest(), 'measurement': 'Historical frozen protocol, relocated durable engine patches; no system limit changes, no resource polling or remote result upload'})
     rows = []; status = 'running'
@@ -436,6 +523,7 @@ def main(argv=None):
             cmd, source = launch_plan(workdir, model, variant, profile, runtime, a.port, concurrency=concurrency)
             env = environment(key, profile, variant)
             identity = runtime_identity(workdir, model, variant, profile)
+            native_preflight(source, env, output / label / 'native-readiness.json')
             save(output / label / 'launch.json', {'argv': cmd, 'environment': {k: v for k, v in env.items() if k.startswith('OMLX_') and k != 'OMLX_API_KEY'}, 'source_commit': subprocess.check_output(['git', '-C', str(source), 'rev-parse', 'HEAD'], text=True).strip(), 'source_diff_sha256': hashlib.sha256(subprocess.check_output(['git', '-C', str(source), 'diff', 'HEAD'])).hexdigest(), 'runtime_identity': identity})
             log = output / label / 'server.log'
             child = None
@@ -450,8 +538,7 @@ def main(argv=None):
                 if runtime_identity(workdir, model, variant, profile) != identity:
                     raise RuntimeError('Model or full source/native package changed during benchmark')
                 text = log.read_text(errors='replace')
-                if 'Qwen qmm NAX dispatch enabled' not in text or ': resident' not in text:
-                    raise RuntimeError('Required NAX dispatch or resident PLE route was not observed; see ' + str(log))
+                check_dispatch_log(suite, text)
                 for row in values: row['profile'] = label
                 rows += values
                 save(output / 'rows.json', rows); save(output / 'summary.json', summarize(rows))

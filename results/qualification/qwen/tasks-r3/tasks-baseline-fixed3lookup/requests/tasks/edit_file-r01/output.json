@@ -1,0 +1,1170 @@
+{
+  "text": "from decimal import Decimal, ROUND_HALF_UP\n\nCENT = Decimal(\"0.01\")\nSTANDARD_SHIPPING = Decimal(\"4.99\")\nEXPRESS_SHIPPING = Decimal(\"12.50\")\nFREE_SHIPPING_THRESHOLD = Decimal(\"100.00\")\nTAX_RATES = {\"CA\": Decimal(\"0.0825\"), \"NY\": Decimal(\"0.08875\"), \"OR\": Decimal(\"0\")}\nCOUPONS = {\"SAVE10\": Decimal(\"0.10\"), \"SAVE20\": Decimal(\"0.20\")}\nSTATUSES = {\"pending\", \"paid\", \"shipped\", \"cancelled\"}\n\n\ndef money(value):\n    amount = Decimal(str(value))\n    if not amount.is_finite():\n        raise ValueError(\"amount must be finite\")\n    return amount.quantize(CENT, rounding=ROUND_HALF_UP)\n\n\ndef validate_item(item):\n    if not isinstance(item.get(\"sku\"), str) or not item[\"sku\"].strip():\n        raise ValueError(\"sku is required\")\n    quantity = item.get(\"quantity\")\n    if isinstance(quantity, bool) or not isinstance(quantity, int) or quantity < 1:\n        raise ValueError(\"quantity must be a positive integer\")\n    price = money(item.get(\"unit_price\", \"-1\"))\n    if price < 0:\n        raise ValueError(\"unit price must be nonnegative\")\n    return {\"sku\": item[\"sku\"].strip(), \"quantity\": quantity, \"unit_price\": price}\n\n\ndef line_total(item):\n    valid = validate_item(item)\n    return money(valid[\"unit_price\"] * valid[\"quantity\"])\n\n\ndef calculate_subtotal(items):\n    return money(sum((line_total(item) for item in items), Decimal(\"0\")))\n\n\ndef discount_rate(coupon):\n    code = (coupon or \"\").strip().upper()\n    if code and code not in COUPONS:\n        raise ValueError(\"unknown coupon\")\n    return COUPONS.get(code, Decimal(\"0\"))\n\n\ndef calculate_discount(subtotal, coupon=None):\n    amount = money(subtotal)\n    if amount < 0:\n        raise ValueError(\"subtotal must be nonnegative\")\n    return money(amount * discount_rate(coupon))\n\n\ndef calculate_shipping(subtotal, express=False):\n    amount = money(subtotal)\n    if amount < 0:\n        raise ValueError(\"subtotal must be nonnegative\")\n    if express:\n        return EXPRESS_SHIPPING\n    if amount >= FREE_SHIPPING_THRESHOLD:\n        return Decimal(\"0.00\")\n    return STANDARD_SHIPPING\n\n\ndef calculate_tax(taxable_amount, region):\n    if region not in TAX_RATES:\n        raise ValueError(\"unsupported tax region\")\n    amount = money(taxable_amount)\n    if amount < 0:\n        raise ValueError(\"taxable amount must be nonnegative\")\n    return money(amount * TAX_RATES[region])\n\n\ndef calculate_order_total(items, region=\"OR\", coupon=None, express=False):\n    subtotal = calculate_subtotal(items)\n    discount = calculate_discount(subtotal, coupon)\n    discounted = money(subtotal - discount)\n    shipping = calculate_shipping(discounted, express)\n    tax = calculate_tax(discounted, region)\n    return money(discounted + shipping + tax)\n\n\ndef make_order(order_id, items, region=\"OR\", coupon=None, express=False):\n    if not isinstance(order_id, str) or not order_id.strip():\n        raise ValueError(\"order id is required\")\n    normalized = [validate_item(item) for item in items]\n    if not normalized:\n        raise ValueError(\"an order must contain at least one item\")\n    total = calculate_order_total(normalized, region, coupon, express)\n    return {\"order_id\": order_id.strip(), \"items\": normalized, \"region\": region,\n            \"coupon\": coupon, \"express\": bool(express), \"total\": total, \"status\": \"pending\"}\n\n\ndef transition_order(order, new_status):\n    allowed = {\"pending\": {\"paid\", \"cancelled\"}, \"paid\": {\"shipped\", \"cancelled\"},\n               \"shipped\": set(), \"cancelled\": set()}\n    old_status = order.get(\"status\")\n    if old_status not in STATUSES or new_status not in allowed[old_status]:\n        raise ValueError(\"invalid status transition\")\n    result = dict(order)\n    result[\"status\"] = new_status\n    return result\n\n\ndef receipt_lines(order):\n    lines = [\"Order \" + order[\"order_id\"]]\n    for item in order[\"items\"]:\n        lines.append(f'{item[\"sku\"]}: {item[\"quantity\"]} x {money(item[\"unit_price\"])}')\n    lines.append(\"Total: \" + str(money(order[\"total\"])))\n    return lines\n\n\ndef summarize_orders(orders):\n    totals = {status: Decimal(\"0.00\") for status in sorted(STATUSES)}\n    count = 0\n    for order in orders:\n        status = order.get(\"status\")\n        if status not in totals:\n            raise ValueError(\"invalid order status\")\n        totals[status] = money(totals[status] + money(order[\"total\"]))\n        count += 1\n    return {\"count\": count, \"totals\": totals}\n\n\ndef requote_order(order, coupon=None):\n    result = dict(order)\n    result[\"coupon\"] = coupon\n    result[\"total\"] = calculate_order_total(order[\"items\"], order[\"region\"], coupon, order[\"express\"])\n    return result\n\n\n# Operations notes:\n# Prices are rounded before quantity multiplication.\n# Tax applies to discounted merchandise, excluding shipping.\n# The free shipping threshold applies after discounts.\n# Express delivery always retains its separate shipping charge.\n# Order state changes produce a new dictionary.\n# Summaries accept a one-pass iterable of orders.\n# Cancelled orders remain available to status summaries.\n# Coupon codes are case-insensitive after trimming whitespace.",
+  "reasoning": "",
+  "tool_calls": [],
+  "usage": {
+    "prompt_tokens": 1344,
+    "completion_tokens": 1278,
+    "total_tokens": 2622,
+    "input_tokens": 1344,
+    "output_tokens": 1278,
+    "prompt_tokens_details": {
+      "cached_tokens": 0
+    },
+    "time_to_first_token": 0.61,
+    "time_to_first_visible_token": 0.61,
+    "total_time": 5.83,
+    "prompt_eval_duration": 0.61,
+    "generation_duration": 5.22,
+    "prompt_tokens_per_second": 2194.05,
+    "generation_tokens_per_second": 244.86
+  },
+  "finish_reason": "stop",
+  "done": true,
+  "stream_errors": [],
+  "sse_events": [
+    {
+      "relative_ns": 4002042,
+      "line": "data: {\"id\":\"chatcmpl-42070545\",\"object\":\"chat.completion.chunk\",\"created\":0,\"model\":\"keepalive\",\"choices\":[{\"index\":0,\"delta\":{\"role\":\"assistant\",\"content\":\"\"},\"finish_reason\":null}]}"
+    },
+    {
+      "relative_ns": 4004584,
+      "line": ""
+    },
+    {
+      "relative_ns": 5021084,
+      "line": "data: {\"id\":\"chatcmpl-42070545\",\"object\":\"chat.completion.chunk\",\"created\":1791566436,\"model\":\"Qwen3.8-Flash-Next-oQ6e-mtp\",\"choices\":[{\"index\":0,\"delta\":{\"role\":\"assistant\"}}]}"
+    },
+    {
+      "relative_ns": 5024375,
+      "line": ""
+    },
+    {
+      "relative_ns": 618922250,
+      "line": "data: {\"id\":\"chatcmpl-42070545\",\"object\":\"chat.completion.chunk\",\"created\":1791566437,\"model\":\"Qwen3.8-Flash-Next-oQ6e-mtp\",\"choices\":[{\"index\":0,\"delta\":{\"content\":\"from\"}}]}"
+    },
+    {
+      "relative_ns": 618928917,
+      "line": ""
+    },
+    {
+      "relative_ns": 728615625,
+      "line": "data: {\"id\":\"chatcmpl-42070545\",\"object\":\"chat.completion.chunk\",\"created\":1791566437,\"model\":\"Qwen3.8-Flash-Next-oQ6e-mtp\",\"choices\":[{\"index\":0,\"delta\":{\"content\":\" decimal import Decimal, ROUND_HALF_UP\\n\\nCENT = Decimal(\\\"0.01\\\")\\n\"}}]}"
+    },
+    {
+      "relative_ns": 728623000,
+      "line": ""
+    },
+    {
+      "relative_ns": 874030167,
+      "line": "data: {\"id\":\"chatcmpl-42070545\",\"object\":\"chat.completion.chunk\",\"created\":1791566437,\"model\":\"Qwen3.8-Flash-Next-oQ6e-mtp\",\"choices\":[{\"index\":0,\"delta\":{\"content\":\"STANDARD_SHIPPING = Decimal(\\\"4.99\\\")\\nEXPRESS_SHIPPING = Decimal(\\\"12.50\\\")\\nFREE_SHIPPING_THRESHOLD\"}}]}"
+    },
+    {
+      "relative_ns": 874037792,
+      "line": ""
+    },
+    {
+      "relative_ns": 982947125,
+      "line": "data: {\"id\":\"chatcmpl-42070545\",\"object\":\"chat.completion.chunk\",\"created\":1791566437,\"model\":\"Qwen3.8-Flash-Next-oQ6e-mtp\",\"choices\":[{\"index\":0,\"delta\":{\"content\":\" = Decimal(\\\"100.00\\\")\\nTAX_RATES = {\\\"CA\\\": Decimal(\\\"0.0825\\\"), \\\"NY\"}}]}"
+    },
+    {
+      "relative_ns": 982954042,
+      "line": ""
+    },
+    {
+      "relative_ns": 1092478959,
+      "line": "data: {\"id\":\"chatcmpl-42070545\",\"object\":\"chat.completion.chunk\",\"created\":1791566437,\"model\":\"Qwen3.8-Flash-Next-oQ6e-mtp\",\"choices\":[{\"index\":0,\"delta\":{\"content\":\"\\\": Decimal(\\\"0.08875\\\"), \\\"OR\\\": Decimal(\\\"0\\\")}\\nCOUPONS = {\\\"SAVE10\\\": Decimal(\\\"\"}}]}"
+    },
+    {
+      "relative_ns": 1092485250,
+      "line": ""
+    },
+    {
+      "relative_ns": 1202991084,
+      "line": "data: {\"id\":\"chatcmpl-42070545\",\"object\":\"chat.completion.chunk\",\"created\":1791566437,\"model\":\"Qwen3.8-Flash-Next-oQ6e-mtp\",\"choices\":[{\"index\":0,\"delta\":{\"content\":\"0.10\\\"), \\\"SAVE20\\\": Decimal(\\\"0.20\\\")}\\nSTATUSES = {\\\"pending\\\", \\\"paid\\\", \\\"shipped\"}}]}"
+    },
+    {
+      "relative_ns": 1202998459,
+      "line": ""
+    },
+    {
+      "relative_ns": 1313317750,
+      "line": "data: {\"id\":\"chatcmpl-42070545\",\"object\":\"chat.completion.chunk\",\"created\":1791566438,\"model\":\"Qwen3.8-Flash-Next-oQ6e-mtp\",\"choices\":[{\"index\":0,\"delta\":{\"content\":\"\\\", \\\"cancelled\\\"}\\n\\n\\ndef money(value):\\n    amount = Decimal(str(value))\\n    if not amount.is_finite():\\n        raise ValueError\"}}]}"
+    },
+    {
+      "relative_ns": 1313325125,
+      "line": ""
+    },
+    {
+      "relative_ns": 1423510959,
+      "line": "data: {\"id\":\"chatcmpl-42070545\",\"object\":\"chat.completion.chunk\",\"created\":1791566438,\"model\":\"Qwen3.8-Flash-Next-oQ6e-mtp\",\"choices\":[{\"index\":0,\"delta\":{\"content\":\"(\\\"amount must be finite\\\")\\n    return amount.quantize(CENT, rounding=ROUND_HALF_UP)\\n\\n\\ndef validate_item(item):\\n    if\"}}]}"
+    },
+    {
+      "relative_ns": 1423532792,
+      "line": ""
+    },
+    {
+      "relative_ns": 1533182375,
+      "line": "data: {\"id\":\"chatcmpl-42070545\",\"object\":\"chat.completion.chunk\",\"created\":1791566438,\"model\":\"Qwen3.8-Flash-Next-oQ6e-mtp\",\"choices\":[{\"index\":0,\"delta\":{\"content\":\" not isinstance(item.get(\\\"sku\\\"), str) or not item[\\\"sku\\\"].strip():\\n        raise ValueError(\\\"sku is required\\\")\\n    quantity =\"}}]}"
+    },
+    {
+      "relative_ns": 1533188959,
+      "line": ""
+    },
+    {
+      "relative_ns": 1657824000,
+      "line": "data: {\"id\":\"chatcmpl-42070545\",\"object\":\"chat.completion.chunk\",\"created\":1791566438,\"model\":\"Qwen3.8-Flash-Next-oQ6e-mtp\",\"choices\":[{\"index\":0,\"delta\":{\"content\":\" item.get(\\\"quantity\\\")\\n    if isinstance(quantity, bool) or not isinstance(quantity, int) or quantity < 1:\\n        raise ValueError\"}}]}"
+    },
+    {
+      "relative_ns": 1657830959,
+      "line": ""
+    },
+    {
+      "relative_ns": 1768565542,
+      "line": "data: {\"id\":\"chatcmpl-42070545\",\"object\":\"chat.completion.chunk\",\"created\":1791566438,\"model\":\"Qwen3.8-Flash-Next-oQ6e-mtp\",\"choices\":[{\"index\":0,\"delta\":{\"content\":\"(\\\"quantity must be a positive integer\\\")\\n    price = money(item.get(\\\"unit_price\\\", \\\"-1\\\"))\\n    if price < 0:\"}}]}"
+    },
+    {
+      "relative_ns": 1768572584,
+      "line": ""
+    },
+    {
+      "relative_ns": 1878285792,
+      "line": "data: {\"id\":\"chatcmpl-42070545\",\"object\":\"chat.completion.chunk\",\"created\":1791566438,\"model\":\"Qwen3.8-Flash-Next-oQ6e-mtp\",\"choices\":[{\"index\":0,\"delta\":{\"content\":\"\\n        raise ValueError(\\\"unit price must be nonnegative\\\")\\n    return {\\\"sku\\\": item[\\\"sku\\\"].strip(), \\\"quantity\\\": quantity, \\\"\"}}]}"
+    },
+    {
+      "relative_ns": 1878293042,
+      "line": ""
+    },
+    {
+      "relative_ns": 1987735125,
+      "line": "data: {\"id\":\"chatcmpl-42070545\",\"object\":\"chat.completion.chunk\",\"created\":1791566438,\"model\":\"Qwen3.8-Flash-Next-oQ6e-mtp\",\"choices\":[{\"index\":0,\"delta\":{\"content\":\"unit_price\\\": price}\\n\\n\\ndef line_total(item):\\n    valid = validate_item(item)\\n    return money(valid[\\\"unit_price\\\"] * valid\"}}]}"
+    },
+    {
+      "relative_ns": 1987741292,
+      "line": ""
+    },
+    {
+      "relative_ns": 2096533750,
+      "line": "data: {\"id\":\"chatcmpl-42070545\",\"object\":\"chat.completion.chunk\",\"created\":1791566438,\"model\":\"Qwen3.8-Flash-Next-oQ6e-mtp\",\"choices\":[{\"index\":0,\"delta\":{\"content\":\"[\\\"quantity\\\"])\\n\\n\\ndef calculate_subtotal(items):\\n    return money(sum((line_total(item) for item in items), Decimal(\\\"0\\\")))\\n\\n\\n\"}}]}"
+    },
+    {
+      "relative_ns": 2096540042,
+      "line": ""
+    },
+    {
+      "relative_ns": 2206439792,
+      "line": "data: {\"id\":\"chatcmpl-42070545\",\"object\":\"chat.completion.chunk\",\"created\":1791566438,\"model\":\"Qwen3.8-Flash-Next-oQ6e-mtp\",\"choices\":[{\"index\":0,\"delta\":{\"content\":\"def discount_rate(coupon):\\n    code = (coupon or \\\"\\\").strip().upper()\\n    if code and code not in COUPONS:\"}}]}"
+    },
+    {
+      "relative_ns": 2206446875,
+      "line": ""
+    },
+    {
+      "relative_ns": 2315799042,
+      "line": "data: {\"id\":\"chatcmpl-42070545\",\"object\":\"chat.completion.chunk\",\"created\":1791566439,\"model\":\"Qwen3.8-Flash-Next-oQ6e-mtp\",\"choices\":[{\"index\":0,\"delta\":{\"content\":\"\\n        raise ValueError(\\\"unknown coupon\\\")\\n    return COUPONS.get(code, Decimal(\\\"0\\\"))\\n\\n\\ndef calculate_discount(subtotal, coupon=None\"}}]}"
+    },
+    {
+      "relative_ns": 2315806209,
+      "line": ""
+    },
+    {
+      "relative_ns": 2418624084,
+      "line": "data: {\"id\":\"chatcmpl-42070545\",\"object\":\"chat.completion.chunk\",\"created\":1791566439,\"model\":\"Qwen3.8-Flash-Next-oQ6e-mtp\",\"choices\":[{\"index\":0,\"delta\":{\"content\":\"):\\n    amount = money(subtotal)\\n    if amount < 0:\\n        raise ValueError(\\\"subtotal must\"}}]}"
+    },
+    {
+      "relative_ns": 2418630375,
+      "line": ""
+    },
+    {
+      "relative_ns": 2537853084,
+      "line": "data: {\"id\":\"chatcmpl-42070545\",\"object\":\"chat.completion.chunk\",\"created\":1791566439,\"model\":\"Qwen3.8-Flash-Next-oQ6e-mtp\",\"choices\":[{\"index\":0,\"delta\":{\"content\":\" be nonnegative\\\")\\n    return money(amount * discount_rate(c\"}}]}"
+    },
+    {
+      "relative_ns": 2537858959,
+      "line": ""
+    },
+    {
+      "relative_ns": 2667153459,
+      "line": "data: {\"id\":\"chatcmpl-42070545\",\"object\":\"chat.completion.chunk\",\"created\":1791566439,\"model\":\"Qwen3.8-Flash-Next-oQ6e-mtp\",\"choices\":[{\"index\":0,\"delta\":{\"content\":\"oupon))\\n\\n\\ndef calculate_shipping(subtotal, express=False):\\n    amount = money(subtotal)\\n    if amount < 0:\\n        raise ValueError(\\\"subtotal must be nonnegative\"}}]}"
+    },
+    {
+      "relative_ns": 2667159750,
+      "line": ""
+    },
+    {
+      "relative_ns": 2776428292,
+      "line": "data: {\"id\":\"chatcmpl-42070545\",\"object\":\"chat.completion.chunk\",\"created\":1791566439,\"model\":\"Qwen3.8-Flash-Next-oQ6e-mtp\",\"choices\":[{\"index\":0,\"delta\":{\"content\":\"\\\")\\n    if express:\\n        return EXPRESS_SHIPPING\\n    if amount >= FREE_SHIPPING\"}}]}"
+    },
+    {
+      "relative_ns": 2776434584,
+      "line": ""
+    },
+    {
+      "relative_ns": 2886007792,
+      "line": "data: {\"id\":\"chatcmpl-42070545\",\"object\":\"chat.completion.chunk\",\"created\":1791566439,\"model\":\"Qwen3.8-Flash-Next-oQ6e-mtp\",\"choices\":[{\"index\":0,\"delta\":{\"content\":\"_THRESHOLD:\\n        return Decimal(\\\"0.00\\\")\\n    return STANDARD_SHIPPING\\n\\n\\ndef calculate_tax(taxable_amount, region):\\n\"}}]}"
+    },
+    {
+      "relative_ns": 2886015334,
+      "line": ""
+    },
+    {
+      "relative_ns": 2997151959,
+      "line": "data: {\"id\":\"chatcmpl-42070545\",\"object\":\"chat.completion.chunk\",\"created\":1791566439,\"model\":\"Qwen3.8-Flash-Next-oQ6e-mtp\",\"choices\":[{\"index\":0,\"delta\":{\"content\":\"    if region not in TAX_RATES:\\n        raise ValueError(\\\"unsupported tax region\\\")\\n    amount = money(taxable_amount)\\n   \"}}]}"
+    },
+    {
+      "relative_ns": 2997158292,
+      "line": ""
+    },
+    {
+      "relative_ns": 3108344542,
+      "line": "data: {\"id\":\"chatcmpl-42070545\",\"object\":\"chat.completion.chunk\",\"created\":1791566439,\"model\":\"Qwen3.8-Flash-Next-oQ6e-mtp\",\"choices\":[{\"index\":0,\"delta\":{\"content\":\" if amount < 0:\\n        raise ValueError(\\\"taxable amount must be nonnegative\\\")\\n    return money(amount * TAX_RATES[region\"}}]}"
+    },
+    {
+      "relative_ns": 3108351334,
+      "line": ""
+    },
+    {
+      "relative_ns": 3218778959,
+      "line": "data: {\"id\":\"chatcmpl-42070545\",\"object\":\"chat.completion.chunk\",\"created\":1791566439,\"model\":\"Qwen3.8-Flash-Next-oQ6e-mtp\",\"choices\":[{\"index\":0,\"delta\":{\"content\":\"])\\n\\n\\ndef calculate_order_total(items, region=\\\"OR\\\", coupon=None, express=False):\\n    subtotal =\"}}]}"
+    },
+    {
+      "relative_ns": 3218784792,
+      "line": ""
+    },
+    {
+      "relative_ns": 3361673750,
+      "line": "data: {\"id\":\"chatcmpl-42070545\",\"object\":\"chat.completion.chunk\",\"created\":1791566440,\"model\":\"Qwen3.8-Flash-Next-oQ6e-mtp\",\"choices\":[{\"index\":0,\"delta\":{\"content\":\" calculate_subtotal(items)\\n    discount = calculate_discount(subtotal, coupon)\\n    discounted = money(subtotal - discount)\\n    shipping = calculate\"}}]}"
+    },
+    {
+      "relative_ns": 3361680375,
+      "line": ""
+    },
+    {
+      "relative_ns": 3477376334,
+      "line": "data: {\"id\":\"chatcmpl-42070545\",\"object\":\"chat.completion.chunk\",\"created\":1791566440,\"model\":\"Qwen3.8-Flash-Next-oQ6e-mtp\",\"choices\":[{\"index\":0,\"delta\":{\"content\":\"_shipping(discounted, express)\\n    tax = calculate_tax(discounted, region)\\n    return money(discounted + shipping + tax\"}}]}"
+    },
+    {
+      "relative_ns": 3477383042,
+      "line": ""
+    },
+    {
+      "relative_ns": 3595866125,
+      "line": "data: {\"id\":\"chatcmpl-42070545\",\"object\":\"chat.completion.chunk\",\"created\":1791566440,\"model\":\"Qwen3.8-Flash-Next-oQ6e-mtp\",\"choices\":[{\"index\":0,\"delta\":{\"content\":\")\\n\\n\\ndef make_order(order_id, items, region=\\\"OR\\\", coupon=None, express=False):\\n    if not isinstance(order_id, str)\"}}]}"
+    },
+    {
+      "relative_ns": 3595873125,
+      "line": ""
+    },
+    {
+      "relative_ns": 3725377459,
+      "line": "data: {\"id\":\"chatcmpl-42070545\",\"object\":\"chat.completion.chunk\",\"created\":1791566440,\"model\":\"Qwen3.8-Flash-Next-oQ6e-mtp\",\"choices\":[{\"index\":0,\"delta\":{\"content\":\" or not order_id.strip():\\n        raise ValueError(\\\"order id is required\\\")\\n    normalized = [validate_item(item) for item in items]\"}}]}"
+    },
+    {
+      "relative_ns": 3725384250,
+      "line": ""
+    },
+    {
+      "relative_ns": 3842147917,
+      "line": "data: {\"id\":\"chatcmpl-42070545\",\"object\":\"chat.completion.chunk\",\"created\":1791566440,\"model\":\"Qwen3.8-Flash-Next-oQ6e-mtp\",\"choices\":[{\"index\":0,\"delta\":{\"content\":\"\\n    if not normalized:\\n        raise ValueError(\\\"an order must contain at least one item\\\")\\n    total = calculate_order_total(normalized, region\"}}]}"
+    },
+    {
+      "relative_ns": 3842154125,
+      "line": ""
+    },
+    {
+      "relative_ns": 3951876875,
+      "line": "data: {\"id\":\"chatcmpl-42070545\",\"object\":\"chat.completion.chunk\",\"created\":1791566440,\"model\":\"Qwen3.8-Flash-Next-oQ6e-mtp\",\"choices\":[{\"index\":0,\"delta\":{\"content\":\", coupon, express)\\n    return {\\\"order_id\\\": order_id.strip(), \\\"items\\\": normalized\"}}]}"
+    },
+    {
+      "relative_ns": 3951883334,
+      "line": ""
+    },
+    {
+      "relative_ns": 4069455917,
+      "line": "data: {\"id\":\"chatcmpl-42070545\",\"object\":\"chat.completion.chunk\",\"created\":1791566440,\"model\":\"Qwen3.8-Flash-Next-oQ6e-mtp\",\"choices\":[{\"index\":0,\"delta\":{\"content\":\", \\\"region\\\": region,\\n            \\\"coupon\\\": coupon, \\\"express\\\": bool(express), \\\"total\\\": total\"}}]}"
+    },
+    {
+      "relative_ns": 4069463834,
+      "line": ""
+    },
+    {
+      "relative_ns": 4187956875,
+      "line": "data: {\"id\":\"chatcmpl-42070545\",\"object\":\"chat.completion.chunk\",\"created\":1791566440,\"model\":\"Qwen3.8-Flash-Next-oQ6e-mtp\",\"choices\":[{\"index\":0,\"delta\":{\"content\":\", \\\"status\\\": \\\"pending\\\"}\\n\\n\\ndef transition_order(order, new_status):\\n    allowed = {\\\"pending\\\": {\\\"paid\\\", \\\"cancelled\\\"}, \\\"\"}}]}"
+    },
+    {
+      "relative_ns": 4187964584,
+      "line": ""
+    },
+    {
+      "relative_ns": 4306505167,
+      "line": "data: {\"id\":\"chatcmpl-42070545\",\"object\":\"chat.completion.chunk\",\"created\":1791566441,\"model\":\"Qwen3.8-Flash-Next-oQ6e-mtp\",\"choices\":[{\"index\":0,\"delta\":{\"content\":\"paid\\\": {\\\"shipped\\\", \\\"cancelled\\\"},\\n               \\\"shipped\\\": set(), \\\"cancelled\\\": set()}\\n    old_status = order.get(\\\"\"}}]}"
+    },
+    {
+      "relative_ns": 4306511875,
+      "line": ""
+    },
+    {
+      "relative_ns": 4424932042,
+      "line": "data: {\"id\":\"chatcmpl-42070545\",\"object\":\"chat.completion.chunk\",\"created\":1791566441,\"model\":\"Qwen3.8-Flash-Next-oQ6e-mtp\",\"choices\":[{\"index\":0,\"delta\":{\"content\":\"status\\\")\\n    if old_status not in STATUSES or new_status not in allowed[old_status]:\\n        raise ValueError(\\\"invalid status transition\\\")\"}}]}"
+    },
+    {
+      "relative_ns": 4424938250,
+      "line": ""
+    },
+    {
+      "relative_ns": 4542776292,
+      "line": "data: {\"id\":\"chatcmpl-42070545\",\"object\":\"chat.completion.chunk\",\"created\":1791566441,\"model\":\"Qwen3.8-Flash-Next-oQ6e-mtp\",\"choices\":[{\"index\":0,\"delta\":{\"content\":\"\\n    result = dict(order)\\n    result[\\\"status\\\"] = new_status\\n    return result\\n\\n\\ndef receipt_lines(order):\\n    lines =\"}}]}"
+    },
+    {
+      "relative_ns": 4542783459,
+      "line": ""
+    },
+    {
+      "relative_ns": 4661159209,
+      "line": "data: {\"id\":\"chatcmpl-42070545\",\"object\":\"chat.completion.chunk\",\"created\":1791566441,\"model\":\"Qwen3.8-Flash-Next-oQ6e-mtp\",\"choices\":[{\"index\":0,\"delta\":{\"content\":\" [\\\"Order \\\" + order[\\\"order_id\\\"]]\\n    for item in order[\\\"items\\\"]:\\n        lines.append(f'{item[\\\"sku\\\"]}: {\"}}]}"
+    },
+    {
+      "relative_ns": 4661166000,
+      "line": ""
+    },
+    {
+      "relative_ns": 4778701209,
+      "line": "data: {\"id\":\"chatcmpl-42070545\",\"object\":\"chat.completion.chunk\",\"created\":1791566441,\"model\":\"Qwen3.8-Flash-Next-oQ6e-mtp\",\"choices\":[{\"index\":0,\"delta\":{\"content\":\"item[\\\"quantity\\\"]} x {money(item[\\\"unit_price\\\"])}')\\n    lines.append(\\\"Total: \\\" + str(money(order[\\\"total\\\"]\"}}]}"
+    },
+    {
+      "relative_ns": 4778709875,
+      "line": ""
+    },
+    {
+      "relative_ns": 4898226375,
+      "line": "data: {\"id\":\"chatcmpl-42070545\",\"object\":\"chat.completion.chunk\",\"created\":1791566441,\"model\":\"Qwen3.8-Flash-Next-oQ6e-mtp\",\"choices\":[{\"index\":0,\"delta\":{\"content\":\")))\\n    return lines\\n\\n\\ndef summarize_orders(orders):\\n    totals = {status: Decimal(\\\"0.00\\\") for status in sorted\"}}]}"
+    },
+    {
+      "relative_ns": 4898232625,
+      "line": ""
+    },
+    {
+      "relative_ns": 5016698834,
+      "line": "data: {\"id\":\"chatcmpl-42070545\",\"object\":\"chat.completion.chunk\",\"created\":1791566441,\"model\":\"Qwen3.8-Flash-Next-oQ6e-mtp\",\"choices\":[{\"index\":0,\"delta\":{\"content\":\"(STATUSES)}\\n    count = 0\\n    for order in orders:\\n        status = order.get(\\\"status\\\")\\n        if status\"}}]}"
+    },
+    {
+      "relative_ns": 5016704625,
+      "line": ""
+    },
+    {
+      "relative_ns": 5135230584,
+      "line": "data: {\"id\":\"chatcmpl-42070545\",\"object\":\"chat.completion.chunk\",\"created\":1791566441,\"model\":\"Qwen3.8-Flash-Next-oQ6e-mtp\",\"choices\":[{\"index\":0,\"delta\":{\"content\":\" not in totals:\\n            raise ValueError(\\\"invalid order status\\\")\\n        totals[status] = money(totals[status] + money(order\"}}]}"
+    },
+    {
+      "relative_ns": 5135238292,
+      "line": ""
+    },
+    {
+      "relative_ns": 5254038584,
+      "line": "data: {\"id\":\"chatcmpl-42070545\",\"object\":\"chat.completion.chunk\",\"created\":1791566442,\"model\":\"Qwen3.8-Flash-Next-oQ6e-mtp\",\"choices\":[{\"index\":0,\"delta\":{\"content\":\"[\\\"total\\\"]))\\n        count += 1\\n    return {\\\"count\\\": count, \\\"totals\\\": totals}\\n\\n\\ndef requote_order(order, coupon\"}}]}"
+    },
+    {
+      "relative_ns": 5254045750,
+      "line": ""
+    },
+    {
+      "relative_ns": 5368550834,
+      "line": "data: {\"id\":\"chatcmpl-42070545\",\"object\":\"chat.completion.chunk\",\"created\":1791566442,\"model\":\"Qwen3.8-Flash-Next-oQ6e-mtp\",\"choices\":[{\"index\":0,\"delta\":{\"content\":\"=None):\\n    result = dict(order)\\n    result[\\\"coupon\\\"] = coupon\\n    result[\\\"total\\\"] = calculate_order_total(order[\\\"items\\\"],\"}}]}"
+    },
+    {
+      "relative_ns": 5368559459,
+      "line": ""
+    },
+    {
+      "relative_ns": 5474263500,
+      "line": "data: {\"id\":\"chatcmpl-42070545\",\"object\":\"chat.completion.chunk\",\"created\":1791566442,\"model\":\"Qwen3.8-Flash-Next-oQ6e-mtp\",\"choices\":[{\"index\":0,\"delta\":{\"content\":\" order[\\\"region\\\"], coupon, order[\\\"express\\\"])\\n    return result\\n\\n\\n# Operations notes:\\n\"}}]}"
+    },
+    {
+      "relative_ns": 5474269542,
+      "line": ""
+    },
+    {
+      "relative_ns": 5591758709,
+      "line": "data: {\"id\":\"chatcmpl-42070545\",\"object\":\"chat.completion.chunk\",\"created\":1791566442,\"model\":\"Qwen3.8-Flash-Next-oQ6e-mtp\",\"choices\":[{\"index\":0,\"delta\":{\"content\":\"# Prices are rounded before quantity multiplication.\\n# Tax applies to discounted merchandise, excluding shipping.\\n# The free\"}}]}"
+    },
+    {
+      "relative_ns": 5591764959,
+      "line": ""
+    },
+    {
+      "relative_ns": 5710438584,
+      "line": "data: {\"id\":\"chatcmpl-42070545\",\"object\":\"chat.completion.chunk\",\"created\":1791566442,\"model\":\"Qwen3.8-Flash-Next-oQ6e-mtp\",\"choices\":[{\"index\":0,\"delta\":{\"content\":\" shipping threshold applies after discounts.\\n# Express delivery always retains its separate shipping charge.\\n# Order state changes produce a new dictionary.\\n# Sum\"}}]}"
+    },
+    {
+      "relative_ns": 5710448292,
+      "line": ""
+    },
+    {
+      "relative_ns": 5827956875,
+      "line": "data: {\"id\":\"chatcmpl-42070545\",\"object\":\"chat.completion.chunk\",\"created\":1791566442,\"model\":\"Qwen3.8-Flash-Next-oQ6e-mtp\",\"choices\":[{\"index\":0,\"delta\":{\"content\":\"maries accept a one-pass iterable of orders.\\n# Cancelled orders remain available to status summaries.\\n# Coupon codes are case-insensitive after trimming\"}}]}"
+    },
+    {
+      "relative_ns": 5827964000,
+      "line": ""
+    },
+    {
+      "relative_ns": 5835729417,
+      "line": "data: {\"id\":\"chatcmpl-42070545\",\"object\":\"chat.completion.chunk\",\"created\":1791566442,\"model\":\"Qwen3.8-Flash-Next-oQ6e-mtp\",\"choices\":[{\"index\":0,\"delta\":{\"content\":\" whitespace.\"}}]}"
+    },
+    {
+      "relative_ns": 5835736000,
+      "line": ""
+    },
+    {
+      "relative_ns": 5835809292,
+      "line": "data: {\"id\":\"chatcmpl-42070545\",\"object\":\"chat.completion.chunk\",\"created\":1791566442,\"model\":\"Qwen3.8-Flash-Next-oQ6e-mtp\",\"choices\":[{\"index\":0,\"delta\":{},\"finish_reason\":\"stop\"}]}"
+    },
+    {
+      "relative_ns": 5835810959,
+      "line": ""
+    },
+    {
+      "relative_ns": 5836052834,
+      "line": "data: {\"id\":\"chatcmpl-42070545\",\"object\":\"chat.completion.chunk\",\"created\":1791566442,\"model\":\"Qwen3.8-Flash-Next-oQ6e-mtp\",\"choices\":[],\"usage\":{\"prompt_tokens\":1344,\"completion_tokens\":1278,\"total_tokens\":2622,\"input_tokens\":1344,\"output_tokens\":1278,\"prompt_tokens_details\":{\"cached_tokens\":0},\"time_to_first_token\":0.61,\"time_to_first_visible_token\":0.61,\"total_time\":5.83,\"prompt_eval_duration\":0.61,\"generation_duration\":5.22,\"prompt_tokens_per_second\":2194.05,\"generation_tokens_per_second\":244.86}}"
+    },
+    {
+      "relative_ns": 5836056209,
+      "line": ""
+    },
+    {
+      "relative_ns": 5836139667,
+      "line": "data: [DONE]"
+    },
+    {
+      "relative_ns": 5836142334,
+      "line": ""
+    }
+  ],
+  "sse_frames": [
+    {
+      "id": "chatcmpl-42070545",
+      "object": "chat.completion.chunk",
+      "created": 0,
+      "model": "keepalive",
+      "choices": [
+        {
+          "index": 0,
+          "delta": {
+            "role": "assistant",
+            "content": ""
+          },
+          "finish_reason": null
+        }
+      ]
+    },
+    {
+      "id": "chatcmpl-42070545",
+      "object": "chat.completion.chunk",
+      "created": 1791566436,
+      "model": "Qwen3.8-Flash-Next-oQ6e-mtp",
+      "choices": [
+        {
+          "index": 0,
+          "delta": {
+            "role": "assistant"
+          }
+        }
+      ]
+    },
+    {
+      "id": "chatcmpl-42070545",
+      "object": "chat.completion.chunk",
+      "created": 1791566437,
+      "model": "Qwen3.8-Flash-Next-oQ6e-mtp",
+      "choices": [
+        {
+          "index": 0,
+          "delta": {
+            "content": "from"
+          }
+        }
+      ]
+    },
+    {
+      "id": "chatcmpl-42070545",
+      "object": "chat.completion.chunk",
+      "created": 1791566437,
+      "model": "Qwen3.8-Flash-Next-oQ6e-mtp",
+      "choices": [
+        {
+          "index": 0,
+          "delta": {
+            "content": " decimal import Decimal, ROUND_HALF_UP\n\nCENT = Decimal(\"0.01\")\n"
+          }
+        }
+      ]
+    },
+    {
+      "id": "chatcmpl-42070545",
+      "object": "chat.completion.chunk",
+      "created": 1791566437,
+      "model": "Qwen3.8-Flash-Next-oQ6e-mtp",
+      "choices": [
+        {
+          "index": 0,
+          "delta": {
+            "content": "STANDARD_SHIPPING = Decimal(\"4.99\")\nEXPRESS_SHIPPING = Decimal(\"12.50\")\nFREE_SHIPPING_THRESHOLD"
+          }
+        }
+      ]
+    },
+    {
+      "id": "chatcmpl-42070545",
+      "object": "chat.completion.chunk",
+      "created": 1791566437,
+      "model": "Qwen3.8-Flash-Next-oQ6e-mtp",
+      "choices": [
+        {
+          "index": 0,
+          "delta": {
+            "content": " = Decimal(\"100.00\")\nTAX_RATES = {\"CA\": Decimal(\"0.0825\"), \"NY"
+          }
+        }
+      ]
+    },
+    {
+      "id": "chatcmpl-42070545",
+      "object": "chat.completion.chunk",
+      "created": 1791566437,
+      "model": "Qwen3.8-Flash-Next-oQ6e-mtp",
+      "choices": [
+        {
+          "index": 0,
+          "delta": {
+            "content": "\": Decimal(\"0.08875\"), \"OR\": Decimal(\"0\")}\nCOUPONS = {\"SAVE10\": Decimal(\""
+          }
+        }
+      ]
+    },
+    {
+      "id": "chatcmpl-42070545",
+      "object": "chat.completion.chunk",
+      "created": 1791566437,
+      "model": "Qwen3.8-Flash-Next-oQ6e-mtp",
+      "choices": [
+        {
+          "index": 0,
+          "delta": {
+            "content": "0.10\"), \"SAVE20\": Decimal(\"0.20\")}\nSTATUSES = {\"pending\", \"paid\", \"shipped"
+          }
+        }
+      ]
+    },
+    {
+      "id": "chatcmpl-42070545",
+      "object": "chat.completion.chunk",
+      "created": 1791566438,
+      "model": "Qwen3.8-Flash-Next-oQ6e-mtp",
+      "choices": [
+        {
+          "index": 0,
+          "delta": {
+            "content": "\", \"cancelled\"}\n\n\ndef money(value):\n    amount = Decimal(str(value))\n    if not amount.is_finite():\n        raise ValueError"
+          }
+        }
+      ]
+    },
+    {
+      "id": "chatcmpl-42070545",
+      "object": "chat.completion.chunk",
+      "created": 1791566438,
+      "model": "Qwen3.8-Flash-Next-oQ6e-mtp",
+      "choices": [
+        {
+          "index": 0,
+          "delta": {
+            "content": "(\"amount must be finite\")\n    return amount.quantize(CENT, rounding=ROUND_HALF_UP)\n\n\ndef validate_item(item):\n    if"
+          }
+        }
+      ]
+    },
+    {
+      "id": "chatcmpl-42070545",
+      "object": "chat.completion.chunk",
+      "created": 1791566438,
+      "model": "Qwen3.8-Flash-Next-oQ6e-mtp",
+      "choices": [
+        {
+          "index": 0,
+          "delta": {
+            "content": " not isinstance(item.get(\"sku\"), str) or not item[\"sku\"].strip():\n        raise ValueError(\"sku is required\")\n    quantity ="
+          }
+        }
+      ]
+    },
+    {
+      "id": "chatcmpl-42070545",
+      "object": "chat.completion.chunk",
+      "created": 1791566438,
+      "model": "Qwen3.8-Flash-Next-oQ6e-mtp",
+      "choices": [
+        {
+          "index": 0,
+          "delta": {
+            "content": " item.get(\"quantity\")\n    if isinstance(quantity, bool) or not isinstance(quantity, int) or quantity < 1:\n        raise ValueError"
+          }
+        }
+      ]
+    },
+    {
+      "id": "chatcmpl-42070545",
+      "object": "chat.completion.chunk",
+      "created": 1791566438,
+      "model": "Qwen3.8-Flash-Next-oQ6e-mtp",
+      "choices": [
+        {
+          "index": 0,
+          "delta": {
+            "content": "(\"quantity must be a positive integer\")\n    price = money(item.get(\"unit_price\", \"-1\"))\n    if price < 0:"
+          }
+        }
+      ]
+    },
+    {
+      "id": "chatcmpl-42070545",
+      "object": "chat.completion.chunk",
+      "created": 1791566438,
+      "model": "Qwen3.8-Flash-Next-oQ6e-mtp",
+      "choices": [
+        {
+          "index": 0,
+          "delta": {
+            "content": "\n        raise ValueError(\"unit price must be nonnegative\")\n    return {\"sku\": item[\"sku\"].strip(), \"quantity\": quantity, \""
+          }
+        }
+      ]
+    },
+    {
+      "id": "chatcmpl-42070545",
+      "object": "chat.completion.chunk",
+      "created": 1791566438,
+      "model": "Qwen3.8-Flash-Next-oQ6e-mtp",
+      "choices": [
+        {
+          "index": 0,
+          "delta": {
+            "content": "unit_price\": price}\n\n\ndef line_total(item):\n    valid = validate_item(item)\n    return money(valid[\"unit_price\"] * valid"
+          }
+        }
+      ]
+    },
+    {
+      "id": "chatcmpl-42070545",
+      "object": "chat.completion.chunk",
+      "created": 1791566438,
+      "model": "Qwen3.8-Flash-Next-oQ6e-mtp",
+      "choices": [
+        {
+          "index": 0,
+          "delta": {
+            "content": "[\"quantity\"])\n\n\ndef calculate_subtotal(items):\n    return money(sum((line_total(item) for item in items), Decimal(\"0\")))\n\n\n"
+          }
+        }
+      ]
+    },
+    {
+      "id": "chatcmpl-42070545",
+      "object": "chat.completion.chunk",
+      "created": 1791566438,
+      "model": "Qwen3.8-Flash-Next-oQ6e-mtp",
+      "choices": [
+        {
+          "index": 0,
+          "delta": {
+            "content": "def discount_rate(coupon):\n    code = (coupon or \"\").strip().upper()\n    if code and code not in COUPONS:"
+          }
+        }
+      ]
+    },
+    {
+      "id": "chatcmpl-42070545",
+      "object": "chat.completion.chunk",
+      "created": 1791566439,
+      "model": "Qwen3.8-Flash-Next-oQ6e-mtp",
+      "choices": [
+        {
+          "index": 0,
+          "delta": {
+            "content": "\n        raise ValueError(\"unknown coupon\")\n    return COUPONS.get(code, Decimal(\"0\"))\n\n\ndef calculate_discount(subtotal, coupon=None"
+          }
+        }
+      ]
+    },
+    {
+      "id": "chatcmpl-42070545",
+      "object": "chat.completion.chunk",
+      "created": 1791566439,
+      "model": "Qwen3.8-Flash-Next-oQ6e-mtp",
+      "choices": [
+        {
+          "index": 0,
+          "delta": {
+            "content": "):\n    amount = money(subtotal)\n    if amount < 0:\n        raise ValueError(\"subtotal must"
+          }
+        }
+      ]
+    },
+    {
+      "id": "chatcmpl-42070545",
+      "object": "chat.completion.chunk",
+      "created": 1791566439,
+      "model": "Qwen3.8-Flash-Next-oQ6e-mtp",
+      "choices": [
+        {
+          "index": 0,
+          "delta": {
+            "content": " be nonnegative\")\n    return money(amount * discount_rate(c"
+          }
+        }
+      ]
+    },
+    {
+      "id": "chatcmpl-42070545",
+      "object": "chat.completion.chunk",
+      "created": 1791566439,
+      "model": "Qwen3.8-Flash-Next-oQ6e-mtp",
+      "choices": [
+        {
+          "index": 0,
+          "delta": {
+            "content": "oupon))\n\n\ndef calculate_shipping(subtotal, express=False):\n    amount = money(subtotal)\n    if amount < 0:\n        raise ValueError(\"subtotal must be nonnegative"
+          }
+        }
+      ]
+    },
+    {
+      "id": "chatcmpl-42070545",
+      "object": "chat.completion.chunk",
+      "created": 1791566439,
+      "model": "Qwen3.8-Flash-Next-oQ6e-mtp",
+      "choices": [
+        {
+          "index": 0,
+          "delta": {
+            "content": "\")\n    if express:\n        return EXPRESS_SHIPPING\n    if amount >= FREE_SHIPPING"
+          }
+        }
+      ]
+    },
+    {
+      "id": "chatcmpl-42070545",
+      "object": "chat.completion.chunk",
+      "created": 1791566439,
+      "model": "Qwen3.8-Flash-Next-oQ6e-mtp",
+      "choices": [
+        {
+          "index": 0,
+          "delta": {
+            "content": "_THRESHOLD:\n        return Decimal(\"0.00\")\n    return STANDARD_SHIPPING\n\n\ndef calculate_tax(taxable_amount, region):\n"
+          }
+        }
+      ]
+    },
+    {
+      "id": "chatcmpl-42070545",
+      "object": "chat.completion.chunk",
+      "created": 1791566439,
+      "model": "Qwen3.8-Flash-Next-oQ6e-mtp",
+      "choices": [
+        {
+          "index": 0,
+          "delta": {
+            "content": "    if region not in TAX_RATES:\n        raise ValueError(\"unsupported tax region\")\n    amount = money(taxable_amount)\n   "
+          }
+        }
+      ]
+    },
+    {
+      "id": "chatcmpl-42070545",
+      "object": "chat.completion.chunk",
+      "created": 1791566439,
+      "model": "Qwen3.8-Flash-Next-oQ6e-mtp",
+      "choices": [
+        {
+          "index": 0,
+          "delta": {
+            "content": " if amount < 0:\n        raise ValueError(\"taxable amount must be nonnegative\")\n    return money(amount * TAX_RATES[region"
+          }
+        }
+      ]
+    },
+    {
+      "id": "chatcmpl-42070545",
+      "object": "chat.completion.chunk",
+      "created": 1791566439,
+      "model": "Qwen3.8-Flash-Next-oQ6e-mtp",
+      "choices": [
+        {
+          "index": 0,
+          "delta": {
+            "content": "])\n\n\ndef calculate_order_total(items, region=\"OR\", coupon=None, express=False):\n    subtotal ="
+          }
+        }
+      ]
+    },
+    {
+      "id": "chatcmpl-42070545",
+      "object": "chat.completion.chunk",
+      "created": 1791566440,
+      "model": "Qwen3.8-Flash-Next-oQ6e-mtp",
+      "choices": [
+        {
+          "index": 0,
+          "delta": {
+            "content": " calculate_subtotal(items)\n    discount = calculate_discount(subtotal, coupon)\n    discounted = money(subtotal - discount)\n    shipping = calculate"
+          }
+        }
+      ]
+    },
+    {
+      "id": "chatcmpl-42070545",
+      "object": "chat.completion.chunk",
+      "created": 1791566440,
+      "model": "Qwen3.8-Flash-Next-oQ6e-mtp",
+      "choices": [
+        {
+          "index": 0,
+          "delta": {
+            "content": "_shipping(discounted, express)\n    tax = calculate_tax(discounted, region)\n    return money(discounted + shipping + tax"
+          }
+        }
+      ]
+    },
+    {
+      "id": "chatcmpl-42070545",
+      "object": "chat.completion.chunk",
+      "created": 1791566440,
+      "model": "Qwen3.8-Flash-Next-oQ6e-mtp",
+      "choices": [
+        {
+          "index": 0,
+          "delta": {
+            "content": ")\n\n\ndef make_order(order_id, items, region=\"OR\", coupon=None, express=False):\n    if not isinstance(order_id, str)"
+          }
+        }
+      ]
+    },
+    {
+      "id": "chatcmpl-42070545",
+      "object": "chat.completion.chunk",
+      "created": 1791566440,
+      "model": "Qwen3.8-Flash-Next-oQ6e-mtp",
+      "choices": [
+        {
+          "index": 0,
+          "delta": {
+            "content": " or not order_id.strip():\n        raise ValueError(\"order id is required\")\n    normalized = [validate_item(item) for item in items]"
+          }
+        }
+      ]
+    },
+    {
+      "id": "chatcmpl-42070545",
+      "object": "chat.completion.chunk",
+      "created": 1791566440,
+      "model": "Qwen3.8-Flash-Next-oQ6e-mtp",
+      "choices": [
+        {
+          "index": 0,
+          "delta": {
+            "content": "\n    if not normalized:\n        raise ValueError(\"an order must contain at least one item\")\n    total = calculate_order_total(normalized, region"
+          }
+        }
+      ]
+    },
+    {
+      "id": "chatcmpl-42070545",
+      "object": "chat.completion.chunk",
+      "created": 1791566440,
+      "model": "Qwen3.8-Flash-Next-oQ6e-mtp",
+      "choices": [
+        {
+          "index": 0,
+          "delta": {
+            "content": ", coupon, express)\n    return {\"order_id\": order_id.strip(), \"items\": normalized"
+          }
+        }
+      ]
+    },
+    {
+      "id": "chatcmpl-42070545",
+      "object": "chat.completion.chunk",
+      "created": 1791566440,
+      "model": "Qwen3.8-Flash-Next-oQ6e-mtp",
+      "choices": [
+        {
+          "index": 0,
+          "delta": {
+            "content": ", \"region\": region,\n            \"coupon\": coupon, \"express\": bool(express), \"total\": total"
+          }
+        }
+      ]
+    },
+    {
+      "id": "chatcmpl-42070545",
+      "object": "chat.completion.chunk",
+      "created": 1791566440,
+      "model": "Qwen3.8-Flash-Next-oQ6e-mtp",
+      "choices": [
+        {
+          "index": 0,
+          "delta": {
+            "content": ", \"status\": \"pending\"}\n\n\ndef transition_order(order, new_status):\n    allowed = {\"pending\": {\"paid\", \"cancelled\"}, \""
+          }
+        }
+      ]
+    },
+    {
+      "id": "chatcmpl-42070545",
+      "object": "chat.completion.chunk",
+      "created": 1791566441,
+      "model": "Qwen3.8-Flash-Next-oQ6e-mtp",
+      "choices": [
+        {
+          "index": 0,
+          "delta": {
+            "content": "paid\": {\"shipped\", \"cancelled\"},\n               \"shipped\": set(), \"cancelled\": set()}\n    old_status = order.get(\""
+          }
+        }
+      ]
+    },
+    {
+      "id": "chatcmpl-42070545",
+      "object": "chat.completion.chunk",
+      "created": 1791566441,
+      "model": "Qwen3.8-Flash-Next-oQ6e-mtp",
+      "choices": [
+        {
+          "index": 0,
+          "delta": {
+            "content": "status\")\n    if old_status not in STATUSES or new_status not in allowed[old_status]:\n        raise ValueError(\"invalid status transition\")"
+          }
+        }
+      ]
+    },
+    {
+      "id": "chatcmpl-42070545",
+      "object": "chat.completion.chunk",
+      "created": 1791566441,
+      "model": "Qwen3.8-Flash-Next-oQ6e-mtp",
+      "choices": [
+        {
+          "index": 0,
+          "delta": {
+            "content": "\n    result = dict(order)\n    result[\"status\"] = new_status\n    return result\n\n\ndef receipt_lines(order):\n    lines ="
+          }
+        }
+      ]
+    },
+    {
+      "id": "chatcmpl-42070545",
+      "object": "chat.completion.chunk",
+      "created": 1791566441,
+      "model": "Qwen3.8-Flash-Next-oQ6e-mtp",
+      "choices": [
+        {
+          "index": 0,
+          "delta": {
+            "content": " [\"Order \" + order[\"order_id\"]]\n    for item in order[\"items\"]:\n        lines.append(f'{item[\"sku\"]}: {"
+          }
+        }
+      ]
+    },
+    {
+      "id": "chatcmpl-42070545",
+      "object": "chat.completion.chunk",
+      "created": 1791566441,
+      "model": "Qwen3.8-Flash-Next-oQ6e-mtp",
+      "choices": [
+        {
+          "index": 0,
+          "delta": {
+            "content": "item[\"quantity\"]} x {money(item[\"unit_price\"])}')\n    lines.append(\"Total: \" + str(money(order[\"total\"]"
+          }
+        }
+      ]
+    },
+    {
+      "id": "chatcmpl-42070545",
+      "object": "chat.completion.chunk",
+      "created": 1791566441,
+      "model": "Qwen3.8-Flash-Next-oQ6e-mtp",
+      "choices": [
+        {
+          "index": 0,
+          "delta": {
+            "content": ")))\n    return lines\n\n\ndef summarize_orders(orders):\n    totals = {status: Decimal(\"0.00\") for status in sorted"
+          }
+        }
+      ]
+    },
+    {
+      "id": "chatcmpl-42070545",
+      "object": "chat.completion.chunk",
+      "created": 1791566441,
+      "model": "Qwen3.8-Flash-Next-oQ6e-mtp",
+      "choices": [
+        {
+          "index": 0,
+          "delta": {
+            "content": "(STATUSES)}\n    count = 0\n    for order in orders:\n        status = order.get(\"status\")\n        if status"
+          }
+        }
+      ]
+    },
+    {
+      "id": "chatcmpl-42070545",
+      "object": "chat.completion.chunk",
+      "created": 1791566441,
+      "model": "Qwen3.8-Flash-Next-oQ6e-mtp",
+      "choices": [
+        {
+          "index": 0,
+          "delta": {
+            "content": " not in totals:\n            raise ValueError(\"invalid order status\")\n        totals[status] = money(totals[status] + money(order"
+          }
+        }
+      ]
+    },
+    {
+      "id": "chatcmpl-42070545",
+      "object": "chat.completion.chunk",
+      "created": 1791566442,
+      "model": "Qwen3.8-Flash-Next-oQ6e-mtp",
+      "choices": [
+        {
+          "index": 0,
+          "delta": {
+            "content": "[\"total\"]))\n        count += 1\n    return {\"count\": count, \"totals\": totals}\n\n\ndef requote_order(order, coupon"
+          }
+        }
+      ]
+    },
+    {
+      "id": "chatcmpl-42070545",
+      "object": "chat.completion.chunk",
+      "created": 1791566442,
+      "model": "Qwen3.8-Flash-Next-oQ6e-mtp",
+      "choices": [
+        {
+          "index": 0,
+          "delta": {
+            "content": "=None):\n    result = dict(order)\n    result[\"coupon\"] = coupon\n    result[\"total\"] = calculate_order_total(order[\"items\"],"
+          }
+        }
+      ]
+    },
+    {
+      "id": "chatcmpl-42070545",
+      "object": "chat.completion.chunk",
+      "created": 1791566442,
+      "model": "Qwen3.8-Flash-Next-oQ6e-mtp",
+      "choices": [
+        {
+          "index": 0,
+          "delta": {
+            "content": " order[\"region\"], coupon, order[\"express\"])\n    return result\n\n\n# Operations notes:\n"
+          }
+        }
+      ]
+    },
+    {
+      "id": "chatcmpl-42070545",
+      "object": "chat.completion.chunk",
+      "created": 1791566442,
+      "model": "Qwen3.8-Flash-Next-oQ6e-mtp",
+      "choices": [
+        {
+          "index": 0,
+          "delta": {
+            "content": "# Prices are rounded before quantity multiplication.\n# Tax applies to discounted merchandise, excluding shipping.\n# The free"
+          }
+        }
+      ]
+    },
+    {
+      "id": "chatcmpl-42070545",
+      "object": "chat.completion.chunk",
+      "created": 1791566442,
+      "model": "Qwen3.8-Flash-Next-oQ6e-mtp",
+      "choices": [
+        {
+          "index": 0,
+          "delta": {
+            "content": " shipping threshold applies after discounts.\n# Express delivery always retains its separate shipping charge.\n# Order state changes produce a new dictionary.\n# Sum"
+          }
+        }
+      ]
+    },
+    {
+      "id": "chatcmpl-42070545",
+      "object": "chat.completion.chunk",
+      "created": 1791566442,
+      "model": "Qwen3.8-Flash-Next-oQ6e-mtp",
+      "choices": [
+        {
+          "index": 0,
+          "delta": {
+            "content": "maries accept a one-pass iterable of orders.\n# Cancelled orders remain available to status summaries.\n# Coupon codes are case-insensitive after trimming"
+          }
+        }
+      ]
+    },
+    {
+      "id": "chatcmpl-42070545",
+      "object": "chat.completion.chunk",
+      "created": 1791566442,
+      "model": "Qwen3.8-Flash-Next-oQ6e-mtp",
+      "choices": [
+        {
+          "index": 0,
+          "delta": {
+            "content": " whitespace."
+          }
+        }
+      ]
+    },
+    {
+      "id": "chatcmpl-42070545",
+      "object": "chat.completion.chunk",
+      "created": 1791566442,
+      "model": "Qwen3.8-Flash-Next-oQ6e-mtp",
+      "choices": [
+        {
+          "index": 0,
+          "delta": {},
+          "finish_reason": "stop"
+        }
+      ]
+    },
+    {
+      "id": "chatcmpl-42070545",
+      "object": "chat.completion.chunk",
+      "created": 1791566442,
+      "model": "Qwen3.8-Flash-Next-oQ6e-mtp",
+      "choices": [],
+      "usage": {
+        "prompt_tokens": 1344,
+        "completion_tokens": 1278,
+        "total_tokens": 2622,
+        "input_tokens": 1344,
+        "output_tokens": 1278,
+        "prompt_tokens_details": {
+          "cached_tokens": 0
+        },
+        "time_to_first_token": 0.61,
+        "time_to_first_visible_token": 0.61,
+        "total_time": 5.83,
+        "prompt_eval_duration": 0.61,
+        "generation_duration": 5.22,
+        "prompt_tokens_per_second": 2194.05,
+        "generation_tokens_per_second": 244.86
+      }
+    }
+  ]
+}

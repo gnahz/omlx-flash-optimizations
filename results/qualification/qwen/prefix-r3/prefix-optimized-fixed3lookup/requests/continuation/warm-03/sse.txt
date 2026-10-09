@@ -1,0 +1,44 @@
+data: {"id":"chatcmpl-ce1af938","object":"chat.completion.chunk","created":0,"model":"keepalive","choices":[{"index":0,"delta":{"role":"assistant","content":""},"finish_reason":null}]}
+
+data: {"id":"chatcmpl-ce1af938","object":"chat.completion.chunk","created":1791566857,"model":"Qwen3.8-Flash-Next-oQ6e-mtp","choices":[{"index":0,"delta":{"role":"assistant"}}]}
+
+data: {"id":"chatcmpl-ce1af938","object":"chat.completion.chunk","created":1791566857,"model":"Qwen3.8-Flash-Next-oQ6e-mtp","choices":[{"index":0,"delta":{"content":"```"}}]}
+
+data: {"id":"chatcmpl-ce1af938","object":"chat.completion.chunk","created":1791566858,"model":"Qwen3.8-Flash-Next-oQ6e-mtp","choices":[{"index":0,"delta":{"content":"python\n            {\"id\":"}}]}
+
+data: {"id":"chatcmpl-ce1af938","object":"chat.completion.chunk","created":1791566858,"model":"Qwen3.8-Flash-Next-oQ6e-mtp","choices":[{"index":0,"delta":{"content":" \"3\", \"data\": \"dup_c\"},"}}]}
+
+data: {"id":"chatcmpl-ce1af938","object":"chat.completion.chunk","created":1791566858,"model":"Qwen3.8-Flash-Next-oQ6e-mtp","choices":[{"index":0,"delta":{"content":"\n        ]\n        result = dedupe_events(events"}}]}
+
+data: {"id":"chatcmpl-ce1af938","object":"chat.completion.chunk","created":1791566858,"model":"Qwen3.8-Flash-Next-oQ6e-mtp","choices":[{"index":0,"delta":{"content":")\n        self.assertEqual([e[\"id\"] for e in result], [\"3\", \"1\","}}]}
+
+data: {"id":"chatcmpl-ce1af938","object":"chat.completion.chunk","created":1791566858,"model":"Qwen3.8-Flash-Next-oQ6e-mtp","choices":[{"index":0,"delta":{"content":" \"2\"])\n\n    def test_dedupe_events_missing_id_raises_value_error(self):\n       "}}]}
+
+data: {"id":"chatcmpl-ce1af938","object":"chat.completion.chunk","created":1791566858,"model":"Qwen3.8-Flash-Next-oQ6e-mtp","choices":[{"index":0,"delta":{"content":" \"\"\"Event without 'id' key raises ValueError.\"\"\"\n        events ="}}]}
+
+data: {"id":"chatcmpl-ce1af938","object":"chat.completion.chunk","created":1791566858,"model":"Qwen3.8-Flash-Next-oQ6e-mtp","choices":[{"index":0,"delta":{"content":" [{\"data\": \"no_id\"}]\n        with self.assertRaises(ValueError):\n            dedupe"}}]}
+
+data: {"id":"chatcmpl-ce1af938","object":"chat.completion.chunk","created":1791566858,"model":"Qwen3.8-Flash-Next-oQ6e-mtp","choices":[{"index":0,"delta":{"content":"_events(events)\n\n    def test_dedupe_events_none_id_raises_value_error(self"}}]}
+
+data: {"id":"chatcmpl-ce1af938","object":"chat.completion.chunk","created":1791566858,"model":"Qwen3.8-Flash-Next-oQ6e-mtp","choices":[{"index":0,"delta":{"content":"):\n        \"\"\"Event with None id raises ValueError.\"\"\"\n        events = [{\""}}]}
+
+data: {"id":"chatcmpl-ce1af938","object":"chat.completion.chunk","created":1791566859,"model":"Qwen3.8-Flash-Next-oQ6e-mtp","choices":[{"index":0,"delta":{"content":"id\": None, \"data\": \"a\"}]\n        with"}}]}
+
+data: {"id":"chatcmpl-ce1af938","object":"chat.completion.chunk","created":1791566859,"model":"Qwen3.8-Flash-Next-oQ6e-mtp","choices":[{"index":0,"delta":{"content":" self.assertRaises(ValueError):\n            dedupe_events(events)\n\n    def test_dedupe"}}]}
+
+data: {"id":"chatcmpl-ce1af938","object":"chat.completion.chunk","created":1791566859,"model":"Qwen3.8-Flash-Next-oQ6e-mtp","choices":[{"index":0,"delta":{"content":"_events_empty_string_id_raises_value_error(self):\n        \"\"\"Event with empty string id raises ValueError.\"\"\""}}]}
+
+data: {"id":"chatcmpl-ce1af938","object":"chat.completion.chunk","created":1791566859,"model":"Qwen3.8-Flash-Next-oQ6e-mtp","choices":[{"index":0,"delta":{"content":"\n        events = [{\"id\": \"\", \"data\": \"a\"}]\n        with self.assertRaises"}}]}
+
+data: {"id":"chatcmpl-ce1af938","object":"chat.completion.chunk","created":1791566859,"model":"Qwen3.8-Flash-Next-oQ6e-mtp","choices":[{"index":0,"delta":{"content":"(ValueError):\n            dedupe_events(events)\n\n    def test_dedupe_events_whitespace_id_raises_value_error(self"}}]}
+
+data: {"id":"chatcmpl-ce1af938","object":"chat.completion.chunk","created":1791566859,"model":"Qwen3.8-Flash-Next-oQ6e-mtp","choices":[{"index":0,"delta":{"content":"):\n        \"\"\"Event with whitespace-only id raises ValueError.\"\"\"\n        events = [{\"id\": \""}}]}
+
+data: {"id":"chatcmpl-ce1af938","object":"chat.completion.chunk","created":1791566859,"model":"Qwen3.8-Flash-Next-oQ6e-mtp","choices":[{"index":0,"delta":{"content":"   \", \"data\": \""}}]}
+
+data: {"id":"chatcmpl-ce1af938","object":"chat.completion.chunk","created":1791566859,"model":"Qwen3.8-Flash-Next-oQ6e-mtp","choices":[{"index":0,"delta":{},"finish_reason":"length"}]}
+
+data: {"id":"chatcmpl-ce1af938","object":"chat.completion.chunk","created":1791566859,"model":"Qwen3.8-Flash-Next-oQ6e-mtp","choices":[],"usage":{"prompt_tokens":8459,"completion_tokens":256,"total_tokens":8715,"input_tokens":8459,"output_tokens":256,"prompt_tokens_details":{"cached_tokens":8452},"time_to_first_token":0.13,"time_to_first_visible_token":0.13,"total_time":1.89,"prompt_eval_duration":0.13,"generation_duration":1.76,"prompt_tokens_per_second":52.38,"generation_tokens_per_second":145.63}}
+
+data: [DONE]
+

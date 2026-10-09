@@ -1,0 +1,1346 @@
+{
+  "text": "# Preparing Birch for the Deluge: A Systems Approach to Urban Stormwater\n\nBirch is a fictional town nestled in a river valley, characterized by a mix of historic downtown architecture, sprawling suburban neighborhoods, and light industrial zones on its periphery. Like many towns of its size and vintage, Birch was built during an era when the primary goal of stormwater management was speed: get the water off the streets and into the nearest creek as quickly as possible. However, climate patterns are shifting. Rainfall events are becoming more intense and frequent, overwhelming the legacy infrastructure. To prepare for heavy rain, Birch cannot rely on a single silver bullet. Instead, it must adopt a layered, resilient strategy that integrates traditional gray infrastructure like drains and reservoirs with green infrastructure like rain gardens, underpinned by rigorous maintenance and clear public communication. This approach treats the town’s water management not just as a plumbing problem, but as a complex system requiring records, validation, measurement, and tradeoff analysis.\n\n## The First Line of Defense: Drains and Conveyance\n\nThe most visible component of Birch’s flood defense is its network of storm drains. These grates and pipes are the immediate interface between the built environment and the water cycle. In a heavy rain scenario, the efficiency of these drains determines whether a street becomes a river or remains passable.\n\nHowever, drains are only as good as their capacity and their cleanliness. Birch’s historic downtown features smaller, older pipes designed for lighter rainfall volumes. Upgrading these pipes is prohibitively expensive and disruptive, requiring the tearing up of century-old cobblestones. The tradeoff here is between capital expenditure and operational efficiency. Rather than replacing every pipe, Birch can focus on \"spot hardening.\" This involves identifying the specific low-lying intersections that historically flood first and installing high-capacity catch basins with debris racks.\n\nFor example, consider the intersection of Main Street and Oak Avenue. During a two-inch-per-hour rain event, this intersection typically accumulates six inches of water, stalling cars and flooding basements. By installing a deeper catch basin with a larger outlet pipe that connects to a nearby oversized trunk line, the town can increase the local drainage rate. The tradeoff is the cost of excavation and the potential for the increased flow to overwhelm downstream areas if the trunk line is not also upgraded. This highlights the need for hydraulic modeling: you cannot fix a local bottleneck without understanding the global system capacity.\n\nFurthermore, drains require constant validation. A drain that is 50% clogged with autumn leaves is effectively half the size it was designed to be. This leads to the critical role of maintenance.\n\n## Maintenance: The Invisible Infrastructure\n\nMaintenance is often the first budget item cut and the last thing restored, yet it is the backbone of reliability. In the context of Birch’s stormwater system, maintenance is about keeping the \"latency\" of the system low—ensuring that water moves through the pipes at the speed they were engineered to handle.\n\nA robust maintenance program requires detailed records. Birch must maintain a Geographic Information System (GIS) map of every drain, pipe, and outfall. Each asset needs",
+  "reasoning": "",
+  "tool_calls": [],
+  "usage": {
+    "prompt_tokens": 5026,
+    "completion_tokens": 640,
+    "total_tokens": 5666,
+    "input_tokens": 5026,
+    "output_tokens": 640,
+    "prompt_tokens_details": {
+      "cached_tokens": 0
+    },
+    "time_to_first_token": 1.49,
+    "time_to_first_visible_token": 1.49,
+    "total_time": 8.08,
+    "prompt_eval_duration": 1.49,
+    "generation_duration": 6.59,
+    "prompt_tokens_per_second": 3384.12,
+    "generation_tokens_per_second": 97.12
+  },
+  "finish_reason": "length",
+  "done": true,
+  "stream_errors": [],
+  "sse_events": [
+    {
+      "relative_ns": 10621708,
+      "line": "data: {\"id\":\"chatcmpl-d12fb6fa\",\"object\":\"chat.completion.chunk\",\"created\":0,\"model\":\"keepalive\",\"choices\":[{\"index\":0,\"delta\":{\"role\":\"assistant\",\"content\":\"\"},\"finish_reason\":null}]}"
+    },
+    {
+      "relative_ns": 10624333,
+      "line": ""
+    },
+    {
+      "relative_ns": 14760083,
+      "line": "data: {\"id\":\"chatcmpl-d12fb6fa\",\"object\":\"chat.completion.chunk\",\"created\":1791566687,\"model\":\"Qwen3.8-Flash-Next-oQ6e-mtp\",\"choices\":[{\"index\":0,\"delta\":{\"role\":\"assistant\"}}]}"
+    },
+    {
+      "relative_ns": 14765708,
+      "line": ""
+    },
+    {
+      "relative_ns": 1496679333,
+      "line": "data: {\"id\":\"chatcmpl-d12fb6fa\",\"object\":\"chat.completion.chunk\",\"created\":1791566688,\"model\":\"Qwen3.8-Flash-Next-oQ6e-mtp\",\"choices\":[{\"index\":0,\"delta\":{\"content\":\"#\"}}]}"
+    },
+    {
+      "relative_ns": 1496690958,
+      "line": ""
+    },
+    {
+      "relative_ns": 1618056541,
+      "line": "data: {\"id\":\"chatcmpl-d12fb6fa\",\"object\":\"chat.completion.chunk\",\"created\":1791566688,\"model\":\"Qwen3.8-Flash-Next-oQ6e-mtp\",\"choices\":[{\"index\":0,\"delta\":{\"content\":\" Preparing Birch for the Deluge\"}}]}"
+    },
+    {
+      "relative_ns": 1618065583,
+      "line": ""
+    },
+    {
+      "relative_ns": 1735023791,
+      "line": "data: {\"id\":\"chatcmpl-d12fb6fa\",\"object\":\"chat.completion.chunk\",\"created\":1791566688,\"model\":\"Qwen3.8-Flash-Next-oQ6e-mtp\",\"choices\":[{\"index\":0,\"delta\":{\"content\":\": A Systems Approach to Urban Stormwater\\n\\nBirch is a fictional town nestled in\"}}]}"
+    },
+    {
+      "relative_ns": 1735034416,
+      "line": ""
+    },
+    {
+      "relative_ns": 1849988875,
+      "line": "data: {\"id\":\"chatcmpl-d12fb6fa\",\"object\":\"chat.completion.chunk\",\"created\":1791566688,\"model\":\"Qwen3.8-Flash-Next-oQ6e-mtp\",\"choices\":[{\"index\":0,\"delta\":{\"content\":\" a river valley, characterized by a mix of historic downtown architecture,\"}}]}"
+    },
+    {
+      "relative_ns": 1849995875,
+      "line": ""
+    },
+    {
+      "relative_ns": 1967953125,
+      "line": "data: {\"id\":\"chatcmpl-d12fb6fa\",\"object\":\"chat.completion.chunk\",\"created\":1791566688,\"model\":\"Qwen3.8-Flash-Next-oQ6e-mtp\",\"choices\":[{\"index\":0,\"delta\":{\"content\":\" sprawling suburban neighborhoods, and light industrial zones on its\"}}]}"
+    },
+    {
+      "relative_ns": 1967963250,
+      "line": ""
+    },
+    {
+      "relative_ns": 2108846416,
+      "line": "data: {\"id\":\"chatcmpl-d12fb6fa\",\"object\":\"chat.completion.chunk\",\"created\":1791566689,\"model\":\"Qwen3.8-Flash-Next-oQ6e-mtp\",\"choices\":[{\"index\":0,\"delta\":{\"content\":\" periphery. Like many towns of its size and vintage\"}}]}"
+    },
+    {
+      "relative_ns": 2108856791,
+      "line": ""
+    },
+    {
+      "relative_ns": 2248347000,
+      "line": "data: {\"id\":\"chatcmpl-d12fb6fa\",\"object\":\"chat.completion.chunk\",\"created\":1791566689,\"model\":\"Qwen3.8-Flash-Next-oQ6e-mtp\",\"choices\":[{\"index\":0,\"delta\":{\"content\":\", Birch was built during an era when the primary goal of stormwater management\"}}]}"
+    },
+    {
+      "relative_ns": 2248355333,
+      "line": ""
+    },
+    {
+      "relative_ns": 2364784000,
+      "line": "data: {\"id\":\"chatcmpl-d12fb6fa\",\"object\":\"chat.completion.chunk\",\"created\":1791566689,\"model\":\"Qwen3.8-Flash-Next-oQ6e-mtp\",\"choices\":[{\"index\":0,\"delta\":{\"content\":\" was speed: get the water off the streets and into the nearest creek\"}}]}"
+    },
+    {
+      "relative_ns": 2364794500,
+      "line": ""
+    },
+    {
+      "relative_ns": 2504943291,
+      "line": "data: {\"id\":\"chatcmpl-d12fb6fa\",\"object\":\"chat.completion.chunk\",\"created\":1791566689,\"model\":\"Qwen3.8-Flash-Next-oQ6e-mtp\",\"choices\":[{\"index\":0,\"delta\":{\"content\":\" as quickly as possible. However, climate patterns are\"}}]}"
+    },
+    {
+      "relative_ns": 2504952083,
+      "line": ""
+    },
+    {
+      "relative_ns": 2618836166,
+      "line": "data: {\"id\":\"chatcmpl-d12fb6fa\",\"object\":\"chat.completion.chunk\",\"created\":1791566689,\"model\":\"Qwen3.8-Flash-Next-oQ6e-mtp\",\"choices\":[{\"index\":0,\"delta\":{\"content\":\" shifting. Rainfall events are becoming more intense and frequent\"}}]}"
+    },
+    {
+      "relative_ns": 2618849125,
+      "line": ""
+    },
+    {
+      "relative_ns": 2757585750,
+      "line": "data: {\"id\":\"chatcmpl-d12fb6fa\",\"object\":\"chat.completion.chunk\",\"created\":1791566689,\"model\":\"Qwen3.8-Flash-Next-oQ6e-mtp\",\"choices\":[{\"index\":0,\"delta\":{\"content\":\", overwhelming the legacy infrastructure. To prepare for\"}}]}"
+    },
+    {
+      "relative_ns": 2757594666,
+      "line": ""
+    },
+    {
+      "relative_ns": 2874472625,
+      "line": "data: {\"id\":\"chatcmpl-d12fb6fa\",\"object\":\"chat.completion.chunk\",\"created\":1791566689,\"model\":\"Qwen3.8-Flash-Next-oQ6e-mtp\",\"choices\":[{\"index\":0,\"delta\":{\"content\":\" heavy rain, Birch cannot rely on a single silver bullet. Instead, it\"}}]}"
+    },
+    {
+      "relative_ns": 2874480500,
+      "line": ""
+    },
+    {
+      "relative_ns": 2991935833,
+      "line": "data: {\"id\":\"chatcmpl-d12fb6fa\",\"object\":\"chat.completion.chunk\",\"created\":1791566690,\"model\":\"Qwen3.8-Flash-Next-oQ6e-mtp\",\"choices\":[{\"index\":0,\"delta\":{\"content\":\" must adopt a layered, resilient strategy that integrates traditional\"}}]}"
+    },
+    {
+      "relative_ns": 2991942375,
+      "line": ""
+    },
+    {
+      "relative_ns": 3110341333,
+      "line": "data: {\"id\":\"chatcmpl-d12fb6fa\",\"object\":\"chat.completion.chunk\",\"created\":1791566690,\"model\":\"Qwen3.8-Flash-Next-oQ6e-mtp\",\"choices\":[{\"index\":0,\"delta\":{\"content\":\" gray infrastructure like drains and reservoirs with green infrastructure like rain gardens, underp\"}}]}"
+    },
+    {
+      "relative_ns": 3110348833,
+      "line": ""
+    },
+    {
+      "relative_ns": 3226556500,
+      "line": "data: {\"id\":\"chatcmpl-d12fb6fa\",\"object\":\"chat.completion.chunk\",\"created\":1791566690,\"model\":\"Qwen3.8-Flash-Next-oQ6e-mtp\",\"choices\":[{\"index\":0,\"delta\":{\"content\":\"inned by rigorous maintenance and clear public communication. This approach treats\"}}]}"
+    },
+    {
+      "relative_ns": 3226566208,
+      "line": ""
+    },
+    {
+      "relative_ns": 3366584791,
+      "line": "data: {\"id\":\"chatcmpl-d12fb6fa\",\"object\":\"chat.completion.chunk\",\"created\":1791566690,\"model\":\"Qwen3.8-Flash-Next-oQ6e-mtp\",\"choices\":[{\"index\":0,\"delta\":{\"content\":\" the town’s water management not just as a plumbing problem\"}}]}"
+    },
+    {
+      "relative_ns": 3366593958,
+      "line": ""
+    },
+    {
+      "relative_ns": 3507214916,
+      "line": "data: {\"id\":\"chatcmpl-d12fb6fa\",\"object\":\"chat.completion.chunk\",\"created\":1791566690,\"model\":\"Qwen3.8-Flash-Next-oQ6e-mtp\",\"choices\":[{\"index\":0,\"delta\":{\"content\":\", but as a complex system requiring records, validation, measurement,\"}}]}"
+    },
+    {
+      "relative_ns": 3507224958,
+      "line": ""
+    },
+    {
+      "relative_ns": 3624720791,
+      "line": "data: {\"id\":\"chatcmpl-d12fb6fa\",\"object\":\"chat.completion.chunk\",\"created\":1791566690,\"model\":\"Qwen3.8-Flash-Next-oQ6e-mtp\",\"choices\":[{\"index\":0,\"delta\":{\"content\":\" and tradeoff analysis.\\n\\n## The First Line of Defense: Dr\"}}]}"
+    },
+    {
+      "relative_ns": 3624731041,
+      "line": ""
+    },
+    {
+      "relative_ns": 3740942583,
+      "line": "data: {\"id\":\"chatcmpl-d12fb6fa\",\"object\":\"chat.completion.chunk\",\"created\":1791566690,\"model\":\"Qwen3.8-Flash-Next-oQ6e-mtp\",\"choices\":[{\"index\":0,\"delta\":{\"content\":\"ains and Conveyance\\n\\nThe most visible component of Birch’s flood defense\"}}]}"
+    },
+    {
+      "relative_ns": 3740949833,
+      "line": ""
+    },
+    {
+      "relative_ns": 3878702541,
+      "line": "data: {\"id\":\"chatcmpl-d12fb6fa\",\"object\":\"chat.completion.chunk\",\"created\":1791566690,\"model\":\"Qwen3.8-Flash-Next-oQ6e-mtp\",\"choices\":[{\"index\":0,\"delta\":{\"content\":\" is its network of storm drains. These grates and pipes\"}}]}"
+    },
+    {
+      "relative_ns": 3878724208,
+      "line": ""
+    },
+    {
+      "relative_ns": 4019986291,
+      "line": "data: {\"id\":\"chatcmpl-d12fb6fa\",\"object\":\"chat.completion.chunk\",\"created\":1791566691,\"model\":\"Qwen3.8-Flash-Next-oQ6e-mtp\",\"choices\":[{\"index\":0,\"delta\":{\"content\":\" are the immediate interface between the built environment and the water cycle.\"}}]}"
+    },
+    {
+      "relative_ns": 4019994958,
+      "line": ""
+    },
+    {
+      "relative_ns": 4137986291,
+      "line": "data: {\"id\":\"chatcmpl-d12fb6fa\",\"object\":\"chat.completion.chunk\",\"created\":1791566691,\"model\":\"Qwen3.8-Flash-Next-oQ6e-mtp\",\"choices\":[{\"index\":0,\"delta\":{\"content\":\" In a heavy rain scenario, the efficiency of these drains determines whether a street\"}}]}"
+    },
+    {
+      "relative_ns": 4138018333,
+      "line": ""
+    },
+    {
+      "relative_ns": 4242681875,
+      "line": "data: {\"id\":\"chatcmpl-d12fb6fa\",\"object\":\"chat.completion.chunk\",\"created\":1791566691,\"model\":\"Qwen3.8-Flash-Next-oQ6e-mtp\",\"choices\":[{\"index\":0,\"delta\":{\"content\":\" becomes a river or remains passable.\\n\\nHowever,\"}}]}"
+    },
+    {
+      "relative_ns": 4242691916,
+      "line": ""
+    },
+    {
+      "relative_ns": 4359966291,
+      "line": "data: {\"id\":\"chatcmpl-d12fb6fa\",\"object\":\"chat.completion.chunk\",\"created\":1791566691,\"model\":\"Qwen3.8-Flash-Next-oQ6e-mtp\",\"choices\":[{\"index\":0,\"delta\":{\"content\":\" drains are only as good as their capacity and their cleanliness.\"}}]}"
+    },
+    {
+      "relative_ns": 4359973958,
+      "line": ""
+    },
+    {
+      "relative_ns": 4474512375,
+      "line": "data: {\"id\":\"chatcmpl-d12fb6fa\",\"object\":\"chat.completion.chunk\",\"created\":1791566691,\"model\":\"Qwen3.8-Flash-Next-oQ6e-mtp\",\"choices\":[{\"index\":0,\"delta\":{\"content\":\" Birch’s historic downtown features smaller,\"}}]}"
+    },
+    {
+      "relative_ns": 4474527750,
+      "line": ""
+    },
+    {
+      "relative_ns": 4590168000,
+      "line": "data: {\"id\":\"chatcmpl-d12fb6fa\",\"object\":\"chat.completion.chunk\",\"created\":1791566691,\"model\":\"Qwen3.8-Flash-Next-oQ6e-mtp\",\"choices\":[{\"index\":0,\"delta\":{\"content\":\" older pipes designed for lighter rainfall volumes\"}}]}"
+    },
+    {
+      "relative_ns": 4590177666,
+      "line": ""
+    },
+    {
+      "relative_ns": 4728425916,
+      "line": "data: {\"id\":\"chatcmpl-d12fb6fa\",\"object\":\"chat.completion.chunk\",\"created\":1791566691,\"model\":\"Qwen3.8-Flash-Next-oQ6e-mtp\",\"choices\":[{\"index\":0,\"delta\":{\"content\":\". Upgrading these pipes is prohibitively expensive and disruptive, requiring the tearing up\"}}]}"
+    },
+    {
+      "relative_ns": 4728434833,
+      "line": ""
+    },
+    {
+      "relative_ns": 4868271958,
+      "line": "data: {\"id\":\"chatcmpl-d12fb6fa\",\"object\":\"chat.completion.chunk\",\"created\":1791566691,\"model\":\"Qwen3.8-Flash-Next-oQ6e-mtp\",\"choices\":[{\"index\":0,\"delta\":{\"content\":\" of century-old cobblestones. The tradeoff here is between capital expenditure\"}}]}"
+    },
+    {
+      "relative_ns": 4868281666,
+      "line": ""
+    },
+    {
+      "relative_ns": 4985604333,
+      "line": "data: {\"id\":\"chatcmpl-d12fb6fa\",\"object\":\"chat.completion.chunk\",\"created\":1791566692,\"model\":\"Qwen3.8-Flash-Next-oQ6e-mtp\",\"choices\":[{\"index\":0,\"delta\":{\"content\":\" and operational efficiency. Rather than replacing every pipe, Birch can focus on \\\"spot\"}}]}"
+    },
+    {
+      "relative_ns": 4985613708,
+      "line": ""
+    },
+    {
+      "relative_ns": 5124313166,
+      "line": "data: {\"id\":\"chatcmpl-d12fb6fa\",\"object\":\"chat.completion.chunk\",\"created\":1791566692,\"model\":\"Qwen3.8-Flash-Next-oQ6e-mtp\",\"choices\":[{\"index\":0,\"delta\":{\"content\":\" hardening.\\\" This involves identifying the specific low\"}}]}"
+    },
+    {
+      "relative_ns": 5124321833,
+      "line": ""
+    },
+    {
+      "relative_ns": 5262906125,
+      "line": "data: {\"id\":\"chatcmpl-d12fb6fa\",\"object\":\"chat.completion.chunk\",\"created\":1791566692,\"model\":\"Qwen3.8-Flash-Next-oQ6e-mtp\",\"choices\":[{\"index\":0,\"delta\":{\"content\":\"-lying intersections that historically flood first and installing\"}}]}"
+    },
+    {
+      "relative_ns": 5262925500,
+      "line": ""
+    },
+    {
+      "relative_ns": 5398844458,
+      "line": "data: {\"id\":\"chatcmpl-d12fb6fa\",\"object\":\"chat.completion.chunk\",\"created\":1791566692,\"model\":\"Qwen3.8-Flash-Next-oQ6e-mtp\",\"choices\":[{\"index\":0,\"delta\":{\"content\":\" high-capacity catch basins with debris racks\"}}]}"
+    },
+    {
+      "relative_ns": 5398852291,
+      "line": ""
+    },
+    {
+      "relative_ns": 5540180041,
+      "line": "data: {\"id\":\"chatcmpl-d12fb6fa\",\"object\":\"chat.completion.chunk\",\"created\":1791566692,\"model\":\"Qwen3.8-Flash-Next-oQ6e-mtp\",\"choices\":[{\"index\":0,\"delta\":{\"content\":\".\\n\\nFor example, consider the intersection of Main Street\"}}]}"
+    },
+    {
+      "relative_ns": 5540190166,
+      "line": ""
+    },
+    {
+      "relative_ns": 5656434500,
+      "line": "data: {\"id\":\"chatcmpl-d12fb6fa\",\"object\":\"chat.completion.chunk\",\"created\":1791566692,\"model\":\"Qwen3.8-Flash-Next-oQ6e-mtp\",\"choices\":[{\"index\":0,\"delta\":{\"content\":\" and Oak Avenue. During a two-inch-per-hour\"}}]}"
+    },
+    {
+      "relative_ns": 5656444375,
+      "line": ""
+    },
+    {
+      "relative_ns": 5769693416,
+      "line": "data: {\"id\":\"chatcmpl-d12fb6fa\",\"object\":\"chat.completion.chunk\",\"created\":1791566692,\"model\":\"Qwen3.8-Flash-Next-oQ6e-mtp\",\"choices\":[{\"index\":0,\"delta\":{\"content\":\" rain event, this intersection typically accumulates six inches\"}}]}"
+    },
+    {
+      "relative_ns": 5769702083,
+      "line": ""
+    },
+    {
+      "relative_ns": 5886541250,
+      "line": "data: {\"id\":\"chatcmpl-d12fb6fa\",\"object\":\"chat.completion.chunk\",\"created\":1791566692,\"model\":\"Qwen3.8-Flash-Next-oQ6e-mtp\",\"choices\":[{\"index\":0,\"delta\":{\"content\":\" of water, stalling cars and flooding basements\"}}]}"
+    },
+    {
+      "relative_ns": 5886551166,
+      "line": ""
+    },
+    {
+      "relative_ns": 6000746666,
+      "line": "data: {\"id\":\"chatcmpl-d12fb6fa\",\"object\":\"chat.completion.chunk\",\"created\":1791566693,\"model\":\"Qwen3.8-Flash-Next-oQ6e-mtp\",\"choices\":[{\"index\":0,\"delta\":{\"content\":\". By installing a deeper catch basin with a larger outlet pipe\"}}]}"
+    },
+    {
+      "relative_ns": 6000756875,
+      "line": ""
+    },
+    {
+      "relative_ns": 6116977750,
+      "line": "data: {\"id\":\"chatcmpl-d12fb6fa\",\"object\":\"chat.completion.chunk\",\"created\":1791566693,\"model\":\"Qwen3.8-Flash-Next-oQ6e-mtp\",\"choices\":[{\"index\":0,\"delta\":{\"content\":\" that connects to a nearby oversized trunk line\"}}]}"
+    },
+    {
+      "relative_ns": 6116986916,
+      "line": ""
+    },
+    {
+      "relative_ns": 6233626291,
+      "line": "data: {\"id\":\"chatcmpl-d12fb6fa\",\"object\":\"chat.completion.chunk\",\"created\":1791566693,\"model\":\"Qwen3.8-Flash-Next-oQ6e-mtp\",\"choices\":[{\"index\":0,\"delta\":{\"content\":\", the town can increase the local drainage rate. The tradeoff is the cost\"}}]}"
+    },
+    {
+      "relative_ns": 6233636250,
+      "line": ""
+    },
+    {
+      "relative_ns": 6348583666,
+      "line": "data: {\"id\":\"chatcmpl-d12fb6fa\",\"object\":\"chat.completion.chunk\",\"created\":1791566693,\"model\":\"Qwen3.8-Flash-Next-oQ6e-mtp\",\"choices\":[{\"index\":0,\"delta\":{\"content\":\" of excavation and the potential for the increased flow\"}}]}"
+    },
+    {
+      "relative_ns": 6348592666,
+      "line": ""
+    },
+    {
+      "relative_ns": 6489500708,
+      "line": "data: {\"id\":\"chatcmpl-d12fb6fa\",\"object\":\"chat.completion.chunk\",\"created\":1791566693,\"model\":\"Qwen3.8-Flash-Next-oQ6e-mtp\",\"choices\":[{\"index\":0,\"delta\":{\"content\":\" to overwhelm downstream areas if the trunk line is not also upgraded\"}}]}"
+    },
+    {
+      "relative_ns": 6489507458,
+      "line": ""
+    },
+    {
+      "relative_ns": 6628248708,
+      "line": "data: {\"id\":\"chatcmpl-d12fb6fa\",\"object\":\"chat.completion.chunk\",\"created\":1791566693,\"model\":\"Qwen3.8-Flash-Next-oQ6e-mtp\",\"choices\":[{\"index\":0,\"delta\":{\"content\":\". This highlights the need for hydraulic modeling: you cannot\"}}]}"
+    },
+    {
+      "relative_ns": 6628258000,
+      "line": ""
+    },
+    {
+      "relative_ns": 6743763125,
+      "line": "data: {\"id\":\"chatcmpl-d12fb6fa\",\"object\":\"chat.completion.chunk\",\"created\":1791566693,\"model\":\"Qwen3.8-Flash-Next-oQ6e-mtp\",\"choices\":[{\"index\":0,\"delta\":{\"content\":\" fix a local bottleneck without understanding the global system\"}}]}"
+    },
+    {
+      "relative_ns": 6743771750,
+      "line": ""
+    },
+    {
+      "relative_ns": 6860593833,
+      "line": "data: {\"id\":\"chatcmpl-d12fb6fa\",\"object\":\"chat.completion.chunk\",\"created\":1791566693,\"model\":\"Qwen3.8-Flash-Next-oQ6e-mtp\",\"choices\":[{\"index\":0,\"delta\":{\"content\":\" capacity.\\n\\nFurthermore, drains require constant validation. A drain\"}}]}"
+    },
+    {
+      "relative_ns": 6860602333,
+      "line": ""
+    },
+    {
+      "relative_ns": 6977593000,
+      "line": "data: {\"id\":\"chatcmpl-d12fb6fa\",\"object\":\"chat.completion.chunk\",\"created\":1791566693,\"model\":\"Qwen3.8-Flash-Next-oQ6e-mtp\",\"choices\":[{\"index\":0,\"delta\":{\"content\":\" that is 50% clogged with autumn leaves is effectively half the\"}}]}"
+    },
+    {
+      "relative_ns": 6977602125,
+      "line": ""
+    },
+    {
+      "relative_ns": 7096901208,
+      "line": "data: {\"id\":\"chatcmpl-d12fb6fa\",\"object\":\"chat.completion.chunk\",\"created\":1791566694,\"model\":\"Qwen3.8-Flash-Next-oQ6e-mtp\",\"choices\":[{\"index\":0,\"delta\":{\"content\":\" size it was designed to be. This leads to\"}}]}"
+    },
+    {
+      "relative_ns": 7096907458,
+      "line": ""
+    },
+    {
+      "relative_ns": 7212386875,
+      "line": "data: {\"id\":\"chatcmpl-d12fb6fa\",\"object\":\"chat.completion.chunk\",\"created\":1791566694,\"model\":\"Qwen3.8-Flash-Next-oQ6e-mtp\",\"choices\":[{\"index\":0,\"delta\":{\"content\":\" the critical role of maintenance.\\n\\n## Maintenance: The\"}}]}"
+    },
+    {
+      "relative_ns": 7212395000,
+      "line": ""
+    },
+    {
+      "relative_ns": 7327548958,
+      "line": "data: {\"id\":\"chatcmpl-d12fb6fa\",\"object\":\"chat.completion.chunk\",\"created\":1791566694,\"model\":\"Qwen3.8-Flash-Next-oQ6e-mtp\",\"choices\":[{\"index\":0,\"delta\":{\"content\":\" Invisible Infrastructure\\n\\nMaintenance is often the first budget item cut\"}}]}"
+    },
+    {
+      "relative_ns": 7327558541,
+      "line": ""
+    },
+    {
+      "relative_ns": 7468753250,
+      "line": "data: {\"id\":\"chatcmpl-d12fb6fa\",\"object\":\"chat.completion.chunk\",\"created\":1791566694,\"model\":\"Qwen3.8-Flash-Next-oQ6e-mtp\",\"choices\":[{\"index\":0,\"delta\":{\"content\":\" and the last thing restored, yet it is the backbone of reliability. In the context\"}}]}"
+    },
+    {
+      "relative_ns": 7468761833,
+      "line": ""
+    },
+    {
+      "relative_ns": 7585266000,
+      "line": "data: {\"id\":\"chatcmpl-d12fb6fa\",\"object\":\"chat.completion.chunk\",\"created\":1791566694,\"model\":\"Qwen3.8-Flash-Next-oQ6e-mtp\",\"choices\":[{\"index\":0,\"delta\":{\"content\":\" of Birch’s stormwater system, maintenance is about keeping the\"}}]}"
+    },
+    {
+      "relative_ns": 7585274291,
+      "line": ""
+    },
+    {
+      "relative_ns": 7701572416,
+      "line": "data: {\"id\":\"chatcmpl-d12fb6fa\",\"object\":\"chat.completion.chunk\",\"created\":1791566694,\"model\":\"Qwen3.8-Flash-Next-oQ6e-mtp\",\"choices\":[{\"index\":0,\"delta\":{\"content\":\" \\\"latency\\\" of the system low—ensuring\"}}]}"
+    },
+    {
+      "relative_ns": 7701581916,
+      "line": ""
+    },
+    {
+      "relative_ns": 7817028541,
+      "line": "data: {\"id\":\"chatcmpl-d12fb6fa\",\"object\":\"chat.completion.chunk\",\"created\":1791566694,\"model\":\"Qwen3.8-Flash-Next-oQ6e-mtp\",\"choices\":[{\"index\":0,\"delta\":{\"content\":\" that water moves through the pipes at the speed they were engineered to\"}}]}"
+    },
+    {
+      "relative_ns": 7817037250,
+      "line": ""
+    },
+    {
+      "relative_ns": 7936075375,
+      "line": "data: {\"id\":\"chatcmpl-d12fb6fa\",\"object\":\"chat.completion.chunk\",\"created\":1791566694,\"model\":\"Qwen3.8-Flash-Next-oQ6e-mtp\",\"choices\":[{\"index\":0,\"delta\":{\"content\":\" handle.\\n\\nA robust maintenance program requires detailed records. Birch must maintain a Geographic Information\"}}]}"
+    },
+    {
+      "relative_ns": 7936086833,
+      "line": ""
+    },
+    {
+      "relative_ns": 8052387916,
+      "line": "data: {\"id\":\"chatcmpl-d12fb6fa\",\"object\":\"chat.completion.chunk\",\"created\":1791566695,\"model\":\"Qwen3.8-Flash-Next-oQ6e-mtp\",\"choices\":[{\"index\":0,\"delta\":{\"content\":\" System (GIS) map of every drain, pipe, and outfall\"}}]}"
+    },
+    {
+      "relative_ns": 8052396833,
+      "line": ""
+    },
+    {
+      "relative_ns": 8085654625,
+      "line": "data: {\"id\":\"chatcmpl-d12fb6fa\",\"object\":\"chat.completion.chunk\",\"created\":1791566695,\"model\":\"Qwen3.8-Flash-Next-oQ6e-mtp\",\"choices\":[{\"index\":0,\"delta\":{\"content\":\". Each asset needs\"}}]}"
+    },
+    {
+      "relative_ns": 8085685041,
+      "line": ""
+    },
+    {
+      "relative_ns": 8085813708,
+      "line": "data: {\"id\":\"chatcmpl-d12fb6fa\",\"object\":\"chat.completion.chunk\",\"created\":1791566695,\"model\":\"Qwen3.8-Flash-Next-oQ6e-mtp\",\"choices\":[{\"index\":0,\"delta\":{},\"finish_reason\":\"length\"}]}"
+    },
+    {
+      "relative_ns": 8085817416,
+      "line": ""
+    },
+    {
+      "relative_ns": 8086069875,
+      "line": "data: {\"id\":\"chatcmpl-d12fb6fa\",\"object\":\"chat.completion.chunk\",\"created\":1791566695,\"model\":\"Qwen3.8-Flash-Next-oQ6e-mtp\",\"choices\":[],\"usage\":{\"prompt_tokens\":5026,\"completion_tokens\":640,\"total_tokens\":5666,\"input_tokens\":5026,\"output_tokens\":640,\"prompt_tokens_details\":{\"cached_tokens\":0},\"time_to_first_token\":1.49,\"time_to_first_visible_token\":1.49,\"total_time\":8.08,\"prompt_eval_duration\":1.49,\"generation_duration\":6.59,\"prompt_tokens_per_second\":3384.12,\"generation_tokens_per_second\":97.12}}"
+    },
+    {
+      "relative_ns": 8086072333,
+      "line": ""
+    },
+    {
+      "relative_ns": 8086199625,
+      "line": "data: [DONE]"
+    },
+    {
+      "relative_ns": 8086201250,
+      "line": ""
+    }
+  ],
+  "sse_frames": [
+    {
+      "id": "chatcmpl-d12fb6fa",
+      "object": "chat.completion.chunk",
+      "created": 0,
+      "model": "keepalive",
+      "choices": [
+        {
+          "index": 0,
+          "delta": {
+            "role": "assistant",
+            "content": ""
+          },
+          "finish_reason": null
+        }
+      ]
+    },
+    {
+      "id": "chatcmpl-d12fb6fa",
+      "object": "chat.completion.chunk",
+      "created": 1791566687,
+      "model": "Qwen3.8-Flash-Next-oQ6e-mtp",
+      "choices": [
+        {
+          "index": 0,
+          "delta": {
+            "role": "assistant"
+          }
+        }
+      ]
+    },
+    {
+      "id": "chatcmpl-d12fb6fa",
+      "object": "chat.completion.chunk",
+      "created": 1791566688,
+      "model": "Qwen3.8-Flash-Next-oQ6e-mtp",
+      "choices": [
+        {
+          "index": 0,
+          "delta": {
+            "content": "#"
+          }
+        }
+      ]
+    },
+    {
+      "id": "chatcmpl-d12fb6fa",
+      "object": "chat.completion.chunk",
+      "created": 1791566688,
+      "model": "Qwen3.8-Flash-Next-oQ6e-mtp",
+      "choices": [
+        {
+          "index": 0,
+          "delta": {
+            "content": " Preparing Birch for the Deluge"
+          }
+        }
+      ]
+    },
+    {
+      "id": "chatcmpl-d12fb6fa",
+      "object": "chat.completion.chunk",
+      "created": 1791566688,
+      "model": "Qwen3.8-Flash-Next-oQ6e-mtp",
+      "choices": [
+        {
+          "index": 0,
+          "delta": {
+            "content": ": A Systems Approach to Urban Stormwater\n\nBirch is a fictional town nestled in"
+          }
+        }
+      ]
+    },
+    {
+      "id": "chatcmpl-d12fb6fa",
+      "object": "chat.completion.chunk",
+      "created": 1791566688,
+      "model": "Qwen3.8-Flash-Next-oQ6e-mtp",
+      "choices": [
+        {
+          "index": 0,
+          "delta": {
+            "content": " a river valley, characterized by a mix of historic downtown architecture,"
+          }
+        }
+      ]
+    },
+    {
+      "id": "chatcmpl-d12fb6fa",
+      "object": "chat.completion.chunk",
+      "created": 1791566688,
+      "model": "Qwen3.8-Flash-Next-oQ6e-mtp",
+      "choices": [
+        {
+          "index": 0,
+          "delta": {
+            "content": " sprawling suburban neighborhoods, and light industrial zones on its"
+          }
+        }
+      ]
+    },
+    {
+      "id": "chatcmpl-d12fb6fa",
+      "object": "chat.completion.chunk",
+      "created": 1791566689,
+      "model": "Qwen3.8-Flash-Next-oQ6e-mtp",
+      "choices": [
+        {
+          "index": 0,
+          "delta": {
+            "content": " periphery. Like many towns of its size and vintage"
+          }
+        }
+      ]
+    },
+    {
+      "id": "chatcmpl-d12fb6fa",
+      "object": "chat.completion.chunk",
+      "created": 1791566689,
+      "model": "Qwen3.8-Flash-Next-oQ6e-mtp",
+      "choices": [
+        {
+          "index": 0,
+          "delta": {
+            "content": ", Birch was built during an era when the primary goal of stormwater management"
+          }
+        }
+      ]
+    },
+    {
+      "id": "chatcmpl-d12fb6fa",
+      "object": "chat.completion.chunk",
+      "created": 1791566689,
+      "model": "Qwen3.8-Flash-Next-oQ6e-mtp",
+      "choices": [
+        {
+          "index": 0,
+          "delta": {
+            "content": " was speed: get the water off the streets and into the nearest creek"
+          }
+        }
+      ]
+    },
+    {
+      "id": "chatcmpl-d12fb6fa",
+      "object": "chat.completion.chunk",
+      "created": 1791566689,
+      "model": "Qwen3.8-Flash-Next-oQ6e-mtp",
+      "choices": [
+        {
+          "index": 0,
+          "delta": {
+            "content": " as quickly as possible. However, climate patterns are"
+          }
+        }
+      ]
+    },
+    {
+      "id": "chatcmpl-d12fb6fa",
+      "object": "chat.completion.chunk",
+      "created": 1791566689,
+      "model": "Qwen3.8-Flash-Next-oQ6e-mtp",
+      "choices": [
+        {
+          "index": 0,
+          "delta": {
+            "content": " shifting. Rainfall events are becoming more intense and frequent"
+          }
+        }
+      ]
+    },
+    {
+      "id": "chatcmpl-d12fb6fa",
+      "object": "chat.completion.chunk",
+      "created": 1791566689,
+      "model": "Qwen3.8-Flash-Next-oQ6e-mtp",
+      "choices": [
+        {
+          "index": 0,
+          "delta": {
+            "content": ", overwhelming the legacy infrastructure. To prepare for"
+          }
+        }
+      ]
+    },
+    {
+      "id": "chatcmpl-d12fb6fa",
+      "object": "chat.completion.chunk",
+      "created": 1791566689,
+      "model": "Qwen3.8-Flash-Next-oQ6e-mtp",
+      "choices": [
+        {
+          "index": 0,
+          "delta": {
+            "content": " heavy rain, Birch cannot rely on a single silver bullet. Instead, it"
+          }
+        }
+      ]
+    },
+    {
+      "id": "chatcmpl-d12fb6fa",
+      "object": "chat.completion.chunk",
+      "created": 1791566690,
+      "model": "Qwen3.8-Flash-Next-oQ6e-mtp",
+      "choices": [
+        {
+          "index": 0,
+          "delta": {
+            "content": " must adopt a layered, resilient strategy that integrates traditional"
+          }
+        }
+      ]
+    },
+    {
+      "id": "chatcmpl-d12fb6fa",
+      "object": "chat.completion.chunk",
+      "created": 1791566690,
+      "model": "Qwen3.8-Flash-Next-oQ6e-mtp",
+      "choices": [
+        {
+          "index": 0,
+          "delta": {
+            "content": " gray infrastructure like drains and reservoirs with green infrastructure like rain gardens, underp"
+          }
+        }
+      ]
+    },
+    {
+      "id": "chatcmpl-d12fb6fa",
+      "object": "chat.completion.chunk",
+      "created": 1791566690,
+      "model": "Qwen3.8-Flash-Next-oQ6e-mtp",
+      "choices": [
+        {
+          "index": 0,
+          "delta": {
+            "content": "inned by rigorous maintenance and clear public communication. This approach treats"
+          }
+        }
+      ]
+    },
+    {
+      "id": "chatcmpl-d12fb6fa",
+      "object": "chat.completion.chunk",
+      "created": 1791566690,
+      "model": "Qwen3.8-Flash-Next-oQ6e-mtp",
+      "choices": [
+        {
+          "index": 0,
+          "delta": {
+            "content": " the town’s water management not just as a plumbing problem"
+          }
+        }
+      ]
+    },
+    {
+      "id": "chatcmpl-d12fb6fa",
+      "object": "chat.completion.chunk",
+      "created": 1791566690,
+      "model": "Qwen3.8-Flash-Next-oQ6e-mtp",
+      "choices": [
+        {
+          "index": 0,
+          "delta": {
+            "content": ", but as a complex system requiring records, validation, measurement,"
+          }
+        }
+      ]
+    },
+    {
+      "id": "chatcmpl-d12fb6fa",
+      "object": "chat.completion.chunk",
+      "created": 1791566690,
+      "model": "Qwen3.8-Flash-Next-oQ6e-mtp",
+      "choices": [
+        {
+          "index": 0,
+          "delta": {
+            "content": " and tradeoff analysis.\n\n## The First Line of Defense: Dr"
+          }
+        }
+      ]
+    },
+    {
+      "id": "chatcmpl-d12fb6fa",
+      "object": "chat.completion.chunk",
+      "created": 1791566690,
+      "model": "Qwen3.8-Flash-Next-oQ6e-mtp",
+      "choices": [
+        {
+          "index": 0,
+          "delta": {
+            "content": "ains and Conveyance\n\nThe most visible component of Birch’s flood defense"
+          }
+        }
+      ]
+    },
+    {
+      "id": "chatcmpl-d12fb6fa",
+      "object": "chat.completion.chunk",
+      "created": 1791566690,
+      "model": "Qwen3.8-Flash-Next-oQ6e-mtp",
+      "choices": [
+        {
+          "index": 0,
+          "delta": {
+            "content": " is its network of storm drains. These grates and pipes"
+          }
+        }
+      ]
+    },
+    {
+      "id": "chatcmpl-d12fb6fa",
+      "object": "chat.completion.chunk",
+      "created": 1791566691,
+      "model": "Qwen3.8-Flash-Next-oQ6e-mtp",
+      "choices": [
+        {
+          "index": 0,
+          "delta": {
+            "content": " are the immediate interface between the built environment and the water cycle."
+          }
+        }
+      ]
+    },
+    {
+      "id": "chatcmpl-d12fb6fa",
+      "object": "chat.completion.chunk",
+      "created": 1791566691,
+      "model": "Qwen3.8-Flash-Next-oQ6e-mtp",
+      "choices": [
+        {
+          "index": 0,
+          "delta": {
+            "content": " In a heavy rain scenario, the efficiency of these drains determines whether a street"
+          }
+        }
+      ]
+    },
+    {
+      "id": "chatcmpl-d12fb6fa",
+      "object": "chat.completion.chunk",
+      "created": 1791566691,
+      "model": "Qwen3.8-Flash-Next-oQ6e-mtp",
+      "choices": [
+        {
+          "index": 0,
+          "delta": {
+            "content": " becomes a river or remains passable.\n\nHowever,"
+          }
+        }
+      ]
+    },
+    {
+      "id": "chatcmpl-d12fb6fa",
+      "object": "chat.completion.chunk",
+      "created": 1791566691,
+      "model": "Qwen3.8-Flash-Next-oQ6e-mtp",
+      "choices": [
+        {
+          "index": 0,
+          "delta": {
+            "content": " drains are only as good as their capacity and their cleanliness."
+          }
+        }
+      ]
+    },
+    {
+      "id": "chatcmpl-d12fb6fa",
+      "object": "chat.completion.chunk",
+      "created": 1791566691,
+      "model": "Qwen3.8-Flash-Next-oQ6e-mtp",
+      "choices": [
+        {
+          "index": 0,
+          "delta": {
+            "content": " Birch’s historic downtown features smaller,"
+          }
+        }
+      ]
+    },
+    {
+      "id": "chatcmpl-d12fb6fa",
+      "object": "chat.completion.chunk",
+      "created": 1791566691,
+      "model": "Qwen3.8-Flash-Next-oQ6e-mtp",
+      "choices": [
+        {
+          "index": 0,
+          "delta": {
+            "content": " older pipes designed for lighter rainfall volumes"
+          }
+        }
+      ]
+    },
+    {
+      "id": "chatcmpl-d12fb6fa",
+      "object": "chat.completion.chunk",
+      "created": 1791566691,
+      "model": "Qwen3.8-Flash-Next-oQ6e-mtp",
+      "choices": [
+        {
+          "index": 0,
+          "delta": {
+            "content": ". Upgrading these pipes is prohibitively expensive and disruptive, requiring the tearing up"
+          }
+        }
+      ]
+    },
+    {
+      "id": "chatcmpl-d12fb6fa",
+      "object": "chat.completion.chunk",
+      "created": 1791566691,
+      "model": "Qwen3.8-Flash-Next-oQ6e-mtp",
+      "choices": [
+        {
+          "index": 0,
+          "delta": {
+            "content": " of century-old cobblestones. The tradeoff here is between capital expenditure"
+          }
+        }
+      ]
+    },
+    {
+      "id": "chatcmpl-d12fb6fa",
+      "object": "chat.completion.chunk",
+      "created": 1791566692,
+      "model": "Qwen3.8-Flash-Next-oQ6e-mtp",
+      "choices": [
+        {
+          "index": 0,
+          "delta": {
+            "content": " and operational efficiency. Rather than replacing every pipe, Birch can focus on \"spot"
+          }
+        }
+      ]
+    },
+    {
+      "id": "chatcmpl-d12fb6fa",
+      "object": "chat.completion.chunk",
+      "created": 1791566692,
+      "model": "Qwen3.8-Flash-Next-oQ6e-mtp",
+      "choices": [
+        {
+          "index": 0,
+          "delta": {
+            "content": " hardening.\" This involves identifying the specific low"
+          }
+        }
+      ]
+    },
+    {
+      "id": "chatcmpl-d12fb6fa",
+      "object": "chat.completion.chunk",
+      "created": 1791566692,
+      "model": "Qwen3.8-Flash-Next-oQ6e-mtp",
+      "choices": [
+        {
+          "index": 0,
+          "delta": {
+            "content": "-lying intersections that historically flood first and installing"
+          }
+        }
+      ]
+    },
+    {
+      "id": "chatcmpl-d12fb6fa",
+      "object": "chat.completion.chunk",
+      "created": 1791566692,
+      "model": "Qwen3.8-Flash-Next-oQ6e-mtp",
+      "choices": [
+        {
+          "index": 0,
+          "delta": {
+            "content": " high-capacity catch basins with debris racks"
+          }
+        }
+      ]
+    },
+    {
+      "id": "chatcmpl-d12fb6fa",
+      "object": "chat.completion.chunk",
+      "created": 1791566692,
+      "model": "Qwen3.8-Flash-Next-oQ6e-mtp",
+      "choices": [
+        {
+          "index": 0,
+          "delta": {
+            "content": ".\n\nFor example, consider the intersection of Main Street"
+          }
+        }
+      ]
+    },
+    {
+      "id": "chatcmpl-d12fb6fa",
+      "object": "chat.completion.chunk",
+      "created": 1791566692,
+      "model": "Qwen3.8-Flash-Next-oQ6e-mtp",
+      "choices": [
+        {
+          "index": 0,
+          "delta": {
+            "content": " and Oak Avenue. During a two-inch-per-hour"
+          }
+        }
+      ]
+    },
+    {
+      "id": "chatcmpl-d12fb6fa",
+      "object": "chat.completion.chunk",
+      "created": 1791566692,
+      "model": "Qwen3.8-Flash-Next-oQ6e-mtp",
+      "choices": [
+        {
+          "index": 0,
+          "delta": {
+            "content": " rain event, this intersection typically accumulates six inches"
+          }
+        }
+      ]
+    },
+    {
+      "id": "chatcmpl-d12fb6fa",
+      "object": "chat.completion.chunk",
+      "created": 1791566692,
+      "model": "Qwen3.8-Flash-Next-oQ6e-mtp",
+      "choices": [
+        {
+          "index": 0,
+          "delta": {
+            "content": " of water, stalling cars and flooding basements"
+          }
+        }
+      ]
+    },
+    {
+      "id": "chatcmpl-d12fb6fa",
+      "object": "chat.completion.chunk",
+      "created": 1791566693,
+      "model": "Qwen3.8-Flash-Next-oQ6e-mtp",
+      "choices": [
+        {
+          "index": 0,
+          "delta": {
+            "content": ". By installing a deeper catch basin with a larger outlet pipe"
+          }
+        }
+      ]
+    },
+    {
+      "id": "chatcmpl-d12fb6fa",
+      "object": "chat.completion.chunk",
+      "created": 1791566693,
+      "model": "Qwen3.8-Flash-Next-oQ6e-mtp",
+      "choices": [
+        {
+          "index": 0,
+          "delta": {
+            "content": " that connects to a nearby oversized trunk line"
+          }
+        }
+      ]
+    },
+    {
+      "id": "chatcmpl-d12fb6fa",
+      "object": "chat.completion.chunk",
+      "created": 1791566693,
+      "model": "Qwen3.8-Flash-Next-oQ6e-mtp",
+      "choices": [
+        {
+          "index": 0,
+          "delta": {
+            "content": ", the town can increase the local drainage rate. The tradeoff is the cost"
+          }
+        }
+      ]
+    },
+    {
+      "id": "chatcmpl-d12fb6fa",
+      "object": "chat.completion.chunk",
+      "created": 1791566693,
+      "model": "Qwen3.8-Flash-Next-oQ6e-mtp",
+      "choices": [
+        {
+          "index": 0,
+          "delta": {
+            "content": " of excavation and the potential for the increased flow"
+          }
+        }
+      ]
+    },
+    {
+      "id": "chatcmpl-d12fb6fa",
+      "object": "chat.completion.chunk",
+      "created": 1791566693,
+      "model": "Qwen3.8-Flash-Next-oQ6e-mtp",
+      "choices": [
+        {
+          "index": 0,
+          "delta": {
+            "content": " to overwhelm downstream areas if the trunk line is not also upgraded"
+          }
+        }
+      ]
+    },
+    {
+      "id": "chatcmpl-d12fb6fa",
+      "object": "chat.completion.chunk",
+      "created": 1791566693,
+      "model": "Qwen3.8-Flash-Next-oQ6e-mtp",
+      "choices": [
+        {
+          "index": 0,
+          "delta": {
+            "content": ". This highlights the need for hydraulic modeling: you cannot"
+          }
+        }
+      ]
+    },
+    {
+      "id": "chatcmpl-d12fb6fa",
+      "object": "chat.completion.chunk",
+      "created": 1791566693,
+      "model": "Qwen3.8-Flash-Next-oQ6e-mtp",
+      "choices": [
+        {
+          "index": 0,
+          "delta": {
+            "content": " fix a local bottleneck without understanding the global system"
+          }
+        }
+      ]
+    },
+    {
+      "id": "chatcmpl-d12fb6fa",
+      "object": "chat.completion.chunk",
+      "created": 1791566693,
+      "model": "Qwen3.8-Flash-Next-oQ6e-mtp",
+      "choices": [
+        {
+          "index": 0,
+          "delta": {
+            "content": " capacity.\n\nFurthermore, drains require constant validation. A drain"
+          }
+        }
+      ]
+    },
+    {
+      "id": "chatcmpl-d12fb6fa",
+      "object": "chat.completion.chunk",
+      "created": 1791566693,
+      "model": "Qwen3.8-Flash-Next-oQ6e-mtp",
+      "choices": [
+        {
+          "index": 0,
+          "delta": {
+            "content": " that is 50% clogged with autumn leaves is effectively half the"
+          }
+        }
+      ]
+    },
+    {
+      "id": "chatcmpl-d12fb6fa",
+      "object": "chat.completion.chunk",
+      "created": 1791566694,
+      "model": "Qwen3.8-Flash-Next-oQ6e-mtp",
+      "choices": [
+        {
+          "index": 0,
+          "delta": {
+            "content": " size it was designed to be. This leads to"
+          }
+        }
+      ]
+    },
+    {
+      "id": "chatcmpl-d12fb6fa",
+      "object": "chat.completion.chunk",
+      "created": 1791566694,
+      "model": "Qwen3.8-Flash-Next-oQ6e-mtp",
+      "choices": [
+        {
+          "index": 0,
+          "delta": {
+            "content": " the critical role of maintenance.\n\n## Maintenance: The"
+          }
+        }
+      ]
+    },
+    {
+      "id": "chatcmpl-d12fb6fa",
+      "object": "chat.completion.chunk",
+      "created": 1791566694,
+      "model": "Qwen3.8-Flash-Next-oQ6e-mtp",
+      "choices": [
+        {
+          "index": 0,
+          "delta": {
+            "content": " Invisible Infrastructure\n\nMaintenance is often the first budget item cut"
+          }
+        }
+      ]
+    },
+    {
+      "id": "chatcmpl-d12fb6fa",
+      "object": "chat.completion.chunk",
+      "created": 1791566694,
+      "model": "Qwen3.8-Flash-Next-oQ6e-mtp",
+      "choices": [
+        {
+          "index": 0,
+          "delta": {
+            "content": " and the last thing restored, yet it is the backbone of reliability. In the context"
+          }
+        }
+      ]
+    },
+    {
+      "id": "chatcmpl-d12fb6fa",
+      "object": "chat.completion.chunk",
+      "created": 1791566694,
+      "model": "Qwen3.8-Flash-Next-oQ6e-mtp",
+      "choices": [
+        {
+          "index": 0,
+          "delta": {
+            "content": " of Birch’s stormwater system, maintenance is about keeping the"
+          }
+        }
+      ]
+    },
+    {
+      "id": "chatcmpl-d12fb6fa",
+      "object": "chat.completion.chunk",
+      "created": 1791566694,
+      "model": "Qwen3.8-Flash-Next-oQ6e-mtp",
+      "choices": [
+        {
+          "index": 0,
+          "delta": {
+            "content": " \"latency\" of the system low—ensuring"
+          }
+        }
+      ]
+    },
+    {
+      "id": "chatcmpl-d12fb6fa",
+      "object": "chat.completion.chunk",
+      "created": 1791566694,
+      "model": "Qwen3.8-Flash-Next-oQ6e-mtp",
+      "choices": [
+        {
+          "index": 0,
+          "delta": {
+            "content": " that water moves through the pipes at the speed they were engineered to"
+          }
+        }
+      ]
+    },
+    {
+      "id": "chatcmpl-d12fb6fa",
+      "object": "chat.completion.chunk",
+      "created": 1791566694,
+      "model": "Qwen3.8-Flash-Next-oQ6e-mtp",
+      "choices": [
+        {
+          "index": 0,
+          "delta": {
+            "content": " handle.\n\nA robust maintenance program requires detailed records. Birch must maintain a Geographic Information"
+          }
+        }
+      ]
+    },
+    {
+      "id": "chatcmpl-d12fb6fa",
+      "object": "chat.completion.chunk",
+      "created": 1791566695,
+      "model": "Qwen3.8-Flash-Next-oQ6e-mtp",
+      "choices": [
+        {
+          "index": 0,
+          "delta": {
+            "content": " System (GIS) map of every drain, pipe, and outfall"
+          }
+        }
+      ]
+    },
+    {
+      "id": "chatcmpl-d12fb6fa",
+      "object": "chat.completion.chunk",
+      "created": 1791566695,
+      "model": "Qwen3.8-Flash-Next-oQ6e-mtp",
+      "choices": [
+        {
+          "index": 0,
+          "delta": {
+            "content": ". Each asset needs"
+          }
+        }
+      ]
+    },
+    {
+      "id": "chatcmpl-d12fb6fa",
+      "object": "chat.completion.chunk",
+      "created": 1791566695,
+      "model": "Qwen3.8-Flash-Next-oQ6e-mtp",
+      "choices": [
+        {
+          "index": 0,
+          "delta": {},
+          "finish_reason": "length"
+        }
+      ]
+    },
+    {
+      "id": "chatcmpl-d12fb6fa",
+      "object": "chat.completion.chunk",
+      "created": 1791566695,
+      "model": "Qwen3.8-Flash-Next-oQ6e-mtp",
+      "choices": [],
+      "usage": {
+        "prompt_tokens": 5026,
+        "completion_tokens": 640,
+        "total_tokens": 5666,
+        "input_tokens": 5026,
+        "output_tokens": 640,
+        "prompt_tokens_details": {
+          "cached_tokens": 0
+        },
+        "time_to_first_token": 1.49,
+        "time_to_first_visible_token": 1.49,
+        "total_time": 8.08,
+        "prompt_eval_duration": 1.49,
+        "generation_duration": 6.59,
+        "prompt_tokens_per_second": 3384.12,
+        "generation_tokens_per_second": 97.12
+      }
+    }
+  ]
+}

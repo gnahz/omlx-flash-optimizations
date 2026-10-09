@@ -1,0 +1,1346 @@
+{
+  "text": "# Preparing Riverton for Heavy Rain: A Systems Approach to Flood Resilience\n\nThe fictional town of Riverton sits in a shallow valley where three creeks converge before emptying into the Millstone River. For generations, Riverton’s layout worked well enough. Rain fell, water ran downhill, and the creeks carried it away. But over the past two decades, the town paved over nearly forty percent of its permeable ground to build a shopping plaza, widen roads, and expand a business park. Now, when a heavy storm drops two inches of rain in an hour, water that once soaked into fields has nowhere to go. Basements flood on Elm Street, the underpass on Route 9 becomes a shallow lake, and the wastewater treatment plant—built at the lowest point in town—risks being overwhelmed.\n\nPreparing Riverton for heavy rain is not a single project. It is a system of interconnected parts: drains that move water, rain gardens that slow and soak it up, reservoirs that store it, maintenance that keeps everything working, and public communication that makes the whole thing function in practice. Each element has strengths, costs, and failure modes. A resilient town does not pick one solution; it balances them deliberately and measures how well the balance holds.\n\n## Drains: The Fast Path for Water\n\nStorm drains are Riverton’s first line of defense. Grates at the curb catch runoff from streets and sidewalks, feeding it into underground pipes that carry water to the creeks. Drains are attractive because they are invisible and fast. A well-designed system moves water away from pavement within minutes, keeping roads passable and businesses open.\n\nBut drains have a fundamental limitation: they only move water, they do not reduce it. Every gallon that enters a drain downstream must go somewhere. If Riverton paves more land and adds more drains without enlarging the pipes or the creeks, the town simply relocates the flood. This is exactly what happened after the Westgate Plaza opened. Engineers added twenty new catch basins to keep the parking lot dry. Within two years, residents on low-lying Cedar Avenue reported flooding during storms that had never caused problems before. The plaza’s drains were discharging their new load into the same undersized pipe that served the neighborhood.\n\nThe tradeoff with drains is therefore one of speed versus total volume. They are excellent at protecting the specific spot where they are installed and poor at protecting the system as a whole. Riverton’s response was to treat drains as one layer rather than the whole strategy, and to require that any new development demonstrate \"no net increase\" in peak discharge—meaning new pavement must be paired with on-site storage or infiltration so the downstream pipe sees no more water than before.\n\n## Rain Gardens: Slowing Water Where It Falls\n\nRain gardens are shallow, planted depressions designed to capture runoff from a small area—a street corner, a parking lot island, a residential driveway—and let it soak into the ground over twenty-four to forty-eight hours. Riverton installed its first pilot rain gardens along Birch Street, replacing two on-street parking spaces per block with basins filled with engineered",
+  "reasoning": "",
+  "tool_calls": [],
+  "usage": {
+    "prompt_tokens": 5026,
+    "completion_tokens": 640,
+    "total_tokens": 5666,
+    "input_tokens": 5026,
+    "output_tokens": 640,
+    "prompt_tokens_details": {
+      "cached_tokens": 2048
+    },
+    "time_to_first_token": 1.06,
+    "time_to_first_visible_token": 1.06,
+    "total_time": 7.78,
+    "prompt_eval_duration": 1.06,
+    "generation_duration": 6.72,
+    "prompt_tokens_per_second": 2810.34,
+    "generation_tokens_per_second": 95.18
+  },
+  "finish_reason": "length",
+  "done": true,
+  "stream_errors": [],
+  "sse_events": [
+    {
+      "relative_ns": 16880000,
+      "line": "data: {\"id\":\"chatcmpl-d1f9a899\",\"object\":\"chat.completion.chunk\",\"created\":0,\"model\":\"keepalive\",\"choices\":[{\"index\":0,\"delta\":{\"role\":\"assistant\",\"content\":\"\"},\"finish_reason\":null}]}"
+    },
+    {
+      "relative_ns": 16883959,
+      "line": ""
+    },
+    {
+      "relative_ns": 22146125,
+      "line": "data: {\"id\":\"chatcmpl-d1f9a899\",\"object\":\"chat.completion.chunk\",\"created\":1791566897,\"model\":\"Qwen3.8-Flash-Next-oQ6e-mtp\",\"choices\":[{\"index\":0,\"delta\":{\"role\":\"assistant\"}}]}"
+    },
+    {
+      "relative_ns": 22149834,
+      "line": ""
+    },
+    {
+      "relative_ns": 1077486542,
+      "line": "data: {\"id\":\"chatcmpl-d1f9a899\",\"object\":\"chat.completion.chunk\",\"created\":1791566898,\"model\":\"Qwen3.8-Flash-Next-oQ6e-mtp\",\"choices\":[{\"index\":0,\"delta\":{\"content\":\"#\"}}]}"
+    },
+    {
+      "relative_ns": 1077494375,
+      "line": ""
+    },
+    {
+      "relative_ns": 1179601042,
+      "line": "data: {\"id\":\"chatcmpl-d1f9a899\",\"object\":\"chat.completion.chunk\",\"created\":1791566898,\"model\":\"Qwen3.8-Flash-Next-oQ6e-mtp\",\"choices\":[{\"index\":0,\"delta\":{\"content\":\" Preparing Riverton for Heavy Rain: A Systems Approach\"}}]}"
+    },
+    {
+      "relative_ns": 1179613125,
+      "line": ""
+    },
+    {
+      "relative_ns": 1295727334,
+      "line": "data: {\"id\":\"chatcmpl-d1f9a899\",\"object\":\"chat.completion.chunk\",\"created\":1791566898,\"model\":\"Qwen3.8-Flash-Next-oQ6e-mtp\",\"choices\":[{\"index\":0,\"delta\":{\"content\":\" to Flood Resilience\\n\\nThe fictional town of Riverton sits in a\"}}]}"
+    },
+    {
+      "relative_ns": 1295735500,
+      "line": ""
+    },
+    {
+      "relative_ns": 1408673709,
+      "line": "data: {\"id\":\"chatcmpl-d1f9a899\",\"object\":\"chat.completion.chunk\",\"created\":1791566898,\"model\":\"Qwen3.8-Flash-Next-oQ6e-mtp\",\"choices\":[{\"index\":0,\"delta\":{\"content\":\" shallow valley where three creeks converge before empty\"}}]}"
+    },
+    {
+      "relative_ns": 1408683209,
+      "line": ""
+    },
+    {
+      "relative_ns": 1548151334,
+      "line": "data: {\"id\":\"chatcmpl-d1f9a899\",\"object\":\"chat.completion.chunk\",\"created\":1791566898,\"model\":\"Qwen3.8-Flash-Next-oQ6e-mtp\",\"choices\":[{\"index\":0,\"delta\":{\"content\":\"ing into the Millstone River. For generations,\"}}]}"
+    },
+    {
+      "relative_ns": 1548157750,
+      "line": ""
+    },
+    {
+      "relative_ns": 1664212417,
+      "line": "data: {\"id\":\"chatcmpl-d1f9a899\",\"object\":\"chat.completion.chunk\",\"created\":1791566898,\"model\":\"Qwen3.8-Flash-Next-oQ6e-mtp\",\"choices\":[{\"index\":0,\"delta\":{\"content\":\" Riverton’s layout worked well enough.\"}}]}"
+    },
+    {
+      "relative_ns": 1664219209,
+      "line": ""
+    },
+    {
+      "relative_ns": 1800762000,
+      "line": "data: {\"id\":\"chatcmpl-d1f9a899\",\"object\":\"chat.completion.chunk\",\"created\":1791566899,\"model\":\"Qwen3.8-Flash-Next-oQ6e-mtp\",\"choices\":[{\"index\":0,\"delta\":{\"content\":\" Rain fell, water ran downhill,\"}}]}"
+    },
+    {
+      "relative_ns": 1800772459,
+      "line": ""
+    },
+    {
+      "relative_ns": 1917033250,
+      "line": "data: {\"id\":\"chatcmpl-d1f9a899\",\"object\":\"chat.completion.chunk\",\"created\":1791566899,\"model\":\"Qwen3.8-Flash-Next-oQ6e-mtp\",\"choices\":[{\"index\":0,\"delta\":{\"content\":\" and the creeks carried it away. But over the past two decades, the town paved over\"}}]}"
+    },
+    {
+      "relative_ns": 1917042917,
+      "line": ""
+    },
+    {
+      "relative_ns": 2055305542,
+      "line": "data: {\"id\":\"chatcmpl-d1f9a899\",\"object\":\"chat.completion.chunk\",\"created\":1791566899,\"model\":\"Qwen3.8-Flash-Next-oQ6e-mtp\",\"choices\":[{\"index\":0,\"delta\":{\"content\":\" nearly forty percent of its permeable ground to build\"}}]}"
+    },
+    {
+      "relative_ns": 2055321209,
+      "line": ""
+    },
+    {
+      "relative_ns": 2193676875,
+      "line": "data: {\"id\":\"chatcmpl-d1f9a899\",\"object\":\"chat.completion.chunk\",\"created\":1791566899,\"model\":\"Qwen3.8-Flash-Next-oQ6e-mtp\",\"choices\":[{\"index\":0,\"delta\":{\"content\":\" a shopping plaza, widen roads, and expand a\"}}]}"
+    },
+    {
+      "relative_ns": 2193685500,
+      "line": ""
+    },
+    {
+      "relative_ns": 2332231042,
+      "line": "data: {\"id\":\"chatcmpl-d1f9a899\",\"object\":\"chat.completion.chunk\",\"created\":1791566899,\"model\":\"Qwen3.8-Flash-Next-oQ6e-mtp\",\"choices\":[{\"index\":0,\"delta\":{\"content\":\" business park. Now, when a heavy storm drops\"}}]}"
+    },
+    {
+      "relative_ns": 2332239250,
+      "line": ""
+    },
+    {
+      "relative_ns": 2469305417,
+      "line": "data: {\"id\":\"chatcmpl-d1f9a899\",\"object\":\"chat.completion.chunk\",\"created\":1791566899,\"model\":\"Qwen3.8-Flash-Next-oQ6e-mtp\",\"choices\":[{\"index\":0,\"delta\":{\"content\":\" two inches of rain in an hour, water that once\"}}]}"
+    },
+    {
+      "relative_ns": 2469312084,
+      "line": ""
+    },
+    {
+      "relative_ns": 2608563792,
+      "line": "data: {\"id\":\"chatcmpl-d1f9a899\",\"object\":\"chat.completion.chunk\",\"created\":1791566899,\"model\":\"Qwen3.8-Flash-Next-oQ6e-mtp\",\"choices\":[{\"index\":0,\"delta\":{\"content\":\" soaked into fields has nowhere to go. Basements flood on Elm\"}}]}"
+    },
+    {
+      "relative_ns": 2608571292,
+      "line": ""
+    },
+    {
+      "relative_ns": 2749226625,
+      "line": "data: {\"id\":\"chatcmpl-d1f9a899\",\"object\":\"chat.completion.chunk\",\"created\":1791566900,\"model\":\"Qwen3.8-Flash-Next-oQ6e-mtp\",\"choices\":[{\"index\":0,\"delta\":{\"content\":\" Street, the underpass on Route 9 becomes a shallow lake,\"}}]}"
+    },
+    {
+      "relative_ns": 2749237042,
+      "line": ""
+    },
+    {
+      "relative_ns": 2863077834,
+      "line": "data: {\"id\":\"chatcmpl-d1f9a899\",\"object\":\"chat.completion.chunk\",\"created\":1791566900,\"model\":\"Qwen3.8-Flash-Next-oQ6e-mtp\",\"choices\":[{\"index\":0,\"delta\":{\"content\":\" and the wastewater treatment plant—built at the lowest point\"}}]}"
+    },
+    {
+      "relative_ns": 2863086625,
+      "line": ""
+    },
+    {
+      "relative_ns": 2980094417,
+      "line": "data: {\"id\":\"chatcmpl-d1f9a899\",\"object\":\"chat.completion.chunk\",\"created\":1791566900,\"model\":\"Qwen3.8-Flash-Next-oQ6e-mtp\",\"choices\":[{\"index\":0,\"delta\":{\"content\":\" in town—risks being overwhelmed.\\n\\nPreparing Riverton for heavy rain\"}}]}"
+    },
+    {
+      "relative_ns": 2980103584,
+      "line": ""
+    },
+    {
+      "relative_ns": 3097740667,
+      "line": "data: {\"id\":\"chatcmpl-d1f9a899\",\"object\":\"chat.completion.chunk\",\"created\":1791566900,\"model\":\"Qwen3.8-Flash-Next-oQ6e-mtp\",\"choices\":[{\"index\":0,\"delta\":{\"content\":\" is not a single project. It is a system of interconnected parts:\"}}]}"
+    },
+    {
+      "relative_ns": 3097749209,
+      "line": ""
+    },
+    {
+      "relative_ns": 3215680209,
+      "line": "data: {\"id\":\"chatcmpl-d1f9a899\",\"object\":\"chat.completion.chunk\",\"created\":1791566900,\"model\":\"Qwen3.8-Flash-Next-oQ6e-mtp\",\"choices\":[{\"index\":0,\"delta\":{\"content\":\" drains that move water, rain gardens that slow and soak it up,\"}}]}"
+    },
+    {
+      "relative_ns": 3215689042,
+      "line": ""
+    },
+    {
+      "relative_ns": 3333267500,
+      "line": "data: {\"id\":\"chatcmpl-d1f9a899\",\"object\":\"chat.completion.chunk\",\"created\":1791566900,\"model\":\"Qwen3.8-Flash-Next-oQ6e-mtp\",\"choices\":[{\"index\":0,\"delta\":{\"content\":\" reservoirs that store it, maintenance that keeps everything working, and public communication\"}}]}"
+    },
+    {
+      "relative_ns": 3333276125,
+      "line": ""
+    },
+    {
+      "relative_ns": 3449425375,
+      "line": "data: {\"id\":\"chatcmpl-d1f9a899\",\"object\":\"chat.completion.chunk\",\"created\":1791566900,\"model\":\"Qwen3.8-Flash-Next-oQ6e-mtp\",\"choices\":[{\"index\":0,\"delta\":{\"content\":\" that makes the whole thing function in practice\"}}]}"
+    },
+    {
+      "relative_ns": 3449434292,
+      "line": ""
+    },
+    {
+      "relative_ns": 3565568459,
+      "line": "data: {\"id\":\"chatcmpl-d1f9a899\",\"object\":\"chat.completion.chunk\",\"created\":1791566900,\"model\":\"Qwen3.8-Flash-Next-oQ6e-mtp\",\"choices\":[{\"index\":0,\"delta\":{\"content\":\". Each element has strengths, costs, and failure modes. A resilient\"}}]}"
+    },
+    {
+      "relative_ns": 3565579084,
+      "line": ""
+    },
+    {
+      "relative_ns": 3705177292,
+      "line": "data: {\"id\":\"chatcmpl-d1f9a899\",\"object\":\"chat.completion.chunk\",\"created\":1791566901,\"model\":\"Qwen3.8-Flash-Next-oQ6e-mtp\",\"choices\":[{\"index\":0,\"delta\":{\"content\":\" town does not pick one solution; it balances them deliberately\"}}]}"
+    },
+    {
+      "relative_ns": 3705184959,
+      "line": ""
+    },
+    {
+      "relative_ns": 3844060250,
+      "line": "data: {\"id\":\"chatcmpl-d1f9a899\",\"object\":\"chat.completion.chunk\",\"created\":1791566901,\"model\":\"Qwen3.8-Flash-Next-oQ6e-mtp\",\"choices\":[{\"index\":0,\"delta\":{\"content\":\" and measures how well the balance holds.\"}}]}"
+    },
+    {
+      "relative_ns": 3844069667,
+      "line": ""
+    },
+    {
+      "relative_ns": 3984325792,
+      "line": "data: {\"id\":\"chatcmpl-d1f9a899\",\"object\":\"chat.completion.chunk\",\"created\":1791566901,\"model\":\"Qwen3.8-Flash-Next-oQ6e-mtp\",\"choices\":[{\"index\":0,\"delta\":{\"content\":\"\\n\\n## Drains: The Fast Path for Water\\n\\nStorm drains\"}}]}"
+    },
+    {
+      "relative_ns": 3984334000,
+      "line": ""
+    },
+    {
+      "relative_ns": 4101474542,
+      "line": "data: {\"id\":\"chatcmpl-d1f9a899\",\"object\":\"chat.completion.chunk\",\"created\":1791566901,\"model\":\"Qwen3.8-Flash-Next-oQ6e-mtp\",\"choices\":[{\"index\":0,\"delta\":{\"content\":\" are Riverton’s first line of defense. Grates at the curb catch runoff\"}}]}"
+    },
+    {
+      "relative_ns": 4101482042,
+      "line": ""
+    },
+    {
+      "relative_ns": 4240189542,
+      "line": "data: {\"id\":\"chatcmpl-d1f9a899\",\"object\":\"chat.completion.chunk\",\"created\":1791566901,\"model\":\"Qwen3.8-Flash-Next-oQ6e-mtp\",\"choices\":[{\"index\":0,\"delta\":{\"content\":\" from streets and sidewalks, feeding it into underground pipes that carry water to the\"}}]}"
+    },
+    {
+      "relative_ns": 4240197667,
+      "line": ""
+    },
+    {
+      "relative_ns": 4356061084,
+      "line": "data: {\"id\":\"chatcmpl-d1f9a899\",\"object\":\"chat.completion.chunk\",\"created\":1791566901,\"model\":\"Qwen3.8-Flash-Next-oQ6e-mtp\",\"choices\":[{\"index\":0,\"delta\":{\"content\":\" creeks. Drains are attractive because they are invisible and fast. A well\"}}]}"
+    },
+    {
+      "relative_ns": 4356069750,
+      "line": ""
+    },
+    {
+      "relative_ns": 4494462292,
+      "line": "data: {\"id\":\"chatcmpl-d1f9a899\",\"object\":\"chat.completion.chunk\",\"created\":1791566901,\"model\":\"Qwen3.8-Flash-Next-oQ6e-mtp\",\"choices\":[{\"index\":0,\"delta\":{\"content\":\"-designed system moves water away from pavement within minutes\"}}]}"
+    },
+    {
+      "relative_ns": 4494473542,
+      "line": ""
+    },
+    {
+      "relative_ns": 4611223000,
+      "line": "data: {\"id\":\"chatcmpl-d1f9a899\",\"object\":\"chat.completion.chunk\",\"created\":1791566901,\"model\":\"Qwen3.8-Flash-Next-oQ6e-mtp\",\"choices\":[{\"index\":0,\"delta\":{\"content\":\", keeping roads passable and businesses open.\"}}]}"
+    },
+    {
+      "relative_ns": 4611232792,
+      "line": ""
+    },
+    {
+      "relative_ns": 4728612459,
+      "line": "data: {\"id\":\"chatcmpl-d1f9a899\",\"object\":\"chat.completion.chunk\",\"created\":1791566902,\"model\":\"Qwen3.8-Flash-Next-oQ6e-mtp\",\"choices\":[{\"index\":0,\"delta\":{\"content\":\"\\n\\nBut drains have a fundamental limitation: they only move water, they\"}}]}"
+    },
+    {
+      "relative_ns": 4728621625,
+      "line": ""
+    },
+    {
+      "relative_ns": 4844446584,
+      "line": "data: {\"id\":\"chatcmpl-d1f9a899\",\"object\":\"chat.completion.chunk\",\"created\":1791566902,\"model\":\"Qwen3.8-Flash-Next-oQ6e-mtp\",\"choices\":[{\"index\":0,\"delta\":{\"content\":\" do not reduce it. Every gallon that enters a drain downstream must\"}}]}"
+    },
+    {
+      "relative_ns": 4844457959,
+      "line": ""
+    },
+    {
+      "relative_ns": 4959716709,
+      "line": "data: {\"id\":\"chatcmpl-d1f9a899\",\"object\":\"chat.completion.chunk\",\"created\":1791566902,\"model\":\"Qwen3.8-Flash-Next-oQ6e-mtp\",\"choices\":[{\"index\":0,\"delta\":{\"content\":\" go somewhere. If Riverton paves more land and adds more\"}}]}"
+    },
+    {
+      "relative_ns": 4959724625,
+      "line": ""
+    },
+    {
+      "relative_ns": 5076645000,
+      "line": "data: {\"id\":\"chatcmpl-d1f9a899\",\"object\":\"chat.completion.chunk\",\"created\":1791566902,\"model\":\"Qwen3.8-Flash-Next-oQ6e-mtp\",\"choices\":[{\"index\":0,\"delta\":{\"content\":\" drains without enlarging the pipes or the creeks, the town simply\"}}]}"
+    },
+    {
+      "relative_ns": 5076651209,
+      "line": ""
+    },
+    {
+      "relative_ns": 5192509084,
+      "line": "data: {\"id\":\"chatcmpl-d1f9a899\",\"object\":\"chat.completion.chunk\",\"created\":1791566902,\"model\":\"Qwen3.8-Flash-Next-oQ6e-mtp\",\"choices\":[{\"index\":0,\"delta\":{\"content\":\" relocates the flood. This is exactly what\"}}]}"
+    },
+    {
+      "relative_ns": 5192521334,
+      "line": ""
+    },
+    {
+      "relative_ns": 5292879917,
+      "line": "data: {\"id\":\"chatcmpl-d1f9a899\",\"object\":\"chat.completion.chunk\",\"created\":1791566902,\"model\":\"Qwen3.8-Flash-Next-oQ6e-mtp\",\"choices\":[{\"index\":0,\"delta\":{\"content\":\" happened after the Westgate Plaza opened.\"}}]}"
+    },
+    {
+      "relative_ns": 5292888875,
+      "line": ""
+    },
+    {
+      "relative_ns": 5431817792,
+      "line": "data: {\"id\":\"chatcmpl-d1f9a899\",\"object\":\"chat.completion.chunk\",\"created\":1791566902,\"model\":\"Qwen3.8-Flash-Next-oQ6e-mtp\",\"choices\":[{\"index\":0,\"delta\":{\"content\":\" Engineers added twenty new catch basins to keep the\"}}]}"
+    },
+    {
+      "relative_ns": 5431826292,
+      "line": ""
+    },
+    {
+      "relative_ns": 5547937667,
+      "line": "data: {\"id\":\"chatcmpl-d1f9a899\",\"object\":\"chat.completion.chunk\",\"created\":1791566902,\"model\":\"Qwen3.8-Flash-Next-oQ6e-mtp\",\"choices\":[{\"index\":0,\"delta\":{\"content\":\" parking lot dry. Within two years, residents on\"}}]}"
+    },
+    {
+      "relative_ns": 5547945959,
+      "line": ""
+    },
+    {
+      "relative_ns": 5664977917,
+      "line": "data: {\"id\":\"chatcmpl-d1f9a899\",\"object\":\"chat.completion.chunk\",\"created\":1791566902,\"model\":\"Qwen3.8-Flash-Next-oQ6e-mtp\",\"choices\":[{\"index\":0,\"delta\":{\"content\":\" low-lying Cedar Avenue reported flooding during storms that had never caused\"}}]}"
+    },
+    {
+      "relative_ns": 5664986042,
+      "line": ""
+    },
+    {
+      "relative_ns": 5780034917,
+      "line": "data: {\"id\":\"chatcmpl-d1f9a899\",\"object\":\"chat.completion.chunk\",\"created\":1791566903,\"model\":\"Qwen3.8-Flash-Next-oQ6e-mtp\",\"choices\":[{\"index\":0,\"delta\":{\"content\":\" problems before. The plaza’s drains were discharging their new\"}}]}"
+    },
+    {
+      "relative_ns": 5780043750,
+      "line": ""
+    },
+    {
+      "relative_ns": 5920212959,
+      "line": "data: {\"id\":\"chatcmpl-d1f9a899\",\"object\":\"chat.completion.chunk\",\"created\":1791566903,\"model\":\"Qwen3.8-Flash-Next-oQ6e-mtp\",\"choices\":[{\"index\":0,\"delta\":{\"content\":\" load into the same undersized pipe that served the neighborhood.\\n\\nThe trade\"}}]}"
+    },
+    {
+      "relative_ns": 5920222792,
+      "line": ""
+    },
+    {
+      "relative_ns": 6038660042,
+      "line": "data: {\"id\":\"chatcmpl-d1f9a899\",\"object\":\"chat.completion.chunk\",\"created\":1791566903,\"model\":\"Qwen3.8-Flash-Next-oQ6e-mtp\",\"choices\":[{\"index\":0,\"delta\":{\"content\":\"off with drains is therefore one of speed versus total volume. They are\"}}]}"
+    },
+    {
+      "relative_ns": 6038678209,
+      "line": ""
+    },
+    {
+      "relative_ns": 6153025500,
+      "line": "data: {\"id\":\"chatcmpl-d1f9a899\",\"object\":\"chat.completion.chunk\",\"created\":1791566903,\"model\":\"Qwen3.8-Flash-Next-oQ6e-mtp\",\"choices\":[{\"index\":0,\"delta\":{\"content\":\" excellent at protecting the specific spot where\"}}]}"
+    },
+    {
+      "relative_ns": 6153034667,
+      "line": ""
+    },
+    {
+      "relative_ns": 6269289709,
+      "line": "data: {\"id\":\"chatcmpl-d1f9a899\",\"object\":\"chat.completion.chunk\",\"created\":1791566903,\"model\":\"Qwen3.8-Flash-Next-oQ6e-mtp\",\"choices\":[{\"index\":0,\"delta\":{\"content\":\" they are installed and poor at protecting the system as a whole. Riv\"}}]}"
+    },
+    {
+      "relative_ns": 6269298375,
+      "line": ""
+    },
+    {
+      "relative_ns": 6407405334,
+      "line": "data: {\"id\":\"chatcmpl-d1f9a899\",\"object\":\"chat.completion.chunk\",\"created\":1791566903,\"model\":\"Qwen3.8-Flash-Next-oQ6e-mtp\",\"choices\":[{\"index\":0,\"delta\":{\"content\":\"erton’s response was to treat drains as one layer\"}}]}"
+    },
+    {
+      "relative_ns": 6407414125,
+      "line": ""
+    },
+    {
+      "relative_ns": 6546814709,
+      "line": "data: {\"id\":\"chatcmpl-d1f9a899\",\"object\":\"chat.completion.chunk\",\"created\":1791566903,\"model\":\"Qwen3.8-Flash-Next-oQ6e-mtp\",\"choices\":[{\"index\":0,\"delta\":{\"content\":\" rather than the whole strategy, and to require that any new\"}}]}"
+    },
+    {
+      "relative_ns": 6546829667,
+      "line": ""
+    },
+    {
+      "relative_ns": 6661904542,
+      "line": "data: {\"id\":\"chatcmpl-d1f9a899\",\"object\":\"chat.completion.chunk\",\"created\":1791566903,\"model\":\"Qwen3.8-Flash-Next-oQ6e-mtp\",\"choices\":[{\"index\":0,\"delta\":{\"content\":\" development demonstrate \\\"no net increase\\\" in peak discharge—\"}}]}"
+    },
+    {
+      "relative_ns": 6661915584,
+      "line": ""
+    },
+    {
+      "relative_ns": 6800816250,
+      "line": "data: {\"id\":\"chatcmpl-d1f9a899\",\"object\":\"chat.completion.chunk\",\"created\":1791566904,\"model\":\"Qwen3.8-Flash-Next-oQ6e-mtp\",\"choices\":[{\"index\":0,\"delta\":{\"content\":\"meaning new pavement must be paired with on-site storage or infiltration so\"}}]}"
+    },
+    {
+      "relative_ns": 6800824750,
+      "line": ""
+    },
+    {
+      "relative_ns": 6940651625,
+      "line": "data: {\"id\":\"chatcmpl-d1f9a899\",\"object\":\"chat.completion.chunk\",\"created\":1791566904,\"model\":\"Qwen3.8-Flash-Next-oQ6e-mtp\",\"choices\":[{\"index\":0,\"delta\":{\"content\":\" the downstream pipe sees no more water than before.\\n\\n\"}}]}"
+    },
+    {
+      "relative_ns": 6940660167,
+      "line": ""
+    },
+    {
+      "relative_ns": 7056325334,
+      "line": "data: {\"id\":\"chatcmpl-d1f9a899\",\"object\":\"chat.completion.chunk\",\"created\":1791566904,\"model\":\"Qwen3.8-Flash-Next-oQ6e-mtp\",\"choices\":[{\"index\":0,\"delta\":{\"content\":\"## Rain Gardens: Slowing Water Where It Falls\\n\\n\"}}]}"
+    },
+    {
+      "relative_ns": 7056334084,
+      "line": ""
+    },
+    {
+      "relative_ns": 7171145084,
+      "line": "data: {\"id\":\"chatcmpl-d1f9a899\",\"object\":\"chat.completion.chunk\",\"created\":1791566904,\"model\":\"Qwen3.8-Flash-Next-oQ6e-mtp\",\"choices\":[{\"index\":0,\"delta\":{\"content\":\"Rain gardens are shallow, planted depressions designed to capture runoff\"}}]}"
+    },
+    {
+      "relative_ns": 7171151084,
+      "line": ""
+    },
+    {
+      "relative_ns": 7308235709,
+      "line": "data: {\"id\":\"chatcmpl-d1f9a899\",\"object\":\"chat.completion.chunk\",\"created\":1791566904,\"model\":\"Qwen3.8-Flash-Next-oQ6e-mtp\",\"choices\":[{\"index\":0,\"delta\":{\"content\":\" from a small area—a street corner, a parking lot island,\"}}]}"
+    },
+    {
+      "relative_ns": 7308244584,
+      "line": ""
+    },
+    {
+      "relative_ns": 7424335459,
+      "line": "data: {\"id\":\"chatcmpl-d1f9a899\",\"object\":\"chat.completion.chunk\",\"created\":1791566904,\"model\":\"Qwen3.8-Flash-Next-oQ6e-mtp\",\"choices\":[{\"index\":0,\"delta\":{\"content\":\" a residential driveway—and let it soak into the ground over twenty-four\"}}]}"
+    },
+    {
+      "relative_ns": 7424345584,
+      "line": ""
+    },
+    {
+      "relative_ns": 7539579750,
+      "line": "data: {\"id\":\"chatcmpl-d1f9a899\",\"object\":\"chat.completion.chunk\",\"created\":1791566904,\"model\":\"Qwen3.8-Flash-Next-oQ6e-mtp\",\"choices\":[{\"index\":0,\"delta\":{\"content\":\" to forty-eight hours. Riverton installed its first pilot rain\"}}]}"
+    },
+    {
+      "relative_ns": 7539591000,
+      "line": ""
+    },
+    {
+      "relative_ns": 7676764875,
+      "line": "data: {\"id\":\"chatcmpl-d1f9a899\",\"object\":\"chat.completion.chunk\",\"created\":1791566905,\"model\":\"Qwen3.8-Flash-Next-oQ6e-mtp\",\"choices\":[{\"index\":0,\"delta\":{\"content\":\" gardens along Birch Street, replacing two on\"}}]}"
+    },
+    {
+      "relative_ns": 7676775250,
+      "line": ""
+    },
+    {
+      "relative_ns": 7800705417,
+      "line": "data: {\"id\":\"chatcmpl-d1f9a899\",\"object\":\"chat.completion.chunk\",\"created\":1791566905,\"model\":\"Qwen3.8-Flash-Next-oQ6e-mtp\",\"choices\":[{\"index\":0,\"delta\":{\"content\":\"-street parking spaces per block with basins filled with engineered\"}}]}"
+    },
+    {
+      "relative_ns": 7800712500,
+      "line": ""
+    },
+    {
+      "relative_ns": 7800882125,
+      "line": "data: {\"id\":\"chatcmpl-d1f9a899\",\"object\":\"chat.completion.chunk\",\"created\":1791566905,\"model\":\"Qwen3.8-Flash-Next-oQ6e-mtp\",\"choices\":[{\"index\":0,\"delta\":{},\"finish_reason\":\"length\"}]}"
+    },
+    {
+      "relative_ns": 7800885459,
+      "line": ""
+    },
+    {
+      "relative_ns": 7801069292,
+      "line": "data: {\"id\":\"chatcmpl-d1f9a899\",\"object\":\"chat.completion.chunk\",\"created\":1791566905,\"model\":\"Qwen3.8-Flash-Next-oQ6e-mtp\",\"choices\":[],\"usage\":{\"prompt_tokens\":5026,\"completion_tokens\":640,\"total_tokens\":5666,\"input_tokens\":5026,\"output_tokens\":640,\"prompt_tokens_details\":{\"cached_tokens\":2048},\"time_to_first_token\":1.06,\"time_to_first_visible_token\":1.06,\"total_time\":7.78,\"prompt_eval_duration\":1.06,\"generation_duration\":6.72,\"prompt_tokens_per_second\":2810.34,\"generation_tokens_per_second\":95.18}}"
+    },
+    {
+      "relative_ns": 7801072125,
+      "line": ""
+    },
+    {
+      "relative_ns": 7801129542,
+      "line": "data: [DONE]"
+    },
+    {
+      "relative_ns": 7801131084,
+      "line": ""
+    }
+  ],
+  "sse_frames": [
+    {
+      "id": "chatcmpl-d1f9a899",
+      "object": "chat.completion.chunk",
+      "created": 0,
+      "model": "keepalive",
+      "choices": [
+        {
+          "index": 0,
+          "delta": {
+            "role": "assistant",
+            "content": ""
+          },
+          "finish_reason": null
+        }
+      ]
+    },
+    {
+      "id": "chatcmpl-d1f9a899",
+      "object": "chat.completion.chunk",
+      "created": 1791566897,
+      "model": "Qwen3.8-Flash-Next-oQ6e-mtp",
+      "choices": [
+        {
+          "index": 0,
+          "delta": {
+            "role": "assistant"
+          }
+        }
+      ]
+    },
+    {
+      "id": "chatcmpl-d1f9a899",
+      "object": "chat.completion.chunk",
+      "created": 1791566898,
+      "model": "Qwen3.8-Flash-Next-oQ6e-mtp",
+      "choices": [
+        {
+          "index": 0,
+          "delta": {
+            "content": "#"
+          }
+        }
+      ]
+    },
+    {
+      "id": "chatcmpl-d1f9a899",
+      "object": "chat.completion.chunk",
+      "created": 1791566898,
+      "model": "Qwen3.8-Flash-Next-oQ6e-mtp",
+      "choices": [
+        {
+          "index": 0,
+          "delta": {
+            "content": " Preparing Riverton for Heavy Rain: A Systems Approach"
+          }
+        }
+      ]
+    },
+    {
+      "id": "chatcmpl-d1f9a899",
+      "object": "chat.completion.chunk",
+      "created": 1791566898,
+      "model": "Qwen3.8-Flash-Next-oQ6e-mtp",
+      "choices": [
+        {
+          "index": 0,
+          "delta": {
+            "content": " to Flood Resilience\n\nThe fictional town of Riverton sits in a"
+          }
+        }
+      ]
+    },
+    {
+      "id": "chatcmpl-d1f9a899",
+      "object": "chat.completion.chunk",
+      "created": 1791566898,
+      "model": "Qwen3.8-Flash-Next-oQ6e-mtp",
+      "choices": [
+        {
+          "index": 0,
+          "delta": {
+            "content": " shallow valley where three creeks converge before empty"
+          }
+        }
+      ]
+    },
+    {
+      "id": "chatcmpl-d1f9a899",
+      "object": "chat.completion.chunk",
+      "created": 1791566898,
+      "model": "Qwen3.8-Flash-Next-oQ6e-mtp",
+      "choices": [
+        {
+          "index": 0,
+          "delta": {
+            "content": "ing into the Millstone River. For generations,"
+          }
+        }
+      ]
+    },
+    {
+      "id": "chatcmpl-d1f9a899",
+      "object": "chat.completion.chunk",
+      "created": 1791566898,
+      "model": "Qwen3.8-Flash-Next-oQ6e-mtp",
+      "choices": [
+        {
+          "index": 0,
+          "delta": {
+            "content": " Riverton’s layout worked well enough."
+          }
+        }
+      ]
+    },
+    {
+      "id": "chatcmpl-d1f9a899",
+      "object": "chat.completion.chunk",
+      "created": 1791566899,
+      "model": "Qwen3.8-Flash-Next-oQ6e-mtp",
+      "choices": [
+        {
+          "index": 0,
+          "delta": {
+            "content": " Rain fell, water ran downhill,"
+          }
+        }
+      ]
+    },
+    {
+      "id": "chatcmpl-d1f9a899",
+      "object": "chat.completion.chunk",
+      "created": 1791566899,
+      "model": "Qwen3.8-Flash-Next-oQ6e-mtp",
+      "choices": [
+        {
+          "index": 0,
+          "delta": {
+            "content": " and the creeks carried it away. But over the past two decades, the town paved over"
+          }
+        }
+      ]
+    },
+    {
+      "id": "chatcmpl-d1f9a899",
+      "object": "chat.completion.chunk",
+      "created": 1791566899,
+      "model": "Qwen3.8-Flash-Next-oQ6e-mtp",
+      "choices": [
+        {
+          "index": 0,
+          "delta": {
+            "content": " nearly forty percent of its permeable ground to build"
+          }
+        }
+      ]
+    },
+    {
+      "id": "chatcmpl-d1f9a899",
+      "object": "chat.completion.chunk",
+      "created": 1791566899,
+      "model": "Qwen3.8-Flash-Next-oQ6e-mtp",
+      "choices": [
+        {
+          "index": 0,
+          "delta": {
+            "content": " a shopping plaza, widen roads, and expand a"
+          }
+        }
+      ]
+    },
+    {
+      "id": "chatcmpl-d1f9a899",
+      "object": "chat.completion.chunk",
+      "created": 1791566899,
+      "model": "Qwen3.8-Flash-Next-oQ6e-mtp",
+      "choices": [
+        {
+          "index": 0,
+          "delta": {
+            "content": " business park. Now, when a heavy storm drops"
+          }
+        }
+      ]
+    },
+    {
+      "id": "chatcmpl-d1f9a899",
+      "object": "chat.completion.chunk",
+      "created": 1791566899,
+      "model": "Qwen3.8-Flash-Next-oQ6e-mtp",
+      "choices": [
+        {
+          "index": 0,
+          "delta": {
+            "content": " two inches of rain in an hour, water that once"
+          }
+        }
+      ]
+    },
+    {
+      "id": "chatcmpl-d1f9a899",
+      "object": "chat.completion.chunk",
+      "created": 1791566899,
+      "model": "Qwen3.8-Flash-Next-oQ6e-mtp",
+      "choices": [
+        {
+          "index": 0,
+          "delta": {
+            "content": " soaked into fields has nowhere to go. Basements flood on Elm"
+          }
+        }
+      ]
+    },
+    {
+      "id": "chatcmpl-d1f9a899",
+      "object": "chat.completion.chunk",
+      "created": 1791566900,
+      "model": "Qwen3.8-Flash-Next-oQ6e-mtp",
+      "choices": [
+        {
+          "index": 0,
+          "delta": {
+            "content": " Street, the underpass on Route 9 becomes a shallow lake,"
+          }
+        }
+      ]
+    },
+    {
+      "id": "chatcmpl-d1f9a899",
+      "object": "chat.completion.chunk",
+      "created": 1791566900,
+      "model": "Qwen3.8-Flash-Next-oQ6e-mtp",
+      "choices": [
+        {
+          "index": 0,
+          "delta": {
+            "content": " and the wastewater treatment plant—built at the lowest point"
+          }
+        }
+      ]
+    },
+    {
+      "id": "chatcmpl-d1f9a899",
+      "object": "chat.completion.chunk",
+      "created": 1791566900,
+      "model": "Qwen3.8-Flash-Next-oQ6e-mtp",
+      "choices": [
+        {
+          "index": 0,
+          "delta": {
+            "content": " in town—risks being overwhelmed.\n\nPreparing Riverton for heavy rain"
+          }
+        }
+      ]
+    },
+    {
+      "id": "chatcmpl-d1f9a899",
+      "object": "chat.completion.chunk",
+      "created": 1791566900,
+      "model": "Qwen3.8-Flash-Next-oQ6e-mtp",
+      "choices": [
+        {
+          "index": 0,
+          "delta": {
+            "content": " is not a single project. It is a system of interconnected parts:"
+          }
+        }
+      ]
+    },
+    {
+      "id": "chatcmpl-d1f9a899",
+      "object": "chat.completion.chunk",
+      "created": 1791566900,
+      "model": "Qwen3.8-Flash-Next-oQ6e-mtp",
+      "choices": [
+        {
+          "index": 0,
+          "delta": {
+            "content": " drains that move water, rain gardens that slow and soak it up,"
+          }
+        }
+      ]
+    },
+    {
+      "id": "chatcmpl-d1f9a899",
+      "object": "chat.completion.chunk",
+      "created": 1791566900,
+      "model": "Qwen3.8-Flash-Next-oQ6e-mtp",
+      "choices": [
+        {
+          "index": 0,
+          "delta": {
+            "content": " reservoirs that store it, maintenance that keeps everything working, and public communication"
+          }
+        }
+      ]
+    },
+    {
+      "id": "chatcmpl-d1f9a899",
+      "object": "chat.completion.chunk",
+      "created": 1791566900,
+      "model": "Qwen3.8-Flash-Next-oQ6e-mtp",
+      "choices": [
+        {
+          "index": 0,
+          "delta": {
+            "content": " that makes the whole thing function in practice"
+          }
+        }
+      ]
+    },
+    {
+      "id": "chatcmpl-d1f9a899",
+      "object": "chat.completion.chunk",
+      "created": 1791566900,
+      "model": "Qwen3.8-Flash-Next-oQ6e-mtp",
+      "choices": [
+        {
+          "index": 0,
+          "delta": {
+            "content": ". Each element has strengths, costs, and failure modes. A resilient"
+          }
+        }
+      ]
+    },
+    {
+      "id": "chatcmpl-d1f9a899",
+      "object": "chat.completion.chunk",
+      "created": 1791566901,
+      "model": "Qwen3.8-Flash-Next-oQ6e-mtp",
+      "choices": [
+        {
+          "index": 0,
+          "delta": {
+            "content": " town does not pick one solution; it balances them deliberately"
+          }
+        }
+      ]
+    },
+    {
+      "id": "chatcmpl-d1f9a899",
+      "object": "chat.completion.chunk",
+      "created": 1791566901,
+      "model": "Qwen3.8-Flash-Next-oQ6e-mtp",
+      "choices": [
+        {
+          "index": 0,
+          "delta": {
+            "content": " and measures how well the balance holds."
+          }
+        }
+      ]
+    },
+    {
+      "id": "chatcmpl-d1f9a899",
+      "object": "chat.completion.chunk",
+      "created": 1791566901,
+      "model": "Qwen3.8-Flash-Next-oQ6e-mtp",
+      "choices": [
+        {
+          "index": 0,
+          "delta": {
+            "content": "\n\n## Drains: The Fast Path for Water\n\nStorm drains"
+          }
+        }
+      ]
+    },
+    {
+      "id": "chatcmpl-d1f9a899",
+      "object": "chat.completion.chunk",
+      "created": 1791566901,
+      "model": "Qwen3.8-Flash-Next-oQ6e-mtp",
+      "choices": [
+        {
+          "index": 0,
+          "delta": {
+            "content": " are Riverton’s first line of defense. Grates at the curb catch runoff"
+          }
+        }
+      ]
+    },
+    {
+      "id": "chatcmpl-d1f9a899",
+      "object": "chat.completion.chunk",
+      "created": 1791566901,
+      "model": "Qwen3.8-Flash-Next-oQ6e-mtp",
+      "choices": [
+        {
+          "index": 0,
+          "delta": {
+            "content": " from streets and sidewalks, feeding it into underground pipes that carry water to the"
+          }
+        }
+      ]
+    },
+    {
+      "id": "chatcmpl-d1f9a899",
+      "object": "chat.completion.chunk",
+      "created": 1791566901,
+      "model": "Qwen3.8-Flash-Next-oQ6e-mtp",
+      "choices": [
+        {
+          "index": 0,
+          "delta": {
+            "content": " creeks. Drains are attractive because they are invisible and fast. A well"
+          }
+        }
+      ]
+    },
+    {
+      "id": "chatcmpl-d1f9a899",
+      "object": "chat.completion.chunk",
+      "created": 1791566901,
+      "model": "Qwen3.8-Flash-Next-oQ6e-mtp",
+      "choices": [
+        {
+          "index": 0,
+          "delta": {
+            "content": "-designed system moves water away from pavement within minutes"
+          }
+        }
+      ]
+    },
+    {
+      "id": "chatcmpl-d1f9a899",
+      "object": "chat.completion.chunk",
+      "created": 1791566901,
+      "model": "Qwen3.8-Flash-Next-oQ6e-mtp",
+      "choices": [
+        {
+          "index": 0,
+          "delta": {
+            "content": ", keeping roads passable and businesses open."
+          }
+        }
+      ]
+    },
+    {
+      "id": "chatcmpl-d1f9a899",
+      "object": "chat.completion.chunk",
+      "created": 1791566902,
+      "model": "Qwen3.8-Flash-Next-oQ6e-mtp",
+      "choices": [
+        {
+          "index": 0,
+          "delta": {
+            "content": "\n\nBut drains have a fundamental limitation: they only move water, they"
+          }
+        }
+      ]
+    },
+    {
+      "id": "chatcmpl-d1f9a899",
+      "object": "chat.completion.chunk",
+      "created": 1791566902,
+      "model": "Qwen3.8-Flash-Next-oQ6e-mtp",
+      "choices": [
+        {
+          "index": 0,
+          "delta": {
+            "content": " do not reduce it. Every gallon that enters a drain downstream must"
+          }
+        }
+      ]
+    },
+    {
+      "id": "chatcmpl-d1f9a899",
+      "object": "chat.completion.chunk",
+      "created": 1791566902,
+      "model": "Qwen3.8-Flash-Next-oQ6e-mtp",
+      "choices": [
+        {
+          "index": 0,
+          "delta": {
+            "content": " go somewhere. If Riverton paves more land and adds more"
+          }
+        }
+      ]
+    },
+    {
+      "id": "chatcmpl-d1f9a899",
+      "object": "chat.completion.chunk",
+      "created": 1791566902,
+      "model": "Qwen3.8-Flash-Next-oQ6e-mtp",
+      "choices": [
+        {
+          "index": 0,
+          "delta": {
+            "content": " drains without enlarging the pipes or the creeks, the town simply"
+          }
+        }
+      ]
+    },
+    {
+      "id": "chatcmpl-d1f9a899",
+      "object": "chat.completion.chunk",
+      "created": 1791566902,
+      "model": "Qwen3.8-Flash-Next-oQ6e-mtp",
+      "choices": [
+        {
+          "index": 0,
+          "delta": {
+            "content": " relocates the flood. This is exactly what"
+          }
+        }
+      ]
+    },
+    {
+      "id": "chatcmpl-d1f9a899",
+      "object": "chat.completion.chunk",
+      "created": 1791566902,
+      "model": "Qwen3.8-Flash-Next-oQ6e-mtp",
+      "choices": [
+        {
+          "index": 0,
+          "delta": {
+            "content": " happened after the Westgate Plaza opened."
+          }
+        }
+      ]
+    },
+    {
+      "id": "chatcmpl-d1f9a899",
+      "object": "chat.completion.chunk",
+      "created": 1791566902,
+      "model": "Qwen3.8-Flash-Next-oQ6e-mtp",
+      "choices": [
+        {
+          "index": 0,
+          "delta": {
+            "content": " Engineers added twenty new catch basins to keep the"
+          }
+        }
+      ]
+    },
+    {
+      "id": "chatcmpl-d1f9a899",
+      "object": "chat.completion.chunk",
+      "created": 1791566902,
+      "model": "Qwen3.8-Flash-Next-oQ6e-mtp",
+      "choices": [
+        {
+          "index": 0,
+          "delta": {
+            "content": " parking lot dry. Within two years, residents on"
+          }
+        }
+      ]
+    },
+    {
+      "id": "chatcmpl-d1f9a899",
+      "object": "chat.completion.chunk",
+      "created": 1791566902,
+      "model": "Qwen3.8-Flash-Next-oQ6e-mtp",
+      "choices": [
+        {
+          "index": 0,
+          "delta": {
+            "content": " low-lying Cedar Avenue reported flooding during storms that had never caused"
+          }
+        }
+      ]
+    },
+    {
+      "id": "chatcmpl-d1f9a899",
+      "object": "chat.completion.chunk",
+      "created": 1791566903,
+      "model": "Qwen3.8-Flash-Next-oQ6e-mtp",
+      "choices": [
+        {
+          "index": 0,
+          "delta": {
+            "content": " problems before. The plaza’s drains were discharging their new"
+          }
+        }
+      ]
+    },
+    {
+      "id": "chatcmpl-d1f9a899",
+      "object": "chat.completion.chunk",
+      "created": 1791566903,
+      "model": "Qwen3.8-Flash-Next-oQ6e-mtp",
+      "choices": [
+        {
+          "index": 0,
+          "delta": {
+            "content": " load into the same undersized pipe that served the neighborhood.\n\nThe trade"
+          }
+        }
+      ]
+    },
+    {
+      "id": "chatcmpl-d1f9a899",
+      "object": "chat.completion.chunk",
+      "created": 1791566903,
+      "model": "Qwen3.8-Flash-Next-oQ6e-mtp",
+      "choices": [
+        {
+          "index": 0,
+          "delta": {
+            "content": "off with drains is therefore one of speed versus total volume. They are"
+          }
+        }
+      ]
+    },
+    {
+      "id": "chatcmpl-d1f9a899",
+      "object": "chat.completion.chunk",
+      "created": 1791566903,
+      "model": "Qwen3.8-Flash-Next-oQ6e-mtp",
+      "choices": [
+        {
+          "index": 0,
+          "delta": {
+            "content": " excellent at protecting the specific spot where"
+          }
+        }
+      ]
+    },
+    {
+      "id": "chatcmpl-d1f9a899",
+      "object": "chat.completion.chunk",
+      "created": 1791566903,
+      "model": "Qwen3.8-Flash-Next-oQ6e-mtp",
+      "choices": [
+        {
+          "index": 0,
+          "delta": {
+            "content": " they are installed and poor at protecting the system as a whole. Riv"
+          }
+        }
+      ]
+    },
+    {
+      "id": "chatcmpl-d1f9a899",
+      "object": "chat.completion.chunk",
+      "created": 1791566903,
+      "model": "Qwen3.8-Flash-Next-oQ6e-mtp",
+      "choices": [
+        {
+          "index": 0,
+          "delta": {
+            "content": "erton’s response was to treat drains as one layer"
+          }
+        }
+      ]
+    },
+    {
+      "id": "chatcmpl-d1f9a899",
+      "object": "chat.completion.chunk",
+      "created": 1791566903,
+      "model": "Qwen3.8-Flash-Next-oQ6e-mtp",
+      "choices": [
+        {
+          "index": 0,
+          "delta": {
+            "content": " rather than the whole strategy, and to require that any new"
+          }
+        }
+      ]
+    },
+    {
+      "id": "chatcmpl-d1f9a899",
+      "object": "chat.completion.chunk",
+      "created": 1791566903,
+      "model": "Qwen3.8-Flash-Next-oQ6e-mtp",
+      "choices": [
+        {
+          "index": 0,
+          "delta": {
+            "content": " development demonstrate \"no net increase\" in peak discharge—"
+          }
+        }
+      ]
+    },
+    {
+      "id": "chatcmpl-d1f9a899",
+      "object": "chat.completion.chunk",
+      "created": 1791566904,
+      "model": "Qwen3.8-Flash-Next-oQ6e-mtp",
+      "choices": [
+        {
+          "index": 0,
+          "delta": {
+            "content": "meaning new pavement must be paired with on-site storage or infiltration so"
+          }
+        }
+      ]
+    },
+    {
+      "id": "chatcmpl-d1f9a899",
+      "object": "chat.completion.chunk",
+      "created": 1791566904,
+      "model": "Qwen3.8-Flash-Next-oQ6e-mtp",
+      "choices": [
+        {
+          "index": 0,
+          "delta": {
+            "content": " the downstream pipe sees no more water than before.\n\n"
+          }
+        }
+      ]
+    },
+    {
+      "id": "chatcmpl-d1f9a899",
+      "object": "chat.completion.chunk",
+      "created": 1791566904,
+      "model": "Qwen3.8-Flash-Next-oQ6e-mtp",
+      "choices": [
+        {
+          "index": 0,
+          "delta": {
+            "content": "## Rain Gardens: Slowing Water Where It Falls\n\n"
+          }
+        }
+      ]
+    },
+    {
+      "id": "chatcmpl-d1f9a899",
+      "object": "chat.completion.chunk",
+      "created": 1791566904,
+      "model": "Qwen3.8-Flash-Next-oQ6e-mtp",
+      "choices": [
+        {
+          "index": 0,
+          "delta": {
+            "content": "Rain gardens are shallow, planted depressions designed to capture runoff"
+          }
+        }
+      ]
+    },
+    {
+      "id": "chatcmpl-d1f9a899",
+      "object": "chat.completion.chunk",
+      "created": 1791566904,
+      "model": "Qwen3.8-Flash-Next-oQ6e-mtp",
+      "choices": [
+        {
+          "index": 0,
+          "delta": {
+            "content": " from a small area—a street corner, a parking lot island,"
+          }
+        }
+      ]
+    },
+    {
+      "id": "chatcmpl-d1f9a899",
+      "object": "chat.completion.chunk",
+      "created": 1791566904,
+      "model": "Qwen3.8-Flash-Next-oQ6e-mtp",
+      "choices": [
+        {
+          "index": 0,
+          "delta": {
+            "content": " a residential driveway—and let it soak into the ground over twenty-four"
+          }
+        }
+      ]
+    },
+    {
+      "id": "chatcmpl-d1f9a899",
+      "object": "chat.completion.chunk",
+      "created": 1791566904,
+      "model": "Qwen3.8-Flash-Next-oQ6e-mtp",
+      "choices": [
+        {
+          "index": 0,
+          "delta": {
+            "content": " to forty-eight hours. Riverton installed its first pilot rain"
+          }
+        }
+      ]
+    },
+    {
+      "id": "chatcmpl-d1f9a899",
+      "object": "chat.completion.chunk",
+      "created": 1791566905,
+      "model": "Qwen3.8-Flash-Next-oQ6e-mtp",
+      "choices": [
+        {
+          "index": 0,
+          "delta": {
+            "content": " gardens along Birch Street, replacing two on"
+          }
+        }
+      ]
+    },
+    {
+      "id": "chatcmpl-d1f9a899",
+      "object": "chat.completion.chunk",
+      "created": 1791566905,
+      "model": "Qwen3.8-Flash-Next-oQ6e-mtp",
+      "choices": [
+        {
+          "index": 0,
+          "delta": {
+            "content": "-street parking spaces per block with basins filled with engineered"
+          }
+        }
+      ]
+    },
+    {
+      "id": "chatcmpl-d1f9a899",
+      "object": "chat.completion.chunk",
+      "created": 1791566905,
+      "model": "Qwen3.8-Flash-Next-oQ6e-mtp",
+      "choices": [
+        {
+          "index": 0,
+          "delta": {},
+          "finish_reason": "length"
+        }
+      ]
+    },
+    {
+      "id": "chatcmpl-d1f9a899",
+      "object": "chat.completion.chunk",
+      "created": 1791566905,
+      "model": "Qwen3.8-Flash-Next-oQ6e-mtp",
+      "choices": [],
+      "usage": {
+        "prompt_tokens": 5026,
+        "completion_tokens": 640,
+        "total_tokens": 5666,
+        "input_tokens": 5026,
+        "output_tokens": 640,
+        "prompt_tokens_details": {
+          "cached_tokens": 2048
+        },
+        "time_to_first_token": 1.06,
+        "time_to_first_visible_token": 1.06,
+        "total_time": 7.78,
+        "prompt_eval_duration": 1.06,
+        "generation_duration": 6.72,
+        "prompt_tokens_per_second": 2810.34,
+        "generation_tokens_per_second": 95.18
+      }
+    }
+  ]
+}

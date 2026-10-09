@@ -1,0 +1,994 @@
+{
+  "text": "import unittest\nfrom unittest.mock import MagicMock\nimport copy\n\n# Assuming telemetry_tools is available in the path\nfrom telemetry_tools import (\n    dedupe_events,\n    bounded_backoff,\n    parse_retry_after,\n    partition_batches,\n    merge_counters,\n)\n\n\nclass TestTelemetryTools(unittest.TestCase):\n    \"\"\"Test suite for telemetry_tools module.\"\"\"\n\n    # ------------------------------------------------------------------\n    # Tests for dedupe_events\n    # ------------------------------------------------------------------\n\n    def test_dedupe_events_empty_list(self):\n        \"\"\"Empty input returns empty list.\"\"\"\n        self.assertEqual(dedupe_events([]), [])\n\n    def test_dedupe_events_single_event(self):\n        \"\"\"Single event is returned as is.\"\"\"\n        events = [{\"id\": \"1\", \"data\": \"a\"}]\n        result = dedupe_events(events)\n        self.assertEqual(result, events)\n        self.assertIsNot(result, events)  # Should be a new list\n\n    def test_dedupe_events_no_duplicates(self):\n        \"\"\"Events with unique IDs are all retained.\"\"\"\n        events = [\n            {\"id\": \"1\", \"data\": \"a\"},\n            {\"id\": \"2\", \"data\": \"b\"},\n            {\"id\": \"3\", \"data\": \"c\"},\n        ]\n        result = dedupe_events(events)\n        self.assertEqual(result, events)\n\n    def test_dedupe_events_first_occurrence_retained(self):\n        \"\"\"First occurrence of duplicate ID is kept.\"\"\"\n        events = [\n            {\"id\": \"1\", \"data\": \"first\"},\n            {\"id\": \"2\", \"data\": \"second\"},\n            {\"id\": \"1\", \"data\": \"duplicate\"},\n        ]\n        result = dedupe_events(events)\n        self.assertEqual(len(result), 2)\n        self.assertEqual(result[0][\"data\"], \"first\")\n        self.assertEqual(result[1][\"data\"], \"second\")\n\n    def test_dedupe_events_multiple_duplicates(self):\n        \"\"\"Multiple duplicates are removed, keeping firsts.\"\"\"\n        events = [\n            {\"id\": \"a\", \"v\": 1},\n            {\"id\": \"b\", \"v\": 2},\n            {\"id\": \"a\", \"v\": 3},\n            {\"id\": \"c\", \"v\": 4},\n            {\"id\": \"b\", \"v\": 5},\n            {\"id\":",
+  "reasoning": "",
+  "tool_calls": [],
+  "usage": {
+    "prompt_tokens": 32768,
+    "completion_tokens": 512,
+    "total_tokens": 33280,
+    "input_tokens": 32768,
+    "output_tokens": 512,
+    "prompt_tokens_details": {
+      "cached_tokens": 0
+    },
+    "time_to_first_token": 8.71,
+    "time_to_first_visible_token": 8.71,
+    "total_time": 12.89,
+    "prompt_eval_duration": 8.71,
+    "generation_duration": 4.18,
+    "prompt_tokens_per_second": 3761.96,
+    "generation_tokens_per_second": 122.63
+  },
+  "finish_reason": "length",
+  "done": true,
+  "stream_errors": [],
+  "sse_events": [
+    {
+      "relative_ns": 54091667,
+      "line": "data: {\"id\":\"chatcmpl-4ba46a61\",\"object\":\"chat.completion.chunk\",\"created\":0,\"model\":\"keepalive\",\"choices\":[{\"index\":0,\"delta\":{\"role\":\"assistant\",\"content\":\"\"},\"finish_reason\":null}]}"
+    },
+    {
+      "relative_ns": 54094167,
+      "line": ""
+    },
+    {
+      "relative_ns": 77973750,
+      "line": "data: {\"id\":\"chatcmpl-4ba46a61\",\"object\":\"chat.completion.chunk\",\"created\":1791566907,\"model\":\"Qwen3.8-Flash-Next-oQ6e-mtp\",\"choices\":[{\"index\":0,\"delta\":{\"role\":\"assistant\"}}]}"
+    },
+    {
+      "relative_ns": 77980833,
+      "line": ""
+    },
+    {
+      "relative_ns": 8765688083,
+      "line": "data: {\"id\":\"chatcmpl-4ba46a61\",\"object\":\"chat.completion.chunk\",\"created\":1791566915,\"model\":\"Qwen3.8-Flash-Next-oQ6e-mtp\",\"choices\":[{\"index\":0,\"delta\":{\"content\":\"import\"}}]}"
+    },
+    {
+      "relative_ns": 8765696667,
+      "line": ""
+    },
+    {
+      "relative_ns": 8963594167,
+      "line": "data: {\"id\":\"chatcmpl-4ba46a61\",\"object\":\"chat.completion.chunk\",\"created\":1791566915,\"model\":\"Qwen3.8-Flash-Next-oQ6e-mtp\",\"choices\":[{\"index\":0,\"delta\":{\"content\":\" unittest\\n\"}}]}"
+    },
+    {
+      "relative_ns": 8963601333,
+      "line": ""
+    },
+    {
+      "relative_ns": 9087394042,
+      "line": "data: {\"id\":\"chatcmpl-4ba46a61\",\"object\":\"chat.completion.chunk\",\"created\":1791566916,\"model\":\"Qwen3.8-Flash-Next-oQ6e-mtp\",\"choices\":[{\"index\":0,\"delta\":{\"content\":\"from unittest.mock import MagicMock\\nimport copy\\n\\n#\"}}]}"
+    },
+    {
+      "relative_ns": 9087402625,
+      "line": ""
+    },
+    {
+      "relative_ns": 9191933083,
+      "line": "data: {\"id\":\"chatcmpl-4ba46a61\",\"object\":\"chat.completion.chunk\",\"created\":1791566916,\"model\":\"Qwen3.8-Flash-Next-oQ6e-mtp\",\"choices\":[{\"index\":0,\"delta\":{\"content\":\" Assuming telemetry_tools is available in the path\\n\"}}]}"
+    },
+    {
+      "relative_ns": 9191964208,
+      "line": ""
+    },
+    {
+      "relative_ns": 9315904792,
+      "line": "data: {\"id\":\"chatcmpl-4ba46a61\",\"object\":\"chat.completion.chunk\",\"created\":1791566916,\"model\":\"Qwen3.8-Flash-Next-oQ6e-mtp\",\"choices\":[{\"index\":0,\"delta\":{\"content\":\"from telemetry_tools import (\\n    dedupe_events,\\n    bounded_back\"}}]}"
+    },
+    {
+      "relative_ns": 9315926375,
+      "line": ""
+    },
+    {
+      "relative_ns": 9423866458,
+      "line": "data: {\"id\":\"chatcmpl-4ba46a61\",\"object\":\"chat.completion.chunk\",\"created\":1791566916,\"model\":\"Qwen3.8-Flash-Next-oQ6e-mtp\",\"choices\":[{\"index\":0,\"delta\":{\"content\":\"off,\\n    parse_retry_after,\\n    partition_batches,\\n    merge\"}}]}"
+    },
+    {
+      "relative_ns": 9423876667,
+      "line": ""
+    },
+    {
+      "relative_ns": 9531281208,
+      "line": "data: {\"id\":\"chatcmpl-4ba46a61\",\"object\":\"chat.completion.chunk\",\"created\":1791566916,\"model\":\"Qwen3.8-Flash-Next-oQ6e-mtp\",\"choices\":[{\"index\":0,\"delta\":{\"content\":\"_counters,\\n)\\n\\n\\nclass TestTelemetryTools(unittest.TestCase):\"}}]}"
+    },
+    {
+      "relative_ns": 9531287708,
+      "line": ""
+    },
+    {
+      "relative_ns": 9634021375,
+      "line": "data: {\"id\":\"chatcmpl-4ba46a61\",\"object\":\"chat.completion.chunk\",\"created\":1791566916,\"model\":\"Qwen3.8-Flash-Next-oQ6e-mtp\",\"choices\":[{\"index\":0,\"delta\":{\"content\":\"\\n    \\\"\\\"\\\"Test suite for telemetry_tools module.\\\"\\\"\\\"\"}}]}"
+    },
+    {
+      "relative_ns": 9634039125,
+      "line": ""
+    },
+    {
+      "relative_ns": 9738902875,
+      "line": "data: {\"id\":\"chatcmpl-4ba46a61\",\"object\":\"chat.completion.chunk\",\"created\":1791566916,\"model\":\"Qwen3.8-Flash-Next-oQ6e-mtp\",\"choices\":[{\"index\":0,\"delta\":{\"content\":\"\\n\\n    # ------------------------------------------------------------------\\n    # Tests for dedupe_events\\n\"}}]}"
+    },
+    {
+      "relative_ns": 9738909875,
+      "line": ""
+    },
+    {
+      "relative_ns": 9844459292,
+      "line": "data: {\"id\":\"chatcmpl-4ba46a61\",\"object\":\"chat.completion.chunk\",\"created\":1791566916,\"model\":\"Qwen3.8-Flash-Next-oQ6e-mtp\",\"choices\":[{\"index\":0,\"delta\":{\"content\":\"    # ------------------------------------------------------------------\\n\\n    def test_dedupe_events_empty\"}}]}"
+    },
+    {
+      "relative_ns": 9844465750,
+      "line": ""
+    },
+    {
+      "relative_ns": 9947784083,
+      "line": "data: {\"id\":\"chatcmpl-4ba46a61\",\"object\":\"chat.completion.chunk\",\"created\":1791566916,\"model\":\"Qwen3.8-Flash-Next-oQ6e-mtp\",\"choices\":[{\"index\":0,\"delta\":{\"content\":\"_list(self):\\n        \\\"\\\"\\\"Empty input returns empty\"}}]}"
+    },
+    {
+      "relative_ns": 9947791792,
+      "line": ""
+    },
+    {
+      "relative_ns": 10053464667,
+      "line": "data: {\"id\":\"chatcmpl-4ba46a61\",\"object\":\"chat.completion.chunk\",\"created\":1791566917,\"model\":\"Qwen3.8-Flash-Next-oQ6e-mtp\",\"choices\":[{\"index\":0,\"delta\":{\"content\":\" list.\\\"\\\"\\\"\\n        self.assertEqual(dedupe_events([]), [])\\n\\n\"}}]}"
+    },
+    {
+      "relative_ns": 10053471208,
+      "line": ""
+    },
+    {
+      "relative_ns": 10174017292,
+      "line": "data: {\"id\":\"chatcmpl-4ba46a61\",\"object\":\"chat.completion.chunk\",\"created\":1791566917,\"model\":\"Qwen3.8-Flash-Next-oQ6e-mtp\",\"choices\":[{\"index\":0,\"delta\":{\"content\":\"    def test_dedupe_events_single_event(self):\\n       \"}}]}"
+    },
+    {
+      "relative_ns": 10174054917,
+      "line": ""
+    },
+    {
+      "relative_ns": 10280635917,
+      "line": "data: {\"id\":\"chatcmpl-4ba46a61\",\"object\":\"chat.completion.chunk\",\"created\":1791566917,\"model\":\"Qwen3.8-Flash-Next-oQ6e-mtp\",\"choices\":[{\"index\":0,\"delta\":{\"content\":\" \\\"\\\"\\\"Single event is returned as is.\\\"\\\"\\\"\\n        events =\"}}]}"
+    },
+    {
+      "relative_ns": 10280644708,
+      "line": ""
+    },
+    {
+      "relative_ns": 10388004417,
+      "line": "data: {\"id\":\"chatcmpl-4ba46a61\",\"object\":\"chat.completion.chunk\",\"created\":1791566917,\"model\":\"Qwen3.8-Flash-Next-oQ6e-mtp\",\"choices\":[{\"index\":0,\"delta\":{\"content\":\" [{\\\"id\\\": \\\"1\\\", \\\"data\\\": \\\"a\\\"}]\\n        result\"}}]}"
+    },
+    {
+      "relative_ns": 10388010917,
+      "line": ""
+    },
+    {
+      "relative_ns": 10494789625,
+      "line": "data: {\"id\":\"chatcmpl-4ba46a61\",\"object\":\"chat.completion.chunk\",\"created\":1791566917,\"model\":\"Qwen3.8-Flash-Next-oQ6e-mtp\",\"choices\":[{\"index\":0,\"delta\":{\"content\":\" = dedupe_events(events)\\n        self.assertEqual(result, events)\"}}]}"
+    },
+    {
+      "relative_ns": 10494798583,
+      "line": ""
+    },
+    {
+      "relative_ns": 10597201542,
+      "line": "data: {\"id\":\"chatcmpl-4ba46a61\",\"object\":\"chat.completion.chunk\",\"created\":1791566917,\"model\":\"Qwen3.8-Flash-Next-oQ6e-mtp\",\"choices\":[{\"index\":0,\"delta\":{\"content\":\"\\n        self.assertIsNot(result, events)  # Should be\"}}]}"
+    },
+    {
+      "relative_ns": 10597210667,
+      "line": ""
+    },
+    {
+      "relative_ns": 10729017083,
+      "line": "data: {\"id\":\"chatcmpl-4ba46a61\",\"object\":\"chat.completion.chunk\",\"created\":1791566917,\"model\":\"Qwen3.8-Flash-Next-oQ6e-mtp\",\"choices\":[{\"index\":0,\"delta\":{\"content\":\" a new list\\n\\n    def test_dedupe_events_no_duplicates(self):\\n       \"}}]}"
+    },
+    {
+      "relative_ns": 10729026083,
+      "line": ""
+    },
+    {
+      "relative_ns": 10832927792,
+      "line": "data: {\"id\":\"chatcmpl-4ba46a61\",\"object\":\"chat.completion.chunk\",\"created\":1791566917,\"model\":\"Qwen3.8-Flash-Next-oQ6e-mtp\",\"choices\":[{\"index\":0,\"delta\":{\"content\":\" \\\"\\\"\\\"Events with unique IDs are all retained.\\\"\\\"\\\"\"}}]}"
+    },
+    {
+      "relative_ns": 10832936000,
+      "line": ""
+    },
+    {
+      "relative_ns": 10939608667,
+      "line": "data: {\"id\":\"chatcmpl-4ba46a61\",\"object\":\"chat.completion.chunk\",\"created\":1791566917,\"model\":\"Qwen3.8-Flash-Next-oQ6e-mtp\",\"choices\":[{\"index\":0,\"delta\":{\"content\":\"\\n        events = [\\n            {\\\"id\\\": \\\"1\\\", \\\"data\\\":\"}}]}"
+    },
+    {
+      "relative_ns": 10939618542,
+      "line": ""
+    },
+    {
+      "relative_ns": 11045927000,
+      "line": "data: {\"id\":\"chatcmpl-4ba46a61\",\"object\":\"chat.completion.chunk\",\"created\":1791566918,\"model\":\"Qwen3.8-Flash-Next-oQ6e-mtp\",\"choices\":[{\"index\":0,\"delta\":{\"content\":\" \\\"a\\\"},\\n            {\\\"id\\\": \\\"2\\\", \\\"data\\\":\"}}]}"
+    },
+    {
+      "relative_ns": 11045933042,
+      "line": ""
+    },
+    {
+      "relative_ns": 11155410042,
+      "line": "data: {\"id\":\"chatcmpl-4ba46a61\",\"object\":\"chat.completion.chunk\",\"created\":1791566918,\"model\":\"Qwen3.8-Flash-Next-oQ6e-mtp\",\"choices\":[{\"index\":0,\"delta\":{\"content\":\" \\\"b\\\"},\\n            {\\\"id\\\": \\\"3\\\", \\\"data\\\": \\\"c\"}}]}"
+    },
+    {
+      "relative_ns": 11155416375,
+      "line": ""
+    },
+    {
+      "relative_ns": 11278083000,
+      "line": "data: {\"id\":\"chatcmpl-4ba46a61\",\"object\":\"chat.completion.chunk\",\"created\":1791566918,\"model\":\"Qwen3.8-Flash-Next-oQ6e-mtp\",\"choices\":[{\"index\":0,\"delta\":{\"content\":\"\\\"},\\n        ]\\n        result = dedupe_events(events)\\n        self\"}}]}"
+    },
+    {
+      "relative_ns": 11278089208,
+      "line": ""
+    },
+    {
+      "relative_ns": 11386204250,
+      "line": "data: {\"id\":\"chatcmpl-4ba46a61\",\"object\":\"chat.completion.chunk\",\"created\":1791566918,\"model\":\"Qwen3.8-Flash-Next-oQ6e-mtp\",\"choices\":[{\"index\":0,\"delta\":{\"content\":\".assertEqual(result, events)\\n\\n    def test_dedupe_events_first_occurrence\"}}]}"
+    },
+    {
+      "relative_ns": 11386258083,
+      "line": ""
+    },
+    {
+      "relative_ns": 11491476667,
+      "line": "data: {\"id\":\"chatcmpl-4ba46a61\",\"object\":\"chat.completion.chunk\",\"created\":1791566918,\"model\":\"Qwen3.8-Flash-Next-oQ6e-mtp\",\"choices\":[{\"index\":0,\"delta\":{\"content\":\"_retained(self):\\n        \\\"\\\"\\\"First occurrence of duplicate ID\"}}]}"
+    },
+    {
+      "relative_ns": 11491482542,
+      "line": ""
+    },
+    {
+      "relative_ns": 11597899292,
+      "line": "data: {\"id\":\"chatcmpl-4ba46a61\",\"object\":\"chat.completion.chunk\",\"created\":1791566918,\"model\":\"Qwen3.8-Flash-Next-oQ6e-mtp\",\"choices\":[{\"index\":0,\"delta\":{\"content\":\" is kept.\\\"\\\"\\\"\\n        events = [\\n            {\\\"id\\\": \\\"1\\\",\"}}]}"
+    },
+    {
+      "relative_ns": 11597905375,
+      "line": ""
+    },
+    {
+      "relative_ns": 11706132875,
+      "line": "data: {\"id\":\"chatcmpl-4ba46a61\",\"object\":\"chat.completion.chunk\",\"created\":1791566918,\"model\":\"Qwen3.8-Flash-Next-oQ6e-mtp\",\"choices\":[{\"index\":0,\"delta\":{\"content\":\" \\\"data\\\": \\\"first\\\"},\\n            {\\\"id\\\": \\\"2\\\", \\\"data\"}}]}"
+    },
+    {
+      "relative_ns": 11706138875,
+      "line": ""
+    },
+    {
+      "relative_ns": 11814627167,
+      "line": "data: {\"id\":\"chatcmpl-4ba46a61\",\"object\":\"chat.completion.chunk\",\"created\":1791566918,\"model\":\"Qwen3.8-Flash-Next-oQ6e-mtp\",\"choices\":[{\"index\":0,\"delta\":{\"content\":\"\\\": \\\"second\\\"},\\n            {\\\"id\\\": \\\"1\\\", \\\"data\\\": \\\"\"}}]}"
+    },
+    {
+      "relative_ns": 11814636083,
+      "line": ""
+    },
+    {
+      "relative_ns": 11922857333,
+      "line": "data: {\"id\":\"chatcmpl-4ba46a61\",\"object\":\"chat.completion.chunk\",\"created\":1791566918,\"model\":\"Qwen3.8-Flash-Next-oQ6e-mtp\",\"choices\":[{\"index\":0,\"delta\":{\"content\":\"duplicate\\\"},\\n        ]\\n        result = dedupe_events(events)\\n       \"}}]}"
+    },
+    {
+      "relative_ns": 11922863167,
+      "line": ""
+    },
+    {
+      "relative_ns": 12029287542,
+      "line": "data: {\"id\":\"chatcmpl-4ba46a61\",\"object\":\"chat.completion.chunk\",\"created\":1791566919,\"model\":\"Qwen3.8-Flash-Next-oQ6e-mtp\",\"choices\":[{\"index\":0,\"delta\":{\"content\":\" self.assertEqual(len(result), 2)\\n        self.assertEqual(result[0][\\\"\"}}]}"
+    },
+    {
+      "relative_ns": 12029296042,
+      "line": ""
+    },
+    {
+      "relative_ns": 12136588292,
+      "line": "data: {\"id\":\"chatcmpl-4ba46a61\",\"object\":\"chat.completion.chunk\",\"created\":1791566919,\"model\":\"Qwen3.8-Flash-Next-oQ6e-mtp\",\"choices\":[{\"index\":0,\"delta\":{\"content\":\"data\\\"], \\\"first\\\")\\n        self.assertEqual(result[1][\\\"data\"}}]}"
+    },
+    {
+      "relative_ns": 12136598833,
+      "line": ""
+    },
+    {
+      "relative_ns": 12242161667,
+      "line": "data: {\"id\":\"chatcmpl-4ba46a61\",\"object\":\"chat.completion.chunk\",\"created\":1791566919,\"model\":\"Qwen3.8-Flash-Next-oQ6e-mtp\",\"choices\":[{\"index\":0,\"delta\":{\"content\":\"\\\"], \\\"second\\\")\\n\\n    def test_dedupe_events_multiple_duplicates\"}}]}"
+    },
+    {
+      "relative_ns": 12242169667,
+      "line": ""
+    },
+    {
+      "relative_ns": 12348613583,
+      "line": "data: {\"id\":\"chatcmpl-4ba46a61\",\"object\":\"chat.completion.chunk\",\"created\":1791566919,\"model\":\"Qwen3.8-Flash-Next-oQ6e-mtp\",\"choices\":[{\"index\":0,\"delta\":{\"content\":\"(self):\\n        \\\"\\\"\\\"Multiple duplicates are removed, keeping first\"}}]}"
+    },
+    {
+      "relative_ns": 12348619542,
+      "line": ""
+    },
+    {
+      "relative_ns": 12453918625,
+      "line": "data: {\"id\":\"chatcmpl-4ba46a61\",\"object\":\"chat.completion.chunk\",\"created\":1791566919,\"model\":\"Qwen3.8-Flash-Next-oQ6e-mtp\",\"choices\":[{\"index\":0,\"delta\":{\"content\":\"s.\\\"\\\"\\\"\\n        events = [\\n            {\\\"id\\\": \\\"a\"}}]}"
+    },
+    {
+      "relative_ns": 12453925083,
+      "line": ""
+    },
+    {
+      "relative_ns": 12561634125,
+      "line": "data: {\"id\":\"chatcmpl-4ba46a61\",\"object\":\"chat.completion.chunk\",\"created\":1791566919,\"model\":\"Qwen3.8-Flash-Next-oQ6e-mtp\",\"choices\":[{\"index\":0,\"delta\":{\"content\":\"\\\", \\\"v\\\": 1},\\n            {\\\"id\\\": \\\"b\\\", \\\"\"}}]}"
+    },
+    {
+      "relative_ns": 12561643667,
+      "line": ""
+    },
+    {
+      "relative_ns": 12671090000,
+      "line": "data: {\"id\":\"chatcmpl-4ba46a61\",\"object\":\"chat.completion.chunk\",\"created\":1791566919,\"model\":\"Qwen3.8-Flash-Next-oQ6e-mtp\",\"choices\":[{\"index\":0,\"delta\":{\"content\":\"v\\\": 2},\\n            {\\\"id\\\": \\\"a\\\", \\\"v\\\":\"}}]}"
+    },
+    {
+      "relative_ns": 12671100458,
+      "line": ""
+    },
+    {
+      "relative_ns": 12779781583,
+      "line": "data: {\"id\":\"chatcmpl-4ba46a61\",\"object\":\"chat.completion.chunk\",\"created\":1791566919,\"model\":\"Qwen3.8-Flash-Next-oQ6e-mtp\",\"choices\":[{\"index\":0,\"delta\":{\"content\":\" 3},\\n            {\\\"id\\\": \\\"c\\\", \\\"v\\\":\"}}]}"
+    },
+    {
+      "relative_ns": 12779790667,
+      "line": ""
+    },
+    {
+      "relative_ns": 12888282042,
+      "line": "data: {\"id\":\"chatcmpl-4ba46a61\",\"object\":\"chat.completion.chunk\",\"created\":1791566919,\"model\":\"Qwen3.8-Flash-Next-oQ6e-mtp\",\"choices\":[{\"index\":0,\"delta\":{\"content\":\" 4},\\n            {\\\"id\\\": \\\"b\\\", \\\"v\\\": 5},\"}}]}"
+    },
+    {
+      "relative_ns": 12888291875,
+      "line": ""
+    },
+    {
+      "relative_ns": 12939579625,
+      "line": "data: {\"id\":\"chatcmpl-4ba46a61\",\"object\":\"chat.completion.chunk\",\"created\":1791566919,\"model\":\"Qwen3.8-Flash-Next-oQ6e-mtp\",\"choices\":[{\"index\":0,\"delta\":{\"content\":\"\\n            {\\\"id\\\":\"}}]}"
+    },
+    {
+      "relative_ns": 12939586708,
+      "line": ""
+    },
+    {
+      "relative_ns": 12939705208,
+      "line": "data: {\"id\":\"chatcmpl-4ba46a61\",\"object\":\"chat.completion.chunk\",\"created\":1791566919,\"model\":\"Qwen3.8-Flash-Next-oQ6e-mtp\",\"choices\":[{\"index\":0,\"delta\":{},\"finish_reason\":\"length\"}]}"
+    },
+    {
+      "relative_ns": 12939711292,
+      "line": ""
+    },
+    {
+      "relative_ns": 12939943333,
+      "line": "data: {\"id\":\"chatcmpl-4ba46a61\",\"object\":\"chat.completion.chunk\",\"created\":1791566919,\"model\":\"Qwen3.8-Flash-Next-oQ6e-mtp\",\"choices\":[],\"usage\":{\"prompt_tokens\":32768,\"completion_tokens\":512,\"total_tokens\":33280,\"input_tokens\":32768,\"output_tokens\":512,\"prompt_tokens_details\":{\"cached_tokens\":0},\"time_to_first_token\":8.71,\"time_to_first_visible_token\":8.71,\"total_time\":12.89,\"prompt_eval_duration\":8.71,\"generation_duration\":4.18,\"prompt_tokens_per_second\":3761.96,\"generation_tokens_per_second\":122.63}}"
+    },
+    {
+      "relative_ns": 12939948000,
+      "line": ""
+    },
+    {
+      "relative_ns": 12940004292,
+      "line": "data: [DONE]"
+    },
+    {
+      "relative_ns": 12940006667,
+      "line": ""
+    }
+  ],
+  "sse_frames": [
+    {
+      "id": "chatcmpl-4ba46a61",
+      "object": "chat.completion.chunk",
+      "created": 0,
+      "model": "keepalive",
+      "choices": [
+        {
+          "index": 0,
+          "delta": {
+            "role": "assistant",
+            "content": ""
+          },
+          "finish_reason": null
+        }
+      ]
+    },
+    {
+      "id": "chatcmpl-4ba46a61",
+      "object": "chat.completion.chunk",
+      "created": 1791566907,
+      "model": "Qwen3.8-Flash-Next-oQ6e-mtp",
+      "choices": [
+        {
+          "index": 0,
+          "delta": {
+            "role": "assistant"
+          }
+        }
+      ]
+    },
+    {
+      "id": "chatcmpl-4ba46a61",
+      "object": "chat.completion.chunk",
+      "created": 1791566915,
+      "model": "Qwen3.8-Flash-Next-oQ6e-mtp",
+      "choices": [
+        {
+          "index": 0,
+          "delta": {
+            "content": "import"
+          }
+        }
+      ]
+    },
+    {
+      "id": "chatcmpl-4ba46a61",
+      "object": "chat.completion.chunk",
+      "created": 1791566915,
+      "model": "Qwen3.8-Flash-Next-oQ6e-mtp",
+      "choices": [
+        {
+          "index": 0,
+          "delta": {
+            "content": " unittest\n"
+          }
+        }
+      ]
+    },
+    {
+      "id": "chatcmpl-4ba46a61",
+      "object": "chat.completion.chunk",
+      "created": 1791566916,
+      "model": "Qwen3.8-Flash-Next-oQ6e-mtp",
+      "choices": [
+        {
+          "index": 0,
+          "delta": {
+            "content": "from unittest.mock import MagicMock\nimport copy\n\n#"
+          }
+        }
+      ]
+    },
+    {
+      "id": "chatcmpl-4ba46a61",
+      "object": "chat.completion.chunk",
+      "created": 1791566916,
+      "model": "Qwen3.8-Flash-Next-oQ6e-mtp",
+      "choices": [
+        {
+          "index": 0,
+          "delta": {
+            "content": " Assuming telemetry_tools is available in the path\n"
+          }
+        }
+      ]
+    },
+    {
+      "id": "chatcmpl-4ba46a61",
+      "object": "chat.completion.chunk",
+      "created": 1791566916,
+      "model": "Qwen3.8-Flash-Next-oQ6e-mtp",
+      "choices": [
+        {
+          "index": 0,
+          "delta": {
+            "content": "from telemetry_tools import (\n    dedupe_events,\n    bounded_back"
+          }
+        }
+      ]
+    },
+    {
+      "id": "chatcmpl-4ba46a61",
+      "object": "chat.completion.chunk",
+      "created": 1791566916,
+      "model": "Qwen3.8-Flash-Next-oQ6e-mtp",
+      "choices": [
+        {
+          "index": 0,
+          "delta": {
+            "content": "off,\n    parse_retry_after,\n    partition_batches,\n    merge"
+          }
+        }
+      ]
+    },
+    {
+      "id": "chatcmpl-4ba46a61",
+      "object": "chat.completion.chunk",
+      "created": 1791566916,
+      "model": "Qwen3.8-Flash-Next-oQ6e-mtp",
+      "choices": [
+        {
+          "index": 0,
+          "delta": {
+            "content": "_counters,\n)\n\n\nclass TestTelemetryTools(unittest.TestCase):"
+          }
+        }
+      ]
+    },
+    {
+      "id": "chatcmpl-4ba46a61",
+      "object": "chat.completion.chunk",
+      "created": 1791566916,
+      "model": "Qwen3.8-Flash-Next-oQ6e-mtp",
+      "choices": [
+        {
+          "index": 0,
+          "delta": {
+            "content": "\n    \"\"\"Test suite for telemetry_tools module.\"\"\""
+          }
+        }
+      ]
+    },
+    {
+      "id": "chatcmpl-4ba46a61",
+      "object": "chat.completion.chunk",
+      "created": 1791566916,
+      "model": "Qwen3.8-Flash-Next-oQ6e-mtp",
+      "choices": [
+        {
+          "index": 0,
+          "delta": {
+            "content": "\n\n    # ------------------------------------------------------------------\n    # Tests for dedupe_events\n"
+          }
+        }
+      ]
+    },
+    {
+      "id": "chatcmpl-4ba46a61",
+      "object": "chat.completion.chunk",
+      "created": 1791566916,
+      "model": "Qwen3.8-Flash-Next-oQ6e-mtp",
+      "choices": [
+        {
+          "index": 0,
+          "delta": {
+            "content": "    # ------------------------------------------------------------------\n\n    def test_dedupe_events_empty"
+          }
+        }
+      ]
+    },
+    {
+      "id": "chatcmpl-4ba46a61",
+      "object": "chat.completion.chunk",
+      "created": 1791566916,
+      "model": "Qwen3.8-Flash-Next-oQ6e-mtp",
+      "choices": [
+        {
+          "index": 0,
+          "delta": {
+            "content": "_list(self):\n        \"\"\"Empty input returns empty"
+          }
+        }
+      ]
+    },
+    {
+      "id": "chatcmpl-4ba46a61",
+      "object": "chat.completion.chunk",
+      "created": 1791566917,
+      "model": "Qwen3.8-Flash-Next-oQ6e-mtp",
+      "choices": [
+        {
+          "index": 0,
+          "delta": {
+            "content": " list.\"\"\"\n        self.assertEqual(dedupe_events([]), [])\n\n"
+          }
+        }
+      ]
+    },
+    {
+      "id": "chatcmpl-4ba46a61",
+      "object": "chat.completion.chunk",
+      "created": 1791566917,
+      "model": "Qwen3.8-Flash-Next-oQ6e-mtp",
+      "choices": [
+        {
+          "index": 0,
+          "delta": {
+            "content": "    def test_dedupe_events_single_event(self):\n       "
+          }
+        }
+      ]
+    },
+    {
+      "id": "chatcmpl-4ba46a61",
+      "object": "chat.completion.chunk",
+      "created": 1791566917,
+      "model": "Qwen3.8-Flash-Next-oQ6e-mtp",
+      "choices": [
+        {
+          "index": 0,
+          "delta": {
+            "content": " \"\"\"Single event is returned as is.\"\"\"\n        events ="
+          }
+        }
+      ]
+    },
+    {
+      "id": "chatcmpl-4ba46a61",
+      "object": "chat.completion.chunk",
+      "created": 1791566917,
+      "model": "Qwen3.8-Flash-Next-oQ6e-mtp",
+      "choices": [
+        {
+          "index": 0,
+          "delta": {
+            "content": " [{\"id\": \"1\", \"data\": \"a\"}]\n        result"
+          }
+        }
+      ]
+    },
+    {
+      "id": "chatcmpl-4ba46a61",
+      "object": "chat.completion.chunk",
+      "created": 1791566917,
+      "model": "Qwen3.8-Flash-Next-oQ6e-mtp",
+      "choices": [
+        {
+          "index": 0,
+          "delta": {
+            "content": " = dedupe_events(events)\n        self.assertEqual(result, events)"
+          }
+        }
+      ]
+    },
+    {
+      "id": "chatcmpl-4ba46a61",
+      "object": "chat.completion.chunk",
+      "created": 1791566917,
+      "model": "Qwen3.8-Flash-Next-oQ6e-mtp",
+      "choices": [
+        {
+          "index": 0,
+          "delta": {
+            "content": "\n        self.assertIsNot(result, events)  # Should be"
+          }
+        }
+      ]
+    },
+    {
+      "id": "chatcmpl-4ba46a61",
+      "object": "chat.completion.chunk",
+      "created": 1791566917,
+      "model": "Qwen3.8-Flash-Next-oQ6e-mtp",
+      "choices": [
+        {
+          "index": 0,
+          "delta": {
+            "content": " a new list\n\n    def test_dedupe_events_no_duplicates(self):\n       "
+          }
+        }
+      ]
+    },
+    {
+      "id": "chatcmpl-4ba46a61",
+      "object": "chat.completion.chunk",
+      "created": 1791566917,
+      "model": "Qwen3.8-Flash-Next-oQ6e-mtp",
+      "choices": [
+        {
+          "index": 0,
+          "delta": {
+            "content": " \"\"\"Events with unique IDs are all retained.\"\"\""
+          }
+        }
+      ]
+    },
+    {
+      "id": "chatcmpl-4ba46a61",
+      "object": "chat.completion.chunk",
+      "created": 1791566917,
+      "model": "Qwen3.8-Flash-Next-oQ6e-mtp",
+      "choices": [
+        {
+          "index": 0,
+          "delta": {
+            "content": "\n        events = [\n            {\"id\": \"1\", \"data\":"
+          }
+        }
+      ]
+    },
+    {
+      "id": "chatcmpl-4ba46a61",
+      "object": "chat.completion.chunk",
+      "created": 1791566918,
+      "model": "Qwen3.8-Flash-Next-oQ6e-mtp",
+      "choices": [
+        {
+          "index": 0,
+          "delta": {
+            "content": " \"a\"},\n            {\"id\": \"2\", \"data\":"
+          }
+        }
+      ]
+    },
+    {
+      "id": "chatcmpl-4ba46a61",
+      "object": "chat.completion.chunk",
+      "created": 1791566918,
+      "model": "Qwen3.8-Flash-Next-oQ6e-mtp",
+      "choices": [
+        {
+          "index": 0,
+          "delta": {
+            "content": " \"b\"},\n            {\"id\": \"3\", \"data\": \"c"
+          }
+        }
+      ]
+    },
+    {
+      "id": "chatcmpl-4ba46a61",
+      "object": "chat.completion.chunk",
+      "created": 1791566918,
+      "model": "Qwen3.8-Flash-Next-oQ6e-mtp",
+      "choices": [
+        {
+          "index": 0,
+          "delta": {
+            "content": "\"},\n        ]\n        result = dedupe_events(events)\n        self"
+          }
+        }
+      ]
+    },
+    {
+      "id": "chatcmpl-4ba46a61",
+      "object": "chat.completion.chunk",
+      "created": 1791566918,
+      "model": "Qwen3.8-Flash-Next-oQ6e-mtp",
+      "choices": [
+        {
+          "index": 0,
+          "delta": {
+            "content": ".assertEqual(result, events)\n\n    def test_dedupe_events_first_occurrence"
+          }
+        }
+      ]
+    },
+    {
+      "id": "chatcmpl-4ba46a61",
+      "object": "chat.completion.chunk",
+      "created": 1791566918,
+      "model": "Qwen3.8-Flash-Next-oQ6e-mtp",
+      "choices": [
+        {
+          "index": 0,
+          "delta": {
+            "content": "_retained(self):\n        \"\"\"First occurrence of duplicate ID"
+          }
+        }
+      ]
+    },
+    {
+      "id": "chatcmpl-4ba46a61",
+      "object": "chat.completion.chunk",
+      "created": 1791566918,
+      "model": "Qwen3.8-Flash-Next-oQ6e-mtp",
+      "choices": [
+        {
+          "index": 0,
+          "delta": {
+            "content": " is kept.\"\"\"\n        events = [\n            {\"id\": \"1\","
+          }
+        }
+      ]
+    },
+    {
+      "id": "chatcmpl-4ba46a61",
+      "object": "chat.completion.chunk",
+      "created": 1791566918,
+      "model": "Qwen3.8-Flash-Next-oQ6e-mtp",
+      "choices": [
+        {
+          "index": 0,
+          "delta": {
+            "content": " \"data\": \"first\"},\n            {\"id\": \"2\", \"data"
+          }
+        }
+      ]
+    },
+    {
+      "id": "chatcmpl-4ba46a61",
+      "object": "chat.completion.chunk",
+      "created": 1791566918,
+      "model": "Qwen3.8-Flash-Next-oQ6e-mtp",
+      "choices": [
+        {
+          "index": 0,
+          "delta": {
+            "content": "\": \"second\"},\n            {\"id\": \"1\", \"data\": \""
+          }
+        }
+      ]
+    },
+    {
+      "id": "chatcmpl-4ba46a61",
+      "object": "chat.completion.chunk",
+      "created": 1791566918,
+      "model": "Qwen3.8-Flash-Next-oQ6e-mtp",
+      "choices": [
+        {
+          "index": 0,
+          "delta": {
+            "content": "duplicate\"},\n        ]\n        result = dedupe_events(events)\n       "
+          }
+        }
+      ]
+    },
+    {
+      "id": "chatcmpl-4ba46a61",
+      "object": "chat.completion.chunk",
+      "created": 1791566919,
+      "model": "Qwen3.8-Flash-Next-oQ6e-mtp",
+      "choices": [
+        {
+          "index": 0,
+          "delta": {
+            "content": " self.assertEqual(len(result), 2)\n        self.assertEqual(result[0][\""
+          }
+        }
+      ]
+    },
+    {
+      "id": "chatcmpl-4ba46a61",
+      "object": "chat.completion.chunk",
+      "created": 1791566919,
+      "model": "Qwen3.8-Flash-Next-oQ6e-mtp",
+      "choices": [
+        {
+          "index": 0,
+          "delta": {
+            "content": "data\"], \"first\")\n        self.assertEqual(result[1][\"data"
+          }
+        }
+      ]
+    },
+    {
+      "id": "chatcmpl-4ba46a61",
+      "object": "chat.completion.chunk",
+      "created": 1791566919,
+      "model": "Qwen3.8-Flash-Next-oQ6e-mtp",
+      "choices": [
+        {
+          "index": 0,
+          "delta": {
+            "content": "\"], \"second\")\n\n    def test_dedupe_events_multiple_duplicates"
+          }
+        }
+      ]
+    },
+    {
+      "id": "chatcmpl-4ba46a61",
+      "object": "chat.completion.chunk",
+      "created": 1791566919,
+      "model": "Qwen3.8-Flash-Next-oQ6e-mtp",
+      "choices": [
+        {
+          "index": 0,
+          "delta": {
+            "content": "(self):\n        \"\"\"Multiple duplicates are removed, keeping first"
+          }
+        }
+      ]
+    },
+    {
+      "id": "chatcmpl-4ba46a61",
+      "object": "chat.completion.chunk",
+      "created": 1791566919,
+      "model": "Qwen3.8-Flash-Next-oQ6e-mtp",
+      "choices": [
+        {
+          "index": 0,
+          "delta": {
+            "content": "s.\"\"\"\n        events = [\n            {\"id\": \"a"
+          }
+        }
+      ]
+    },
+    {
+      "id": "chatcmpl-4ba46a61",
+      "object": "chat.completion.chunk",
+      "created": 1791566919,
+      "model": "Qwen3.8-Flash-Next-oQ6e-mtp",
+      "choices": [
+        {
+          "index": 0,
+          "delta": {
+            "content": "\", \"v\": 1},\n            {\"id\": \"b\", \""
+          }
+        }
+      ]
+    },
+    {
+      "id": "chatcmpl-4ba46a61",
+      "object": "chat.completion.chunk",
+      "created": 1791566919,
+      "model": "Qwen3.8-Flash-Next-oQ6e-mtp",
+      "choices": [
+        {
+          "index": 0,
+          "delta": {
+            "content": "v\": 2},\n            {\"id\": \"a\", \"v\":"
+          }
+        }
+      ]
+    },
+    {
+      "id": "chatcmpl-4ba46a61",
+      "object": "chat.completion.chunk",
+      "created": 1791566919,
+      "model": "Qwen3.8-Flash-Next-oQ6e-mtp",
+      "choices": [
+        {
+          "index": 0,
+          "delta": {
+            "content": " 3},\n            {\"id\": \"c\", \"v\":"
+          }
+        }
+      ]
+    },
+    {
+      "id": "chatcmpl-4ba46a61",
+      "object": "chat.completion.chunk",
+      "created": 1791566919,
+      "model": "Qwen3.8-Flash-Next-oQ6e-mtp",
+      "choices": [
+        {
+          "index": 0,
+          "delta": {
+            "content": " 4},\n            {\"id\": \"b\", \"v\": 5},"
+          }
+        }
+      ]
+    },
+    {
+      "id": "chatcmpl-4ba46a61",
+      "object": "chat.completion.chunk",
+      "created": 1791566919,
+      "model": "Qwen3.8-Flash-Next-oQ6e-mtp",
+      "choices": [
+        {
+          "index": 0,
+          "delta": {
+            "content": "\n            {\"id\":"
+          }
+        }
+      ]
+    },
+    {
+      "id": "chatcmpl-4ba46a61",
+      "object": "chat.completion.chunk",
+      "created": 1791566919,
+      "model": "Qwen3.8-Flash-Next-oQ6e-mtp",
+      "choices": [
+        {
+          "index": 0,
+          "delta": {},
+          "finish_reason": "length"
+        }
+      ]
+    },
+    {
+      "id": "chatcmpl-4ba46a61",
+      "object": "chat.completion.chunk",
+      "created": 1791566919,
+      "model": "Qwen3.8-Flash-Next-oQ6e-mtp",
+      "choices": [],
+      "usage": {
+        "prompt_tokens": 32768,
+        "completion_tokens": 512,
+        "total_tokens": 33280,
+        "input_tokens": 32768,
+        "output_tokens": 512,
+        "prompt_tokens_details": {
+          "cached_tokens": 0
+        },
+        "time_to_first_token": 8.71,
+        "time_to_first_visible_token": 8.71,
+        "total_time": 12.89,
+        "prompt_eval_duration": 8.71,
+        "generation_duration": 4.18,
+        "prompt_tokens_per_second": 3761.96,
+        "generation_tokens_per_second": 122.63
+      }
+    }
+  ]
+}

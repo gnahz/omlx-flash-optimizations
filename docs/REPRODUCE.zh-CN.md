@@ -1,6 +1,6 @@
 # 完整复现说明
 
-[English](REPRODUCE.md) · [测试方法与证据](RESULTS.zh-CN.md) · [发布验收](VALIDATION.md)
+[English](REPRODUCE.md) · [测试方法与证据](RESULTS.zh-CN.md) · [发布验收](VALIDATION.zh-CN.md)
 
 ## 1. 环境与固定版本
 
@@ -130,7 +130,11 @@ python3 scripts/repro.py benchmark --model qwen --work-dir "$Q_WORK" --model-dir
 
 `--suite core` 回放固定 2K/8K/32K 吞吐请求；`--suite tasks` 回放存档 `edit_file` 与 JSON 修改的实测请求并校验完整输出约束；`--suite prefix` 比较冷/热前缀，并包含独立语义正确性检查；`--suite all` 包含三组。核心/任务回放使用贪心、MTP 深度 3，分别关闭/开启 lookup。lookup 参数为 n-gram 8、最大草稿 7、长匹配阈值 32、长草稿 14、exact row 最大 4。核心服务并发 1，每请求前明确清 cache，并检查实际 `cached_tokens=0`。prefix 对比前四补丁 baseline 与全部六补丁 optimized，缓存收益单独记录。报告保留请求/SSE、完整输出、验收、实际 token、计时和环境/源码身份。
 
-core 为 36 请求 / 30 实测；tasks 为 24 / 20，每任务每模式一次预热加五次实测；prefix 为 51 / 36；all 共 **111 请求 / 86 实测**。任务验收检查存档完整输出 SHA256、实际 token 长度、stop 结束、没有思考/tool call、Python AST 仅改变指定函数名，以及 JSON 除指定字段外完全一致。该发布驱动不执行生成的 Python。只复现任务结果：
+core 为 36 请求 / 30 实测；tasks 为 24 / 20，每任务每模式一次预热加五次实测；prefix 为 51 / 36；all 共 **111 请求 / 86 实测**。任务验收检查存档完整输出 SHA256、实际 token 长度、stop 结束、没有思考/tool call、Python AST 仅改变指定函数名，以及 JSON 除指定字段外完全一致。该发布驱动不执行生成的 Python。
+
+每个新 job 启动前检查五组 native kernel、NAX 硬件可用性与已编译 NAX QMM。bulk 路径门槛为 2048 prompt token，存档 1344/880-token 任务正常走短输入路径；达到门槛的 core/prefix job 仍必须观察到 bulk NAX dispatch。冷测清 cache 前等待 save/persisted 计数稳定、GDN staging 为零且没有临时文件，避免删除仍在异步写入的文件。native/model 就绪、cache 排空/持久化及源码/二进制身份检查均在请求计时外。
+
+只复现任务结果：
 
 ```bash
 python3 scripts/repro.py benchmark --model qwen --work-dir "$Q_WORK" --model-dir "$Q_MODEL" --suite tasks --output-dir "$Q_WORK/results/tasks-1" --port 8012

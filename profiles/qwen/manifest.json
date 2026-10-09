@@ -44,6 +44,6 @@
   "cpu_components": 1976,
   "original_prefix_cache_cpu_tests": 62,
   "original_policy_cpu_tests": 14,
-  "source_relocation_inference_status": "not_rebenchmarked",
-  "source_relocation": "Same source policy guard and scheduler methods formerly installed by startup overlays; release tests validate behavior. Historical timings describe original qualified runtime."
+  "source_relocation_inference_status": "qualified_in_separate_core_task_prefix_runs",
+  "source_relocation": "Durable policy/scheduler relocation passed CPU regressions and 111 protocol requests across completed core jobs and separate passed task/prefix runs. Archived published timings still describe the original qualified runtime."
 }

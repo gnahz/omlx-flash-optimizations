@@ -1,0 +1,985 @@
+{
+  "suite": "core",
+  "export_directory": "core-r2",
+  "source_invocation": "qualification-20261010-r2",
+  "source_invocation_status": "failed",
+  "selected_request_contracts": "passed",
+  "requests": 36,
+  "measured_requests": 30,
+  "discarded_or_validation_requests": 6,
+  "measured_completion_tokens": 15360,
+  "jobs": [
+    {
+      "profile": "core-baseline-fixed3",
+      "requests": 18,
+      "measured_requests": 15,
+      "completed_request_contracts": "passed",
+      "source_and_model_identity_guard": "passed",
+      "resident_ple_observed": true,
+      "bulk_nax_dispatch_observed": true,
+      "bulk_nax_required": true,
+      "original_private_server_log_sha256": "313acf98494b1979170fcdf329cee9203e460c7bfd94811df95f1ec56f4359b0",
+      "server_log_error_lines": 16,
+      "server_log_enoent_mentions": 16,
+      "native_availability_preflight_recorded": false
+    },
+    {
+      "profile": "core-baseline-fixed3lookup",
+      "requests": 18,
+      "measured_requests": 15,
+      "completed_request_contracts": "passed",
+      "source_and_model_identity_guard": "passed",
+      "resident_ple_observed": true,
+      "bulk_nax_dispatch_observed": true,
+      "bulk_nax_required": true,
+      "original_private_server_log_sha256": "c8303094190408ebc8b9716ad835b6ce8c4a9ca7ea0d6dbb15e1a567b6107448",
+      "server_log_error_lines": 15,
+      "server_log_enoent_mentions": 15,
+      "native_availability_preflight_recorded": false
+    }
+  ],
+  "files": [
+    {
+      "path": "core-r2/rows.json",
+      "source_sha256": "3a1e2947de0133b181a7c8be6a56691e8c20dda5e6c5a395054d37c52ce98b70",
+      "released_sha256": "3a1e2947de0133b181a7c8be6a56691e8c20dda5e6c5a395054d37c52ce98b70",
+      "exact_original_bytes": true
+    },
+    {
+      "path": "core-r2/summary.json",
+      "source_sha256": "b7d3265b0b6079dde8c6d398c63586df55b984ca92d01287cea578db5fe9d874",
+      "released_sha256": "b7d3265b0b6079dde8c6d398c63586df55b984ca92d01287cea578db5fe9d874",
+      "exact_original_bytes": true
+    },
+    {
+      "path": "core-r2/invocation-manifest.json",
+      "source_sha256": "3ecaea4f6c7b929f019ec2251c384139e361a91fbf5ab3fa54c921c8c9b06db1",
+      "released_sha256": "3ecaea4f6c7b929f019ec2251c384139e361a91fbf5ab3fa54c921c8c9b06db1",
+      "exact_original_bytes": true
+    },
+    {
+      "path": "core-r2/invocation-status.json",
+      "source_sha256": "d6d3f6ac5313e09739a3bc356bec67ecbda28ea6d63a00df889683c720a00379",
+      "released_sha256": "d6d3f6ac5313e09739a3bc356bec67ecbda28ea6d63a00df889683c720a00379",
+      "exact_original_bytes": true
+    },
+    {
+      "path": "core-r2/core-baseline-fixed3/runtime-identity.json",
+      "source_sha256": "7cf00797add482f8207d63f0f91a5676b0b9ff04e0c9255c9e6ffccab20bd8d6",
+      "released_sha256": "8d10e74826ee45a7de26c29a98f742f6861818c4ca6affc6a6d06103b6d0b034",
+      "exact_original_bytes": false,
+      "transformation": "Excluded process argv; replaced absolute model path; retained non-auth flags and complete source/native digest map; acceptance explains the recorded successful job boundary."
+    },
+    {
+      "path": "core-r2/core-baseline-fixed3lookup/runtime-identity.json",
+      "source_sha256": "2f330f542b2bc3698af14a94cdf64362b0cb96426321b84263822dc5d22e5106",
+      "released_sha256": "20d426e7ef4c476e3018de232a9a56b9efc12c3d8a32cf6a873ec5f73d6baded",
+      "exact_original_bytes": false,
+      "transformation": "Excluded process argv; replaced absolute model path; retained non-auth flags and complete source/native digest map; acceptance explains the recorded successful job boundary."
+    },
+    {
+      "path": "core-r2/core-baseline-fixed3/requests/core/p2048-warmup/request.json",
+      "source_sha256": "0e11f4e6a141ea564bf7d8f6643fe35c637574119c5ed99bb54124f184517e23",
+      "released_sha256": "0e11f4e6a141ea564bf7d8f6643fe35c637574119c5ed99bb54124f184517e23",
+      "exact_original_bytes": true
+    },
+    {
+      "path": "core-r2/core-baseline-fixed3/requests/core/p2048-warmup/output.json",
+      "source_sha256": "928c2b527ee585a14023fa77ba0389beac70d475a7ce14c3c5b9cc6d2c70a0fe",
+      "released_sha256": "928c2b527ee585a14023fa77ba0389beac70d475a7ce14c3c5b9cc6d2c70a0fe",
+      "exact_original_bytes": true
+    },
+    {
+      "path": "core-r2/core-baseline-fixed3/requests/core/p2048-warmup/result.json",
+      "source_sha256": "3a029aeaa942cd2b5e65ae667d0761a6bf74a580740f72ba2ac4c31b52fc307a",
+      "released_sha256": "3a029aeaa942cd2b5e65ae667d0761a6bf74a580740f72ba2ac4c31b52fc307a",
+      "exact_original_bytes": true
+    },
+    {
+      "path": "core-r2/core-baseline-fixed3/requests/core/p2048-warmup/sse.txt",
+      "source_sha256": "928c2b527ee585a14023fa77ba0389beac70d475a7ce14c3c5b9cc6d2c70a0fe",
+      "released_sha256": "9ab421e6457a1906b2187cac6c46753ef6403615ed9d4fec996d599fe1d530b3",
+      "exact_original_bytes": false,
+      "transformation": "Derived from recorded sse_events lines in original order with LF separators; preserves normalized SSE content, not original network byte framing. Original event timestamps and parsed frames remain in output.json."
+    },
+    {
+      "path": "core-r2/core-baseline-fixed3/requests/core/p2048-r01/request.json",
+      "source_sha256": "73efdfeca03703db54834edb398512b7154a827ae46c8e7a919d4394fa88ef4c",
+      "released_sha256": "73efdfeca03703db54834edb398512b7154a827ae46c8e7a919d4394fa88ef4c",
+      "exact_original_bytes": true
+    },
+    {
+      "path": "core-r2/core-baseline-fixed3/requests/core/p2048-r01/output.json",
+      "source_sha256": "490880679d6708ec5792010f3eb498188df6262fcdf13259b9ec37eca6790bf6",
+      "released_sha256": "490880679d6708ec5792010f3eb498188df6262fcdf13259b9ec37eca6790bf6",
+      "exact_original_bytes": true
+    },
+    {
+      "path": "core-r2/core-baseline-fixed3/requests/core/p2048-r01/result.json",
+      "source_sha256": "4537b4fc0e80b02b44ced13bb1c7141351d8728bf05091aa0323e1eeaf2b5be7",
+      "released_sha256": "4537b4fc0e80b02b44ced13bb1c7141351d8728bf05091aa0323e1eeaf2b5be7",
+      "exact_original_bytes": true
+    },
+    {
+      "path": "core-r2/core-baseline-fixed3/requests/core/p2048-r01/sse.txt",
+      "source_sha256": "490880679d6708ec5792010f3eb498188df6262fcdf13259b9ec37eca6790bf6",
+      "released_sha256": "da264f669c258919372fa36c9095b3dbcc77d292ef976627e49d2a50f3cdb2f6",
+      "exact_original_bytes": false,
+      "transformation": "Derived from recorded sse_events lines in original order with LF separators; preserves normalized SSE content, not original network byte framing. Original event timestamps and parsed frames remain in output.json."
+    },
+    {
+      "path": "core-r2/core-baseline-fixed3/requests/core/p2048-r02/request.json",
+      "source_sha256": "73efdfeca03703db54834edb398512b7154a827ae46c8e7a919d4394fa88ef4c",
+      "released_sha256": "73efdfeca03703db54834edb398512b7154a827ae46c8e7a919d4394fa88ef4c",
+      "exact_original_bytes": true
+    },
+    {
+      "path": "core-r2/core-baseline-fixed3/requests/core/p2048-r02/output.json",
+      "source_sha256": "d5fd5638df8aab67d18e60377a5cecaf8b466795d1fc25c28afe8ebd4829edb1",
+      "released_sha256": "d5fd5638df8aab67d18e60377a5cecaf8b466795d1fc25c28afe8ebd4829edb1",
+      "exact_original_bytes": true
+    },
+    {
+      "path": "core-r2/core-baseline-fixed3/requests/core/p2048-r02/result.json",
+      "source_sha256": "c82eeb65babd4ba2452bd1b28ace022deb0f1137591a9b5616c7a342028e2a63",
+      "released_sha256": "c82eeb65babd4ba2452bd1b28ace022deb0f1137591a9b5616c7a342028e2a63",
+      "exact_original_bytes": true
+    },
+    {
+      "path": "core-r2/core-baseline-fixed3/requests/core/p2048-r02/sse.txt",
+      "source_sha256": "d5fd5638df8aab67d18e60377a5cecaf8b466795d1fc25c28afe8ebd4829edb1",
+      "released_sha256": "f8687722f94a42845d81968dc7ef9734fca086fd3028e497bede4dd265c5dbda",
+      "exact_original_bytes": false,
+      "transformation": "Derived from recorded sse_events lines in original order with LF separators; preserves normalized SSE content, not original network byte framing. Original event timestamps and parsed frames remain in output.json."
+    },
+    {
+      "path": "core-r2/core-baseline-fixed3/requests/core/p2048-r03/request.json",
+      "source_sha256": "73efdfeca03703db54834edb398512b7154a827ae46c8e7a919d4394fa88ef4c",
+      "released_sha256": "73efdfeca03703db54834edb398512b7154a827ae46c8e7a919d4394fa88ef4c",
+      "exact_original_bytes": true
+    },
+    {
+      "path": "core-r2/core-baseline-fixed3/requests/core/p2048-r03/output.json",
+      "source_sha256": "41806147a00367d9f7d00f68281c886ce036e9d647bcf4bbbccbee1ecda2d88b",
+      "released_sha256": "41806147a00367d9f7d00f68281c886ce036e9d647bcf4bbbccbee1ecda2d88b",
+      "exact_original_bytes": true
+    },
+    {
+      "path": "core-r2/core-baseline-fixed3/requests/core/p2048-r03/result.json",
+      "source_sha256": "4028f9b2253135784e8fa1dfcf2776d68b21ffc80b0f964c3a929ee8f9e5276b",
+      "released_sha256": "4028f9b2253135784e8fa1dfcf2776d68b21ffc80b0f964c3a929ee8f9e5276b",
+      "exact_original_bytes": true
+    },
+    {
+      "path": "core-r2/core-baseline-fixed3/requests/core/p2048-r03/sse.txt",
+      "source_sha256": "41806147a00367d9f7d00f68281c886ce036e9d647bcf4bbbccbee1ecda2d88b",
+      "released_sha256": "e102a1dd1854d2dc0af5dd695aa48ffd698ea3646c4206dbe8e0a64900c07dbb",
+      "exact_original_bytes": false,
+      "transformation": "Derived from recorded sse_events lines in original order with LF separators; preserves normalized SSE content, not original network byte framing. Original event timestamps and parsed frames remain in output.json."
+    },
+    {
+      "path": "core-r2/core-baseline-fixed3/requests/core/p2048-r04/request.json",
+      "source_sha256": "73efdfeca03703db54834edb398512b7154a827ae46c8e7a919d4394fa88ef4c",
+      "released_sha256": "73efdfeca03703db54834edb398512b7154a827ae46c8e7a919d4394fa88ef4c",
+      "exact_original_bytes": true
+    },
+    {
+      "path": "core-r2/core-baseline-fixed3/requests/core/p2048-r04/output.json",
+      "source_sha256": "2d165114dbb476487dcddc1101cafc9b0155f179ffb3ff406e739b76af16a181",
+      "released_sha256": "2d165114dbb476487dcddc1101cafc9b0155f179ffb3ff406e739b76af16a181",
+      "exact_original_bytes": true
+    },
+    {
+      "path": "core-r2/core-baseline-fixed3/requests/core/p2048-r04/result.json",
+      "source_sha256": "5898a94ed48e0a780bd4ed10ee268303c63be5e51cff3fe61c9ec33cbaf0faef",
+      "released_sha256": "5898a94ed48e0a780bd4ed10ee268303c63be5e51cff3fe61c9ec33cbaf0faef",
+      "exact_original_bytes": true
+    },
+    {
+      "path": "core-r2/core-baseline-fixed3/requests/core/p2048-r04/sse.txt",
+      "source_sha256": "2d165114dbb476487dcddc1101cafc9b0155f179ffb3ff406e739b76af16a181",
+      "released_sha256": "0174cd2795ed06367e455b1ed2ca407fb8aae3b1f8213d01cabc333bbe5b4f16",
+      "exact_original_bytes": false,
+      "transformation": "Derived from recorded sse_events lines in original order with LF separators; preserves normalized SSE content, not original network byte framing. Original event timestamps and parsed frames remain in output.json."
+    },
+    {
+      "path": "core-r2/core-baseline-fixed3/requests/core/p2048-r05/request.json",
+      "source_sha256": "73efdfeca03703db54834edb398512b7154a827ae46c8e7a919d4394fa88ef4c",
+      "released_sha256": "73efdfeca03703db54834edb398512b7154a827ae46c8e7a919d4394fa88ef4c",
+      "exact_original_bytes": true
+    },
+    {
+      "path": "core-r2/core-baseline-fixed3/requests/core/p2048-r05/output.json",
+      "source_sha256": "78a6fc48e98d43731dc3ec8cf38c56ba1ebd2b6fbb651490eed6e11bbde9a8de",
+      "released_sha256": "78a6fc48e98d43731dc3ec8cf38c56ba1ebd2b6fbb651490eed6e11bbde9a8de",
+      "exact_original_bytes": true
+    },
+    {
+      "path": "core-r2/core-baseline-fixed3/requests/core/p2048-r05/result.json",
+      "source_sha256": "6410374c730dae989de280c4ffca683e64b3e959ce1745576d76e3f748c8b3e3",
+      "released_sha256": "6410374c730dae989de280c4ffca683e64b3e959ce1745576d76e3f748c8b3e3",
+      "exact_original_bytes": true
+    },
+    {
+      "path": "core-r2/core-baseline-fixed3/requests/core/p2048-r05/sse.txt",
+      "source_sha256": "78a6fc48e98d43731dc3ec8cf38c56ba1ebd2b6fbb651490eed6e11bbde9a8de",
+      "released_sha256": "fd2f9d70549bf7c38d9af240de146b30ff744b91356e2a6ea5b6e14c2dd62f78",
+      "exact_original_bytes": false,
+      "transformation": "Derived from recorded sse_events lines in original order with LF separators; preserves normalized SSE content, not original network byte framing. Original event timestamps and parsed frames remain in output.json."
+    },
+    {
+      "path": "core-r2/core-baseline-fixed3/requests/core/p8192-warmup/request.json",
+      "source_sha256": "0c2c271b022711ba7dc57104a2f2e2ad4306ae96f13bb0bcac282afc67237fe9",
+      "released_sha256": "0c2c271b022711ba7dc57104a2f2e2ad4306ae96f13bb0bcac282afc67237fe9",
+      "exact_original_bytes": true
+    },
+    {
+      "path": "core-r2/core-baseline-fixed3/requests/core/p8192-warmup/output.json",
+      "source_sha256": "8da80f4c0dcee6ad221ce8015471492e7ec1cdaa1327728ff1b8ed7e4a907db4",
+      "released_sha256": "8da80f4c0dcee6ad221ce8015471492e7ec1cdaa1327728ff1b8ed7e4a907db4",
+      "exact_original_bytes": true
+    },
+    {
+      "path": "core-r2/core-baseline-fixed3/requests/core/p8192-warmup/result.json",
+      "source_sha256": "f952ccbadb8812b80a4e3290271c7b5d0c66c9a190af592ea4b61341f35f3b63",
+      "released_sha256": "f952ccbadb8812b80a4e3290271c7b5d0c66c9a190af592ea4b61341f35f3b63",
+      "exact_original_bytes": true
+    },
+    {
+      "path": "core-r2/core-baseline-fixed3/requests/core/p8192-warmup/sse.txt",
+      "source_sha256": "8da80f4c0dcee6ad221ce8015471492e7ec1cdaa1327728ff1b8ed7e4a907db4",
+      "released_sha256": "0ce87dbf85cff681ecd8da61d0842edbbc1727421bfd638a014907634c25897e",
+      "exact_original_bytes": false,
+      "transformation": "Derived from recorded sse_events lines in original order with LF separators; preserves normalized SSE content, not original network byte framing. Original event timestamps and parsed frames remain in output.json."
+    },
+    {
+      "path": "core-r2/core-baseline-fixed3/requests/core/p8192-r01/request.json",
+      "source_sha256": "526b2b6c2817a758266b86faca197a2413bb69cfc217846d36216882ef985dfc",
+      "released_sha256": "526b2b6c2817a758266b86faca197a2413bb69cfc217846d36216882ef985dfc",
+      "exact_original_bytes": true
+    },
+    {
+      "path": "core-r2/core-baseline-fixed3/requests/core/p8192-r01/output.json",
+      "source_sha256": "c233f275609d9b06fb7446b94b28666eae93032af0d7a129c64e14ec8fa4c3af",
+      "released_sha256": "c233f275609d9b06fb7446b94b28666eae93032af0d7a129c64e14ec8fa4c3af",
+      "exact_original_bytes": true
+    },
+    {
+      "path": "core-r2/core-baseline-fixed3/requests/core/p8192-r01/result.json",
+      "source_sha256": "d44bf2da6dedecfac2ff217690d5a3e6f2ab5c113e277649ae48cb95061cdff2",
+      "released_sha256": "d44bf2da6dedecfac2ff217690d5a3e6f2ab5c113e277649ae48cb95061cdff2",
+      "exact_original_bytes": true
+    },
+    {
+      "path": "core-r2/core-baseline-fixed3/requests/core/p8192-r01/sse.txt",
+      "source_sha256": "c233f275609d9b06fb7446b94b28666eae93032af0d7a129c64e14ec8fa4c3af",
+      "released_sha256": "9803cafcbc3c7d3ed63c78d94fd6ea8ea370d2fb1c2c270f136611e5d1b8080b",
+      "exact_original_bytes": false,
+      "transformation": "Derived from recorded sse_events lines in original order with LF separators; preserves normalized SSE content, not original network byte framing. Original event timestamps and parsed frames remain in output.json."
+    },
+    {
+      "path": "core-r2/core-baseline-fixed3/requests/core/p8192-r02/request.json",
+      "source_sha256": "526b2b6c2817a758266b86faca197a2413bb69cfc217846d36216882ef985dfc",
+      "released_sha256": "526b2b6c2817a758266b86faca197a2413bb69cfc217846d36216882ef985dfc",
+      "exact_original_bytes": true
+    },
+    {
+      "path": "core-r2/core-baseline-fixed3/requests/core/p8192-r02/output.json",
+      "source_sha256": "22698d324ae54cb6ffcb15d549548c530fd4b101abdf6ddba46b03db80c6687a",
+      "released_sha256": "22698d324ae54cb6ffcb15d549548c530fd4b101abdf6ddba46b03db80c6687a",
+      "exact_original_bytes": true
+    },
+    {
+      "path": "core-r2/core-baseline-fixed3/requests/core/p8192-r02/result.json",
+      "source_sha256": "71b0871ce4b598e8c73eadd2683630ff90e554decdaaf77abedf9865a16e5bf4",
+      "released_sha256": "71b0871ce4b598e8c73eadd2683630ff90e554decdaaf77abedf9865a16e5bf4",
+      "exact_original_bytes": true
+    },
+    {
+      "path": "core-r2/core-baseline-fixed3/requests/core/p8192-r02/sse.txt",
+      "source_sha256": "22698d324ae54cb6ffcb15d549548c530fd4b101abdf6ddba46b03db80c6687a",
+      "released_sha256": "a014023880dc6ea3477a9337194fd7fa9889019c3f65d9576e9788fa5ddc3bbe",
+      "exact_original_bytes": false,
+      "transformation": "Derived from recorded sse_events lines in original order with LF separators; preserves normalized SSE content, not original network byte framing. Original event timestamps and parsed frames remain in output.json."
+    },
+    {
+      "path": "core-r2/core-baseline-fixed3/requests/core/p8192-r03/request.json",
+      "source_sha256": "526b2b6c2817a758266b86faca197a2413bb69cfc217846d36216882ef985dfc",
+      "released_sha256": "526b2b6c2817a758266b86faca197a2413bb69cfc217846d36216882ef985dfc",
+      "exact_original_bytes": true
+    },
+    {
+      "path": "core-r2/core-baseline-fixed3/requests/core/p8192-r03/output.json",
+      "source_sha256": "7d5d23ff111e014f50ac9807bc044359edb41368a904c88db0182b00d1283916",
+      "released_sha256": "7d5d23ff111e014f50ac9807bc044359edb41368a904c88db0182b00d1283916",
+      "exact_original_bytes": true
+    },
+    {
+      "path": "core-r2/core-baseline-fixed3/requests/core/p8192-r03/result.json",
+      "source_sha256": "b5d611d13523cf532317ed1eaec1d7cf08e2d9a83de0af8a37421057346a536d",
+      "released_sha256": "b5d611d13523cf532317ed1eaec1d7cf08e2d9a83de0af8a37421057346a536d",
+      "exact_original_bytes": true
+    },
+    {
+      "path": "core-r2/core-baseline-fixed3/requests/core/p8192-r03/sse.txt",
+      "source_sha256": "7d5d23ff111e014f50ac9807bc044359edb41368a904c88db0182b00d1283916",
+      "released_sha256": "b14f990063422c84c6ceede8dd1f61d41605240f03daed90c03593847b873c41",
+      "exact_original_bytes": false,
+      "transformation": "Derived from recorded sse_events lines in original order with LF separators; preserves normalized SSE content, not original network byte framing. Original event timestamps and parsed frames remain in output.json."
+    },
+    {
+      "path": "core-r2/core-baseline-fixed3/requests/core/p8192-r04/request.json",
+      "source_sha256": "526b2b6c2817a758266b86faca197a2413bb69cfc217846d36216882ef985dfc",
+      "released_sha256": "526b2b6c2817a758266b86faca197a2413bb69cfc217846d36216882ef985dfc",
+      "exact_original_bytes": true
+    },
+    {
+      "path": "core-r2/core-baseline-fixed3/requests/core/p8192-r04/output.json",
+      "source_sha256": "ada98f45bb84268a25e63188eef238923a672fe00c440ce0d835076a42704761",
+      "released_sha256": "ada98f45bb84268a25e63188eef238923a672fe00c440ce0d835076a42704761",
+      "exact_original_bytes": true
+    },
+    {
+      "path": "core-r2/core-baseline-fixed3/requests/core/p8192-r04/result.json",
+      "source_sha256": "30a99c6805d8c74b59aa51138d2231a81107818b78566127b7b53132d0e8814b",
+      "released_sha256": "30a99c6805d8c74b59aa51138d2231a81107818b78566127b7b53132d0e8814b",
+      "exact_original_bytes": true
+    },
+    {
+      "path": "core-r2/core-baseline-fixed3/requests/core/p8192-r04/sse.txt",
+      "source_sha256": "ada98f45bb84268a25e63188eef238923a672fe00c440ce0d835076a42704761",
+      "released_sha256": "1b515ac18ebd4fbafc4b3d898b3b56f62bff5e2195858de276f385cdb2df2f7e",
+      "exact_original_bytes": false,
+      "transformation": "Derived from recorded sse_events lines in original order with LF separators; preserves normalized SSE content, not original network byte framing. Original event timestamps and parsed frames remain in output.json."
+    },
+    {
+      "path": "core-r2/core-baseline-fixed3/requests/core/p8192-r05/request.json",
+      "source_sha256": "526b2b6c2817a758266b86faca197a2413bb69cfc217846d36216882ef985dfc",
+      "released_sha256": "526b2b6c2817a758266b86faca197a2413bb69cfc217846d36216882ef985dfc",
+      "exact_original_bytes": true
+    },
+    {
+      "path": "core-r2/core-baseline-fixed3/requests/core/p8192-r05/output.json",
+      "source_sha256": "f008be9ba432d2a68304cd23a40efc7c643e6311708bc794c82281c6ccfb66fd",
+      "released_sha256": "f008be9ba432d2a68304cd23a40efc7c643e6311708bc794c82281c6ccfb66fd",
+      "exact_original_bytes": true
+    },
+    {
+      "path": "core-r2/core-baseline-fixed3/requests/core/p8192-r05/result.json",
+      "source_sha256": "1aec9f76f6d56945fdcfa48a2ac89356f5f22c50e0f1386b67e1923e53e521b4",
+      "released_sha256": "1aec9f76f6d56945fdcfa48a2ac89356f5f22c50e0f1386b67e1923e53e521b4",
+      "exact_original_bytes": true
+    },
+    {
+      "path": "core-r2/core-baseline-fixed3/requests/core/p8192-r05/sse.txt",
+      "source_sha256": "f008be9ba432d2a68304cd23a40efc7c643e6311708bc794c82281c6ccfb66fd",
+      "released_sha256": "616ce6b4a5be5df8a7a769c4cd527b0d9fe7586312c5ad5b56435c0936e869da",
+      "exact_original_bytes": false,
+      "transformation": "Derived from recorded sse_events lines in original order with LF separators; preserves normalized SSE content, not original network byte framing. Original event timestamps and parsed frames remain in output.json."
+    },
+    {
+      "path": "core-r2/core-baseline-fixed3/requests/core/p32768-warmup/request.json",
+      "source_sha256": "442eb2b5962f68388052fa76595a83bd1f357fd7153b221f895f43137613d1da",
+      "released_sha256": "442eb2b5962f68388052fa76595a83bd1f357fd7153b221f895f43137613d1da",
+      "exact_original_bytes": true
+    },
+    {
+      "path": "core-r2/core-baseline-fixed3/requests/core/p32768-warmup/output.json",
+      "source_sha256": "4c6a96fdaa98038e8c2b5f0973fa89b4b00eabeaa89609b8177b289882db22e0",
+      "released_sha256": "4c6a96fdaa98038e8c2b5f0973fa89b4b00eabeaa89609b8177b289882db22e0",
+      "exact_original_bytes": true
+    },
+    {
+      "path": "core-r2/core-baseline-fixed3/requests/core/p32768-warmup/result.json",
+      "source_sha256": "634003fa66f0aa13067ed1469762c6a93cebab13e047274a0d4282d363c8c5f0",
+      "released_sha256": "634003fa66f0aa13067ed1469762c6a93cebab13e047274a0d4282d363c8c5f0",
+      "exact_original_bytes": true
+    },
+    {
+      "path": "core-r2/core-baseline-fixed3/requests/core/p32768-warmup/sse.txt",
+      "source_sha256": "4c6a96fdaa98038e8c2b5f0973fa89b4b00eabeaa89609b8177b289882db22e0",
+      "released_sha256": "9d12a92f9aebef7868a3b1fb6457973c1beff7c1f335498037f9e38868819915",
+      "exact_original_bytes": false,
+      "transformation": "Derived from recorded sse_events lines in original order with LF separators; preserves normalized SSE content, not original network byte framing. Original event timestamps and parsed frames remain in output.json."
+    },
+    {
+      "path": "core-r2/core-baseline-fixed3/requests/core/p32768-r01/request.json",
+      "source_sha256": "77e256a1ee3ff94994187b806583ef06d47603f6aa3610c3abb26349602461ae",
+      "released_sha256": "77e256a1ee3ff94994187b806583ef06d47603f6aa3610c3abb26349602461ae",
+      "exact_original_bytes": true
+    },
+    {
+      "path": "core-r2/core-baseline-fixed3/requests/core/p32768-r01/output.json",
+      "source_sha256": "450e43ce021f99bd1ae1785e1348061e35b0f6a79eda037203d7e3499729de94",
+      "released_sha256": "450e43ce021f99bd1ae1785e1348061e35b0f6a79eda037203d7e3499729de94",
+      "exact_original_bytes": true
+    },
+    {
+      "path": "core-r2/core-baseline-fixed3/requests/core/p32768-r01/result.json",
+      "source_sha256": "71e0d818a8d6dc8eb6fdf5d9d556a1dca15526913f0692475ddd90d4bd2cab3e",
+      "released_sha256": "71e0d818a8d6dc8eb6fdf5d9d556a1dca15526913f0692475ddd90d4bd2cab3e",
+      "exact_original_bytes": true
+    },
+    {
+      "path": "core-r2/core-baseline-fixed3/requests/core/p32768-r01/sse.txt",
+      "source_sha256": "450e43ce021f99bd1ae1785e1348061e35b0f6a79eda037203d7e3499729de94",
+      "released_sha256": "3ebe87bd33415645089734b543d7fc941bfc59bdad353c2acd0d731d3a55d978",
+      "exact_original_bytes": false,
+      "transformation": "Derived from recorded sse_events lines in original order with LF separators; preserves normalized SSE content, not original network byte framing. Original event timestamps and parsed frames remain in output.json."
+    },
+    {
+      "path": "core-r2/core-baseline-fixed3/requests/core/p32768-r02/request.json",
+      "source_sha256": "77e256a1ee3ff94994187b806583ef06d47603f6aa3610c3abb26349602461ae",
+      "released_sha256": "77e256a1ee3ff94994187b806583ef06d47603f6aa3610c3abb26349602461ae",
+      "exact_original_bytes": true
+    },
+    {
+      "path": "core-r2/core-baseline-fixed3/requests/core/p32768-r02/output.json",
+      "source_sha256": "ad96f8676df0c7b4c3c484df0b1b5c02dc157f69f1620cb76699d5fdd8440cce",
+      "released_sha256": "ad96f8676df0c7b4c3c484df0b1b5c02dc157f69f1620cb76699d5fdd8440cce",
+      "exact_original_bytes": true
+    },
+    {
+      "path": "core-r2/core-baseline-fixed3/requests/core/p32768-r02/result.json",
+      "source_sha256": "3fd8fb4ef59fcc4f3aacaebfd642ec9e3b5fca01b36d4176a07914fd6b359f91",
+      "released_sha256": "3fd8fb4ef59fcc4f3aacaebfd642ec9e3b5fca01b36d4176a07914fd6b359f91",
+      "exact_original_bytes": true
+    },
+    {
+      "path": "core-r2/core-baseline-fixed3/requests/core/p32768-r02/sse.txt",
+      "source_sha256": "ad96f8676df0c7b4c3c484df0b1b5c02dc157f69f1620cb76699d5fdd8440cce",
+      "released_sha256": "ed10872d523f377cce17d60089f92b51bc0d13f68c8feb5843003454657d06e6",
+      "exact_original_bytes": false,
+      "transformation": "Derived from recorded sse_events lines in original order with LF separators; preserves normalized SSE content, not original network byte framing. Original event timestamps and parsed frames remain in output.json."
+    },
+    {
+      "path": "core-r2/core-baseline-fixed3/requests/core/p32768-r03/request.json",
+      "source_sha256": "77e256a1ee3ff94994187b806583ef06d47603f6aa3610c3abb26349602461ae",
+      "released_sha256": "77e256a1ee3ff94994187b806583ef06d47603f6aa3610c3abb26349602461ae",
+      "exact_original_bytes": true
+    },
+    {
+      "path": "core-r2/core-baseline-fixed3/requests/core/p32768-r03/output.json",
+      "source_sha256": "44a76e0f1837de8621dfa3c19caa1b755f5b3dde20fd51f6c5564cb1a9fa32e2",
+      "released_sha256": "44a76e0f1837de8621dfa3c19caa1b755f5b3dde20fd51f6c5564cb1a9fa32e2",
+      "exact_original_bytes": true
+    },
+    {
+      "path": "core-r2/core-baseline-fixed3/requests/core/p32768-r03/result.json",
+      "source_sha256": "b3fdc5d600b996ce2ec80a88fe235e60ce14c4504310b92e732e98d3c9d24612",
+      "released_sha256": "b3fdc5d600b996ce2ec80a88fe235e60ce14c4504310b92e732e98d3c9d24612",
+      "exact_original_bytes": true
+    },
+    {
+      "path": "core-r2/core-baseline-fixed3/requests/core/p32768-r03/sse.txt",
+      "source_sha256": "44a76e0f1837de8621dfa3c19caa1b755f5b3dde20fd51f6c5564cb1a9fa32e2",
+      "released_sha256": "482838b764d91f39d71b8b15a85f846a3a8630e64f7839bda88feab8ee8fc434",
+      "exact_original_bytes": false,
+      "transformation": "Derived from recorded sse_events lines in original order with LF separators; preserves normalized SSE content, not original network byte framing. Original event timestamps and parsed frames remain in output.json."
+    },
+    {
+      "path": "core-r2/core-baseline-fixed3/requests/core/p32768-r04/request.json",
+      "source_sha256": "77e256a1ee3ff94994187b806583ef06d47603f6aa3610c3abb26349602461ae",
+      "released_sha256": "77e256a1ee3ff94994187b806583ef06d47603f6aa3610c3abb26349602461ae",
+      "exact_original_bytes": true
+    },
+    {
+      "path": "core-r2/core-baseline-fixed3/requests/core/p32768-r04/output.json",
+      "source_sha256": "b5df8c9386ca3f46d8a714a7aca97b5833914fe4699ad750b09478d9fe7e0222",
+      "released_sha256": "b5df8c9386ca3f46d8a714a7aca97b5833914fe4699ad750b09478d9fe7e0222",
+      "exact_original_bytes": true
+    },
+    {
+      "path": "core-r2/core-baseline-fixed3/requests/core/p32768-r04/result.json",
+      "source_sha256": "edb4abb4377a931b90f064897a6204f67f399343226c9b02d77588da09b7a86b",
+      "released_sha256": "edb4abb4377a931b90f064897a6204f67f399343226c9b02d77588da09b7a86b",
+      "exact_original_bytes": true
+    },
+    {
+      "path": "core-r2/core-baseline-fixed3/requests/core/p32768-r04/sse.txt",
+      "source_sha256": "b5df8c9386ca3f46d8a714a7aca97b5833914fe4699ad750b09478d9fe7e0222",
+      "released_sha256": "0a36c9a2b989e3ec4d17fb4b346871c1b195b1ef2c55413a017bf6fbaf34a5a8",
+      "exact_original_bytes": false,
+      "transformation": "Derived from recorded sse_events lines in original order with LF separators; preserves normalized SSE content, not original network byte framing. Original event timestamps and parsed frames remain in output.json."
+    },
+    {
+      "path": "core-r2/core-baseline-fixed3/requests/core/p32768-r05/request.json",
+      "source_sha256": "77e256a1ee3ff94994187b806583ef06d47603f6aa3610c3abb26349602461ae",
+      "released_sha256": "77e256a1ee3ff94994187b806583ef06d47603f6aa3610c3abb26349602461ae",
+      "exact_original_bytes": true
+    },
+    {
+      "path": "core-r2/core-baseline-fixed3/requests/core/p32768-r05/output.json",
+      "source_sha256": "27e3f589685faff760f6d5e0a2ddbd57b2af0acdc67659ebc1cf842c13164cc7",
+      "released_sha256": "27e3f589685faff760f6d5e0a2ddbd57b2af0acdc67659ebc1cf842c13164cc7",
+      "exact_original_bytes": true
+    },
+    {
+      "path": "core-r2/core-baseline-fixed3/requests/core/p32768-r05/result.json",
+      "source_sha256": "e59b29e75788c87da1e53020003fb160ccd1b2f340679f63f98ef398ce5bc233",
+      "released_sha256": "e59b29e75788c87da1e53020003fb160ccd1b2f340679f63f98ef398ce5bc233",
+      "exact_original_bytes": true
+    },
+    {
+      "path": "core-r2/core-baseline-fixed3/requests/core/p32768-r05/sse.txt",
+      "source_sha256": "27e3f589685faff760f6d5e0a2ddbd57b2af0acdc67659ebc1cf842c13164cc7",
+      "released_sha256": "578796d523ff797696a6cd87dea5a0c1fe747f1852df26ab6e4ecaa8a587d3ce",
+      "exact_original_bytes": false,
+      "transformation": "Derived from recorded sse_events lines in original order with LF separators; preserves normalized SSE content, not original network byte framing. Original event timestamps and parsed frames remain in output.json."
+    },
+    {
+      "path": "core-r2/core-baseline-fixed3lookup/requests/core/p2048-warmup/request.json",
+      "source_sha256": "0e11f4e6a141ea564bf7d8f6643fe35c637574119c5ed99bb54124f184517e23",
+      "released_sha256": "0e11f4e6a141ea564bf7d8f6643fe35c637574119c5ed99bb54124f184517e23",
+      "exact_original_bytes": true
+    },
+    {
+      "path": "core-r2/core-baseline-fixed3lookup/requests/core/p2048-warmup/output.json",
+      "source_sha256": "99531be357fbdae7f0f77e1c5f65d461407753ba64861d05d615a61f6d48855e",
+      "released_sha256": "99531be357fbdae7f0f77e1c5f65d461407753ba64861d05d615a61f6d48855e",
+      "exact_original_bytes": true
+    },
+    {
+      "path": "core-r2/core-baseline-fixed3lookup/requests/core/p2048-warmup/result.json",
+      "source_sha256": "f110f8ed263518a385c5366121144d853bfb4dcdde112de38430e6518c19702a",
+      "released_sha256": "f110f8ed263518a385c5366121144d853bfb4dcdde112de38430e6518c19702a",
+      "exact_original_bytes": true
+    },
+    {
+      "path": "core-r2/core-baseline-fixed3lookup/requests/core/p2048-warmup/sse.txt",
+      "source_sha256": "99531be357fbdae7f0f77e1c5f65d461407753ba64861d05d615a61f6d48855e",
+      "released_sha256": "077fc6b951807e38011847f2c7327caeefa62abb685bc41fdc809bac7fec7d9a",
+      "exact_original_bytes": false,
+      "transformation": "Derived from recorded sse_events lines in original order with LF separators; preserves normalized SSE content, not original network byte framing. Original event timestamps and parsed frames remain in output.json."
+    },
+    {
+      "path": "core-r2/core-baseline-fixed3lookup/requests/core/p2048-r01/request.json",
+      "source_sha256": "73efdfeca03703db54834edb398512b7154a827ae46c8e7a919d4394fa88ef4c",
+      "released_sha256": "73efdfeca03703db54834edb398512b7154a827ae46c8e7a919d4394fa88ef4c",
+      "exact_original_bytes": true
+    },
+    {
+      "path": "core-r2/core-baseline-fixed3lookup/requests/core/p2048-r01/output.json",
+      "source_sha256": "b5f21acd95c254f05119cd7c542ade4a04529148032c7d413b7a5c5cd961d657",
+      "released_sha256": "b5f21acd95c254f05119cd7c542ade4a04529148032c7d413b7a5c5cd961d657",
+      "exact_original_bytes": true
+    },
+    {
+      "path": "core-r2/core-baseline-fixed3lookup/requests/core/p2048-r01/result.json",
+      "source_sha256": "b3096b213d52da4b8ce1a9658540bb79e2ebc0ddf9c6eafa54691813a5b3dd68",
+      "released_sha256": "b3096b213d52da4b8ce1a9658540bb79e2ebc0ddf9c6eafa54691813a5b3dd68",
+      "exact_original_bytes": true
+    },
+    {
+      "path": "core-r2/core-baseline-fixed3lookup/requests/core/p2048-r01/sse.txt",
+      "source_sha256": "b5f21acd95c254f05119cd7c542ade4a04529148032c7d413b7a5c5cd961d657",
+      "released_sha256": "5df32332c2c2e7b360e71ff5e8fb095fa162dce195f95df5d0e446d8a63b0824",
+      "exact_original_bytes": false,
+      "transformation": "Derived from recorded sse_events lines in original order with LF separators; preserves normalized SSE content, not original network byte framing. Original event timestamps and parsed frames remain in output.json."
+    },
+    {
+      "path": "core-r2/core-baseline-fixed3lookup/requests/core/p2048-r02/request.json",
+      "source_sha256": "73efdfeca03703db54834edb398512b7154a827ae46c8e7a919d4394fa88ef4c",
+      "released_sha256": "73efdfeca03703db54834edb398512b7154a827ae46c8e7a919d4394fa88ef4c",
+      "exact_original_bytes": true
+    },
+    {
+      "path": "core-r2/core-baseline-fixed3lookup/requests/core/p2048-r02/output.json",
+      "source_sha256": "02e0a3e36acc5a761ce91a0222a5ba0e0b9035f62e9742051be9c522e548750a",
+      "released_sha256": "02e0a3e36acc5a761ce91a0222a5ba0e0b9035f62e9742051be9c522e548750a",
+      "exact_original_bytes": true
+    },
+    {
+      "path": "core-r2/core-baseline-fixed3lookup/requests/core/p2048-r02/result.json",
+      "source_sha256": "ccb867ef7fb28815104f2ef68c5c5f77bb0373fe510639814a904afa0e852e1e",
+      "released_sha256": "ccb867ef7fb28815104f2ef68c5c5f77bb0373fe510639814a904afa0e852e1e",
+      "exact_original_bytes": true
+    },
+    {
+      "path": "core-r2/core-baseline-fixed3lookup/requests/core/p2048-r02/sse.txt",
+      "source_sha256": "02e0a3e36acc5a761ce91a0222a5ba0e0b9035f62e9742051be9c522e548750a",
+      "released_sha256": "062be4c3f9ac83ea692caa947381c77771dbaf546ded245e942f883467a0f5e4",
+      "exact_original_bytes": false,
+      "transformation": "Derived from recorded sse_events lines in original order with LF separators; preserves normalized SSE content, not original network byte framing. Original event timestamps and parsed frames remain in output.json."
+    },
+    {
+      "path": "core-r2/core-baseline-fixed3lookup/requests/core/p2048-r03/request.json",
+      "source_sha256": "73efdfeca03703db54834edb398512b7154a827ae46c8e7a919d4394fa88ef4c",
+      "released_sha256": "73efdfeca03703db54834edb398512b7154a827ae46c8e7a919d4394fa88ef4c",
+      "exact_original_bytes": true
+    },
+    {
+      "path": "core-r2/core-baseline-fixed3lookup/requests/core/p2048-r03/output.json",
+      "source_sha256": "bf640077b81f57d625dd0c9dcb3b7793012a45d1e0319ed48301727131eabe36",
+      "released_sha256": "bf640077b81f57d625dd0c9dcb3b7793012a45d1e0319ed48301727131eabe36",
+      "exact_original_bytes": true
+    },
+    {
+      "path": "core-r2/core-baseline-fixed3lookup/requests/core/p2048-r03/result.json",
+      "source_sha256": "f5c4218629bc5df87a95993763ed1054bf4607e70589370b7c7d4a75106b3351",
+      "released_sha256": "f5c4218629bc5df87a95993763ed1054bf4607e70589370b7c7d4a75106b3351",
+      "exact_original_bytes": true
+    },
+    {
+      "path": "core-r2/core-baseline-fixed3lookup/requests/core/p2048-r03/sse.txt",
+      "source_sha256": "bf640077b81f57d625dd0c9dcb3b7793012a45d1e0319ed48301727131eabe36",
+      "released_sha256": "ff2492d0db7904bbdcec3ee540113923b4c9688878c01cf4021bf3d44f90c31e",
+      "exact_original_bytes": false,
+      "transformation": "Derived from recorded sse_events lines in original order with LF separators; preserves normalized SSE content, not original network byte framing. Original event timestamps and parsed frames remain in output.json."
+    },
+    {
+      "path": "core-r2/core-baseline-fixed3lookup/requests/core/p2048-r04/request.json",
+      "source_sha256": "73efdfeca03703db54834edb398512b7154a827ae46c8e7a919d4394fa88ef4c",
+      "released_sha256": "73efdfeca03703db54834edb398512b7154a827ae46c8e7a919d4394fa88ef4c",
+      "exact_original_bytes": true
+    },
+    {
+      "path": "core-r2/core-baseline-fixed3lookup/requests/core/p2048-r04/output.json",
+      "source_sha256": "f919b462f17cd9767faee1df4dd037d204d9da01c811773042527273345ea359",
+      "released_sha256": "f919b462f17cd9767faee1df4dd037d204d9da01c811773042527273345ea359",
+      "exact_original_bytes": true
+    },
+    {
+      "path": "core-r2/core-baseline-fixed3lookup/requests/core/p2048-r04/result.json",
+      "source_sha256": "757b4963335d3dba910e6f5e02713b9c8a77381a32e7145ea5f521a405531817",
+      "released_sha256": "757b4963335d3dba910e6f5e02713b9c8a77381a32e7145ea5f521a405531817",
+      "exact_original_bytes": true
+    },
+    {
+      "path": "core-r2/core-baseline-fixed3lookup/requests/core/p2048-r04/sse.txt",
+      "source_sha256": "f919b462f17cd9767faee1df4dd037d204d9da01c811773042527273345ea359",
+      "released_sha256": "b5b061b2fb08a6d4d829e53c44cb8f307584ffb0c8b776dd1e00f8107313fbe1",
+      "exact_original_bytes": false,
+      "transformation": "Derived from recorded sse_events lines in original order with LF separators; preserves normalized SSE content, not original network byte framing. Original event timestamps and parsed frames remain in output.json."
+    },
+    {
+      "path": "core-r2/core-baseline-fixed3lookup/requests/core/p2048-r05/request.json",
+      "source_sha256": "73efdfeca03703db54834edb398512b7154a827ae46c8e7a919d4394fa88ef4c",
+      "released_sha256": "73efdfeca03703db54834edb398512b7154a827ae46c8e7a919d4394fa88ef4c",
+      "exact_original_bytes": true
+    },
+    {
+      "path": "core-r2/core-baseline-fixed3lookup/requests/core/p2048-r05/output.json",
+      "source_sha256": "a0c4465b35658acf3a6b54dc0fa64f81229f2f932a5933cea95c2248534d4455",
+      "released_sha256": "a0c4465b35658acf3a6b54dc0fa64f81229f2f932a5933cea95c2248534d4455",
+      "exact_original_bytes": true
+    },
+    {
+      "path": "core-r2/core-baseline-fixed3lookup/requests/core/p2048-r05/result.json",
+      "source_sha256": "50c74416f529ab011f5790e4687903592a43870cada487d5338ff09419a9d6eb",
+      "released_sha256": "50c74416f529ab011f5790e4687903592a43870cada487d5338ff09419a9d6eb",
+      "exact_original_bytes": true
+    },
+    {
+      "path": "core-r2/core-baseline-fixed3lookup/requests/core/p2048-r05/sse.txt",
+      "source_sha256": "a0c4465b35658acf3a6b54dc0fa64f81229f2f932a5933cea95c2248534d4455",
+      "released_sha256": "e373e4e8f7764eaba0506825428ee5c7a9f409e3d96168d7452dd2a3a9262dfc",
+      "exact_original_bytes": false,
+      "transformation": "Derived from recorded sse_events lines in original order with LF separators; preserves normalized SSE content, not original network byte framing. Original event timestamps and parsed frames remain in output.json."
+    },
+    {
+      "path": "core-r2/core-baseline-fixed3lookup/requests/core/p8192-warmup/request.json",
+      "source_sha256": "0c2c271b022711ba7dc57104a2f2e2ad4306ae96f13bb0bcac282afc67237fe9",
+      "released_sha256": "0c2c271b022711ba7dc57104a2f2e2ad4306ae96f13bb0bcac282afc67237fe9",
+      "exact_original_bytes": true
+    },
+    {
+      "path": "core-r2/core-baseline-fixed3lookup/requests/core/p8192-warmup/output.json",
+      "source_sha256": "29e881c81b74804d0d6f097ca30dc9baabfa4da26c51e636bd56b30afdc803ad",
+      "released_sha256": "29e881c81b74804d0d6f097ca30dc9baabfa4da26c51e636bd56b30afdc803ad",
+      "exact_original_bytes": true
+    },
+    {
+      "path": "core-r2/core-baseline-fixed3lookup/requests/core/p8192-warmup/result.json",
+      "source_sha256": "392e4754baed81621046325aad8d7c89dc26ab954426c0a60789a9a8ef67b2be",
+      "released_sha256": "392e4754baed81621046325aad8d7c89dc26ab954426c0a60789a9a8ef67b2be",
+      "exact_original_bytes": true
+    },
+    {
+      "path": "core-r2/core-baseline-fixed3lookup/requests/core/p8192-warmup/sse.txt",
+      "source_sha256": "29e881c81b74804d0d6f097ca30dc9baabfa4da26c51e636bd56b30afdc803ad",
+      "released_sha256": "4f2ff59750d826f3fb52d5a153f2e64efbe93dcc77fa162c30dfbd4552d86ea9",
+      "exact_original_bytes": false,
+      "transformation": "Derived from recorded sse_events lines in original order with LF separators; preserves normalized SSE content, not original network byte framing. Original event timestamps and parsed frames remain in output.json."
+    },
+    {
+      "path": "core-r2/core-baseline-fixed3lookup/requests/core/p8192-r01/request.json",
+      "source_sha256": "526b2b6c2817a758266b86faca197a2413bb69cfc217846d36216882ef985dfc",
+      "released_sha256": "526b2b6c2817a758266b86faca197a2413bb69cfc217846d36216882ef985dfc",
+      "exact_original_bytes": true
+    },
+    {
+      "path": "core-r2/core-baseline-fixed3lookup/requests/core/p8192-r01/output.json",
+      "source_sha256": "1832bf249e2677d9e114b3306ca520fe776e7f8e5873451d687b78a26dd7abb9",
+      "released_sha256": "1832bf249e2677d9e114b3306ca520fe776e7f8e5873451d687b78a26dd7abb9",
+      "exact_original_bytes": true
+    },
+    {
+      "path": "core-r2/core-baseline-fixed3lookup/requests/core/p8192-r01/result.json",
+      "source_sha256": "39edda8ba95c8032a3cdca281f39e5ac198eb48253a614e18556769936be6cd1",
+      "released_sha256": "39edda8ba95c8032a3cdca281f39e5ac198eb48253a614e18556769936be6cd1",
+      "exact_original_bytes": true
+    },
+    {
+      "path": "core-r2/core-baseline-fixed3lookup/requests/core/p8192-r01/sse.txt",
+      "source_sha256": "1832bf249e2677d9e114b3306ca520fe776e7f8e5873451d687b78a26dd7abb9",
+      "released_sha256": "a16ba00e82ac63fee419a2d331294e17b33c8b17a392ed90c9df3287c735a713",
+      "exact_original_bytes": false,
+      "transformation": "Derived from recorded sse_events lines in original order with LF separators; preserves normalized SSE content, not original network byte framing. Original event timestamps and parsed frames remain in output.json."
+    },
+    {
+      "path": "core-r2/core-baseline-fixed3lookup/requests/core/p8192-r02/request.json",
+      "source_sha256": "526b2b6c2817a758266b86faca197a2413bb69cfc217846d36216882ef985dfc",
+      "released_sha256": "526b2b6c2817a758266b86faca197a2413bb69cfc217846d36216882ef985dfc",
+      "exact_original_bytes": true
+    },
+    {
+      "path": "core-r2/core-baseline-fixed3lookup/requests/core/p8192-r02/output.json",
+      "source_sha256": "a3a6dd494b28d729921f876abc39fff596c1ffccba364fed479e3e961e953f28",
+      "released_sha256": "a3a6dd494b28d729921f876abc39fff596c1ffccba364fed479e3e961e953f28",
+      "exact_original_bytes": true
+    },
+    {
+      "path": "core-r2/core-baseline-fixed3lookup/requests/core/p8192-r02/result.json",
+      "source_sha256": "54c1afb0a7a085e50e8ec215a4e06975a9c60ac6b8548ec3a77e8e3704593cae",
+      "released_sha256": "54c1afb0a7a085e50e8ec215a4e06975a9c60ac6b8548ec3a77e8e3704593cae",
+      "exact_original_bytes": true
+    },
+    {
+      "path": "core-r2/core-baseline-fixed3lookup/requests/core/p8192-r02/sse.txt",
+      "source_sha256": "a3a6dd494b28d729921f876abc39fff596c1ffccba364fed479e3e961e953f28",
+      "released_sha256": "34f16c4fe56e0ef87e12ed099a5f145c4b820b716f5615f2665845159eb5349e",
+      "exact_original_bytes": false,
+      "transformation": "Derived from recorded sse_events lines in original order with LF separators; preserves normalized SSE content, not original network byte framing. Original event timestamps and parsed frames remain in output.json."
+    },
+    {
+      "path": "core-r2/core-baseline-fixed3lookup/requests/core/p8192-r03/request.json",
+      "source_sha256": "526b2b6c2817a758266b86faca197a2413bb69cfc217846d36216882ef985dfc",
+      "released_sha256": "526b2b6c2817a758266b86faca197a2413bb69cfc217846d36216882ef985dfc",
+      "exact_original_bytes": true
+    },
+    {
+      "path": "core-r2/core-baseline-fixed3lookup/requests/core/p8192-r03/output.json",
+      "source_sha256": "daa54d915710d0eb43c896d05afd7c30c5bb5fb3c060a44eadfcafa0b2233a5d",
+      "released_sha256": "daa54d915710d0eb43c896d05afd7c30c5bb5fb3c060a44eadfcafa0b2233a5d",
+      "exact_original_bytes": true
+    },
+    {
+      "path": "core-r2/core-baseline-fixed3lookup/requests/core/p8192-r03/result.json",
+      "source_sha256": "cbb3daabdb848702afa11b5e61a7a66df418169a7f8fa96f4612892170a43dbd",
+      "released_sha256": "cbb3daabdb848702afa11b5e61a7a66df418169a7f8fa96f4612892170a43dbd",
+      "exact_original_bytes": true
+    },
+    {
+      "path": "core-r2/core-baseline-fixed3lookup/requests/core/p8192-r03/sse.txt",
+      "source_sha256": "daa54d915710d0eb43c896d05afd7c30c5bb5fb3c060a44eadfcafa0b2233a5d",
+      "released_sha256": "aff8b8645fb5b05b0bbf9cc6a17f7afc69ab3fba6672db73c029292ec3154a4d",
+      "exact_original_bytes": false,
+      "transformation": "Derived from recorded sse_events lines in original order with LF separators; preserves normalized SSE content, not original network byte framing. Original event timestamps and parsed frames remain in output.json."
+    },
+    {
+      "path": "core-r2/core-baseline-fixed3lookup/requests/core/p8192-r04/request.json",
+      "source_sha256": "526b2b6c2817a758266b86faca197a2413bb69cfc217846d36216882ef985dfc",
+      "released_sha256": "526b2b6c2817a758266b86faca197a2413bb69cfc217846d36216882ef985dfc",
+      "exact_original_bytes": true
+    },
+    {
+      "path": "core-r2/core-baseline-fixed3lookup/requests/core/p8192-r04/output.json",
+      "source_sha256": "6548e985cdc951721468f442facf09030e0656f03fa609cbfa7d1e1eb1c584dc",
+      "released_sha256": "6548e985cdc951721468f442facf09030e0656f03fa609cbfa7d1e1eb1c584dc",
+      "exact_original_bytes": true
+    },
+    {
+      "path": "core-r2/core-baseline-fixed3lookup/requests/core/p8192-r04/result.json",
+      "source_sha256": "d0f1e9d1c710fded61a1d94c1dcafed094be55d60c10a6c22a48f72cce17989a",
+      "released_sha256": "d0f1e9d1c710fded61a1d94c1dcafed094be55d60c10a6c22a48f72cce17989a",
+      "exact_original_bytes": true
+    },
+    {
+      "path": "core-r2/core-baseline-fixed3lookup/requests/core/p8192-r04/sse.txt",
+      "source_sha256": "6548e985cdc951721468f442facf09030e0656f03fa609cbfa7d1e1eb1c584dc",
+      "released_sha256": "ebc00361778f9d7f64d4c7b7a1615d3cb219db33405bed5ba6844545e7954209",
+      "exact_original_bytes": false,
+      "transformation": "Derived from recorded sse_events lines in original order with LF separators; preserves normalized SSE content, not original network byte framing. Original event timestamps and parsed frames remain in output.json."
+    },
+    {
+      "path": "core-r2/core-baseline-fixed3lookup/requests/core/p8192-r05/request.json",
+      "source_sha256": "526b2b6c2817a758266b86faca197a2413bb69cfc217846d36216882ef985dfc",
+      "released_sha256": "526b2b6c2817a758266b86faca197a2413bb69cfc217846d36216882ef985dfc",
+      "exact_original_bytes": true
+    },
+    {
+      "path": "core-r2/core-baseline-fixed3lookup/requests/core/p8192-r05/output.json",
+      "source_sha256": "acc571ea07710d77f879253bf8741dbfa83a11e0a9081f260014bc1444db8cd0",
+      "released_sha256": "acc571ea07710d77f879253bf8741dbfa83a11e0a9081f260014bc1444db8cd0",
+      "exact_original_bytes": true
+    },
+    {
+      "path": "core-r2/core-baseline-fixed3lookup/requests/core/p8192-r05/result.json",
+      "source_sha256": "614113264463d4dfb62a29253aedf7a2d216e47110a2e3d51540709eeaa51bd7",
+      "released_sha256": "614113264463d4dfb62a29253aedf7a2d216e47110a2e3d51540709eeaa51bd7",
+      "exact_original_bytes": true
+    },
+    {
+      "path": "core-r2/core-baseline-fixed3lookup/requests/core/p8192-r05/sse.txt",
+      "source_sha256": "acc571ea07710d77f879253bf8741dbfa83a11e0a9081f260014bc1444db8cd0",
+      "released_sha256": "fe13102afa3615b488963488e64e338cfa189523fe09682becd9f75df60be9a2",
+      "exact_original_bytes": false,
+      "transformation": "Derived from recorded sse_events lines in original order with LF separators; preserves normalized SSE content, not original network byte framing. Original event timestamps and parsed frames remain in output.json."
+    },
+    {
+      "path": "core-r2/core-baseline-fixed3lookup/requests/core/p32768-warmup/request.json",
+      "source_sha256": "442eb2b5962f68388052fa76595a83bd1f357fd7153b221f895f43137613d1da",
+      "released_sha256": "442eb2b5962f68388052fa76595a83bd1f357fd7153b221f895f43137613d1da",
+      "exact_original_bytes": true
+    },
+    {
+      "path": "core-r2/core-baseline-fixed3lookup/requests/core/p32768-warmup/output.json",
+      "source_sha256": "7bc70ef039e0f25e52118cf5d01d2b261b6c7e9c7c3eb5dc17f5f6412a2918c7",
+      "released_sha256": "7bc70ef039e0f25e52118cf5d01d2b261b6c7e9c7c3eb5dc17f5f6412a2918c7",
+      "exact_original_bytes": true
+    },
+    {
+      "path": "core-r2/core-baseline-fixed3lookup/requests/core/p32768-warmup/result.json",
+      "source_sha256": "09809a8625dd50b1eed2a48e4631fa80845c300691baf8647e5936f06ddde342",
+      "released_sha256": "09809a8625dd50b1eed2a48e4631fa80845c300691baf8647e5936f06ddde342",
+      "exact_original_bytes": true
+    },
+    {
+      "path": "core-r2/core-baseline-fixed3lookup/requests/core/p32768-warmup/sse.txt",
+      "source_sha256": "7bc70ef039e0f25e52118cf5d01d2b261b6c7e9c7c3eb5dc17f5f6412a2918c7",
+      "released_sha256": "81c54b77c0c2784e500ef9db5b924c4cf06b7bcafed0ff4ee10f724bbd717372",
+      "exact_original_bytes": false,
+      "transformation": "Derived from recorded sse_events lines in original order with LF separators; preserves normalized SSE content, not original network byte framing. Original event timestamps and parsed frames remain in output.json."
+    },
+    {
+      "path": "core-r2/core-baseline-fixed3lookup/requests/core/p32768-r01/request.json",
+      "source_sha256": "77e256a1ee3ff94994187b806583ef06d47603f6aa3610c3abb26349602461ae",
+      "released_sha256": "77e256a1ee3ff94994187b806583ef06d47603f6aa3610c3abb26349602461ae",
+      "exact_original_bytes": true
+    },
+    {
+      "path": "core-r2/core-baseline-fixed3lookup/requests/core/p32768-r01/output.json",
+      "source_sha256": "12ed34056bad1b3a27d2bb580a2a14e6ead37114f72985dc45944592a269ceba",
+      "released_sha256": "12ed34056bad1b3a27d2bb580a2a14e6ead37114f72985dc45944592a269ceba",
+      "exact_original_bytes": true
+    },
+    {
+      "path": "core-r2/core-baseline-fixed3lookup/requests/core/p32768-r01/result.json",
+      "source_sha256": "022ba134a4b18fa8701c66f8f6a357ad64a181ac025b56ba2d79ff0953e4640b",
+      "released_sha256": "022ba134a4b18fa8701c66f8f6a357ad64a181ac025b56ba2d79ff0953e4640b",
+      "exact_original_bytes": true
+    },
+    {
+      "path": "core-r2/core-baseline-fixed3lookup/requests/core/p32768-r01/sse.txt",
+      "source_sha256": "12ed34056bad1b3a27d2bb580a2a14e6ead37114f72985dc45944592a269ceba",
+      "released_sha256": "279f2bf3d02e6d1ea834d8e905afd98c998ab8d411f768feb6c419caaf62d919",
+      "exact_original_bytes": false,
+      "transformation": "Derived from recorded sse_events lines in original order with LF separators; preserves normalized SSE content, not original network byte framing. Original event timestamps and parsed frames remain in output.json."
+    },
+    {
+      "path": "core-r2/core-baseline-fixed3lookup/requests/core/p32768-r02/request.json",
+      "source_sha256": "77e256a1ee3ff94994187b806583ef06d47603f6aa3610c3abb26349602461ae",
+      "released_sha256": "77e256a1ee3ff94994187b806583ef06d47603f6aa3610c3abb26349602461ae",
+      "exact_original_bytes": true
+    },
+    {
+      "path": "core-r2/core-baseline-fixed3lookup/requests/core/p32768-r02/output.json",
+      "source_sha256": "e648a675f81c79c82fc1c429d017b420ef818cc1a994c79428201b24c3a1d665",
+      "released_sha256": "e648a675f81c79c82fc1c429d017b420ef818cc1a994c79428201b24c3a1d665",
+      "exact_original_bytes": true
+    },
+    {
+      "path": "core-r2/core-baseline-fixed3lookup/requests/core/p32768-r02/result.json",
+      "source_sha256": "5f26d0f502c5b09369d163ac37f1071c47cde001bbb6278ce63a3a6c55a2b401",
+      "released_sha256": "5f26d0f502c5b09369d163ac37f1071c47cde001bbb6278ce63a3a6c55a2b401",
+      "exact_original_bytes": true
+    },
+    {
+      "path": "core-r2/core-baseline-fixed3lookup/requests/core/p32768-r02/sse.txt",
+      "source_sha256": "e648a675f81c79c82fc1c429d017b420ef818cc1a994c79428201b24c3a1d665",
+      "released_sha256": "9195e6515514ebe1ad44df6e22a6a9ed6a0826e24962d31fba28dc015e78cfdd",
+      "exact_original_bytes": false,
+      "transformation": "Derived from recorded sse_events lines in original order with LF separators; preserves normalized SSE content, not original network byte framing. Original event timestamps and parsed frames remain in output.json."
+    },
+    {
+      "path": "core-r2/core-baseline-fixed3lookup/requests/core/p32768-r03/request.json",
+      "source_sha256": "77e256a1ee3ff94994187b806583ef06d47603f6aa3610c3abb26349602461ae",
+      "released_sha256": "77e256a1ee3ff94994187b806583ef06d47603f6aa3610c3abb26349602461ae",
+      "exact_original_bytes": true
+    },
+    {
+      "path": "core-r2/core-baseline-fixed3lookup/requests/core/p32768-r03/output.json",
+      "source_sha256": "52cfbf2e91db6b31ff8f33146e330e1c07fed58991b782e9b2386c0660b046c4",
+      "released_sha256": "52cfbf2e91db6b31ff8f33146e330e1c07fed58991b782e9b2386c0660b046c4",
+      "exact_original_bytes": true
+    },
+    {
+      "path": "core-r2/core-baseline-fixed3lookup/requests/core/p32768-r03/result.json",
+      "source_sha256": "cd7c2437afd6f71740a13b5c41ed8474e26496d309caba5f37c70042d407ee00",
+      "released_sha256": "cd7c2437afd6f71740a13b5c41ed8474e26496d309caba5f37c70042d407ee00",
+      "exact_original_bytes": true
+    },
+    {
+      "path": "core-r2/core-baseline-fixed3lookup/requests/core/p32768-r03/sse.txt",
+      "source_sha256": "52cfbf2e91db6b31ff8f33146e330e1c07fed58991b782e9b2386c0660b046c4",
+      "released_sha256": "38cf8568ec90c3ac21e111ba9fcdfba4d8e66170fd06db5491fe6d862ee654ee",
+      "exact_original_bytes": false,
+      "transformation": "Derived from recorded sse_events lines in original order with LF separators; preserves normalized SSE content, not original network byte framing. Original event timestamps and parsed frames remain in output.json."
+    },
+    {
+      "path": "core-r2/core-baseline-fixed3lookup/requests/core/p32768-r04/request.json",
+      "source_sha256": "77e256a1ee3ff94994187b806583ef06d47603f6aa3610c3abb26349602461ae",
+      "released_sha256": "77e256a1ee3ff94994187b806583ef06d47603f6aa3610c3abb26349602461ae",
+      "exact_original_bytes": true
+    },
+    {
+      "path": "core-r2/core-baseline-fixed3lookup/requests/core/p32768-r04/output.json",
+      "source_sha256": "acbc6c129022e664f2fe067123128c5012286c8a13364d905535b2210fd5eefc",
+      "released_sha256": "acbc6c129022e664f2fe067123128c5012286c8a13364d905535b2210fd5eefc",
+      "exact_original_bytes": true
+    },
+    {
+      "path": "core-r2/core-baseline-fixed3lookup/requests/core/p32768-r04/result.json",
+      "source_sha256": "e1fd1f4467183f3b7e223843b3e3b1c2473b86f1063243284acbfb8d78e13f38",
+      "released_sha256": "e1fd1f4467183f3b7e223843b3e3b1c2473b86f1063243284acbfb8d78e13f38",
+      "exact_original_bytes": true
+    },
+    {
+      "path": "core-r2/core-baseline-fixed3lookup/requests/core/p32768-r04/sse.txt",
+      "source_sha256": "acbc6c129022e664f2fe067123128c5012286c8a13364d905535b2210fd5eefc",
+      "released_sha256": "a2ccf3504bee7f0f58ff20a37f6a88538b74a79594041616a914e6af8147f9be",
+      "exact_original_bytes": false,
+      "transformation": "Derived from recorded sse_events lines in original order with LF separators; preserves normalized SSE content, not original network byte framing. Original event timestamps and parsed frames remain in output.json."
+    },
+    {
+      "path": "core-r2/core-baseline-fixed3lookup/requests/core/p32768-r05/request.json",
+      "source_sha256": "77e256a1ee3ff94994187b806583ef06d47603f6aa3610c3abb26349602461ae",
+      "released_sha256": "77e256a1ee3ff94994187b806583ef06d47603f6aa3610c3abb26349602461ae",
+      "exact_original_bytes": true
+    },
+    {
+      "path": "core-r2/core-baseline-fixed3lookup/requests/core/p32768-r05/output.json",
+      "source_sha256": "2c36bd4e08be997d037581bdd506ea18005f5a5a675b6bde985846efc46f04a3",
+      "released_sha256": "2c36bd4e08be997d037581bdd506ea18005f5a5a675b6bde985846efc46f04a3",
+      "exact_original_bytes": true
+    },
+    {
+      "path": "core-r2/core-baseline-fixed3lookup/requests/core/p32768-r05/result.json",
+      "source_sha256": "ba2c2434ad5f7b5f9e9cf7399ad8e1987756190f494d439ee3ebae3858850bd3",
+      "released_sha256": "ba2c2434ad5f7b5f9e9cf7399ad8e1987756190f494d439ee3ebae3858850bd3",
+      "exact_original_bytes": true
+    },
+    {
+      "path": "core-r2/core-baseline-fixed3lookup/requests/core/p32768-r05/sse.txt",
+      "source_sha256": "2c36bd4e08be997d037581bdd506ea18005f5a5a675b6bde985846efc46f04a3",
+      "released_sha256": "535e8eb8c190dd2bc62c3594accd8bb56444df676b971f9a5932d5b1e14445e7",
+      "exact_original_bytes": false,
+      "transformation": "Derived from recorded sse_events lines in original order with LF separators; preserves normalized SSE content, not original network byte framing. Original event timestamps and parsed frames remain in output.json."
+    }
+  ],
+  "caveats": [
+    "The original all-suite r2 invocation failed after both completed core jobs, when a bulk-NAX log assertion was incorrectly required for a 1344-token task below the 2048-token dispatch floor. The invocation-status.json remains failed; incomplete r2 task artifacts are excluded from this core export.",
+    "Old asynchronous cache deletion generated 31 SSD ENOENT ERROR lines across the two core logs. These core requests still explicitly used zero cached tokens and passed complete output/geometry/native/identity checks; this export does not claim clean SSD persistence for r2. The later writer-drain fix was exercised by r3 task/prefix jobs, not this core run."
+  ]
+}

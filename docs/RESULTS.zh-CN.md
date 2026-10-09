@@ -2,7 +2,7 @@
 
 [English](RESULTS.md) · [复现](REPRODUCE.zh-CN.md)
 
-这里汇总本人 2026-10-07 的本机存档测试与后续缓存验收。硬件为 Apple M5 Ultra，30 CPU / 64 GPU 核、256 GiB，macOS 27.0.1。公开源码迁移后的新验收单独记在 [VALIDATION](VALIDATION.md)，不覆盖历史性能结果。
+这里汇总本人 2026-10-07 的本机存档测试与后续缓存验收。硬件为 Apple M5 Ultra，30 CPU / 64 GPU 核、256 GiB，macOS 27.0.1。公开源码迁移后的新验收单独记在[发布验收](VALIDATION.zh-CN.md)，不覆盖历史性能结果。
 
 ## 精确元数据压缩
 

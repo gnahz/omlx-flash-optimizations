@@ -2,6 +2,7 @@
 import importlib.util
 import json
 from pathlib import Path
+import socket
 import sys
 import tempfile
 import unittest
@@ -14,6 +15,18 @@ import serve_qwen as serve
 import benchmark_qwen as benchmark
 
 class QwenReleaseTests(unittest.TestCase):
+    def test_port_probe_rejects_listener_but_allows_clean_tcp_restart(self):
+        with socket.socket() as listener:
+            listener.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
+            listener.bind(('127.0.0.1', 0)); listener.listen()
+            port = listener.getsockname()[1]
+            with self.assertRaises(OSError): serve.check_port_available(port)
+            with socket.create_connection(('127.0.0.1', port)) as client:
+                accepted, _ = listener.accept()
+                accepted.shutdown(socket.SHUT_RDWR); accepted.close()
+                self.assertEqual(client.recv(1), b'')
+        serve.check_port_available(port)
+
     def test_patch_manifest_and_dependency_identity(self):
         manifest = prepare.read_manifest()
         self.assertEqual(manifest['baseline_patch_count'], 4)

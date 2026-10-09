@@ -1,0 +1,53 @@
+{
+  "ready": true,
+  "snapshots": [
+    {
+      "models": [
+        {
+          "id": "Qwen3.8-Flash-Next-oQ6e-mtp",
+          "saves": 3,
+          "saves_persisted": 3,
+          "errors": 0,
+          "gdn_pending_bytes": 0
+        }
+      ],
+      "temporary_files": 0
+    },
+    {
+      "models": [
+        {
+          "id": "Qwen3.8-Flash-Next-oQ6e-mtp",
+          "saves": 3,
+          "saves_persisted": 3,
+          "errors": 0,
+          "gdn_pending_bytes": 0
+        }
+      ],
+      "temporary_files": 0
+    },
+    {
+      "models": [
+        {
+          "id": "Qwen3.8-Flash-Next-oQ6e-mtp",
+          "saves": 3,
+          "saves_persisted": 3,
+          "errors": 0,
+          "gdn_pending_bytes": 0
+        }
+      ],
+      "temporary_files": 0
+    },
+    {
+      "models": [
+        {
+          "id": "Qwen3.8-Flash-Next-oQ6e-mtp",
+          "saves": 3,
+          "saves_persisted": 3,
+          "errors": 0,
+          "gdn_pending_bytes": 0
+        }
+      ],
+      "temporary_files": 0
+    }
+  ]
+}

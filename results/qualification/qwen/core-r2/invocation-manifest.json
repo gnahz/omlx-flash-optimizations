@@ -1,0 +1,37 @@
+{
+  "jobs": [
+    [
+      "core",
+      "baseline",
+      "fixed3"
+    ],
+    [
+      "core",
+      "baseline",
+      "fixed3lookup"
+    ],
+    [
+      "tasks",
+      "baseline",
+      "fixed3"
+    ],
+    [
+      "tasks",
+      "baseline",
+      "fixed3lookup"
+    ],
+    [
+      "prefix",
+      "baseline",
+      "fixed3lookup"
+    ],
+    [
+      "prefix",
+      "optimized",
+      "fixed3lookup"
+    ]
+  ],
+  "fixture_manifest_sha256": "844ce67f1eb1c6c8bec2564351c9babac776ce965a3843141a9ed69ed85f2717",
+  "model_config_sha256": "2d0d832bd95275d89184091b1894cecb7e582cf51466a3363cced3e751d844e4",
+  "measurement": "Historical frozen protocol, relocated durable engine patches; no system limit changes, no resource polling or remote result upload"
+}

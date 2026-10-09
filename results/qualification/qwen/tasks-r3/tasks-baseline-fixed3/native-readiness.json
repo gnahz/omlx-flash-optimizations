@@ -1,0 +1,28 @@
+{
+  "returncode": 0,
+  "stderr": "",
+  "groups": {
+    "bonsai": {
+      "available": true,
+      "import_error": null
+    },
+    "decode_fast": {
+      "available": true,
+      "import_error": null
+    },
+    "glm_moe_dsa": {
+      "available": true,
+      "import_error": null
+    },
+    "minimax_m3": {
+      "available": true,
+      "import_error": null
+    },
+    "qwen35_prefill": {
+      "available": true,
+      "import_error": null
+    }
+  },
+  "nax_available": true,
+  "nax_qmm_kernels_built": true
+}

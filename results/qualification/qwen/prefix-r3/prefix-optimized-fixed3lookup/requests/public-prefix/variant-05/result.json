@@ -1,0 +1,43 @@
+{
+  "success": true,
+  "problems": [],
+  "http_status": 200,
+  "prompt_tokens": 5026,
+  "completion_tokens": 640,
+  "cached_tokens": 2048,
+  "expected_local_prompt_tokens": 5026,
+  "prompt_length_matches_local": true,
+  "max_tokens": 640,
+  "finish_reason": "length",
+  "fixed_length_complete": true,
+  "early_eos": false,
+  "client_wall_s": 7.801307584,
+  "client_ttft_s": 1.077486542,
+  "client_decode_wall_s": 6.723821042,
+  "client_n_over_wall_minus_ttft_tps": 95.1839729228772,
+  "server_generation_tps": 95.18,
+  "server_ttft_s": 1.06,
+  "server_total_s": 7.78,
+  "server_prompt_eval_s": 1.06,
+  "server_generation_s": 6.72,
+  "server_prompt_tps": 2810.34,
+  "measured": true,
+  "stage": "public-prefix",
+  "label": "variant-05",
+  "payload_sha256": "9e97d40e1bd4a34c83262725ebbdeae8fcafc51306cde04c3659b663a57b0c7a",
+  "output_sha256": "b9730277ace8431c2ebcfa5bfc95c97456f7ab0bf88804d75b5bbb215c007581",
+  "checks": {
+    "transport": true,
+    "no_tool_calls": true,
+    "prompt_length": true,
+    "cache_minimum": true,
+    "minimum_completion": true
+  },
+  "occupancy": {
+    "main_files": 6,
+    "main_bytes": 754446280,
+    "sidecar_files": 6,
+    "sidecar_bytes": 693934320,
+    "transient_bytes": 0
+  }
+}

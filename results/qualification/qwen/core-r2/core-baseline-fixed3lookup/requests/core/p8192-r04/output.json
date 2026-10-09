@@ -1,0 +1,884 @@
+{
+  "text": "```python\nimport unittest\nfrom unittest.mock import MagicMock\nimport copy\nimport math\n\n# Hypothetical module import\n# In a real scenario, this would be: from telemetry_tools import ...\n# For the purpose of this test generation, we assume the functions exist.\ntry:\n    from telemetry_tools import (\n        dedupe_events,\n        bounded_backoff,\n        parse_retry_after,\n        partition_batches,\n        merge_counters,\n    )\nexcept ImportError:\n    # Fallback for environments where the module isn't present during static analysis\n    # This allows the test file to be parsed, though tests will fail if run without the module.\n    def dedupe_events(events): raise NotImplementedError\n    def bounded_backoff(attempt, base, cap): raise NotImplementedError\n    def parse_retry_after(value): raise NotImplementedError\n    def partition_batches(items, size): raise NotImplementedError\n    def merge_counters(*mappings): raise NotImplementedError\n\n\nclass TestTelemetryTools(unittest.TestCase):\n    \"\"\"Test suite for telemetry_tools module.\"\"\"\n\n    # =========================================================================\n    # Tests for dedupe_events\n    # =========================================================================\n\n    def test_dedupe_events_empty_list(self):\n        \"\"\"Test dedupe_events with an empty list.\"\"\"\n        self.assertEqual(dedupe_events([]), [])\n\n    def test_dedupe_events_single_event(self):\n        \"\"\"Test dedupe_events with a single event.\"\"\"\n        events = [{\"id\": \"1\", \"data\": \"a\"}]\n        result = dedupe_events(events)\n        self.assertEqual(result, events)\n        self.assertIsNot(result, events)  # Should be a new list\n\n    def test_dedupe_events_no_duplicates(self):\n        \"\"\"Test dedupe_events with unique IDs.\"\"\"\n        events = [\n            {\"id\": \"1\", \"data\": \"a\"},\n            {\"id\": \"2\", \"data\": \"b\"},\n            {\"id\": \"3\", \"data\": \"c\"},\n        ]\n        result = dedupe_events(events)\n        self.assertEqual(result, events)\n\n    def test_dedupe_events_first_occurrence_kept(self):\n        \"\"\"Test that the first occurrence of a duplicate ID is kept.\"\"\"\n        events = [\n            {\"id\": \"1\", \"data\": \"first\"},\n            {\"id\": \"1\", \"data\": \"second\"},\n        ]\n        result = dedupe_events(events)\n        self.assertEqual(len(result), ",
+  "reasoning": "",
+  "tool_calls": [],
+  "usage": {
+    "prompt_tokens": 8192,
+    "completion_tokens": 512,
+    "total_tokens": 8704,
+    "input_tokens": 8192,
+    "output_tokens": 512,
+    "prompt_tokens_details": {
+      "cached_tokens": 0
+    },
+    "time_to_first_token": 2.14,
+    "time_to_first_visible_token": 2.15,
+    "total_time": 5.97,
+    "prompt_eval_duration": 2.14,
+    "generation_duration": 3.83,
+    "prompt_tokens_per_second": 3819.4,
+    "generation_tokens_per_second": 133.81
+  },
+  "finish_reason": "length",
+  "done": true,
+  "stream_errors": [],
+  "sse_events": [
+    {
+      "relative_ns": 14437500,
+      "line": "data: {\"id\":\"chatcmpl-78e1e22c\",\"object\":\"chat.completion.chunk\",\"created\":0,\"model\":\"keepalive\",\"choices\":[{\"index\":0,\"delta\":{\"role\":\"assistant\",\"content\":\"\"},\"finish_reason\":null}]}"
+    },
+    {
+      "relative_ns": 14440125,
+      "line": ""
+    },
+    {
+      "relative_ns": 20480333,
+      "line": "data: {\"id\":\"chatcmpl-78e1e22c\",\"object\":\"chat.completion.chunk\",\"created\":1791565655,\"model\":\"Qwen3.8-Flash-Next-oQ6e-mtp\",\"choices\":[{\"index\":0,\"delta\":{\"role\":\"assistant\"}}]}"
+    },
+    {
+      "relative_ns": 20484375,
+      "line": ""
+    },
+    {
+      "relative_ns": 2160303042,
+      "line": "data: {\"id\":\"chatcmpl-78e1e22c\",\"object\":\"chat.completion.chunk\",\"created\":1791565657,\"model\":\"Qwen3.8-Flash-Next-oQ6e-mtp\",\"choices\":[{\"index\":0,\"delta\":{\"content\":\"```\"}}]}"
+    },
+    {
+      "relative_ns": 2160310083,
+      "line": ""
+    },
+    {
+      "relative_ns": 2269999708,
+      "line": "data: {\"id\":\"chatcmpl-78e1e22c\",\"object\":\"chat.completion.chunk\",\"created\":1791565657,\"model\":\"Qwen3.8-Flash-Next-oQ6e-mtp\",\"choices\":[{\"index\":0,\"delta\":{\"content\":\"python\\nimport unittest\\nfrom unittest.mock\"}}]}"
+    },
+    {
+      "relative_ns": 2270007875,
+      "line": ""
+    },
+    {
+      "relative_ns": 2385499042,
+      "line": "data: {\"id\":\"chatcmpl-78e1e22c\",\"object\":\"chat.completion.chunk\",\"created\":1791565657,\"model\":\"Qwen3.8-Flash-Next-oQ6e-mtp\",\"choices\":[{\"index\":0,\"delta\":{\"content\":\" import MagicMock\\nimport copy\\nimport math\\n\\n# Hypoth\"}}]}"
+    },
+    {
+      "relative_ns": 2385504875,
+      "line": ""
+    },
+    {
+      "relative_ns": 2502594625,
+      "line": "data: {\"id\":\"chatcmpl-78e1e22c\",\"object\":\"chat.completion.chunk\",\"created\":1791565657,\"model\":\"Qwen3.8-Flash-Next-oQ6e-mtp\",\"choices\":[{\"index\":0,\"delta\":{\"content\":\"etical module import\\n# In a real scenario, this\"}}]}"
+    },
+    {
+      "relative_ns": 2502600500,
+      "line": ""
+    },
+    {
+      "relative_ns": 2620782958,
+      "line": "data: {\"id\":\"chatcmpl-78e1e22c\",\"object\":\"chat.completion.chunk\",\"created\":1791565657,\"model\":\"Qwen3.8-Flash-Next-oQ6e-mtp\",\"choices\":[{\"index\":0,\"delta\":{\"content\":\" would be: from telemetry_tools import ...\\n# For the\"}}]}"
+    },
+    {
+      "relative_ns": 2620788833,
+      "line": ""
+    },
+    {
+      "relative_ns": 2760628250,
+      "line": "data: {\"id\":\"chatcmpl-78e1e22c\",\"object\":\"chat.completion.chunk\",\"created\":1791565657,\"model\":\"Qwen3.8-Flash-Next-oQ6e-mtp\",\"choices\":[{\"index\":0,\"delta\":{\"content\":\" purpose of this test generation, we assume the functions exist.\\n\"}}]}"
+    },
+    {
+      "relative_ns": 2760635792,
+      "line": ""
+    },
+    {
+      "relative_ns": 2879180958,
+      "line": "data: {\"id\":\"chatcmpl-78e1e22c\",\"object\":\"chat.completion.chunk\",\"created\":1791565657,\"model\":\"Qwen3.8-Flash-Next-oQ6e-mtp\",\"choices\":[{\"index\":0,\"delta\":{\"content\":\"try:\\n    from telemetry_tools import (\\n        dedupe_events,\\n        bounded\"}}]}"
+    },
+    {
+      "relative_ns": 2879189375,
+      "line": ""
+    },
+    {
+      "relative_ns": 3000647333,
+      "line": "data: {\"id\":\"chatcmpl-78e1e22c\",\"object\":\"chat.completion.chunk\",\"created\":1791565658,\"model\":\"Qwen3.8-Flash-Next-oQ6e-mtp\",\"choices\":[{\"index\":0,\"delta\":{\"content\":\"_backoff,\\n        parse_retry_after,\\n        partition_batches,\\n        merge_counters,\\n\"}}]}"
+    },
+    {
+      "relative_ns": 3000655417,
+      "line": ""
+    },
+    {
+      "relative_ns": 3119824458,
+      "line": "data: {\"id\":\"chatcmpl-78e1e22c\",\"object\":\"chat.completion.chunk\",\"created\":1791565658,\"model\":\"Qwen3.8-Flash-Next-oQ6e-mtp\",\"choices\":[{\"index\":0,\"delta\":{\"content\":\"    )\\nexcept ImportError:\\n    # Fallback for environments where the module isn't\"}}]}"
+    },
+    {
+      "relative_ns": 3119833208,
+      "line": ""
+    },
+    {
+      "relative_ns": 3237846792,
+      "line": "data: {\"id\":\"chatcmpl-78e1e22c\",\"object\":\"chat.completion.chunk\",\"created\":1791565658,\"model\":\"Qwen3.8-Flash-Next-oQ6e-mtp\",\"choices\":[{\"index\":0,\"delta\":{\"content\":\" present during static analysis\\n    # This allows the\"}}]}"
+    },
+    {
+      "relative_ns": 3237854417,
+      "line": ""
+    },
+    {
+      "relative_ns": 3354560292,
+      "line": "data: {\"id\":\"chatcmpl-78e1e22c\",\"object\":\"chat.completion.chunk\",\"created\":1791565658,\"model\":\"Qwen3.8-Flash-Next-oQ6e-mtp\",\"choices\":[{\"index\":0,\"delta\":{\"content\":\" test file to be parsed, though tests will fail if run\"}}]}"
+    },
+    {
+      "relative_ns": 3354580250,
+      "line": ""
+    },
+    {
+      "relative_ns": 3472522583,
+      "line": "data: {\"id\":\"chatcmpl-78e1e22c\",\"object\":\"chat.completion.chunk\",\"created\":1791565658,\"model\":\"Qwen3.8-Flash-Next-oQ6e-mtp\",\"choices\":[{\"index\":0,\"delta\":{\"content\":\" without the module.\\n    def dedupe_events(events): raise NotImplementedError\"}}]}"
+    },
+    {
+      "relative_ns": 3472529583,
+      "line": ""
+    },
+    {
+      "relative_ns": 3581815042,
+      "line": "data: {\"id\":\"chatcmpl-78e1e22c\",\"object\":\"chat.completion.chunk\",\"created\":1791565658,\"model\":\"Qwen3.8-Flash-Next-oQ6e-mtp\",\"choices\":[{\"index\":0,\"delta\":{\"content\":\"\\n    def bounded_backoff(attempt, base, cap): raise NotImplementedError\"}}]}"
+    },
+    {
+      "relative_ns": 3581823083,
+      "line": ""
+    },
+    {
+      "relative_ns": 3704281125,
+      "line": "data: {\"id\":\"chatcmpl-78e1e22c\",\"object\":\"chat.completion.chunk\",\"created\":1791565658,\"model\":\"Qwen3.8-Flash-Next-oQ6e-mtp\",\"choices\":[{\"index\":0,\"delta\":{\"content\":\"\\n    def parse_retry_after(value): raise NotImplementedError\\n    def partition_batches(items, size): raise\"}}]}"
+    },
+    {
+      "relative_ns": 3704289250,
+      "line": ""
+    },
+    {
+      "relative_ns": 3823000708,
+      "line": "data: {\"id\":\"chatcmpl-78e1e22c\",\"object\":\"chat.completion.chunk\",\"created\":1791565658,\"model\":\"Qwen3.8-Flash-Next-oQ6e-mtp\",\"choices\":[{\"index\":0,\"delta\":{\"content\":\" NotImplementedError\\n    def merge_counters(*mappings): raise NotImplementedError\\n\\n\\nclass TestTelemetry\"}}]}"
+    },
+    {
+      "relative_ns": 3823007917,
+      "line": ""
+    },
+    {
+      "relative_ns": 3940235875,
+      "line": "data: {\"id\":\"chatcmpl-78e1e22c\",\"object\":\"chat.completion.chunk\",\"created\":1791565658,\"model\":\"Qwen3.8-Flash-Next-oQ6e-mtp\",\"choices\":[{\"index\":0,\"delta\":{\"content\":\"Tools(unittest.TestCase):\\n    \\\"\\\"\\\"Test suite for telemetry_tools module.\\\"\\\"\\\"\"}}]}"
+    },
+    {
+      "relative_ns": 3940243375,
+      "line": ""
+    },
+    {
+      "relative_ns": 4056293042,
+      "line": "data: {\"id\":\"chatcmpl-78e1e22c\",\"object\":\"chat.completion.chunk\",\"created\":1791565659,\"model\":\"Qwen3.8-Flash-Next-oQ6e-mtp\",\"choices\":[{\"index\":0,\"delta\":{\"content\":\"\\n\\n    # =========================================================================\\n    # Tests for dedupe_events\\n\"}}]}"
+    },
+    {
+      "relative_ns": 4056298792,
+      "line": ""
+    },
+    {
+      "relative_ns": 4175974125,
+      "line": "data: {\"id\":\"chatcmpl-78e1e22c\",\"object\":\"chat.completion.chunk\",\"created\":1791565659,\"model\":\"Qwen3.8-Flash-Next-oQ6e-mtp\",\"choices\":[{\"index\":0,\"delta\":{\"content\":\"    # =========================================================================\\n\\n    def test_dedupe_events_empty_list(self):\\n        \\\"\\\"\\\"\"}}]}"
+    },
+    {
+      "relative_ns": 4175984042,
+      "line": ""
+    },
+    {
+      "relative_ns": 4294637042,
+      "line": "data: {\"id\":\"chatcmpl-78e1e22c\",\"object\":\"chat.completion.chunk\",\"created\":1791565659,\"model\":\"Qwen3.8-Flash-Next-oQ6e-mtp\",\"choices\":[{\"index\":0,\"delta\":{\"content\":\"Test dedupe_events with an empty list.\\\"\\\"\\\"\\n       \"}}]}"
+    },
+    {
+      "relative_ns": 4294644667,
+      "line": ""
+    },
+    {
+      "relative_ns": 4413330333,
+      "line": "data: {\"id\":\"chatcmpl-78e1e22c\",\"object\":\"chat.completion.chunk\",\"created\":1791565659,\"model\":\"Qwen3.8-Flash-Next-oQ6e-mtp\",\"choices\":[{\"index\":0,\"delta\":{\"content\":\" self.assertEqual(dedupe_events([]), [])\\n\\n    def test_dedupe_events_single\"}}]}"
+    },
+    {
+      "relative_ns": 4413338417,
+      "line": ""
+    },
+    {
+      "relative_ns": 4532837000,
+      "line": "data: {\"id\":\"chatcmpl-78e1e22c\",\"object\":\"chat.completion.chunk\",\"created\":1791565659,\"model\":\"Qwen3.8-Flash-Next-oQ6e-mtp\",\"choices\":[{\"index\":0,\"delta\":{\"content\":\"_event(self):\\n        \\\"\\\"\\\"Test dedupe_events with a single event.\\\"\\\"\\\"\\n       \"}}]}"
+    },
+    {
+      "relative_ns": 4532845167,
+      "line": ""
+    },
+    {
+      "relative_ns": 4651384917,
+      "line": "data: {\"id\":\"chatcmpl-78e1e22c\",\"object\":\"chat.completion.chunk\",\"created\":1791565659,\"model\":\"Qwen3.8-Flash-Next-oQ6e-mtp\",\"choices\":[{\"index\":0,\"delta\":{\"content\":\" events = [{\\\"id\\\": \\\"1\\\", \\\"data\\\": \\\"a\\\"}]\\n        result\"}}]}"
+    },
+    {
+      "relative_ns": 4651393125,
+      "line": ""
+    },
+    {
+      "relative_ns": 4770190500,
+      "line": "data: {\"id\":\"chatcmpl-78e1e22c\",\"object\":\"chat.completion.chunk\",\"created\":1791565659,\"model\":\"Qwen3.8-Flash-Next-oQ6e-mtp\",\"choices\":[{\"index\":0,\"delta\":{\"content\":\" = dedupe_events(events)\\n        self.assertEqual(result, events)\\n       \"}}]}"
+    },
+    {
+      "relative_ns": 4770199208,
+      "line": ""
+    },
+    {
+      "relative_ns": 4887050625,
+      "line": "data: {\"id\":\"chatcmpl-78e1e22c\",\"object\":\"chat.completion.chunk\",\"created\":1791565659,\"model\":\"Qwen3.8-Flash-Next-oQ6e-mtp\",\"choices\":[{\"index\":0,\"delta\":{\"content\":\" self.assertIsNot(result, events)  # Should be a new list\\n\\n   \"}}]}"
+    },
+    {
+      "relative_ns": 4887058750,
+      "line": ""
+    },
+    {
+      "relative_ns": 5005815708,
+      "line": "data: {\"id\":\"chatcmpl-78e1e22c\",\"object\":\"chat.completion.chunk\",\"created\":1791565660,\"model\":\"Qwen3.8-Flash-Next-oQ6e-mtp\",\"choices\":[{\"index\":0,\"delta\":{\"content\":\" def test_dedupe_events_no_duplicates(self):\\n        \\\"\\\"\\\"Test dedupe_events\"}}]}"
+    },
+    {
+      "relative_ns": 5005837167,
+      "line": ""
+    },
+    {
+      "relative_ns": 5124667250,
+      "line": "data: {\"id\":\"chatcmpl-78e1e22c\",\"object\":\"chat.completion.chunk\",\"created\":1791565660,\"model\":\"Qwen3.8-Flash-Next-oQ6e-mtp\",\"choices\":[{\"index\":0,\"delta\":{\"content\":\" with unique IDs.\\\"\\\"\\\"\\n        events = [\\n            {\\\"id\\\": \\\"1\\\", \\\"data\\\":\"}}]}"
+    },
+    {
+      "relative_ns": 5124683875,
+      "line": ""
+    },
+    {
+      "relative_ns": 5245914917,
+      "line": "data: {\"id\":\"chatcmpl-78e1e22c\",\"object\":\"chat.completion.chunk\",\"created\":1791565660,\"model\":\"Qwen3.8-Flash-Next-oQ6e-mtp\",\"choices\":[{\"index\":0,\"delta\":{\"content\":\" \\\"a\\\"},\\n            {\\\"id\\\": \\\"2\\\", \\\"data\\\": \\\"b\\\"},\\n\"}}]}"
+    },
+    {
+      "relative_ns": 5245923917,
+      "line": ""
+    },
+    {
+      "relative_ns": 5367539500,
+      "line": "data: {\"id\":\"chatcmpl-78e1e22c\",\"object\":\"chat.completion.chunk\",\"created\":1791565660,\"model\":\"Qwen3.8-Flash-Next-oQ6e-mtp\",\"choices\":[{\"index\":0,\"delta\":{\"content\":\"            {\\\"id\\\": \\\"3\\\", \\\"data\\\": \\\"c\\\"},\\n        ]\\n        result =\"}}]}"
+    },
+    {
+      "relative_ns": 5367548917,
+      "line": ""
+    },
+    {
+      "relative_ns": 5487896125,
+      "line": "data: {\"id\":\"chatcmpl-78e1e22c\",\"object\":\"chat.completion.chunk\",\"created\":1791565660,\"model\":\"Qwen3.8-Flash-Next-oQ6e-mtp\",\"choices\":[{\"index\":0,\"delta\":{\"content\":\" dedupe_events(events)\\n        self.assertEqual(result, events)\\n\\n    def test_dedupe\"}}]}"
+    },
+    {
+      "relative_ns": 5487905375,
+      "line": ""
+    },
+    {
+      "relative_ns": 5606201417,
+      "line": "data: {\"id\":\"chatcmpl-78e1e22c\",\"object\":\"chat.completion.chunk\",\"created\":1791565660,\"model\":\"Qwen3.8-Flash-Next-oQ6e-mtp\",\"choices\":[{\"index\":0,\"delta\":{\"content\":\"_events_first_occurrence_kept(self):\\n        \\\"\\\"\\\"Test that the first occurrence of a\"}}]}"
+    },
+    {
+      "relative_ns": 5606208208,
+      "line": ""
+    },
+    {
+      "relative_ns": 5724688542,
+      "line": "data: {\"id\":\"chatcmpl-78e1e22c\",\"object\":\"chat.completion.chunk\",\"created\":1791565660,\"model\":\"Qwen3.8-Flash-Next-oQ6e-mtp\",\"choices\":[{\"index\":0,\"delta\":{\"content\":\" duplicate ID is kept.\\\"\\\"\\\"\\n        events = [\\n            {\\\"id\\\": \\\"1\\\", \\\"\"}}]}"
+    },
+    {
+      "relative_ns": 5724695625,
+      "line": ""
+    },
+    {
+      "relative_ns": 5846407875,
+      "line": "data: {\"id\":\"chatcmpl-78e1e22c\",\"object\":\"chat.completion.chunk\",\"created\":1791565660,\"model\":\"Qwen3.8-Flash-Next-oQ6e-mtp\",\"choices\":[{\"index\":0,\"delta\":{\"content\":\"data\\\": \\\"first\\\"},\\n            {\\\"id\\\": \\\"1\\\", \\\"data\\\": \\\"second\\\"},\\n\"}}]}"
+    },
+    {
+      "relative_ns": 5846415375,
+      "line": ""
+    },
+    {
+      "relative_ns": 5966423167,
+      "line": "data: {\"id\":\"chatcmpl-78e1e22c\",\"object\":\"chat.completion.chunk\",\"created\":1791565661,\"model\":\"Qwen3.8-Flash-Next-oQ6e-mtp\",\"choices\":[{\"index\":0,\"delta\":{\"content\":\"        ]\\n        result = dedupe_events(events)\\n        self.assertEqual(len(result),\"}}]}"
+    },
+    {
+      "relative_ns": 5966431583,
+      "line": ""
+    },
+    {
+      "relative_ns": 5985402167,
+      "line": "data: {\"id\":\"chatcmpl-78e1e22c\",\"object\":\"chat.completion.chunk\",\"created\":1791565661,\"model\":\"Qwen3.8-Flash-Next-oQ6e-mtp\",\"choices\":[{\"index\":0,\"delta\":{\"content\":\" \"}}]}"
+    },
+    {
+      "relative_ns": 5985408750,
+      "line": ""
+    },
+    {
+      "relative_ns": 5985500625,
+      "line": "data: {\"id\":\"chatcmpl-78e1e22c\",\"object\":\"chat.completion.chunk\",\"created\":1791565661,\"model\":\"Qwen3.8-Flash-Next-oQ6e-mtp\",\"choices\":[{\"index\":0,\"delta\":{},\"finish_reason\":\"length\"}]}"
+    },
+    {
+      "relative_ns": 5985502625,
+      "line": ""
+    },
+    {
+      "relative_ns": 5985722625,
+      "line": "data: {\"id\":\"chatcmpl-78e1e22c\",\"object\":\"chat.completion.chunk\",\"created\":1791565661,\"model\":\"Qwen3.8-Flash-Next-oQ6e-mtp\",\"choices\":[],\"usage\":{\"prompt_tokens\":8192,\"completion_tokens\":512,\"total_tokens\":8704,\"input_tokens\":8192,\"output_tokens\":512,\"prompt_tokens_details\":{\"cached_tokens\":0},\"time_to_first_token\":2.14,\"time_to_first_visible_token\":2.15,\"total_time\":5.97,\"prompt_eval_duration\":2.14,\"generation_duration\":3.83,\"prompt_tokens_per_second\":3819.4,\"generation_tokens_per_second\":133.81}}"
+    },
+    {
+      "relative_ns": 5985724750,
+      "line": ""
+    },
+    {
+      "relative_ns": 5985813167,
+      "line": "data: [DONE]"
+    },
+    {
+      "relative_ns": 5985818958,
+      "line": ""
+    }
+  ],
+  "sse_frames": [
+    {
+      "id": "chatcmpl-78e1e22c",
+      "object": "chat.completion.chunk",
+      "created": 0,
+      "model": "keepalive",
+      "choices": [
+        {
+          "index": 0,
+          "delta": {
+            "role": "assistant",
+            "content": ""
+          },
+          "finish_reason": null
+        }
+      ]
+    },
+    {
+      "id": "chatcmpl-78e1e22c",
+      "object": "chat.completion.chunk",
+      "created": 1791565655,
+      "model": "Qwen3.8-Flash-Next-oQ6e-mtp",
+      "choices": [
+        {
+          "index": 0,
+          "delta": {
+            "role": "assistant"
+          }
+        }
+      ]
+    },
+    {
+      "id": "chatcmpl-78e1e22c",
+      "object": "chat.completion.chunk",
+      "created": 1791565657,
+      "model": "Qwen3.8-Flash-Next-oQ6e-mtp",
+      "choices": [
+        {
+          "index": 0,
+          "delta": {
+            "content": "```"
+          }
+        }
+      ]
+    },
+    {
+      "id": "chatcmpl-78e1e22c",
+      "object": "chat.completion.chunk",
+      "created": 1791565657,
+      "model": "Qwen3.8-Flash-Next-oQ6e-mtp",
+      "choices": [
+        {
+          "index": 0,
+          "delta": {
+            "content": "python\nimport unittest\nfrom unittest.mock"
+          }
+        }
+      ]
+    },
+    {
+      "id": "chatcmpl-78e1e22c",
+      "object": "chat.completion.chunk",
+      "created": 1791565657,
+      "model": "Qwen3.8-Flash-Next-oQ6e-mtp",
+      "choices": [
+        {
+          "index": 0,
+          "delta": {
+            "content": " import MagicMock\nimport copy\nimport math\n\n# Hypoth"
+          }
+        }
+      ]
+    },
+    {
+      "id": "chatcmpl-78e1e22c",
+      "object": "chat.completion.chunk",
+      "created": 1791565657,
+      "model": "Qwen3.8-Flash-Next-oQ6e-mtp",
+      "choices": [
+        {
+          "index": 0,
+          "delta": {
+            "content": "etical module import\n# In a real scenario, this"
+          }
+        }
+      ]
+    },
+    {
+      "id": "chatcmpl-78e1e22c",
+      "object": "chat.completion.chunk",
+      "created": 1791565657,
+      "model": "Qwen3.8-Flash-Next-oQ6e-mtp",
+      "choices": [
+        {
+          "index": 0,
+          "delta": {
+            "content": " would be: from telemetry_tools import ...\n# For the"
+          }
+        }
+      ]
+    },
+    {
+      "id": "chatcmpl-78e1e22c",
+      "object": "chat.completion.chunk",
+      "created": 1791565657,
+      "model": "Qwen3.8-Flash-Next-oQ6e-mtp",
+      "choices": [
+        {
+          "index": 0,
+          "delta": {
+            "content": " purpose of this test generation, we assume the functions exist.\n"
+          }
+        }
+      ]
+    },
+    {
+      "id": "chatcmpl-78e1e22c",
+      "object": "chat.completion.chunk",
+      "created": 1791565657,
+      "model": "Qwen3.8-Flash-Next-oQ6e-mtp",
+      "choices": [
+        {
+          "index": 0,
+          "delta": {
+            "content": "try:\n    from telemetry_tools import (\n        dedupe_events,\n        bounded"
+          }
+        }
+      ]
+    },
+    {
+      "id": "chatcmpl-78e1e22c",
+      "object": "chat.completion.chunk",
+      "created": 1791565658,
+      "model": "Qwen3.8-Flash-Next-oQ6e-mtp",
+      "choices": [
+        {
+          "index": 0,
+          "delta": {
+            "content": "_backoff,\n        parse_retry_after,\n        partition_batches,\n        merge_counters,\n"
+          }
+        }
+      ]
+    },
+    {
+      "id": "chatcmpl-78e1e22c",
+      "object": "chat.completion.chunk",
+      "created": 1791565658,
+      "model": "Qwen3.8-Flash-Next-oQ6e-mtp",
+      "choices": [
+        {
+          "index": 0,
+          "delta": {
+            "content": "    )\nexcept ImportError:\n    # Fallback for environments where the module isn't"
+          }
+        }
+      ]
+    },
+    {
+      "id": "chatcmpl-78e1e22c",
+      "object": "chat.completion.chunk",
+      "created": 1791565658,
+      "model": "Qwen3.8-Flash-Next-oQ6e-mtp",
+      "choices": [
+        {
+          "index": 0,
+          "delta": {
+            "content": " present during static analysis\n    # This allows the"
+          }
+        }
+      ]
+    },
+    {
+      "id": "chatcmpl-78e1e22c",
+      "object": "chat.completion.chunk",
+      "created": 1791565658,
+      "model": "Qwen3.8-Flash-Next-oQ6e-mtp",
+      "choices": [
+        {
+          "index": 0,
+          "delta": {
+            "content": " test file to be parsed, though tests will fail if run"
+          }
+        }
+      ]
+    },
+    {
+      "id": "chatcmpl-78e1e22c",
+      "object": "chat.completion.chunk",
+      "created": 1791565658,
+      "model": "Qwen3.8-Flash-Next-oQ6e-mtp",
+      "choices": [
+        {
+          "index": 0,
+          "delta": {
+            "content": " without the module.\n    def dedupe_events(events): raise NotImplementedError"
+          }
+        }
+      ]
+    },
+    {
+      "id": "chatcmpl-78e1e22c",
+      "object": "chat.completion.chunk",
+      "created": 1791565658,
+      "model": "Qwen3.8-Flash-Next-oQ6e-mtp",
+      "choices": [
+        {
+          "index": 0,
+          "delta": {
+            "content": "\n    def bounded_backoff(attempt, base, cap): raise NotImplementedError"
+          }
+        }
+      ]
+    },
+    {
+      "id": "chatcmpl-78e1e22c",
+      "object": "chat.completion.chunk",
+      "created": 1791565658,
+      "model": "Qwen3.8-Flash-Next-oQ6e-mtp",
+      "choices": [
+        {
+          "index": 0,
+          "delta": {
+            "content": "\n    def parse_retry_after(value): raise NotImplementedError\n    def partition_batches(items, size): raise"
+          }
+        }
+      ]
+    },
+    {
+      "id": "chatcmpl-78e1e22c",
+      "object": "chat.completion.chunk",
+      "created": 1791565658,
+      "model": "Qwen3.8-Flash-Next-oQ6e-mtp",
+      "choices": [
+        {
+          "index": 0,
+          "delta": {
+            "content": " NotImplementedError\n    def merge_counters(*mappings): raise NotImplementedError\n\n\nclass TestTelemetry"
+          }
+        }
+      ]
+    },
+    {
+      "id": "chatcmpl-78e1e22c",
+      "object": "chat.completion.chunk",
+      "created": 1791565658,
+      "model": "Qwen3.8-Flash-Next-oQ6e-mtp",
+      "choices": [
+        {
+          "index": 0,
+          "delta": {
+            "content": "Tools(unittest.TestCase):\n    \"\"\"Test suite for telemetry_tools module.\"\"\""
+          }
+        }
+      ]
+    },
+    {
+      "id": "chatcmpl-78e1e22c",
+      "object": "chat.completion.chunk",
+      "created": 1791565659,
+      "model": "Qwen3.8-Flash-Next-oQ6e-mtp",
+      "choices": [
+        {
+          "index": 0,
+          "delta": {
+            "content": "\n\n    # =========================================================================\n    # Tests for dedupe_events\n"
+          }
+        }
+      ]
+    },
+    {
+      "id": "chatcmpl-78e1e22c",
+      "object": "chat.completion.chunk",
+      "created": 1791565659,
+      "model": "Qwen3.8-Flash-Next-oQ6e-mtp",
+      "choices": [
+        {
+          "index": 0,
+          "delta": {
+            "content": "    # =========================================================================\n\n    def test_dedupe_events_empty_list(self):\n        \"\"\""
+          }
+        }
+      ]
+    },
+    {
+      "id": "chatcmpl-78e1e22c",
+      "object": "chat.completion.chunk",
+      "created": 1791565659,
+      "model": "Qwen3.8-Flash-Next-oQ6e-mtp",
+      "choices": [
+        {
+          "index": 0,
+          "delta": {
+            "content": "Test dedupe_events with an empty list.\"\"\"\n       "
+          }
+        }
+      ]
+    },
+    {
+      "id": "chatcmpl-78e1e22c",
+      "object": "chat.completion.chunk",
+      "created": 1791565659,
+      "model": "Qwen3.8-Flash-Next-oQ6e-mtp",
+      "choices": [
+        {
+          "index": 0,
+          "delta": {
+            "content": " self.assertEqual(dedupe_events([]), [])\n\n    def test_dedupe_events_single"
+          }
+        }
+      ]
+    },
+    {
+      "id": "chatcmpl-78e1e22c",
+      "object": "chat.completion.chunk",
+      "created": 1791565659,
+      "model": "Qwen3.8-Flash-Next-oQ6e-mtp",
+      "choices": [
+        {
+          "index": 0,
+          "delta": {
+            "content": "_event(self):\n        \"\"\"Test dedupe_events with a single event.\"\"\"\n       "
+          }
+        }
+      ]
+    },
+    {
+      "id": "chatcmpl-78e1e22c",
+      "object": "chat.completion.chunk",
+      "created": 1791565659,
+      "model": "Qwen3.8-Flash-Next-oQ6e-mtp",
+      "choices": [
+        {
+          "index": 0,
+          "delta": {
+            "content": " events = [{\"id\": \"1\", \"data\": \"a\"}]\n        result"
+          }
+        }
+      ]
+    },
+    {
+      "id": "chatcmpl-78e1e22c",
+      "object": "chat.completion.chunk",
+      "created": 1791565659,
+      "model": "Qwen3.8-Flash-Next-oQ6e-mtp",
+      "choices": [
+        {
+          "index": 0,
+          "delta": {
+            "content": " = dedupe_events(events)\n        self.assertEqual(result, events)\n       "
+          }
+        }
+      ]
+    },
+    {
+      "id": "chatcmpl-78e1e22c",
+      "object": "chat.completion.chunk",
+      "created": 1791565659,
+      "model": "Qwen3.8-Flash-Next-oQ6e-mtp",
+      "choices": [
+        {
+          "index": 0,
+          "delta": {
+            "content": " self.assertIsNot(result, events)  # Should be a new list\n\n   "
+          }
+        }
+      ]
+    },
+    {
+      "id": "chatcmpl-78e1e22c",
+      "object": "chat.completion.chunk",
+      "created": 1791565660,
+      "model": "Qwen3.8-Flash-Next-oQ6e-mtp",
+      "choices": [
+        {
+          "index": 0,
+          "delta": {
+            "content": " def test_dedupe_events_no_duplicates(self):\n        \"\"\"Test dedupe_events"
+          }
+        }
+      ]
+    },
+    {
+      "id": "chatcmpl-78e1e22c",
+      "object": "chat.completion.chunk",
+      "created": 1791565660,
+      "model": "Qwen3.8-Flash-Next-oQ6e-mtp",
+      "choices": [
+        {
+          "index": 0,
+          "delta": {
+            "content": " with unique IDs.\"\"\"\n        events = [\n            {\"id\": \"1\", \"data\":"
+          }
+        }
+      ]
+    },
+    {
+      "id": "chatcmpl-78e1e22c",
+      "object": "chat.completion.chunk",
+      "created": 1791565660,
+      "model": "Qwen3.8-Flash-Next-oQ6e-mtp",
+      "choices": [
+        {
+          "index": 0,
+          "delta": {
+            "content": " \"a\"},\n            {\"id\": \"2\", \"data\": \"b\"},\n"
+          }
+        }
+      ]
+    },
+    {
+      "id": "chatcmpl-78e1e22c",
+      "object": "chat.completion.chunk",
+      "created": 1791565660,
+      "model": "Qwen3.8-Flash-Next-oQ6e-mtp",
+      "choices": [
+        {
+          "index": 0,
+          "delta": {
+            "content": "            {\"id\": \"3\", \"data\": \"c\"},\n        ]\n        result ="
+          }
+        }
+      ]
+    },
+    {
+      "id": "chatcmpl-78e1e22c",
+      "object": "chat.completion.chunk",
+      "created": 1791565660,
+      "model": "Qwen3.8-Flash-Next-oQ6e-mtp",
+      "choices": [
+        {
+          "index": 0,
+          "delta": {
+            "content": " dedupe_events(events)\n        self.assertEqual(result, events)\n\n    def test_dedupe"
+          }
+        }
+      ]
+    },
+    {
+      "id": "chatcmpl-78e1e22c",
+      "object": "chat.completion.chunk",
+      "created": 1791565660,
+      "model": "Qwen3.8-Flash-Next-oQ6e-mtp",
+      "choices": [
+        {
+          "index": 0,
+          "delta": {
+            "content": "_events_first_occurrence_kept(self):\n        \"\"\"Test that the first occurrence of a"
+          }
+        }
+      ]
+    },
+    {
+      "id": "chatcmpl-78e1e22c",
+      "object": "chat.completion.chunk",
+      "created": 1791565660,
+      "model": "Qwen3.8-Flash-Next-oQ6e-mtp",
+      "choices": [
+        {
+          "index": 0,
+          "delta": {
+            "content": " duplicate ID is kept.\"\"\"\n        events = [\n            {\"id\": \"1\", \""
+          }
+        }
+      ]
+    },
+    {
+      "id": "chatcmpl-78e1e22c",
+      "object": "chat.completion.chunk",
+      "created": 1791565660,
+      "model": "Qwen3.8-Flash-Next-oQ6e-mtp",
+      "choices": [
+        {
+          "index": 0,
+          "delta": {
+            "content": "data\": \"first\"},\n            {\"id\": \"1\", \"data\": \"second\"},\n"
+          }
+        }
+      ]
+    },
+    {
+      "id": "chatcmpl-78e1e22c",
+      "object": "chat.completion.chunk",
+      "created": 1791565661,
+      "model": "Qwen3.8-Flash-Next-oQ6e-mtp",
+      "choices": [
+        {
+          "index": 0,
+          "delta": {
+            "content": "        ]\n        result = dedupe_events(events)\n        self.assertEqual(len(result),"
+          }
+        }
+      ]
+    },
+    {
+      "id": "chatcmpl-78e1e22c",
+      "object": "chat.completion.chunk",
+      "created": 1791565661,
+      "model": "Qwen3.8-Flash-Next-oQ6e-mtp",
+      "choices": [
+        {
+          "index": 0,
+          "delta": {
+            "content": " "
+          }
+        }
+      ]
+    },
+    {
+      "id": "chatcmpl-78e1e22c",
+      "object": "chat.completion.chunk",
+      "created": 1791565661,
+      "model": "Qwen3.8-Flash-Next-oQ6e-mtp",
+      "choices": [
+        {
+          "index": 0,
+          "delta": {},
+          "finish_reason": "length"
+        }
+      ]
+    },
+    {
+      "id": "chatcmpl-78e1e22c",
+      "object": "chat.completion.chunk",
+      "created": 1791565661,
+      "model": "Qwen3.8-Flash-Next-oQ6e-mtp",
+      "choices": [],
+      "usage": {
+        "prompt_tokens": 8192,
+        "completion_tokens": 512,
+        "total_tokens": 8704,
+        "input_tokens": 8192,
+        "output_tokens": 512,
+        "prompt_tokens_details": {
+          "cached_tokens": 0
+        },
+        "time_to_first_token": 2.14,
+        "time_to_first_visible_token": 2.15,
+        "total_time": 5.97,
+        "prompt_eval_duration": 2.14,
+        "generation_duration": 3.83,
+        "prompt_tokens_per_second": 3819.4,
+        "generation_tokens_per_second": 133.81
+      }
+    }
+  ]
+}

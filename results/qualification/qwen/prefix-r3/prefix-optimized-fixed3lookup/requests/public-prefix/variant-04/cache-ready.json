@@ -1,0 +1,57 @@
+{
+  "ready": true,
+  "snapshots": [
+    {
+      "num_files": 5,
+      "saves_persisted": 9,
+      "errors": 0,
+      "pending_bytes": 0,
+      "disk": {
+        "main_files": 5,
+        "main_bytes": 614943544,
+        "sidecar_files": 5,
+        "sidecar_bytes": 578278600,
+        "transient_bytes": 0
+      }
+    },
+    {
+      "num_files": 5,
+      "saves_persisted": 9,
+      "errors": 0,
+      "pending_bytes": 0,
+      "disk": {
+        "main_files": 5,
+        "main_bytes": 614943544,
+        "sidecar_files": 5,
+        "sidecar_bytes": 578278600,
+        "transient_bytes": 0
+      }
+    },
+    {
+      "num_files": 5,
+      "saves_persisted": 9,
+      "errors": 0,
+      "pending_bytes": 0,
+      "disk": {
+        "main_files": 5,
+        "main_bytes": 614943544,
+        "sidecar_files": 5,
+        "sidecar_bytes": 578278600,
+        "transient_bytes": 0
+      }
+    },
+    {
+      "num_files": 5,
+      "saves_persisted": 9,
+      "errors": 0,
+      "pending_bytes": 0,
+      "disk": {
+        "main_files": 5,
+        "main_bytes": 614943544,
+        "sidecar_files": 5,
+        "sidecar_bytes": 578278600,
+        "transient_bytes": 0
+      }
+    }
+  ]
+}

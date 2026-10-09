@@ -1,0 +1,638 @@
+{
+  "prefix-baseline-fixed3lookup/same-prompt/cold": {
+    "samples": 1,
+    "metrics": {
+      "client_ttft_s": {
+        "all": [
+          2.212244083
+        ],
+        "median": 2.212244083
+      },
+      "server_prompt_tps": {
+        "all": [
+          3547.73
+        ],
+        "median": 3547.73
+      },
+      "server_generation_tps": {
+        "all": [
+          145.24
+        ],
+        "median": 145.24
+      },
+      "client_wall_s": {
+        "all": [
+          6.618250917
+        ],
+        "median": 6.618250917
+      },
+      "cached_tokens": {
+        "all": [
+          0
+        ],
+        "median": 0
+      },
+      "completion_tokens": {
+        "all": [
+          640
+        ],
+        "median": 640
+      }
+    }
+  },
+  "prefix-baseline-fixed3lookup/same-prompt/warm": {
+    "samples": 5,
+    "metrics": {
+      "client_ttft_s": {
+        "all": [
+          2.098039791,
+          2.135311,
+          2.134242875,
+          2.147722042,
+          2.082421167
+        ],
+        "median": 2.134242875
+      },
+      "server_prompt_tps": {
+        "all": [
+          3746.79,
+          3673.15,
+          3677.45,
+          3666.59,
+          3771.08
+        ],
+        "median": 3677.45
+      },
+      "server_generation_tps": {
+        "all": [
+          145.34,
+          145.7,
+          144.44,
+          145.53,
+          145.74
+        ],
+        "median": 145.53
+      },
+      "client_wall_s": {
+        "all": [
+          6.500904083,
+          6.527570167,
+          6.564557458,
+          6.544985834,
+          6.473385459
+        ],
+        "median": 6.527570167
+      },
+      "cached_tokens": {
+        "all": [
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        "median": 0
+      },
+      "completion_tokens": {
+        "all": [
+          640,
+          640,
+          640,
+          640,
+          640
+        ],
+        "median": 640
+      }
+    }
+  },
+  "prefix-baseline-fixed3lookup/continuation/warm": {
+    "samples": 3,
+    "metrics": {
+      "client_ttft_s": {
+        "all": [
+          0.364941,
+          0.160494042,
+          0.161495875
+        ],
+        "median": 0.161495875
+      },
+      "server_prompt_tps": {
+        "all": [
+          764.49,
+          51.49,
+          50.6
+        ],
+        "median": 51.49
+      },
+      "server_generation_tps": {
+        "all": [
+          151.93,
+          147.69,
+          146.49
+        ],
+        "median": 147.69
+      },
+      "client_wall_s": {
+        "all": [
+          2.049526333,
+          1.893420917,
+          1.908567042
+        ],
+        "median": 1.908567042
+      },
+      "cached_tokens": {
+        "all": [
+          8192,
+          8452,
+          8452
+        ],
+        "median": 8452
+      },
+      "completion_tokens": {
+        "all": [
+          256,
+          256,
+          256
+        ],
+        "median": 256
+      }
+    }
+  },
+  "prefix-baseline-fixed3lookup/public-prefix/variant": {
+    "samples": 3,
+    "metrics": {
+      "client_ttft_s": {
+        "all": [
+          1.452427958,
+          1.452047,
+          1.457593666
+        ],
+        "median": 1.452427958
+      },
+      "server_prompt_tps": {
+        "all": [
+          3487.7,
+          3490.79,
+          3481.87
+        ],
+        "median": 3487.7
+      },
+      "server_generation_tps": {
+        "all": [
+          96.47,
+          101.81,
+          96.73
+        ],
+        "median": 96.73
+      },
+      "client_wall_s": {
+        "all": [
+          8.086212333,
+          7.737872958,
+          8.073386916
+        ],
+        "median": 8.073386916
+      },
+      "cached_tokens": {
+        "all": [
+          0,
+          0,
+          0
+        ],
+        "median": 0
+      },
+      "completion_tokens": {
+        "all": [
+          640,
+          640,
+          640
+        ],
+        "median": 640
+      }
+    }
+  },
+  "prefix-baseline-fixed3lookup/context32k/cold": {
+    "samples": 3,
+    "metrics": {
+      "client_ttft_s": {
+        "all": [
+          8.549790084,
+          8.637983583,
+          8.62313225
+        ],
+        "median": 8.62313225
+      },
+      "server_prompt_tps": {
+        "all": [
+          3858.3,
+          3819.77,
+          3823.86
+        ],
+        "median": 3823.86
+      },
+      "server_generation_tps": {
+        "all": [
+          127.96,
+          128.75,
+          128.34
+        ],
+        "median": 128.34
+      },
+      "client_wall_s": {
+        "all": [
+          12.550367917,
+          12.614394333,
+          12.612082125
+        ],
+        "median": 12.612082125
+      },
+      "cached_tokens": {
+        "all": [
+          0,
+          0,
+          0
+        ],
+        "median": 0
+      },
+      "completion_tokens": {
+        "all": [
+          512,
+          512,
+          512
+        ],
+        "median": 512
+      }
+    }
+  },
+  "prefix-baseline-fixed3lookup/context32k/warm": {
+    "samples": 3,
+    "metrics": {
+      "client_ttft_s": {
+        "all": [
+          0.265703542,
+          0.271287,
+          0.290393458
+        ],
+        "median": 0.271287
+      },
+      "server_prompt_tps": {
+        "all": [
+          33.68,
+          32.21,
+          31.13
+        ],
+        "median": 32.21
+      },
+      "server_generation_tps": {
+        "all": [
+          136.5,
+          136.5,
+          136.6
+        ],
+        "median": 136.5
+      },
+      "client_wall_s": {
+        "all": [
+          4.016155792,
+          4.021736042,
+          4.0379815
+        ],
+        "median": 4.021736042
+      },
+      "cached_tokens": {
+        "all": [
+          32761,
+          32761,
+          32761
+        ],
+        "median": 32761
+      },
+      "completion_tokens": {
+        "all": [
+          512,
+          512,
+          512
+        ],
+        "median": 512
+      }
+    }
+  },
+  "prefix-optimized-fixed3lookup/same-prompt/cold": {
+    "samples": 1,
+    "metrics": {
+      "client_ttft_s": {
+        "all": [
+          2.151992792
+        ],
+        "median": 2.151992792
+      },
+      "server_prompt_tps": {
+        "all": [
+          3658.38
+        ],
+        "median": 3658.38
+      },
+      "server_generation_tps": {
+        "all": [
+          145.7
+        ],
+        "median": 145.7
+      },
+      "client_wall_s": {
+        "all": [
+          6.5442635
+        ],
+        "median": 6.5442635
+      },
+      "cached_tokens": {
+        "all": [
+          0
+        ],
+        "median": 0
+      },
+      "completion_tokens": {
+        "all": [
+          640
+        ],
+        "median": 640
+      }
+    }
+  },
+  "prefix-optimized-fixed3lookup/same-prompt/warm": {
+    "samples": 5,
+    "metrics": {
+      "client_ttft_s": {
+        "all": [
+          0.139775584,
+          0.141163875,
+          0.12169525,
+          0.105445042,
+          0.106515291
+        ],
+        "median": 0.12169525
+      },
+      "server_prompt_tps": {
+        "all": [
+          55.46,
+          55.25,
+          70.18,
+          78.1,
+          76.74
+        ],
+        "median": 70.18
+      },
+      "server_generation_tps": {
+        "all": [
+          145.45,
+          144.81,
+          144.8,
+          145.32,
+          145.28
+        ],
+        "median": 145.28
+      },
+      "client_wall_s": {
+        "all": [
+          4.539723584,
+          4.560136041,
+          4.541015166,
+          4.508877459,
+          4.511337708
+        ],
+        "median": 4.539723584
+      },
+      "cached_tokens": {
+        "all": [
+          7785,
+          7785,
+          7785,
+          7785,
+          7785
+        ],
+        "median": 7785
+      },
+      "completion_tokens": {
+        "all": [
+          640,
+          640,
+          640,
+          640,
+          640
+        ],
+        "median": 640
+      }
+    }
+  },
+  "prefix-optimized-fixed3lookup/continuation/warm": {
+    "samples": 3,
+    "metrics": {
+      "client_ttft_s": {
+        "all": [
+          0.384486375,
+          0.1518395,
+          0.149928791
+        ],
+        "median": 0.1518395
+      },
+      "server_prompt_tps": {
+        "all": [
+          726.58,
+          52.69,
+          52.38
+        ],
+        "median": 52.69
+      },
+      "server_generation_tps": {
+        "all": [
+          151.09,
+          146.81,
+          145.63
+        ],
+        "median": 146.81
+      },
+      "client_wall_s": {
+        "all": [
+          2.078180667,
+          1.895084,
+          1.907370625
+        ],
+        "median": 1.907370625
+      },
+      "cached_tokens": {
+        "all": [
+          8192,
+          8452,
+          8452
+        ],
+        "median": 8452
+      },
+      "completion_tokens": {
+        "all": [
+          256,
+          256,
+          256
+        ],
+        "median": 256
+      }
+    }
+  },
+  "prefix-optimized-fixed3lookup/public-prefix/variant": {
+    "samples": 3,
+    "metrics": {
+      "client_ttft_s": {
+        "all": [
+          1.04752675,
+          1.061275,
+          1.077486542
+        ],
+        "median": 1.061275
+      },
+      "server_prompt_tps": {
+        "all": [
+          2875.31,
+          2853.76,
+          2810.34
+        ],
+        "median": 2853.76
+      },
+      "server_generation_tps": {
+        "all": [
+          94.33,
+          103.88,
+          95.18
+        ],
+        "median": 95.18
+      },
+      "client_wall_s": {
+        "all": [
+          7.831834125,
+          7.221931333,
+          7.801307584
+        ],
+        "median": 7.801307584
+      },
+      "cached_tokens": {
+        "all": [
+          2048,
+          2048,
+          2048
+        ],
+        "median": 2048
+      },
+      "completion_tokens": {
+        "all": [
+          640,
+          640,
+          640
+        ],
+        "median": 640
+      }
+    }
+  },
+  "prefix-optimized-fixed3lookup/context32k/cold": {
+    "samples": 3,
+    "metrics": {
+      "client_ttft_s": {
+        "all": [
+          8.765688083,
+          8.612317458,
+          8.617963417
+        ],
+        "median": 8.617963417
+      },
+      "server_prompt_tps": {
+        "all": [
+          3761.96,
+          3831.72,
+          3829.71
+        ],
+        "median": 3829.71
+      },
+      "server_generation_tps": {
+        "all": [
+          122.63,
+          128.22,
+          128.19
+        ],
+        "median": 128.19
+      },
+      "client_wall_s": {
+        "all": [
+          12.940212958,
+          12.605140958,
+          12.611647458
+        ],
+        "median": 12.611647458
+      },
+      "cached_tokens": {
+        "all": [
+          0,
+          0,
+          0
+        ],
+        "median": 0
+      },
+      "completion_tokens": {
+        "all": [
+          512,
+          512,
+          512
+        ],
+        "median": 512
+      }
+    }
+  },
+  "prefix-optimized-fixed3lookup/context32k/warm": {
+    "samples": 3,
+    "metrics": {
+      "client_ttft_s": {
+        "all": [
+          0.278283334,
+          0.281379583,
+          0.238737208
+        ],
+        "median": 0.278283334
+      },
+      "server_prompt_tps": {
+        "all": [
+          33.45,
+          32.77,
+          41.19
+        ],
+        "median": 33.45
+      },
+      "server_generation_tps": {
+        "all": [
+          137.61,
+          137.78,
+          137.63
+        ],
+        "median": 137.63
+      },
+      "client_wall_s": {
+        "all": [
+          3.998485042,
+          3.996977916,
+          3.958386625
+        ],
+        "median": 3.996977916
+      },
+      "cached_tokens": {
+        "all": [
+          32761,
+          32761,
+          32761
+        ],
+        "median": 32761
+      },
+      "completion_tokens": {
+        "all": [
+          512,
+          512,
+          512
+        ],
+        "median": 512
+      }
+    }
+  }
+}

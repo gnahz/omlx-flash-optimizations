@@ -1,0 +1,1324 @@
+{
+  "text": "# Preparing the Town of Elm for Heavy Rain: A Practical Guide\n\nThe fictional town of Elm sits in a river valley where three neighborhoods drain into a single creek. Historically, Elm handled ordinary storms without trouble, but in recent years the town has watched two inches of rain turn Main Street into a river and a ten-year storm flood the basement of the public library. Heavy rain is not a question of if but when, and preparing for it requires a layered strategy: drains to move water quickly, rain gardens to slow and soak it up, reservoirs to store it, disciplined maintenance to keep everything working, and clear public communication so residents know what to do. Each layer has strengths, costs, and failure modes, and the real work of flood preparation is choosing the right mix and explaining those tradeoffs honestly to the people who live there.\n\n## Drains: The Fast Path for Water\n\nStorm drains are the most visible part of flood infrastructure. Grates at the curb catch runoff from streets and roofs, pipes carry it underground, and outfalls release it into the creek. Elm’s existing system was sized for a two-year storm, meaning a rainfall event that statistically arrives once every two years on average. That sizing is cheap and adequate for routine weather, but it fails exactly when the town needs it most.\n\nUpgrading drains means larger pipes, more inlets, and better outfalls. The advantage is speed: water leaves the street before it can enter homes. The tradeoffs are substantial. Bigger pipes cost more to install, often requiring the street to be torn up entirely, which disrupts traffic and businesses for months. Larger outfalls push more water, faster, into the creek, which can shift the flooding problem downstream to the Riverside neighborhood. There is also a maintenance burden: a drain that is 90 percent clear flows at only a fraction of its design capacity, so the town must commit to regular cleaning.\n\nA concrete example: Elm considered replacing the eight-inch pipe under Oak Avenue with a thirty-inch pipe. The engineering study showed it would protect forty homes from the kind of flooding seen last spring. The cost was $1.2 million, and construction would close Oak Avenue for eleven weeks during the summer shopping season. The town council ultimately chose a smaller upgrade combined with rain gardens, accepting slightly less protection in exchange for lower cost, faster construction, and a reduction in the volume of water entering the system in the first place.\n\n## Rain Gardens: Slowing Water Down\n\nRain gardens are shallow, planted depressions that capture runoff from streets, sidewalks, and roofs, letting it soak into the soil instead of overwhelming the drains. They are a form of green infrastructure, and they work by intercepting water at the source. A well-designed rain garden can absorb several hundred gallons from a single storm and filter out oil, sediment, and litter along the way.\n\nFor Elm, rain gardens offer several benefits beyond flood control. They beautify the town, support pollinators, reduce the heat island effect on paved streets, and cost far less than pipe replacement. They can be installed incrementally, one block at a year, which fits a modest",
+  "reasoning": "",
+  "tool_calls": [],
+  "usage": {
+    "prompt_tokens": 5026,
+    "completion_tokens": 640,
+    "total_tokens": 5666,
+    "input_tokens": 5026,
+    "output_tokens": 640,
+    "prompt_tokens_details": {
+      "cached_tokens": 0
+    },
+    "time_to_first_token": 1.44,
+    "time_to_first_visible_token": 1.44,
+    "total_time": 8.06,
+    "prompt_eval_duration": 1.44,
+    "generation_duration": 6.62,
+    "prompt_tokens_per_second": 3481.87,
+    "generation_tokens_per_second": 96.73
+  },
+  "finish_reason": "length",
+  "done": true,
+  "stream_errors": [],
+  "sse_events": [
+    {
+      "relative_ns": 13242708,
+      "line": "data: {\"id\":\"chatcmpl-cf995af1\",\"object\":\"chat.completion.chunk\",\"created\":0,\"model\":\"keepalive\",\"choices\":[{\"index\":0,\"delta\":{\"role\":\"assistant\",\"content\":\"\"},\"finish_reason\":null}]}"
+    },
+    {
+      "relative_ns": 13246083,
+      "line": ""
+    },
+    {
+      "relative_ns": 18264083,
+      "line": "data: {\"id\":\"chatcmpl-cf995af1\",\"object\":\"chat.completion.chunk\",\"created\":1791566714,\"model\":\"Qwen3.8-Flash-Next-oQ6e-mtp\",\"choices\":[{\"index\":0,\"delta\":{\"role\":\"assistant\"}}]}"
+    },
+    {
+      "relative_ns": 18270750,
+      "line": ""
+    },
+    {
+      "relative_ns": 1457593666,
+      "line": "data: {\"id\":\"chatcmpl-cf995af1\",\"object\":\"chat.completion.chunk\",\"created\":1791566715,\"model\":\"Qwen3.8-Flash-Next-oQ6e-mtp\",\"choices\":[{\"index\":0,\"delta\":{\"content\":\"#\"}}]}"
+    },
+    {
+      "relative_ns": 1457603541,
+      "line": ""
+    },
+    {
+      "relative_ns": 1577193541,
+      "line": "data: {\"id\":\"chatcmpl-cf995af1\",\"object\":\"chat.completion.chunk\",\"created\":1791566715,\"model\":\"Qwen3.8-Flash-Next-oQ6e-mtp\",\"choices\":[{\"index\":0,\"delta\":{\"content\":\" Preparing the Town of Elm for Heavy Rain: A Practical Guide\"}}]}"
+    },
+    {
+      "relative_ns": 1577201791,
+      "line": ""
+    },
+    {
+      "relative_ns": 1693094791,
+      "line": "data: {\"id\":\"chatcmpl-cf995af1\",\"object\":\"chat.completion.chunk\",\"created\":1791566715,\"model\":\"Qwen3.8-Flash-Next-oQ6e-mtp\",\"choices\":[{\"index\":0,\"delta\":{\"content\":\"\\n\\nThe fictional town of Elm sits in a river valley\"}}]}"
+    },
+    {
+      "relative_ns": 1693103791,
+      "line": ""
+    },
+    {
+      "relative_ns": 1808501750,
+      "line": "data: {\"id\":\"chatcmpl-cf995af1\",\"object\":\"chat.completion.chunk\",\"created\":1791566716,\"model\":\"Qwen3.8-Flash-Next-oQ6e-mtp\",\"choices\":[{\"index\":0,\"delta\":{\"content\":\" where three neighborhoods drain into a single creek. Histor\"}}]}"
+    },
+    {
+      "relative_ns": 1808511291,
+      "line": ""
+    },
+    {
+      "relative_ns": 1950309541,
+      "line": "data: {\"id\":\"chatcmpl-cf995af1\",\"object\":\"chat.completion.chunk\",\"created\":1791566716,\"model\":\"Qwen3.8-Flash-Next-oQ6e-mtp\",\"choices\":[{\"index\":0,\"delta\":{\"content\":\"ically, Elm handled ordinary storms without trouble, but in recent\"}}]}"
+    },
+    {
+      "relative_ns": 1950316375,
+      "line": ""
+    },
+    {
+      "relative_ns": 2065186958,
+      "line": "data: {\"id\":\"chatcmpl-cf995af1\",\"object\":\"chat.completion.chunk\",\"created\":1791566716,\"model\":\"Qwen3.8-Flash-Next-oQ6e-mtp\",\"choices\":[{\"index\":0,\"delta\":{\"content\":\" years the town has watched two inches of rain turn Main Street\"}}]}"
+    },
+    {
+      "relative_ns": 2065197666,
+      "line": ""
+    },
+    {
+      "relative_ns": 2181225208,
+      "line": "data: {\"id\":\"chatcmpl-cf995af1\",\"object\":\"chat.completion.chunk\",\"created\":1791566716,\"model\":\"Qwen3.8-Flash-Next-oQ6e-mtp\",\"choices\":[{\"index\":0,\"delta\":{\"content\":\" into a river and a ten-year storm flood the\"}}]}"
+    },
+    {
+      "relative_ns": 2181234583,
+      "line": ""
+    },
+    {
+      "relative_ns": 2298511458,
+      "line": "data: {\"id\":\"chatcmpl-cf995af1\",\"object\":\"chat.completion.chunk\",\"created\":1791566716,\"model\":\"Qwen3.8-Flash-Next-oQ6e-mtp\",\"choices\":[{\"index\":0,\"delta\":{\"content\":\" basement of the public library. Heavy rain is not a question of if but\"}}]}"
+    },
+    {
+      "relative_ns": 2298522916,
+      "line": ""
+    },
+    {
+      "relative_ns": 2439366250,
+      "line": "data: {\"id\":\"chatcmpl-cf995af1\",\"object\":\"chat.completion.chunk\",\"created\":1791566716,\"model\":\"Qwen3.8-Flash-Next-oQ6e-mtp\",\"choices\":[{\"index\":0,\"delta\":{\"content\":\" when, and preparing for it requires a layered strategy:\"}}]}"
+    },
+    {
+      "relative_ns": 2439374000,
+      "line": ""
+    },
+    {
+      "relative_ns": 2579659958,
+      "line": "data: {\"id\":\"chatcmpl-cf995af1\",\"object\":\"chat.completion.chunk\",\"created\":1791566716,\"model\":\"Qwen3.8-Flash-Next-oQ6e-mtp\",\"choices\":[{\"index\":0,\"delta\":{\"content\":\" drains to move water quickly, rain gardens to slow and soak it up\"}}]}"
+    },
+    {
+      "relative_ns": 2579667958,
+      "line": ""
+    },
+    {
+      "relative_ns": 2698061291,
+      "line": "data: {\"id\":\"chatcmpl-cf995af1\",\"object\":\"chat.completion.chunk\",\"created\":1791566716,\"model\":\"Qwen3.8-Flash-Next-oQ6e-mtp\",\"choices\":[{\"index\":0,\"delta\":{\"content\":\", reservoirs to store it, disciplined maintenance to keep everything working, and clear public\"}}]}"
+    },
+    {
+      "relative_ns": 2698070791,
+      "line": ""
+    },
+    {
+      "relative_ns": 2814603666,
+      "line": "data: {\"id\":\"chatcmpl-cf995af1\",\"object\":\"chat.completion.chunk\",\"created\":1791566717,\"model\":\"Qwen3.8-Flash-Next-oQ6e-mtp\",\"choices\":[{\"index\":0,\"delta\":{\"content\":\" communication so residents know what to do. Each layer\"}}]}"
+    },
+    {
+      "relative_ns": 2814619208,
+      "line": ""
+    },
+    {
+      "relative_ns": 2956506666,
+      "line": "data: {\"id\":\"chatcmpl-cf995af1\",\"object\":\"chat.completion.chunk\",\"created\":1791566717,\"model\":\"Qwen3.8-Flash-Next-oQ6e-mtp\",\"choices\":[{\"index\":0,\"delta\":{\"content\":\" has strengths, costs, and failure modes, and the real work\"}}]}"
+    },
+    {
+      "relative_ns": 2956515791,
+      "line": ""
+    },
+    {
+      "relative_ns": 3073534916,
+      "line": "data: {\"id\":\"chatcmpl-cf995af1\",\"object\":\"chat.completion.chunk\",\"created\":1791566717,\"model\":\"Qwen3.8-Flash-Next-oQ6e-mtp\",\"choices\":[{\"index\":0,\"delta\":{\"content\":\" of flood preparation is choosing the right mix and explaining\"}}]}"
+    },
+    {
+      "relative_ns": 3073544916,
+      "line": ""
+    },
+    {
+      "relative_ns": 3191242083,
+      "line": "data: {\"id\":\"chatcmpl-cf995af1\",\"object\":\"chat.completion.chunk\",\"created\":1791566717,\"model\":\"Qwen3.8-Flash-Next-oQ6e-mtp\",\"choices\":[{\"index\":0,\"delta\":{\"content\":\" those tradeoffs honestly to the people who live there.\\n\\n## Drains\"}}]}"
+    },
+    {
+      "relative_ns": 3191250458,
+      "line": ""
+    },
+    {
+      "relative_ns": 3308955958,
+      "line": "data: {\"id\":\"chatcmpl-cf995af1\",\"object\":\"chat.completion.chunk\",\"created\":1791566717,\"model\":\"Qwen3.8-Flash-Next-oQ6e-mtp\",\"choices\":[{\"index\":0,\"delta\":{\"content\":\": The Fast Path for Water\\n\\nStorm drains are the most visible\"}}]}"
+    },
+    {
+      "relative_ns": 3308964166,
+      "line": ""
+    },
+    {
+      "relative_ns": 3449849791,
+      "line": "data: {\"id\":\"chatcmpl-cf995af1\",\"object\":\"chat.completion.chunk\",\"created\":1791566717,\"model\":\"Qwen3.8-Flash-Next-oQ6e-mtp\",\"choices\":[{\"index\":0,\"delta\":{\"content\":\" part of flood infrastructure. Grates at the curb catch runoff\"}}]}"
+    },
+    {
+      "relative_ns": 3449859875,
+      "line": ""
+    },
+    {
+      "relative_ns": 3587869833,
+      "line": "data: {\"id\":\"chatcmpl-cf995af1\",\"object\":\"chat.completion.chunk\",\"created\":1791566717,\"model\":\"Qwen3.8-Flash-Next-oQ6e-mtp\",\"choices\":[{\"index\":0,\"delta\":{\"content\":\" from streets and roofs, pipes carry it underground, and\"}}]}"
+    },
+    {
+      "relative_ns": 3587878458,
+      "line": ""
+    },
+    {
+      "relative_ns": 3703676250,
+      "line": "data: {\"id\":\"chatcmpl-cf995af1\",\"object\":\"chat.completion.chunk\",\"created\":1791566717,\"model\":\"Qwen3.8-Flash-Next-oQ6e-mtp\",\"choices\":[{\"index\":0,\"delta\":{\"content\":\" outfalls release it into the creek. Elm’s\"}}]}"
+    },
+    {
+      "relative_ns": 3703683458,
+      "line": ""
+    },
+    {
+      "relative_ns": 3843367875,
+      "line": "data: {\"id\":\"chatcmpl-cf995af1\",\"object\":\"chat.completion.chunk\",\"created\":1791566718,\"model\":\"Qwen3.8-Flash-Next-oQ6e-mtp\",\"choices\":[{\"index\":0,\"delta\":{\"content\":\" existing system was sized for a two-year storm, meaning a rainfall\"}}]}"
+    },
+    {
+      "relative_ns": 3843376250,
+      "line": ""
+    },
+    {
+      "relative_ns": 3983437708,
+      "line": "data: {\"id\":\"chatcmpl-cf995af1\",\"object\":\"chat.completion.chunk\",\"created\":1791566718,\"model\":\"Qwen3.8-Flash-Next-oQ6e-mtp\",\"choices\":[{\"index\":0,\"delta\":{\"content\":\" event that statistically arrives once every two years on average. That sizing\"}}]}"
+    },
+    {
+      "relative_ns": 3983446541,
+      "line": ""
+    },
+    {
+      "relative_ns": 4121542958,
+      "line": "data: {\"id\":\"chatcmpl-cf995af1\",\"object\":\"chat.completion.chunk\",\"created\":1791566718,\"model\":\"Qwen3.8-Flash-Next-oQ6e-mtp\",\"choices\":[{\"index\":0,\"delta\":{\"content\":\" is cheap and adequate for routine weather,\"}}]}"
+    },
+    {
+      "relative_ns": 4121551666,
+      "line": ""
+    },
+    {
+      "relative_ns": 4238020291,
+      "line": "data: {\"id\":\"chatcmpl-cf995af1\",\"object\":\"chat.completion.chunk\",\"created\":1791566718,\"model\":\"Qwen3.8-Flash-Next-oQ6e-mtp\",\"choices\":[{\"index\":0,\"delta\":{\"content\":\" but it fails exactly when the town needs it most.\"}}]}"
+    },
+    {
+      "relative_ns": 4238029458,
+      "line": ""
+    },
+    {
+      "relative_ns": 4355055916,
+      "line": "data: {\"id\":\"chatcmpl-cf995af1\",\"object\":\"chat.completion.chunk\",\"created\":1791566718,\"model\":\"Qwen3.8-Flash-Next-oQ6e-mtp\",\"choices\":[{\"index\":0,\"delta\":{\"content\":\"\\n\\nUpgrading drains means larger pipes, more inlets\"}}]}"
+    },
+    {
+      "relative_ns": 4355065166,
+      "line": ""
+    },
+    {
+      "relative_ns": 4472278500,
+      "line": "data: {\"id\":\"chatcmpl-cf995af1\",\"object\":\"chat.completion.chunk\",\"created\":1791566718,\"model\":\"Qwen3.8-Flash-Next-oQ6e-mtp\",\"choices\":[{\"index\":0,\"delta\":{\"content\":\", and better outfalls. The advantage is speed: water leaves the\"}}]}"
+    },
+    {
+      "relative_ns": 4472288291,
+      "line": ""
+    },
+    {
+      "relative_ns": 4589531000,
+      "line": "data: {\"id\":\"chatcmpl-cf995af1\",\"object\":\"chat.completion.chunk\",\"created\":1791566718,\"model\":\"Qwen3.8-Flash-Next-oQ6e-mtp\",\"choices\":[{\"index\":0,\"delta\":{\"content\":\" street before it can enter homes. The tradeoffs are substantial.\"}}]}"
+    },
+    {
+      "relative_ns": 4589539750,
+      "line": ""
+    },
+    {
+      "relative_ns": 4704942583,
+      "line": "data: {\"id\":\"chatcmpl-cf995af1\",\"object\":\"chat.completion.chunk\",\"created\":1791566718,\"model\":\"Qwen3.8-Flash-Next-oQ6e-mtp\",\"choices\":[{\"index\":0,\"delta\":{\"content\":\" Bigger pipes cost more to install, often requiring the\"}}]}"
+    },
+    {
+      "relative_ns": 4704951083,
+      "line": ""
+    },
+    {
+      "relative_ns": 4843747875,
+      "line": "data: {\"id\":\"chatcmpl-cf995af1\",\"object\":\"chat.completion.chunk\",\"created\":1791566719,\"model\":\"Qwen3.8-Flash-Next-oQ6e-mtp\",\"choices\":[{\"index\":0,\"delta\":{\"content\":\" street to be torn up entirely, which disrupts traffic and\"}}]}"
+    },
+    {
+      "relative_ns": 4843753416,
+      "line": ""
+    },
+    {
+      "relative_ns": 4960082875,
+      "line": "data: {\"id\":\"chatcmpl-cf995af1\",\"object\":\"chat.completion.chunk\",\"created\":1791566719,\"model\":\"Qwen3.8-Flash-Next-oQ6e-mtp\",\"choices\":[{\"index\":0,\"delta\":{\"content\":\" businesses for months. Larger outfalls push more water, faster\"}}]}"
+    },
+    {
+      "relative_ns": 4960092416,
+      "line": ""
+    },
+    {
+      "relative_ns": 5075994625,
+      "line": "data: {\"id\":\"chatcmpl-cf995af1\",\"object\":\"chat.completion.chunk\",\"created\":1791566719,\"model\":\"Qwen3.8-Flash-Next-oQ6e-mtp\",\"choices\":[{\"index\":0,\"delta\":{\"content\":\", into the creek, which can shift the flooding problem downstream to the\"}}]}"
+    },
+    {
+      "relative_ns": 5076003500,
+      "line": ""
+    },
+    {
+      "relative_ns": 5215124416,
+      "line": "data: {\"id\":\"chatcmpl-cf995af1\",\"object\":\"chat.completion.chunk\",\"created\":1791566719,\"model\":\"Qwen3.8-Flash-Next-oQ6e-mtp\",\"choices\":[{\"index\":0,\"delta\":{\"content\":\" Riverside neighborhood. There is also a maintenance burden: a drain\"}}]}"
+    },
+    {
+      "relative_ns": 5215134125,
+      "line": ""
+    },
+    {
+      "relative_ns": 5354733916,
+      "line": "data: {\"id\":\"chatcmpl-cf995af1\",\"object\":\"chat.completion.chunk\",\"created\":1791566719,\"model\":\"Qwen3.8-Flash-Next-oQ6e-mtp\",\"choices\":[{\"index\":0,\"delta\":{\"content\":\" that is 90 percent clear flows at only\"}}]}"
+    },
+    {
+      "relative_ns": 5354741916,
+      "line": ""
+    },
+    {
+      "relative_ns": 5495072541,
+      "line": "data: {\"id\":\"chatcmpl-cf995af1\",\"object\":\"chat.completion.chunk\",\"created\":1791566719,\"model\":\"Qwen3.8-Flash-Next-oQ6e-mtp\",\"choices\":[{\"index\":0,\"delta\":{\"content\":\" a fraction of its design capacity, so the town must commit to regular cleaning\"}}]}"
+    },
+    {
+      "relative_ns": 5495080916,
+      "line": ""
+    },
+    {
+      "relative_ns": 5597111416,
+      "line": "data: {\"id\":\"chatcmpl-cf995af1\",\"object\":\"chat.completion.chunk\",\"created\":1791566719,\"model\":\"Qwen3.8-Flash-Next-oQ6e-mtp\",\"choices\":[{\"index\":0,\"delta\":{\"content\":\".\\n\\nA concrete example: Elm considered replacing the eight-inch pipe\"}}]}"
+    },
+    {
+      "relative_ns": 5597117708,
+      "line": ""
+    },
+    {
+      "relative_ns": 5739457166,
+      "line": "data: {\"id\":\"chatcmpl-cf995af1\",\"object\":\"chat.completion.chunk\",\"created\":1791566720,\"model\":\"Qwen3.8-Flash-Next-oQ6e-mtp\",\"choices\":[{\"index\":0,\"delta\":{\"content\":\" under Oak Avenue with a thirty-inch pipe. The engineering\"}}]}"
+    },
+    {
+      "relative_ns": 5739465958,
+      "line": ""
+    },
+    {
+      "relative_ns": 5854786666,
+      "line": "data: {\"id\":\"chatcmpl-cf995af1\",\"object\":\"chat.completion.chunk\",\"created\":1791566720,\"model\":\"Qwen3.8-Flash-Next-oQ6e-mtp\",\"choices\":[{\"index\":0,\"delta\":{\"content\":\" study showed it would protect forty homes\"}}]}"
+    },
+    {
+      "relative_ns": 5854797916,
+      "line": ""
+    },
+    {
+      "relative_ns": 5994566166,
+      "line": "data: {\"id\":\"chatcmpl-cf995af1\",\"object\":\"chat.completion.chunk\",\"created\":1791566720,\"model\":\"Qwen3.8-Flash-Next-oQ6e-mtp\",\"choices\":[{\"index\":0,\"delta\":{\"content\":\" from the kind of flooding seen last spring\"}}]}"
+    },
+    {
+      "relative_ns": 5994577750,
+      "line": ""
+    },
+    {
+      "relative_ns": 6111423791,
+      "line": "data: {\"id\":\"chatcmpl-cf995af1\",\"object\":\"chat.completion.chunk\",\"created\":1791566720,\"model\":\"Qwen3.8-Flash-Next-oQ6e-mtp\",\"choices\":[{\"index\":0,\"delta\":{\"content\":\". The cost was $1.2 million, and construction would\"}}]}"
+    },
+    {
+      "relative_ns": 6111430541,
+      "line": ""
+    },
+    {
+      "relative_ns": 6226679708,
+      "line": "data: {\"id\":\"chatcmpl-cf995af1\",\"object\":\"chat.completion.chunk\",\"created\":1791566720,\"model\":\"Qwen3.8-Flash-Next-oQ6e-mtp\",\"choices\":[{\"index\":0,\"delta\":{\"content\":\" close Oak Avenue for eleven weeks during the summer\"}}]}"
+    },
+    {
+      "relative_ns": 6226689625,
+      "line": ""
+    },
+    {
+      "relative_ns": 6343053958,
+      "line": "data: {\"id\":\"chatcmpl-cf995af1\",\"object\":\"chat.completion.chunk\",\"created\":1791566720,\"model\":\"Qwen3.8-Flash-Next-oQ6e-mtp\",\"choices\":[{\"index\":0,\"delta\":{\"content\":\" shopping season. The town council ultimately chose a smaller upgrade combined\"}}]}"
+    },
+    {
+      "relative_ns": 6343062208,
+      "line": ""
+    },
+    {
+      "relative_ns": 6482617458,
+      "line": "data: {\"id\":\"chatcmpl-cf995af1\",\"object\":\"chat.completion.chunk\",\"created\":1791566720,\"model\":\"Qwen3.8-Flash-Next-oQ6e-mtp\",\"choices\":[{\"index\":0,\"delta\":{\"content\":\" with rain gardens, accepting slightly less protection in exchange for lower cost\"}}]}"
+    },
+    {
+      "relative_ns": 6482625375,
+      "line": ""
+    },
+    {
+      "relative_ns": 6599067791,
+      "line": "data: {\"id\":\"chatcmpl-cf995af1\",\"object\":\"chat.completion.chunk\",\"created\":1791566720,\"model\":\"Qwen3.8-Flash-Next-oQ6e-mtp\",\"choices\":[{\"index\":0,\"delta\":{\"content\":\", faster construction, and a reduction in the volume of water entering the system in the\"}}]}"
+    },
+    {
+      "relative_ns": 6599078791,
+      "line": ""
+    },
+    {
+      "relative_ns": 6715700791,
+      "line": "data: {\"id\":\"chatcmpl-cf995af1\",\"object\":\"chat.completion.chunk\",\"created\":1791566720,\"model\":\"Qwen3.8-Flash-Next-oQ6e-mtp\",\"choices\":[{\"index\":0,\"delta\":{\"content\":\" first place.\\n\\n## Rain Gardens: Slowing Water Down\\n\\n\"}}]}"
+    },
+    {
+      "relative_ns": 6715707000,
+      "line": ""
+    },
+    {
+      "relative_ns": 6855139500,
+      "line": "data: {\"id\":\"chatcmpl-cf995af1\",\"object\":\"chat.completion.chunk\",\"created\":1791566721,\"model\":\"Qwen3.8-Flash-Next-oQ6e-mtp\",\"choices\":[{\"index\":0,\"delta\":{\"content\":\"Rain gardens are shallow, planted depressions that capture runoff from streets, sidewalks,\"}}]}"
+    },
+    {
+      "relative_ns": 6855150208,
+      "line": ""
+    },
+    {
+      "relative_ns": 6970300583,
+      "line": "data: {\"id\":\"chatcmpl-cf995af1\",\"object\":\"chat.completion.chunk\",\"created\":1791566721,\"model\":\"Qwen3.8-Flash-Next-oQ6e-mtp\",\"choices\":[{\"index\":0,\"delta\":{\"content\":\" and roofs, letting it soak into the soil instead of\"}}]}"
+    },
+    {
+      "relative_ns": 6970308708,
+      "line": ""
+    },
+    {
+      "relative_ns": 7086811458,
+      "line": "data: {\"id\":\"chatcmpl-cf995af1\",\"object\":\"chat.completion.chunk\",\"created\":1791566721,\"model\":\"Qwen3.8-Flash-Next-oQ6e-mtp\",\"choices\":[{\"index\":0,\"delta\":{\"content\":\" overwhelming the drains. They are a form of green infrastructure, and they work by\"}}]}"
+    },
+    {
+      "relative_ns": 7086818500,
+      "line": ""
+    },
+    {
+      "relative_ns": 7224981583,
+      "line": "data: {\"id\":\"chatcmpl-cf995af1\",\"object\":\"chat.completion.chunk\",\"created\":1791566721,\"model\":\"Qwen3.8-Flash-Next-oQ6e-mtp\",\"choices\":[{\"index\":0,\"delta\":{\"content\":\" intercepting water at the source. A well-designed rain garden can absorb\"}}]}"
+    },
+    {
+      "relative_ns": 7224991666,
+      "line": ""
+    },
+    {
+      "relative_ns": 7365269208,
+      "line": "data: {\"id\":\"chatcmpl-cf995af1\",\"object\":\"chat.completion.chunk\",\"created\":1791566721,\"model\":\"Qwen3.8-Flash-Next-oQ6e-mtp\",\"choices\":[{\"index\":0,\"delta\":{\"content\":\" several hundred gallons from a single storm and\"}}]}"
+    },
+    {
+      "relative_ns": 7365276541,
+      "line": ""
+    },
+    {
+      "relative_ns": 7501620375,
+      "line": "data: {\"id\":\"chatcmpl-cf995af1\",\"object\":\"chat.completion.chunk\",\"created\":1791566721,\"model\":\"Qwen3.8-Flash-Next-oQ6e-mtp\",\"choices\":[{\"index\":0,\"delta\":{\"content\":\" filter out oil, sediment, and litter along\"}}]}"
+    },
+    {
+      "relative_ns": 7501630000,
+      "line": ""
+    },
+    {
+      "relative_ns": 7642850791,
+      "line": "data: {\"id\":\"chatcmpl-cf995af1\",\"object\":\"chat.completion.chunk\",\"created\":1791566721,\"model\":\"Qwen3.8-Flash-Next-oQ6e-mtp\",\"choices\":[{\"index\":0,\"delta\":{\"content\":\" the way.\\n\\nFor Elm, rain gardens offer several benefits beyond flood\"}}]}"
+    },
+    {
+      "relative_ns": 7642858916,
+      "line": ""
+    },
+    {
+      "relative_ns": 7782399000,
+      "line": "data: {\"id\":\"chatcmpl-cf995af1\",\"object\":\"chat.completion.chunk\",\"created\":1791566722,\"model\":\"Qwen3.8-Flash-Next-oQ6e-mtp\",\"choices\":[{\"index\":0,\"delta\":{\"content\":\" control. They beautify the town, support pollinators, reduce\"}}]}"
+    },
+    {
+      "relative_ns": 7782405541,
+      "line": ""
+    },
+    {
+      "relative_ns": 7899109541,
+      "line": "data: {\"id\":\"chatcmpl-cf995af1\",\"object\":\"chat.completion.chunk\",\"created\":1791566722,\"model\":\"Qwen3.8-Flash-Next-oQ6e-mtp\",\"choices\":[{\"index\":0,\"delta\":{\"content\":\" the heat island effect on paved streets, and cost far\"}}]}"
+    },
+    {
+      "relative_ns": 7899120625,
+      "line": ""
+    },
+    {
+      "relative_ns": 8016213958,
+      "line": "data: {\"id\":\"chatcmpl-cf995af1\",\"object\":\"chat.completion.chunk\",\"created\":1791566722,\"model\":\"Qwen3.8-Flash-Next-oQ6e-mtp\",\"choices\":[{\"index\":0,\"delta\":{\"content\":\" less than pipe replacement. They can be installed incrementally, one block at\"}}]}"
+    },
+    {
+      "relative_ns": 8016226375,
+      "line": ""
+    },
+    {
+      "relative_ns": 8072822666,
+      "line": "data: {\"id\":\"chatcmpl-cf995af1\",\"object\":\"chat.completion.chunk\",\"created\":1791566722,\"model\":\"Qwen3.8-Flash-Next-oQ6e-mtp\",\"choices\":[{\"index\":0,\"delta\":{\"content\":\" a year, which fits a modest\"}}]}"
+    },
+    {
+      "relative_ns": 8072829041,
+      "line": ""
+    },
+    {
+      "relative_ns": 8072960416,
+      "line": "data: {\"id\":\"chatcmpl-cf995af1\",\"object\":\"chat.completion.chunk\",\"created\":1791566722,\"model\":\"Qwen3.8-Flash-Next-oQ6e-mtp\",\"choices\":[{\"index\":0,\"delta\":{},\"finish_reason\":\"length\"}]}"
+    },
+    {
+      "relative_ns": 8072962375,
+      "line": ""
+    },
+    {
+      "relative_ns": 8073168083,
+      "line": "data: {\"id\":\"chatcmpl-cf995af1\",\"object\":\"chat.completion.chunk\",\"created\":1791566722,\"model\":\"Qwen3.8-Flash-Next-oQ6e-mtp\",\"choices\":[],\"usage\":{\"prompt_tokens\":5026,\"completion_tokens\":640,\"total_tokens\":5666,\"input_tokens\":5026,\"output_tokens\":640,\"prompt_tokens_details\":{\"cached_tokens\":0},\"time_to_first_token\":1.44,\"time_to_first_visible_token\":1.44,\"total_time\":8.06,\"prompt_eval_duration\":1.44,\"generation_duration\":6.62,\"prompt_tokens_per_second\":3481.87,\"generation_tokens_per_second\":96.73}}"
+    },
+    {
+      "relative_ns": 8073173250,
+      "line": ""
+    },
+    {
+      "relative_ns": 8073240666,
+      "line": "data: [DONE]"
+    },
+    {
+      "relative_ns": 8073243791,
+      "line": ""
+    }
+  ],
+  "sse_frames": [
+    {
+      "id": "chatcmpl-cf995af1",
+      "object": "chat.completion.chunk",
+      "created": 0,
+      "model": "keepalive",
+      "choices": [
+        {
+          "index": 0,
+          "delta": {
+            "role": "assistant",
+            "content": ""
+          },
+          "finish_reason": null
+        }
+      ]
+    },
+    {
+      "id": "chatcmpl-cf995af1",
+      "object": "chat.completion.chunk",
+      "created": 1791566714,
+      "model": "Qwen3.8-Flash-Next-oQ6e-mtp",
+      "choices": [
+        {
+          "index": 0,
+          "delta": {
+            "role": "assistant"
+          }
+        }
+      ]
+    },
+    {
+      "id": "chatcmpl-cf995af1",
+      "object": "chat.completion.chunk",
+      "created": 1791566715,
+      "model": "Qwen3.8-Flash-Next-oQ6e-mtp",
+      "choices": [
+        {
+          "index": 0,
+          "delta": {
+            "content": "#"
+          }
+        }
+      ]
+    },
+    {
+      "id": "chatcmpl-cf995af1",
+      "object": "chat.completion.chunk",
+      "created": 1791566715,
+      "model": "Qwen3.8-Flash-Next-oQ6e-mtp",
+      "choices": [
+        {
+          "index": 0,
+          "delta": {
+            "content": " Preparing the Town of Elm for Heavy Rain: A Practical Guide"
+          }
+        }
+      ]
+    },
+    {
+      "id": "chatcmpl-cf995af1",
+      "object": "chat.completion.chunk",
+      "created": 1791566715,
+      "model": "Qwen3.8-Flash-Next-oQ6e-mtp",
+      "choices": [
+        {
+          "index": 0,
+          "delta": {
+            "content": "\n\nThe fictional town of Elm sits in a river valley"
+          }
+        }
+      ]
+    },
+    {
+      "id": "chatcmpl-cf995af1",
+      "object": "chat.completion.chunk",
+      "created": 1791566716,
+      "model": "Qwen3.8-Flash-Next-oQ6e-mtp",
+      "choices": [
+        {
+          "index": 0,
+          "delta": {
+            "content": " where three neighborhoods drain into a single creek. Histor"
+          }
+        }
+      ]
+    },
+    {
+      "id": "chatcmpl-cf995af1",
+      "object": "chat.completion.chunk",
+      "created": 1791566716,
+      "model": "Qwen3.8-Flash-Next-oQ6e-mtp",
+      "choices": [
+        {
+          "index": 0,
+          "delta": {
+            "content": "ically, Elm handled ordinary storms without trouble, but in recent"
+          }
+        }
+      ]
+    },
+    {
+      "id": "chatcmpl-cf995af1",
+      "object": "chat.completion.chunk",
+      "created": 1791566716,
+      "model": "Qwen3.8-Flash-Next-oQ6e-mtp",
+      "choices": [
+        {
+          "index": 0,
+          "delta": {
+            "content": " years the town has watched two inches of rain turn Main Street"
+          }
+        }
+      ]
+    },
+    {
+      "id": "chatcmpl-cf995af1",
+      "object": "chat.completion.chunk",
+      "created": 1791566716,
+      "model": "Qwen3.8-Flash-Next-oQ6e-mtp",
+      "choices": [
+        {
+          "index": 0,
+          "delta": {
+            "content": " into a river and a ten-year storm flood the"
+          }
+        }
+      ]
+    },
+    {
+      "id": "chatcmpl-cf995af1",
+      "object": "chat.completion.chunk",
+      "created": 1791566716,
+      "model": "Qwen3.8-Flash-Next-oQ6e-mtp",
+      "choices": [
+        {
+          "index": 0,
+          "delta": {
+            "content": " basement of the public library. Heavy rain is not a question of if but"
+          }
+        }
+      ]
+    },
+    {
+      "id": "chatcmpl-cf995af1",
+      "object": "chat.completion.chunk",
+      "created": 1791566716,
+      "model": "Qwen3.8-Flash-Next-oQ6e-mtp",
+      "choices": [
+        {
+          "index": 0,
+          "delta": {
+            "content": " when, and preparing for it requires a layered strategy:"
+          }
+        }
+      ]
+    },
+    {
+      "id": "chatcmpl-cf995af1",
+      "object": "chat.completion.chunk",
+      "created": 1791566716,
+      "model": "Qwen3.8-Flash-Next-oQ6e-mtp",
+      "choices": [
+        {
+          "index": 0,
+          "delta": {
+            "content": " drains to move water quickly, rain gardens to slow and soak it up"
+          }
+        }
+      ]
+    },
+    {
+      "id": "chatcmpl-cf995af1",
+      "object": "chat.completion.chunk",
+      "created": 1791566716,
+      "model": "Qwen3.8-Flash-Next-oQ6e-mtp",
+      "choices": [
+        {
+          "index": 0,
+          "delta": {
+            "content": ", reservoirs to store it, disciplined maintenance to keep everything working, and clear public"
+          }
+        }
+      ]
+    },
+    {
+      "id": "chatcmpl-cf995af1",
+      "object": "chat.completion.chunk",
+      "created": 1791566717,
+      "model": "Qwen3.8-Flash-Next-oQ6e-mtp",
+      "choices": [
+        {
+          "index": 0,
+          "delta": {
+            "content": " communication so residents know what to do. Each layer"
+          }
+        }
+      ]
+    },
+    {
+      "id": "chatcmpl-cf995af1",
+      "object": "chat.completion.chunk",
+      "created": 1791566717,
+      "model": "Qwen3.8-Flash-Next-oQ6e-mtp",
+      "choices": [
+        {
+          "index": 0,
+          "delta": {
+            "content": " has strengths, costs, and failure modes, and the real work"
+          }
+        }
+      ]
+    },
+    {
+      "id": "chatcmpl-cf995af1",
+      "object": "chat.completion.chunk",
+      "created": 1791566717,
+      "model": "Qwen3.8-Flash-Next-oQ6e-mtp",
+      "choices": [
+        {
+          "index": 0,
+          "delta": {
+            "content": " of flood preparation is choosing the right mix and explaining"
+          }
+        }
+      ]
+    },
+    {
+      "id": "chatcmpl-cf995af1",
+      "object": "chat.completion.chunk",
+      "created": 1791566717,
+      "model": "Qwen3.8-Flash-Next-oQ6e-mtp",
+      "choices": [
+        {
+          "index": 0,
+          "delta": {
+            "content": " those tradeoffs honestly to the people who live there.\n\n## Drains"
+          }
+        }
+      ]
+    },
+    {
+      "id": "chatcmpl-cf995af1",
+      "object": "chat.completion.chunk",
+      "created": 1791566717,
+      "model": "Qwen3.8-Flash-Next-oQ6e-mtp",
+      "choices": [
+        {
+          "index": 0,
+          "delta": {
+            "content": ": The Fast Path for Water\n\nStorm drains are the most visible"
+          }
+        }
+      ]
+    },
+    {
+      "id": "chatcmpl-cf995af1",
+      "object": "chat.completion.chunk",
+      "created": 1791566717,
+      "model": "Qwen3.8-Flash-Next-oQ6e-mtp",
+      "choices": [
+        {
+          "index": 0,
+          "delta": {
+            "content": " part of flood infrastructure. Grates at the curb catch runoff"
+          }
+        }
+      ]
+    },
+    {
+      "id": "chatcmpl-cf995af1",
+      "object": "chat.completion.chunk",
+      "created": 1791566717,
+      "model": "Qwen3.8-Flash-Next-oQ6e-mtp",
+      "choices": [
+        {
+          "index": 0,
+          "delta": {
+            "content": " from streets and roofs, pipes carry it underground, and"
+          }
+        }
+      ]
+    },
+    {
+      "id": "chatcmpl-cf995af1",
+      "object": "chat.completion.chunk",
+      "created": 1791566717,
+      "model": "Qwen3.8-Flash-Next-oQ6e-mtp",
+      "choices": [
+        {
+          "index": 0,
+          "delta": {
+            "content": " outfalls release it into the creek. Elm’s"
+          }
+        }
+      ]
+    },
+    {
+      "id": "chatcmpl-cf995af1",
+      "object": "chat.completion.chunk",
+      "created": 1791566718,
+      "model": "Qwen3.8-Flash-Next-oQ6e-mtp",
+      "choices": [
+        {
+          "index": 0,
+          "delta": {
+            "content": " existing system was sized for a two-year storm, meaning a rainfall"
+          }
+        }
+      ]
+    },
+    {
+      "id": "chatcmpl-cf995af1",
+      "object": "chat.completion.chunk",
+      "created": 1791566718,
+      "model": "Qwen3.8-Flash-Next-oQ6e-mtp",
+      "choices": [
+        {
+          "index": 0,
+          "delta": {
+            "content": " event that statistically arrives once every two years on average. That sizing"
+          }
+        }
+      ]
+    },
+    {
+      "id": "chatcmpl-cf995af1",
+      "object": "chat.completion.chunk",
+      "created": 1791566718,
+      "model": "Qwen3.8-Flash-Next-oQ6e-mtp",
+      "choices": [
+        {
+          "index": 0,
+          "delta": {
+            "content": " is cheap and adequate for routine weather,"
+          }
+        }
+      ]
+    },
+    {
+      "id": "chatcmpl-cf995af1",
+      "object": "chat.completion.chunk",
+      "created": 1791566718,
+      "model": "Qwen3.8-Flash-Next-oQ6e-mtp",
+      "choices": [
+        {
+          "index": 0,
+          "delta": {
+            "content": " but it fails exactly when the town needs it most."
+          }
+        }
+      ]
+    },
+    {
+      "id": "chatcmpl-cf995af1",
+      "object": "chat.completion.chunk",
+      "created": 1791566718,
+      "model": "Qwen3.8-Flash-Next-oQ6e-mtp",
+      "choices": [
+        {
+          "index": 0,
+          "delta": {
+            "content": "\n\nUpgrading drains means larger pipes, more inlets"
+          }
+        }
+      ]
+    },
+    {
+      "id": "chatcmpl-cf995af1",
+      "object": "chat.completion.chunk",
+      "created": 1791566718,
+      "model": "Qwen3.8-Flash-Next-oQ6e-mtp",
+      "choices": [
+        {
+          "index": 0,
+          "delta": {
+            "content": ", and better outfalls. The advantage is speed: water leaves the"
+          }
+        }
+      ]
+    },
+    {
+      "id": "chatcmpl-cf995af1",
+      "object": "chat.completion.chunk",
+      "created": 1791566718,
+      "model": "Qwen3.8-Flash-Next-oQ6e-mtp",
+      "choices": [
+        {
+          "index": 0,
+          "delta": {
+            "content": " street before it can enter homes. The tradeoffs are substantial."
+          }
+        }
+      ]
+    },
+    {
+      "id": "chatcmpl-cf995af1",
+      "object": "chat.completion.chunk",
+      "created": 1791566718,
+      "model": "Qwen3.8-Flash-Next-oQ6e-mtp",
+      "choices": [
+        {
+          "index": 0,
+          "delta": {
+            "content": " Bigger pipes cost more to install, often requiring the"
+          }
+        }
+      ]
+    },
+    {
+      "id": "chatcmpl-cf995af1",
+      "object": "chat.completion.chunk",
+      "created": 1791566719,
+      "model": "Qwen3.8-Flash-Next-oQ6e-mtp",
+      "choices": [
+        {
+          "index": 0,
+          "delta": {
+            "content": " street to be torn up entirely, which disrupts traffic and"
+          }
+        }
+      ]
+    },
+    {
+      "id": "chatcmpl-cf995af1",
+      "object": "chat.completion.chunk",
+      "created": 1791566719,
+      "model": "Qwen3.8-Flash-Next-oQ6e-mtp",
+      "choices": [
+        {
+          "index": 0,
+          "delta": {
+            "content": " businesses for months. Larger outfalls push more water, faster"
+          }
+        }
+      ]
+    },
+    {
+      "id": "chatcmpl-cf995af1",
+      "object": "chat.completion.chunk",
+      "created": 1791566719,
+      "model": "Qwen3.8-Flash-Next-oQ6e-mtp",
+      "choices": [
+        {
+          "index": 0,
+          "delta": {
+            "content": ", into the creek, which can shift the flooding problem downstream to the"
+          }
+        }
+      ]
+    },
+    {
+      "id": "chatcmpl-cf995af1",
+      "object": "chat.completion.chunk",
+      "created": 1791566719,
+      "model": "Qwen3.8-Flash-Next-oQ6e-mtp",
+      "choices": [
+        {
+          "index": 0,
+          "delta": {
+            "content": " Riverside neighborhood. There is also a maintenance burden: a drain"
+          }
+        }
+      ]
+    },
+    {
+      "id": "chatcmpl-cf995af1",
+      "object": "chat.completion.chunk",
+      "created": 1791566719,
+      "model": "Qwen3.8-Flash-Next-oQ6e-mtp",
+      "choices": [
+        {
+          "index": 0,
+          "delta": {
+            "content": " that is 90 percent clear flows at only"
+          }
+        }
+      ]
+    },
+    {
+      "id": "chatcmpl-cf995af1",
+      "object": "chat.completion.chunk",
+      "created": 1791566719,
+      "model": "Qwen3.8-Flash-Next-oQ6e-mtp",
+      "choices": [
+        {
+          "index": 0,
+          "delta": {
+            "content": " a fraction of its design capacity, so the town must commit to regular cleaning"
+          }
+        }
+      ]
+    },
+    {
+      "id": "chatcmpl-cf995af1",
+      "object": "chat.completion.chunk",
+      "created": 1791566719,
+      "model": "Qwen3.8-Flash-Next-oQ6e-mtp",
+      "choices": [
+        {
+          "index": 0,
+          "delta": {
+            "content": ".\n\nA concrete example: Elm considered replacing the eight-inch pipe"
+          }
+        }
+      ]
+    },
+    {
+      "id": "chatcmpl-cf995af1",
+      "object": "chat.completion.chunk",
+      "created": 1791566720,
+      "model": "Qwen3.8-Flash-Next-oQ6e-mtp",
+      "choices": [
+        {
+          "index": 0,
+          "delta": {
+            "content": " under Oak Avenue with a thirty-inch pipe. The engineering"
+          }
+        }
+      ]
+    },
+    {
+      "id": "chatcmpl-cf995af1",
+      "object": "chat.completion.chunk",
+      "created": 1791566720,
+      "model": "Qwen3.8-Flash-Next-oQ6e-mtp",
+      "choices": [
+        {
+          "index": 0,
+          "delta": {
+            "content": " study showed it would protect forty homes"
+          }
+        }
+      ]
+    },
+    {
+      "id": "chatcmpl-cf995af1",
+      "object": "chat.completion.chunk",
+      "created": 1791566720,
+      "model": "Qwen3.8-Flash-Next-oQ6e-mtp",
+      "choices": [
+        {
+          "index": 0,
+          "delta": {
+            "content": " from the kind of flooding seen last spring"
+          }
+        }
+      ]
+    },
+    {
+      "id": "chatcmpl-cf995af1",
+      "object": "chat.completion.chunk",
+      "created": 1791566720,
+      "model": "Qwen3.8-Flash-Next-oQ6e-mtp",
+      "choices": [
+        {
+          "index": 0,
+          "delta": {
+            "content": ". The cost was $1.2 million, and construction would"
+          }
+        }
+      ]
+    },
+    {
+      "id": "chatcmpl-cf995af1",
+      "object": "chat.completion.chunk",
+      "created": 1791566720,
+      "model": "Qwen3.8-Flash-Next-oQ6e-mtp",
+      "choices": [
+        {
+          "index": 0,
+          "delta": {
+            "content": " close Oak Avenue for eleven weeks during the summer"
+          }
+        }
+      ]
+    },
+    {
+      "id": "chatcmpl-cf995af1",
+      "object": "chat.completion.chunk",
+      "created": 1791566720,
+      "model": "Qwen3.8-Flash-Next-oQ6e-mtp",
+      "choices": [
+        {
+          "index": 0,
+          "delta": {
+            "content": " shopping season. The town council ultimately chose a smaller upgrade combined"
+          }
+        }
+      ]
+    },
+    {
+      "id": "chatcmpl-cf995af1",
+      "object": "chat.completion.chunk",
+      "created": 1791566720,
+      "model": "Qwen3.8-Flash-Next-oQ6e-mtp",
+      "choices": [
+        {
+          "index": 0,
+          "delta": {
+            "content": " with rain gardens, accepting slightly less protection in exchange for lower cost"
+          }
+        }
+      ]
+    },
+    {
+      "id": "chatcmpl-cf995af1",
+      "object": "chat.completion.chunk",
+      "created": 1791566720,
+      "model": "Qwen3.8-Flash-Next-oQ6e-mtp",
+      "choices": [
+        {
+          "index": 0,
+          "delta": {
+            "content": ", faster construction, and a reduction in the volume of water entering the system in the"
+          }
+        }
+      ]
+    },
+    {
+      "id": "chatcmpl-cf995af1",
+      "object": "chat.completion.chunk",
+      "created": 1791566720,
+      "model": "Qwen3.8-Flash-Next-oQ6e-mtp",
+      "choices": [
+        {
+          "index": 0,
+          "delta": {
+            "content": " first place.\n\n## Rain Gardens: Slowing Water Down\n\n"
+          }
+        }
+      ]
+    },
+    {
+      "id": "chatcmpl-cf995af1",
+      "object": "chat.completion.chunk",
+      "created": 1791566721,
+      "model": "Qwen3.8-Flash-Next-oQ6e-mtp",
+      "choices": [
+        {
+          "index": 0,
+          "delta": {
+            "content": "Rain gardens are shallow, planted depressions that capture runoff from streets, sidewalks,"
+          }
+        }
+      ]
+    },
+    {
+      "id": "chatcmpl-cf995af1",
+      "object": "chat.completion.chunk",
+      "created": 1791566721,
+      "model": "Qwen3.8-Flash-Next-oQ6e-mtp",
+      "choices": [
+        {
+          "index": 0,
+          "delta": {
+            "content": " and roofs, letting it soak into the soil instead of"
+          }
+        }
+      ]
+    },
+    {
+      "id": "chatcmpl-cf995af1",
+      "object": "chat.completion.chunk",
+      "created": 1791566721,
+      "model": "Qwen3.8-Flash-Next-oQ6e-mtp",
+      "choices": [
+        {
+          "index": 0,
+          "delta": {
+            "content": " overwhelming the drains. They are a form of green infrastructure, and they work by"
+          }
+        }
+      ]
+    },
+    {
+      "id": "chatcmpl-cf995af1",
+      "object": "chat.completion.chunk",
+      "created": 1791566721,
+      "model": "Qwen3.8-Flash-Next-oQ6e-mtp",
+      "choices": [
+        {
+          "index": 0,
+          "delta": {
+            "content": " intercepting water at the source. A well-designed rain garden can absorb"
+          }
+        }
+      ]
+    },
+    {
+      "id": "chatcmpl-cf995af1",
+      "object": "chat.completion.chunk",
+      "created": 1791566721,
+      "model": "Qwen3.8-Flash-Next-oQ6e-mtp",
+      "choices": [
+        {
+          "index": 0,
+          "delta": {
+            "content": " several hundred gallons from a single storm and"
+          }
+        }
+      ]
+    },
+    {
+      "id": "chatcmpl-cf995af1",
+      "object": "chat.completion.chunk",
+      "created": 1791566721,
+      "model": "Qwen3.8-Flash-Next-oQ6e-mtp",
+      "choices": [
+        {
+          "index": 0,
+          "delta": {
+            "content": " filter out oil, sediment, and litter along"
+          }
+        }
+      ]
+    },
+    {
+      "id": "chatcmpl-cf995af1",
+      "object": "chat.completion.chunk",
+      "created": 1791566721,
+      "model": "Qwen3.8-Flash-Next-oQ6e-mtp",
+      "choices": [
+        {
+          "index": 0,
+          "delta": {
+            "content": " the way.\n\nFor Elm, rain gardens offer several benefits beyond flood"
+          }
+        }
+      ]
+    },
+    {
+      "id": "chatcmpl-cf995af1",
+      "object": "chat.completion.chunk",
+      "created": 1791566722,
+      "model": "Qwen3.8-Flash-Next-oQ6e-mtp",
+      "choices": [
+        {
+          "index": 0,
+          "delta": {
+            "content": " control. They beautify the town, support pollinators, reduce"
+          }
+        }
+      ]
+    },
+    {
+      "id": "chatcmpl-cf995af1",
+      "object": "chat.completion.chunk",
+      "created": 1791566722,
+      "model": "Qwen3.8-Flash-Next-oQ6e-mtp",
+      "choices": [
+        {
+          "index": 0,
+          "delta": {
+            "content": " the heat island effect on paved streets, and cost far"
+          }
+        }
+      ]
+    },
+    {
+      "id": "chatcmpl-cf995af1",
+      "object": "chat.completion.chunk",
+      "created": 1791566722,
+      "model": "Qwen3.8-Flash-Next-oQ6e-mtp",
+      "choices": [
+        {
+          "index": 0,
+          "delta": {
+            "content": " less than pipe replacement. They can be installed incrementally, one block at"
+          }
+        }
+      ]
+    },
+    {
+      "id": "chatcmpl-cf995af1",
+      "object": "chat.completion.chunk",
+      "created": 1791566722,
+      "model": "Qwen3.8-Flash-Next-oQ6e-mtp",
+      "choices": [
+        {
+          "index": 0,
+          "delta": {
+            "content": " a year, which fits a modest"
+          }
+        }
+      ]
+    },
+    {
+      "id": "chatcmpl-cf995af1",
+      "object": "chat.completion.chunk",
+      "created": 1791566722,
+      "model": "Qwen3.8-Flash-Next-oQ6e-mtp",
+      "choices": [
+        {
+          "index": 0,
+          "delta": {},
+          "finish_reason": "length"
+        }
+      ]
+    },
+    {
+      "id": "chatcmpl-cf995af1",
+      "object": "chat.completion.chunk",
+      "created": 1791566722,
+      "model": "Qwen3.8-Flash-Next-oQ6e-mtp",
+      "choices": [],
+      "usage": {
+        "prompt_tokens": 5026,
+        "completion_tokens": 640,
+        "total_tokens": 5666,
+        "input_tokens": 5026,
+        "output_tokens": 640,
+        "prompt_tokens_details": {
+          "cached_tokens": 0
+        },
+        "time_to_first_token": 1.44,
+        "time_to_first_visible_token": 1.44,
+        "total_time": 8.06,
+        "prompt_eval_duration": 1.44,
+        "generation_duration": 6.62,
+        "prompt_tokens_per_second": 3481.87,
+        "generation_tokens_per_second": 96.73
+      }
+    }
+  ]
+}

@@ -1,0 +1,1368 @@
+{
+  "text": "# Preparing Riverton for Heavy Rain: A Cedar Scenario\n\nRiverton is a fictional mid-sized town built along a slow-moving river, with a historic downtown of brick storefronts, newer suburban neighborhoods on the edges, and a few old industrial sites near the water. Like many towns of its kind, Riverton was designed for the rainfall patterns of the last century, not the heavier, more concentrated storms of this one. A single intense storm can drop two inches of rain in an hour, overwhelming gutters, flooding basements, and closing the main road for a day. To prepare, Riverton needs a layered strategy that combines conventional infrastructure (drains and reservoirs), nature-based solutions (rain gardens), disciplined maintenance, and clear public communication. No single measure is enough on its own; the value comes from how the pieces work together, and from being honest about the tradeoffs each choice involves.\n\n## Drains: The First Line of Defense\n\nStorm drains are the most visible part of any flood plan. In Riverton, the existing system is a mix of century-old brick sewers in the downtown core and modern concrete pipes in the suburbs. Upgrading drains means enlarging inlets, adding catch basins at low points, and separating stormwater from sanitary sewage where the two are currently combined. A combined system is a particular vulnerability: during heavy rain, the pipes fill beyond capacity and the overflow—mixed with sewage—can back up into street drains and basements.\n\nThe advantage of drains is that they are predictable and well understood. Engineers can calculate pipe diameters, slopes, and flows with reasonable confidence, and contractors know how to install them. A new 48-inch storm main under Main Street can move a large volume of water quickly, protecting the retail district where every hour of flooding means lost sales and mold damage.\n\nThe tradeoffs are cost, disruption, and a subtle behavioral risk. Large pipe projects are expensive and slow; trenching through a historic downtown means utility relocations, traffic detours, and months of construction noise. There is also the \"gray infrastructure trap\": once a neighborhood is protected by big pipes, developers build more densely there, assuming the problem is solved. When a storm exceeds the design standard—say, a 50-year storm hitting a system built for a 10-year event—the consequences are worse than before, because more people and property are in the way. Riverton should therefore size drains for realistic future storms, not just historical averages, and pair them with surface storage so that overflow has somewhere to go that isn't someone's living room.\n\n## Rain Gardens: Slowing Water Where It Falls\n\nRain gardens are shallow, planted depressions that capture runoff from roofs, parking lots, and sidewalks, letting it soak into the ground instead of rushing into overloaded drains. For Riverton, they are ideal for the suburban arterial roads and the strip-mall parking lots, where wide paved areas generate fast, dirty runoff. A typical rain garden along a bus stop might be thirty feet long, eighteen inches deep, filled with engineered soil and planted with sedges, switchgrass, and blue flag iris—species",
+  "reasoning": "",
+  "tool_calls": [],
+  "usage": {
+    "prompt_tokens": 5026,
+    "completion_tokens": 640,
+    "total_tokens": 5666,
+    "input_tokens": 5026,
+    "output_tokens": 640,
+    "prompt_tokens_details": {
+      "cached_tokens": 2048
+    },
+    "time_to_first_token": 1.04,
+    "time_to_first_visible_token": 1.04,
+    "total_time": 7.82,
+    "prompt_eval_duration": 1.04,
+    "generation_duration": 6.78,
+    "prompt_tokens_per_second": 2875.31,
+    "generation_tokens_per_second": 94.33
+  },
+  "finish_reason": "length",
+  "done": true,
+  "stream_errors": [],
+  "sse_events": [
+    {
+      "relative_ns": 10900750,
+      "line": "data: {\"id\":\"chatcmpl-16cea52c\",\"object\":\"chat.completion.chunk\",\"created\":0,\"model\":\"keepalive\",\"choices\":[{\"index\":0,\"delta\":{\"role\":\"assistant\",\"content\":\"\"},\"finish_reason\":null}]}"
+    },
+    {
+      "relative_ns": 10917583,
+      "line": ""
+    },
+    {
+      "relative_ns": 14708500,
+      "line": "data: {\"id\":\"chatcmpl-16cea52c\",\"object\":\"chat.completion.chunk\",\"created\":1791566880,\"model\":\"Qwen3.8-Flash-Next-oQ6e-mtp\",\"choices\":[{\"index\":0,\"delta\":{\"role\":\"assistant\"}}]}"
+    },
+    {
+      "relative_ns": 14714292,
+      "line": ""
+    },
+    {
+      "relative_ns": 1047526750,
+      "line": "data: {\"id\":\"chatcmpl-16cea52c\",\"object\":\"chat.completion.chunk\",\"created\":1791566881,\"model\":\"Qwen3.8-Flash-Next-oQ6e-mtp\",\"choices\":[{\"index\":0,\"delta\":{\"content\":\"#\"}}]}"
+    },
+    {
+      "relative_ns": 1047537208,
+      "line": ""
+    },
+    {
+      "relative_ns": 1166377875,
+      "line": "data: {\"id\":\"chatcmpl-16cea52c\",\"object\":\"chat.completion.chunk\",\"created\":1791566881,\"model\":\"Qwen3.8-Flash-Next-oQ6e-mtp\",\"choices\":[{\"index\":0,\"delta\":{\"content\":\" Preparing Riverton for Heavy Rain: A Cedar Scenario\\n\\n\"}}]}"
+    },
+    {
+      "relative_ns": 1166386375,
+      "line": ""
+    },
+    {
+      "relative_ns": 1303043125,
+      "line": "data: {\"id\":\"chatcmpl-16cea52c\",\"object\":\"chat.completion.chunk\",\"created\":1791566881,\"model\":\"Qwen3.8-Flash-Next-oQ6e-mtp\",\"choices\":[{\"index\":0,\"delta\":{\"content\":\"Riverton is a fictional mid-sized town built along a\"}}]}"
+    },
+    {
+      "relative_ns": 1303052625,
+      "line": ""
+    },
+    {
+      "relative_ns": 1417004292,
+      "line": "data: {\"id\":\"chatcmpl-16cea52c\",\"object\":\"chat.completion.chunk\",\"created\":1791566881,\"model\":\"Qwen3.8-Flash-Next-oQ6e-mtp\",\"choices\":[{\"index\":0,\"delta\":{\"content\":\" slow-moving river, with a historic downtown of brick storefront\"}}]}"
+    },
+    {
+      "relative_ns": 1417014458,
+      "line": ""
+    },
+    {
+      "relative_ns": 1555798625,
+      "line": "data: {\"id\":\"chatcmpl-16cea52c\",\"object\":\"chat.completion.chunk\",\"created\":1791566881,\"model\":\"Qwen3.8-Flash-Next-oQ6e-mtp\",\"choices\":[{\"index\":0,\"delta\":{\"content\":\"s, newer suburban neighborhoods on the edges,\"}}]}"
+    },
+    {
+      "relative_ns": 1555807750,
+      "line": ""
+    },
+    {
+      "relative_ns": 1670599125,
+      "line": "data: {\"id\":\"chatcmpl-16cea52c\",\"object\":\"chat.completion.chunk\",\"created\":1791566881,\"model\":\"Qwen3.8-Flash-Next-oQ6e-mtp\",\"choices\":[{\"index\":0,\"delta\":{\"content\":\" and a few old industrial sites near the water.\"}}]}"
+    },
+    {
+      "relative_ns": 1670607208,
+      "line": ""
+    },
+    {
+      "relative_ns": 1785716333,
+      "line": "data: {\"id\":\"chatcmpl-16cea52c\",\"object\":\"chat.completion.chunk\",\"created\":1791566881,\"model\":\"Qwen3.8-Flash-Next-oQ6e-mtp\",\"choices\":[{\"index\":0,\"delta\":{\"content\":\" Like many towns of its kind, Riverton was\"}}]}"
+    },
+    {
+      "relative_ns": 1785725000,
+      "line": ""
+    },
+    {
+      "relative_ns": 1926078292,
+      "line": "data: {\"id\":\"chatcmpl-16cea52c\",\"object\":\"chat.completion.chunk\",\"created\":1791566881,\"model\":\"Qwen3.8-Flash-Next-oQ6e-mtp\",\"choices\":[{\"index\":0,\"delta\":{\"content\":\" designed for the rainfall patterns of the last century, not the\"}}]}"
+    },
+    {
+      "relative_ns": 1926084417,
+      "line": ""
+    },
+    {
+      "relative_ns": 2040754292,
+      "line": "data: {\"id\":\"chatcmpl-16cea52c\",\"object\":\"chat.completion.chunk\",\"created\":1791566882,\"model\":\"Qwen3.8-Flash-Next-oQ6e-mtp\",\"choices\":[{\"index\":0,\"delta\":{\"content\":\" heavier, more concentrated storms of this one. A single\"}}]}"
+    },
+    {
+      "relative_ns": 2040765875,
+      "line": ""
+    },
+    {
+      "relative_ns": 2178103833,
+      "line": "data: {\"id\":\"chatcmpl-16cea52c\",\"object\":\"chat.completion.chunk\",\"created\":1791566882,\"model\":\"Qwen3.8-Flash-Next-oQ6e-mtp\",\"choices\":[{\"index\":0,\"delta\":{\"content\":\" intense storm can drop two inches of rain in an\"}}]}"
+    },
+    {
+      "relative_ns": 2178112250,
+      "line": ""
+    },
+    {
+      "relative_ns": 2293710500,
+      "line": "data: {\"id\":\"chatcmpl-16cea52c\",\"object\":\"chat.completion.chunk\",\"created\":1791566882,\"model\":\"Qwen3.8-Flash-Next-oQ6e-mtp\",\"choices\":[{\"index\":0,\"delta\":{\"content\":\" hour, overwhelming gutters, flooding basements, and closing the main road\"}}]}"
+    },
+    {
+      "relative_ns": 2293720042,
+      "line": ""
+    },
+    {
+      "relative_ns": 2410709458,
+      "line": "data: {\"id\":\"chatcmpl-16cea52c\",\"object\":\"chat.completion.chunk\",\"created\":1791566882,\"model\":\"Qwen3.8-Flash-Next-oQ6e-mtp\",\"choices\":[{\"index\":0,\"delta\":{\"content\":\" for a day. To prepare, Riv\"}}]}"
+    },
+    {
+      "relative_ns": 2410717250,
+      "line": ""
+    },
+    {
+      "relative_ns": 2527165208,
+      "line": "data: {\"id\":\"chatcmpl-16cea52c\",\"object\":\"chat.completion.chunk\",\"created\":1791566882,\"model\":\"Qwen3.8-Flash-Next-oQ6e-mtp\",\"choices\":[{\"index\":0,\"delta\":{\"content\":\"erton needs a layered strategy that combines conventional infrastructure (dr\"}}]}"
+    },
+    {
+      "relative_ns": 2527174792,
+      "line": ""
+    },
+    {
+      "relative_ns": 2627638792,
+      "line": "data: {\"id\":\"chatcmpl-16cea52c\",\"object\":\"chat.completion.chunk\",\"created\":1791566882,\"model\":\"Qwen3.8-Flash-Next-oQ6e-mtp\",\"choices\":[{\"index\":0,\"delta\":{\"content\":\"ains and reservoirs), nature-based solutions (rain gardens), disciplined maintenance,\"}}]}"
+    },
+    {
+      "relative_ns": 2627645917,
+      "line": ""
+    },
+    {
+      "relative_ns": 2745977208,
+      "line": "data: {\"id\":\"chatcmpl-16cea52c\",\"object\":\"chat.completion.chunk\",\"created\":1791566882,\"model\":\"Qwen3.8-Flash-Next-oQ6e-mtp\",\"choices\":[{\"index\":0,\"delta\":{\"content\":\" and clear public communication. No single measure is enough on its own;\"}}]}"
+    },
+    {
+      "relative_ns": 2745984500,
+      "line": ""
+    },
+    {
+      "relative_ns": 2860139500,
+      "line": "data: {\"id\":\"chatcmpl-16cea52c\",\"object\":\"chat.completion.chunk\",\"created\":1791566882,\"model\":\"Qwen3.8-Flash-Next-oQ6e-mtp\",\"choices\":[{\"index\":0,\"delta\":{\"content\":\" the value comes from how the pieces\"}}]}"
+    },
+    {
+      "relative_ns": 2860146583,
+      "line": ""
+    },
+    {
+      "relative_ns": 3000474208,
+      "line": "data: {\"id\":\"chatcmpl-16cea52c\",\"object\":\"chat.completion.chunk\",\"created\":1791566883,\"model\":\"Qwen3.8-Flash-Next-oQ6e-mtp\",\"choices\":[{\"index\":0,\"delta\":{\"content\":\" work together, and from being honest about the tradeoffs each choice involves\"}}]}"
+    },
+    {
+      "relative_ns": 3000483167,
+      "line": ""
+    },
+    {
+      "relative_ns": 3140950000,
+      "line": "data: {\"id\":\"chatcmpl-16cea52c\",\"object\":\"chat.completion.chunk\",\"created\":1791566883,\"model\":\"Qwen3.8-Flash-Next-oQ6e-mtp\",\"choices\":[{\"index\":0,\"delta\":{\"content\":\".\\n\\n## Drains: The First Line of Defense\\n\\nStorm drains are the most visible part\"}}]}"
+    },
+    {
+      "relative_ns": 3140961000,
+      "line": ""
+    },
+    {
+      "relative_ns": 3257556792,
+      "line": "data: {\"id\":\"chatcmpl-16cea52c\",\"object\":\"chat.completion.chunk\",\"created\":1791566883,\"model\":\"Qwen3.8-Flash-Next-oQ6e-mtp\",\"choices\":[{\"index\":0,\"delta\":{\"content\":\" of any flood plan. In Riverton, the existing system is\"}}]}"
+    },
+    {
+      "relative_ns": 3257564792,
+      "line": ""
+    },
+    {
+      "relative_ns": 3371625958,
+      "line": "data: {\"id\":\"chatcmpl-16cea52c\",\"object\":\"chat.completion.chunk\",\"created\":1791566883,\"model\":\"Qwen3.8-Flash-Next-oQ6e-mtp\",\"choices\":[{\"index\":0,\"delta\":{\"content\":\" a mix of century-old brick sewers in the\"}}]}"
+    },
+    {
+      "relative_ns": 3371633375,
+      "line": ""
+    },
+    {
+      "relative_ns": 3488628417,
+      "line": "data: {\"id\":\"chatcmpl-16cea52c\",\"object\":\"chat.completion.chunk\",\"created\":1791566883,\"model\":\"Qwen3.8-Flash-Next-oQ6e-mtp\",\"choices\":[{\"index\":0,\"delta\":{\"content\":\" downtown core and modern concrete pipes in the suburbs. Upgrading\"}}]}"
+    },
+    {
+      "relative_ns": 3488636833,
+      "line": ""
+    },
+    {
+      "relative_ns": 3603102833,
+      "line": "data: {\"id\":\"chatcmpl-16cea52c\",\"object\":\"chat.completion.chunk\",\"created\":1791566883,\"model\":\"Qwen3.8-Flash-Next-oQ6e-mtp\",\"choices\":[{\"index\":0,\"delta\":{\"content\":\" drains means enlarging inlets, adding catch bas\"}}]}"
+    },
+    {
+      "relative_ns": 3603111167,
+      "line": ""
+    },
+    {
+      "relative_ns": 3717542292,
+      "line": "data: {\"id\":\"chatcmpl-16cea52c\",\"object\":\"chat.completion.chunk\",\"created\":1791566883,\"model\":\"Qwen3.8-Flash-Next-oQ6e-mtp\",\"choices\":[{\"index\":0,\"delta\":{\"content\":\"ins at low points, and separating stormwater from sanitary sewage\"}}]}"
+    },
+    {
+      "relative_ns": 3717549792,
+      "line": ""
+    },
+    {
+      "relative_ns": 3834185667,
+      "line": "data: {\"id\":\"chatcmpl-16cea52c\",\"object\":\"chat.completion.chunk\",\"created\":1791566883,\"model\":\"Qwen3.8-Flash-Next-oQ6e-mtp\",\"choices\":[{\"index\":0,\"delta\":{\"content\":\" where the two are currently combined. A combined system is a\"}}]}"
+    },
+    {
+      "relative_ns": 3834193750,
+      "line": ""
+    },
+    {
+      "relative_ns": 3949781833,
+      "line": "data: {\"id\":\"chatcmpl-16cea52c\",\"object\":\"chat.completion.chunk\",\"created\":1791566883,\"model\":\"Qwen3.8-Flash-Next-oQ6e-mtp\",\"choices\":[{\"index\":0,\"delta\":{\"content\":\" particular vulnerability: during heavy rain, the pipes fill\"}}]}"
+    },
+    {
+      "relative_ns": 3949790125,
+      "line": ""
+    },
+    {
+      "relative_ns": 4085731958,
+      "line": "data: {\"id\":\"chatcmpl-16cea52c\",\"object\":\"chat.completion.chunk\",\"created\":1791566884,\"model\":\"Qwen3.8-Flash-Next-oQ6e-mtp\",\"choices\":[{\"index\":0,\"delta\":{\"content\":\" beyond capacity and the overflow—\"}}]}"
+    },
+    {
+      "relative_ns": 4085741833,
+      "line": ""
+    },
+    {
+      "relative_ns": 4222553375,
+      "line": "data: {\"id\":\"chatcmpl-16cea52c\",\"object\":\"chat.completion.chunk\",\"created\":1791566884,\"model\":\"Qwen3.8-Flash-Next-oQ6e-mtp\",\"choices\":[{\"index\":0,\"delta\":{\"content\":\"mixed with sewage—can back up into street drains\"}}]}"
+    },
+    {
+      "relative_ns": 4222564250,
+      "line": ""
+    },
+    {
+      "relative_ns": 4361705042,
+      "line": "data: {\"id\":\"chatcmpl-16cea52c\",\"object\":\"chat.completion.chunk\",\"created\":1791566884,\"model\":\"Qwen3.8-Flash-Next-oQ6e-mtp\",\"choices\":[{\"index\":0,\"delta\":{\"content\":\" and basements.\\n\\nThe advantage of drains is that they are predictable and\"}}]}"
+    },
+    {
+      "relative_ns": 4361714375,
+      "line": ""
+    },
+    {
+      "relative_ns": 4500520000,
+      "line": "data: {\"id\":\"chatcmpl-16cea52c\",\"object\":\"chat.completion.chunk\",\"created\":1791566884,\"model\":\"Qwen3.8-Flash-Next-oQ6e-mtp\",\"choices\":[{\"index\":0,\"delta\":{\"content\":\" well understood. Engineers can calculate pipe diameters, slopes,\"}}]}"
+    },
+    {
+      "relative_ns": 4500528625,
+      "line": ""
+    },
+    {
+      "relative_ns": 4615263833,
+      "line": "data: {\"id\":\"chatcmpl-16cea52c\",\"object\":\"chat.completion.chunk\",\"created\":1791566884,\"model\":\"Qwen3.8-Flash-Next-oQ6e-mtp\",\"choices\":[{\"index\":0,\"delta\":{\"content\":\" and flows with reasonable confidence, and contractors know how\"}}]}"
+    },
+    {
+      "relative_ns": 4615273083,
+      "line": ""
+    },
+    {
+      "relative_ns": 4729889083,
+      "line": "data: {\"id\":\"chatcmpl-16cea52c\",\"object\":\"chat.completion.chunk\",\"created\":1791566884,\"model\":\"Qwen3.8-Flash-Next-oQ6e-mtp\",\"choices\":[{\"index\":0,\"delta\":{\"content\":\" to install them. A new 48-inch\"}}]}"
+    },
+    {
+      "relative_ns": 4729899000,
+      "line": ""
+    },
+    {
+      "relative_ns": 4843513208,
+      "line": "data: {\"id\":\"chatcmpl-16cea52c\",\"object\":\"chat.completion.chunk\",\"created\":1791566884,\"model\":\"Qwen3.8-Flash-Next-oQ6e-mtp\",\"choices\":[{\"index\":0,\"delta\":{\"content\":\" storm main under Main Street can move a\"}}]}"
+    },
+    {
+      "relative_ns": 4843522333,
+      "line": ""
+    },
+    {
+      "relative_ns": 4981534458,
+      "line": "data: {\"id\":\"chatcmpl-16cea52c\",\"object\":\"chat.completion.chunk\",\"created\":1791566885,\"model\":\"Qwen3.8-Flash-Next-oQ6e-mtp\",\"choices\":[{\"index\":0,\"delta\":{\"content\":\" large volume of water quickly, protecting the retail district where every hour\"}}]}"
+    },
+    {
+      "relative_ns": 4981541750,
+      "line": ""
+    },
+    {
+      "relative_ns": 5097700667,
+      "line": "data: {\"id\":\"chatcmpl-16cea52c\",\"object\":\"chat.completion.chunk\",\"created\":1791566885,\"model\":\"Qwen3.8-Flash-Next-oQ6e-mtp\",\"choices\":[{\"index\":0,\"delta\":{\"content\":\" of flooding means lost sales and mold damage.\\n\\nThe tradeoffs are cost,\"}}]}"
+    },
+    {
+      "relative_ns": 5097707750,
+      "line": ""
+    },
+    {
+      "relative_ns": 5213502958,
+      "line": "data: {\"id\":\"chatcmpl-16cea52c\",\"object\":\"chat.completion.chunk\",\"created\":1791566885,\"model\":\"Qwen3.8-Flash-Next-oQ6e-mtp\",\"choices\":[{\"index\":0,\"delta\":{\"content\":\" disruption, and a subtle behavioral risk. Large pipe\"}}]}"
+    },
+    {
+      "relative_ns": 5213512333,
+      "line": ""
+    },
+    {
+      "relative_ns": 5351442417,
+      "line": "data: {\"id\":\"chatcmpl-16cea52c\",\"object\":\"chat.completion.chunk\",\"created\":1791566885,\"model\":\"Qwen3.8-Flash-Next-oQ6e-mtp\",\"choices\":[{\"index\":0,\"delta\":{\"content\":\" projects are expensive and slow; trenching\"}}]}"
+    },
+    {
+      "relative_ns": 5351449792,
+      "line": ""
+    },
+    {
+      "relative_ns": 5466620167,
+      "line": "data: {\"id\":\"chatcmpl-16cea52c\",\"object\":\"chat.completion.chunk\",\"created\":1791566885,\"model\":\"Qwen3.8-Flash-Next-oQ6e-mtp\",\"choices\":[{\"index\":0,\"delta\":{\"content\":\" through a historic downtown means utility relocations, traffic det\"}}]}"
+    },
+    {
+      "relative_ns": 5466632125,
+      "line": ""
+    },
+    {
+      "relative_ns": 5606471750,
+      "line": "data: {\"id\":\"chatcmpl-16cea52c\",\"object\":\"chat.completion.chunk\",\"created\":1791566885,\"model\":\"Qwen3.8-Flash-Next-oQ6e-mtp\",\"choices\":[{\"index\":0,\"delta\":{\"content\":\"ours, and months of construction noise. There is also the \\\"\"}}]}"
+    },
+    {
+      "relative_ns": 5606481292,
+      "line": ""
+    },
+    {
+      "relative_ns": 5744279458,
+      "line": "data: {\"id\":\"chatcmpl-16cea52c\",\"object\":\"chat.completion.chunk\",\"created\":1791566885,\"model\":\"Qwen3.8-Flash-Next-oQ6e-mtp\",\"choices\":[{\"index\":0,\"delta\":{\"content\":\"gray infrastructure trap\\\": once a neighborhood is\"}}]}"
+    },
+    {
+      "relative_ns": 5744288208,
+      "line": ""
+    },
+    {
+      "relative_ns": 5858640875,
+      "line": "data: {\"id\":\"chatcmpl-16cea52c\",\"object\":\"chat.completion.chunk\",\"created\":1791566885,\"model\":\"Qwen3.8-Flash-Next-oQ6e-mtp\",\"choices\":[{\"index\":0,\"delta\":{\"content\":\" protected by big pipes, developers build more densely there\"}}]}"
+    },
+    {
+      "relative_ns": 5858648792,
+      "line": ""
+    },
+    {
+      "relative_ns": 5998752333,
+      "line": "data: {\"id\":\"chatcmpl-16cea52c\",\"object\":\"chat.completion.chunk\",\"created\":1791566886,\"model\":\"Qwen3.8-Flash-Next-oQ6e-mtp\",\"choices\":[{\"index\":0,\"delta\":{\"content\":\", assuming the problem is solved. When a storm exceeds the design standard\"}}]}"
+    },
+    {
+      "relative_ns": 5998759917,
+      "line": ""
+    },
+    {
+      "relative_ns": 6138026625,
+      "line": "data: {\"id\":\"chatcmpl-16cea52c\",\"object\":\"chat.completion.chunk\",\"created\":1791566886,\"model\":\"Qwen3.8-Flash-Next-oQ6e-mtp\",\"choices\":[{\"index\":0,\"delta\":{\"content\":\"—say, a 50-year storm hitting a system built for\"}}]}"
+    },
+    {
+      "relative_ns": 6138033750,
+      "line": ""
+    },
+    {
+      "relative_ns": 6254585250,
+      "line": "data: {\"id\":\"chatcmpl-16cea52c\",\"object\":\"chat.completion.chunk\",\"created\":1791566886,\"model\":\"Qwen3.8-Flash-Next-oQ6e-mtp\",\"choices\":[{\"index\":0,\"delta\":{\"content\":\" a 10-year event—the consequences are worse than before, because more people\"}}]}"
+    },
+    {
+      "relative_ns": 6254593958,
+      "line": ""
+    },
+    {
+      "relative_ns": 6369620625,
+      "line": "data: {\"id\":\"chatcmpl-16cea52c\",\"object\":\"chat.completion.chunk\",\"created\":1791566886,\"model\":\"Qwen3.8-Flash-Next-oQ6e-mtp\",\"choices\":[{\"index\":0,\"delta\":{\"content\":\" and property are in the way. Riverton should therefore size drains\"}}]}"
+    },
+    {
+      "relative_ns": 6369627000,
+      "line": ""
+    },
+    {
+      "relative_ns": 6484984375,
+      "line": "data: {\"id\":\"chatcmpl-16cea52c\",\"object\":\"chat.completion.chunk\",\"created\":1791566886,\"model\":\"Qwen3.8-Flash-Next-oQ6e-mtp\",\"choices\":[{\"index\":0,\"delta\":{\"content\":\" for realistic future storms, not just historical averages\"}}]}"
+    },
+    {
+      "relative_ns": 6484994333,
+      "line": ""
+    },
+    {
+      "relative_ns": 6623489042,
+      "line": "data: {\"id\":\"chatcmpl-16cea52c\",\"object\":\"chat.completion.chunk\",\"created\":1791566886,\"model\":\"Qwen3.8-Flash-Next-oQ6e-mtp\",\"choices\":[{\"index\":0,\"delta\":{\"content\":\", and pair them with surface storage so that overflow has\"}}]}"
+    },
+    {
+      "relative_ns": 6623495042,
+      "line": ""
+    },
+    {
+      "relative_ns": 6761825000,
+      "line": "data: {\"id\":\"chatcmpl-16cea52c\",\"object\":\"chat.completion.chunk\",\"created\":1791566886,\"model\":\"Qwen3.8-Flash-Next-oQ6e-mtp\",\"choices\":[{\"index\":0,\"delta\":{\"content\":\" somewhere to go that isn't someone's living room.\\n\\n## Rain\"}}]}"
+    },
+    {
+      "relative_ns": 6761833833,
+      "line": ""
+    },
+    {
+      "relative_ns": 6877566667,
+      "line": "data: {\"id\":\"chatcmpl-16cea52c\",\"object\":\"chat.completion.chunk\",\"created\":1791566886,\"model\":\"Qwen3.8-Flash-Next-oQ6e-mtp\",\"choices\":[{\"index\":0,\"delta\":{\"content\":\" Gardens: Slowing Water Where It Falls\\n\\nRain gardens are shallow\"}}]}"
+    },
+    {
+      "relative_ns": 6877574708,
+      "line": ""
+    },
+    {
+      "relative_ns": 7015481042,
+      "line": "data: {\"id\":\"chatcmpl-16cea52c\",\"object\":\"chat.completion.chunk\",\"created\":1791566887,\"model\":\"Qwen3.8-Flash-Next-oQ6e-mtp\",\"choices\":[{\"index\":0,\"delta\":{\"content\":\", planted depressions that capture runoff from roofs, parking lots\"}}]}"
+    },
+    {
+      "relative_ns": 7015489917,
+      "line": ""
+    },
+    {
+      "relative_ns": 7131864792,
+      "line": "data: {\"id\":\"chatcmpl-16cea52c\",\"object\":\"chat.completion.chunk\",\"created\":1791566887,\"model\":\"Qwen3.8-Flash-Next-oQ6e-mtp\",\"choices\":[{\"index\":0,\"delta\":{\"content\":\", and sidewalks, letting it soak into the ground instead of rushing into overloaded drains\"}}]}"
+    },
+    {
+      "relative_ns": 7131874292,
+      "line": ""
+    },
+    {
+      "relative_ns": 7247361375,
+      "line": "data: {\"id\":\"chatcmpl-16cea52c\",\"object\":\"chat.completion.chunk\",\"created\":1791566887,\"model\":\"Qwen3.8-Flash-Next-oQ6e-mtp\",\"choices\":[{\"index\":0,\"delta\":{\"content\":\". For Riverton, they are ideal for the suburban arterial roads\"}}]}"
+    },
+    {
+      "relative_ns": 7247370125,
+      "line": ""
+    },
+    {
+      "relative_ns": 7385536458,
+      "line": "data: {\"id\":\"chatcmpl-16cea52c\",\"object\":\"chat.completion.chunk\",\"created\":1791566887,\"model\":\"Qwen3.8-Flash-Next-oQ6e-mtp\",\"choices\":[{\"index\":0,\"delta\":{\"content\":\" and the strip-mall parking lots, where wide paved areas\"}}]}"
+    },
+    {
+      "relative_ns": 7385543458,
+      "line": ""
+    },
+    {
+      "relative_ns": 7524612542,
+      "line": "data: {\"id\":\"chatcmpl-16cea52c\",\"object\":\"chat.completion.chunk\",\"created\":1791566887,\"model\":\"Qwen3.8-Flash-Next-oQ6e-mtp\",\"choices\":[{\"index\":0,\"delta\":{\"content\":\" generate fast, dirty runoff. A typical rain garden along a bus stop\"}}]}"
+    },
+    {
+      "relative_ns": 7524623083,
+      "line": ""
+    },
+    {
+      "relative_ns": 7639031250,
+      "line": "data: {\"id\":\"chatcmpl-16cea52c\",\"object\":\"chat.completion.chunk\",\"created\":1791566887,\"model\":\"Qwen3.8-Flash-Next-oQ6e-mtp\",\"choices\":[{\"index\":0,\"delta\":{\"content\":\" might be thirty feet long, eighteen inches deep, filled with engineered soil\"}}]}"
+    },
+    {
+      "relative_ns": 7639039083,
+      "line": ""
+    },
+    {
+      "relative_ns": 7752499958,
+      "line": "data: {\"id\":\"chatcmpl-16cea52c\",\"object\":\"chat.completion.chunk\",\"created\":1791566887,\"model\":\"Qwen3.8-Flash-Next-oQ6e-mtp\",\"choices\":[{\"index\":0,\"delta\":{\"content\":\" and planted with sedges, switchgrass, and\"}}]}"
+    },
+    {
+      "relative_ns": 7752507625,
+      "line": ""
+    },
+    {
+      "relative_ns": 7831264542,
+      "line": "data: {\"id\":\"chatcmpl-16cea52c\",\"object\":\"chat.completion.chunk\",\"created\":1791566887,\"model\":\"Qwen3.8-Flash-Next-oQ6e-mtp\",\"choices\":[{\"index\":0,\"delta\":{\"content\":\" blue flag iris—species\"}}]}"
+    },
+    {
+      "relative_ns": 7831270875,
+      "line": ""
+    },
+    {
+      "relative_ns": 7831392292,
+      "line": "data: {\"id\":\"chatcmpl-16cea52c\",\"object\":\"chat.completion.chunk\",\"created\":1791566887,\"model\":\"Qwen3.8-Flash-Next-oQ6e-mtp\",\"choices\":[{\"index\":0,\"delta\":{},\"finish_reason\":\"length\"}]}"
+    },
+    {
+      "relative_ns": 7831394083,
+      "line": ""
+    },
+    {
+      "relative_ns": 7831587417,
+      "line": "data: {\"id\":\"chatcmpl-16cea52c\",\"object\":\"chat.completion.chunk\",\"created\":1791566887,\"model\":\"Qwen3.8-Flash-Next-oQ6e-mtp\",\"choices\":[],\"usage\":{\"prompt_tokens\":5026,\"completion_tokens\":640,\"total_tokens\":5666,\"input_tokens\":5026,\"output_tokens\":640,\"prompt_tokens_details\":{\"cached_tokens\":2048},\"time_to_first_token\":1.04,\"time_to_first_visible_token\":1.04,\"total_time\":7.82,\"prompt_eval_duration\":1.04,\"generation_duration\":6.78,\"prompt_tokens_per_second\":2875.31,\"generation_tokens_per_second\":94.33}}"
+    },
+    {
+      "relative_ns": 7831591292,
+      "line": ""
+    },
+    {
+      "relative_ns": 7831640917,
+      "line": "data: [DONE]"
+    },
+    {
+      "relative_ns": 7831645583,
+      "line": ""
+    }
+  ],
+  "sse_frames": [
+    {
+      "id": "chatcmpl-16cea52c",
+      "object": "chat.completion.chunk",
+      "created": 0,
+      "model": "keepalive",
+      "choices": [
+        {
+          "index": 0,
+          "delta": {
+            "role": "assistant",
+            "content": ""
+          },
+          "finish_reason": null
+        }
+      ]
+    },
+    {
+      "id": "chatcmpl-16cea52c",
+      "object": "chat.completion.chunk",
+      "created": 1791566880,
+      "model": "Qwen3.8-Flash-Next-oQ6e-mtp",
+      "choices": [
+        {
+          "index": 0,
+          "delta": {
+            "role": "assistant"
+          }
+        }
+      ]
+    },
+    {
+      "id": "chatcmpl-16cea52c",
+      "object": "chat.completion.chunk",
+      "created": 1791566881,
+      "model": "Qwen3.8-Flash-Next-oQ6e-mtp",
+      "choices": [
+        {
+          "index": 0,
+          "delta": {
+            "content": "#"
+          }
+        }
+      ]
+    },
+    {
+      "id": "chatcmpl-16cea52c",
+      "object": "chat.completion.chunk",
+      "created": 1791566881,
+      "model": "Qwen3.8-Flash-Next-oQ6e-mtp",
+      "choices": [
+        {
+          "index": 0,
+          "delta": {
+            "content": " Preparing Riverton for Heavy Rain: A Cedar Scenario\n\n"
+          }
+        }
+      ]
+    },
+    {
+      "id": "chatcmpl-16cea52c",
+      "object": "chat.completion.chunk",
+      "created": 1791566881,
+      "model": "Qwen3.8-Flash-Next-oQ6e-mtp",
+      "choices": [
+        {
+          "index": 0,
+          "delta": {
+            "content": "Riverton is a fictional mid-sized town built along a"
+          }
+        }
+      ]
+    },
+    {
+      "id": "chatcmpl-16cea52c",
+      "object": "chat.completion.chunk",
+      "created": 1791566881,
+      "model": "Qwen3.8-Flash-Next-oQ6e-mtp",
+      "choices": [
+        {
+          "index": 0,
+          "delta": {
+            "content": " slow-moving river, with a historic downtown of brick storefront"
+          }
+        }
+      ]
+    },
+    {
+      "id": "chatcmpl-16cea52c",
+      "object": "chat.completion.chunk",
+      "created": 1791566881,
+      "model": "Qwen3.8-Flash-Next-oQ6e-mtp",
+      "choices": [
+        {
+          "index": 0,
+          "delta": {
+            "content": "s, newer suburban neighborhoods on the edges,"
+          }
+        }
+      ]
+    },
+    {
+      "id": "chatcmpl-16cea52c",
+      "object": "chat.completion.chunk",
+      "created": 1791566881,
+      "model": "Qwen3.8-Flash-Next-oQ6e-mtp",
+      "choices": [
+        {
+          "index": 0,
+          "delta": {
+            "content": " and a few old industrial sites near the water."
+          }
+        }
+      ]
+    },
+    {
+      "id": "chatcmpl-16cea52c",
+      "object": "chat.completion.chunk",
+      "created": 1791566881,
+      "model": "Qwen3.8-Flash-Next-oQ6e-mtp",
+      "choices": [
+        {
+          "index": 0,
+          "delta": {
+            "content": " Like many towns of its kind, Riverton was"
+          }
+        }
+      ]
+    },
+    {
+      "id": "chatcmpl-16cea52c",
+      "object": "chat.completion.chunk",
+      "created": 1791566881,
+      "model": "Qwen3.8-Flash-Next-oQ6e-mtp",
+      "choices": [
+        {
+          "index": 0,
+          "delta": {
+            "content": " designed for the rainfall patterns of the last century, not the"
+          }
+        }
+      ]
+    },
+    {
+      "id": "chatcmpl-16cea52c",
+      "object": "chat.completion.chunk",
+      "created": 1791566882,
+      "model": "Qwen3.8-Flash-Next-oQ6e-mtp",
+      "choices": [
+        {
+          "index": 0,
+          "delta": {
+            "content": " heavier, more concentrated storms of this one. A single"
+          }
+        }
+      ]
+    },
+    {
+      "id": "chatcmpl-16cea52c",
+      "object": "chat.completion.chunk",
+      "created": 1791566882,
+      "model": "Qwen3.8-Flash-Next-oQ6e-mtp",
+      "choices": [
+        {
+          "index": 0,
+          "delta": {
+            "content": " intense storm can drop two inches of rain in an"
+          }
+        }
+      ]
+    },
+    {
+      "id": "chatcmpl-16cea52c",
+      "object": "chat.completion.chunk",
+      "created": 1791566882,
+      "model": "Qwen3.8-Flash-Next-oQ6e-mtp",
+      "choices": [
+        {
+          "index": 0,
+          "delta": {
+            "content": " hour, overwhelming gutters, flooding basements, and closing the main road"
+          }
+        }
+      ]
+    },
+    {
+      "id": "chatcmpl-16cea52c",
+      "object": "chat.completion.chunk",
+      "created": 1791566882,
+      "model": "Qwen3.8-Flash-Next-oQ6e-mtp",
+      "choices": [
+        {
+          "index": 0,
+          "delta": {
+            "content": " for a day. To prepare, Riv"
+          }
+        }
+      ]
+    },
+    {
+      "id": "chatcmpl-16cea52c",
+      "object": "chat.completion.chunk",
+      "created": 1791566882,
+      "model": "Qwen3.8-Flash-Next-oQ6e-mtp",
+      "choices": [
+        {
+          "index": 0,
+          "delta": {
+            "content": "erton needs a layered strategy that combines conventional infrastructure (dr"
+          }
+        }
+      ]
+    },
+    {
+      "id": "chatcmpl-16cea52c",
+      "object": "chat.completion.chunk",
+      "created": 1791566882,
+      "model": "Qwen3.8-Flash-Next-oQ6e-mtp",
+      "choices": [
+        {
+          "index": 0,
+          "delta": {
+            "content": "ains and reservoirs), nature-based solutions (rain gardens), disciplined maintenance,"
+          }
+        }
+      ]
+    },
+    {
+      "id": "chatcmpl-16cea52c",
+      "object": "chat.completion.chunk",
+      "created": 1791566882,
+      "model": "Qwen3.8-Flash-Next-oQ6e-mtp",
+      "choices": [
+        {
+          "index": 0,
+          "delta": {
+            "content": " and clear public communication. No single measure is enough on its own;"
+          }
+        }
+      ]
+    },
+    {
+      "id": "chatcmpl-16cea52c",
+      "object": "chat.completion.chunk",
+      "created": 1791566882,
+      "model": "Qwen3.8-Flash-Next-oQ6e-mtp",
+      "choices": [
+        {
+          "index": 0,
+          "delta": {
+            "content": " the value comes from how the pieces"
+          }
+        }
+      ]
+    },
+    {
+      "id": "chatcmpl-16cea52c",
+      "object": "chat.completion.chunk",
+      "created": 1791566883,
+      "model": "Qwen3.8-Flash-Next-oQ6e-mtp",
+      "choices": [
+        {
+          "index": 0,
+          "delta": {
+            "content": " work together, and from being honest about the tradeoffs each choice involves"
+          }
+        }
+      ]
+    },
+    {
+      "id": "chatcmpl-16cea52c",
+      "object": "chat.completion.chunk",
+      "created": 1791566883,
+      "model": "Qwen3.8-Flash-Next-oQ6e-mtp",
+      "choices": [
+        {
+          "index": 0,
+          "delta": {
+            "content": ".\n\n## Drains: The First Line of Defense\n\nStorm drains are the most visible part"
+          }
+        }
+      ]
+    },
+    {
+      "id": "chatcmpl-16cea52c",
+      "object": "chat.completion.chunk",
+      "created": 1791566883,
+      "model": "Qwen3.8-Flash-Next-oQ6e-mtp",
+      "choices": [
+        {
+          "index": 0,
+          "delta": {
+            "content": " of any flood plan. In Riverton, the existing system is"
+          }
+        }
+      ]
+    },
+    {
+      "id": "chatcmpl-16cea52c",
+      "object": "chat.completion.chunk",
+      "created": 1791566883,
+      "model": "Qwen3.8-Flash-Next-oQ6e-mtp",
+      "choices": [
+        {
+          "index": 0,
+          "delta": {
+            "content": " a mix of century-old brick sewers in the"
+          }
+        }
+      ]
+    },
+    {
+      "id": "chatcmpl-16cea52c",
+      "object": "chat.completion.chunk",
+      "created": 1791566883,
+      "model": "Qwen3.8-Flash-Next-oQ6e-mtp",
+      "choices": [
+        {
+          "index": 0,
+          "delta": {
+            "content": " downtown core and modern concrete pipes in the suburbs. Upgrading"
+          }
+        }
+      ]
+    },
+    {
+      "id": "chatcmpl-16cea52c",
+      "object": "chat.completion.chunk",
+      "created": 1791566883,
+      "model": "Qwen3.8-Flash-Next-oQ6e-mtp",
+      "choices": [
+        {
+          "index": 0,
+          "delta": {
+            "content": " drains means enlarging inlets, adding catch bas"
+          }
+        }
+      ]
+    },
+    {
+      "id": "chatcmpl-16cea52c",
+      "object": "chat.completion.chunk",
+      "created": 1791566883,
+      "model": "Qwen3.8-Flash-Next-oQ6e-mtp",
+      "choices": [
+        {
+          "index": 0,
+          "delta": {
+            "content": "ins at low points, and separating stormwater from sanitary sewage"
+          }
+        }
+      ]
+    },
+    {
+      "id": "chatcmpl-16cea52c",
+      "object": "chat.completion.chunk",
+      "created": 1791566883,
+      "model": "Qwen3.8-Flash-Next-oQ6e-mtp",
+      "choices": [
+        {
+          "index": 0,
+          "delta": {
+            "content": " where the two are currently combined. A combined system is a"
+          }
+        }
+      ]
+    },
+    {
+      "id": "chatcmpl-16cea52c",
+      "object": "chat.completion.chunk",
+      "created": 1791566883,
+      "model": "Qwen3.8-Flash-Next-oQ6e-mtp",
+      "choices": [
+        {
+          "index": 0,
+          "delta": {
+            "content": " particular vulnerability: during heavy rain, the pipes fill"
+          }
+        }
+      ]
+    },
+    {
+      "id": "chatcmpl-16cea52c",
+      "object": "chat.completion.chunk",
+      "created": 1791566884,
+      "model": "Qwen3.8-Flash-Next-oQ6e-mtp",
+      "choices": [
+        {
+          "index": 0,
+          "delta": {
+            "content": " beyond capacity and the overflow—"
+          }
+        }
+      ]
+    },
+    {
+      "id": "chatcmpl-16cea52c",
+      "object": "chat.completion.chunk",
+      "created": 1791566884,
+      "model": "Qwen3.8-Flash-Next-oQ6e-mtp",
+      "choices": [
+        {
+          "index": 0,
+          "delta": {
+            "content": "mixed with sewage—can back up into street drains"
+          }
+        }
+      ]
+    },
+    {
+      "id": "chatcmpl-16cea52c",
+      "object": "chat.completion.chunk",
+      "created": 1791566884,
+      "model": "Qwen3.8-Flash-Next-oQ6e-mtp",
+      "choices": [
+        {
+          "index": 0,
+          "delta": {
+            "content": " and basements.\n\nThe advantage of drains is that they are predictable and"
+          }
+        }
+      ]
+    },
+    {
+      "id": "chatcmpl-16cea52c",
+      "object": "chat.completion.chunk",
+      "created": 1791566884,
+      "model": "Qwen3.8-Flash-Next-oQ6e-mtp",
+      "choices": [
+        {
+          "index": 0,
+          "delta": {
+            "content": " well understood. Engineers can calculate pipe diameters, slopes,"
+          }
+        }
+      ]
+    },
+    {
+      "id": "chatcmpl-16cea52c",
+      "object": "chat.completion.chunk",
+      "created": 1791566884,
+      "model": "Qwen3.8-Flash-Next-oQ6e-mtp",
+      "choices": [
+        {
+          "index": 0,
+          "delta": {
+            "content": " and flows with reasonable confidence, and contractors know how"
+          }
+        }
+      ]
+    },
+    {
+      "id": "chatcmpl-16cea52c",
+      "object": "chat.completion.chunk",
+      "created": 1791566884,
+      "model": "Qwen3.8-Flash-Next-oQ6e-mtp",
+      "choices": [
+        {
+          "index": 0,
+          "delta": {
+            "content": " to install them. A new 48-inch"
+          }
+        }
+      ]
+    },
+    {
+      "id": "chatcmpl-16cea52c",
+      "object": "chat.completion.chunk",
+      "created": 1791566884,
+      "model": "Qwen3.8-Flash-Next-oQ6e-mtp",
+      "choices": [
+        {
+          "index": 0,
+          "delta": {
+            "content": " storm main under Main Street can move a"
+          }
+        }
+      ]
+    },
+    {
+      "id": "chatcmpl-16cea52c",
+      "object": "chat.completion.chunk",
+      "created": 1791566885,
+      "model": "Qwen3.8-Flash-Next-oQ6e-mtp",
+      "choices": [
+        {
+          "index": 0,
+          "delta": {
+            "content": " large volume of water quickly, protecting the retail district where every hour"
+          }
+        }
+      ]
+    },
+    {
+      "id": "chatcmpl-16cea52c",
+      "object": "chat.completion.chunk",
+      "created": 1791566885,
+      "model": "Qwen3.8-Flash-Next-oQ6e-mtp",
+      "choices": [
+        {
+          "index": 0,
+          "delta": {
+            "content": " of flooding means lost sales and mold damage.\n\nThe tradeoffs are cost,"
+          }
+        }
+      ]
+    },
+    {
+      "id": "chatcmpl-16cea52c",
+      "object": "chat.completion.chunk",
+      "created": 1791566885,
+      "model": "Qwen3.8-Flash-Next-oQ6e-mtp",
+      "choices": [
+        {
+          "index": 0,
+          "delta": {
+            "content": " disruption, and a subtle behavioral risk. Large pipe"
+          }
+        }
+      ]
+    },
+    {
+      "id": "chatcmpl-16cea52c",
+      "object": "chat.completion.chunk",
+      "created": 1791566885,
+      "model": "Qwen3.8-Flash-Next-oQ6e-mtp",
+      "choices": [
+        {
+          "index": 0,
+          "delta": {
+            "content": " projects are expensive and slow; trenching"
+          }
+        }
+      ]
+    },
+    {
+      "id": "chatcmpl-16cea52c",
+      "object": "chat.completion.chunk",
+      "created": 1791566885,
+      "model": "Qwen3.8-Flash-Next-oQ6e-mtp",
+      "choices": [
+        {
+          "index": 0,
+          "delta": {
+            "content": " through a historic downtown means utility relocations, traffic det"
+          }
+        }
+      ]
+    },
+    {
+      "id": "chatcmpl-16cea52c",
+      "object": "chat.completion.chunk",
+      "created": 1791566885,
+      "model": "Qwen3.8-Flash-Next-oQ6e-mtp",
+      "choices": [
+        {
+          "index": 0,
+          "delta": {
+            "content": "ours, and months of construction noise. There is also the \""
+          }
+        }
+      ]
+    },
+    {
+      "id": "chatcmpl-16cea52c",
+      "object": "chat.completion.chunk",
+      "created": 1791566885,
+      "model": "Qwen3.8-Flash-Next-oQ6e-mtp",
+      "choices": [
+        {
+          "index": 0,
+          "delta": {
+            "content": "gray infrastructure trap\": once a neighborhood is"
+          }
+        }
+      ]
+    },
+    {
+      "id": "chatcmpl-16cea52c",
+      "object": "chat.completion.chunk",
+      "created": 1791566885,
+      "model": "Qwen3.8-Flash-Next-oQ6e-mtp",
+      "choices": [
+        {
+          "index": 0,
+          "delta": {
+            "content": " protected by big pipes, developers build more densely there"
+          }
+        }
+      ]
+    },
+    {
+      "id": "chatcmpl-16cea52c",
+      "object": "chat.completion.chunk",
+      "created": 1791566886,
+      "model": "Qwen3.8-Flash-Next-oQ6e-mtp",
+      "choices": [
+        {
+          "index": 0,
+          "delta": {
+            "content": ", assuming the problem is solved. When a storm exceeds the design standard"
+          }
+        }
+      ]
+    },
+    {
+      "id": "chatcmpl-16cea52c",
+      "object": "chat.completion.chunk",
+      "created": 1791566886,
+      "model": "Qwen3.8-Flash-Next-oQ6e-mtp",
+      "choices": [
+        {
+          "index": 0,
+          "delta": {
+            "content": "—say, a 50-year storm hitting a system built for"
+          }
+        }
+      ]
+    },
+    {
+      "id": "chatcmpl-16cea52c",
+      "object": "chat.completion.chunk",
+      "created": 1791566886,
+      "model": "Qwen3.8-Flash-Next-oQ6e-mtp",
+      "choices": [
+        {
+          "index": 0,
+          "delta": {
+            "content": " a 10-year event—the consequences are worse than before, because more people"
+          }
+        }
+      ]
+    },
+    {
+      "id": "chatcmpl-16cea52c",
+      "object": "chat.completion.chunk",
+      "created": 1791566886,
+      "model": "Qwen3.8-Flash-Next-oQ6e-mtp",
+      "choices": [
+        {
+          "index": 0,
+          "delta": {
+            "content": " and property are in the way. Riverton should therefore size drains"
+          }
+        }
+      ]
+    },
+    {
+      "id": "chatcmpl-16cea52c",
+      "object": "chat.completion.chunk",
+      "created": 1791566886,
+      "model": "Qwen3.8-Flash-Next-oQ6e-mtp",
+      "choices": [
+        {
+          "index": 0,
+          "delta": {
+            "content": " for realistic future storms, not just historical averages"
+          }
+        }
+      ]
+    },
+    {
+      "id": "chatcmpl-16cea52c",
+      "object": "chat.completion.chunk",
+      "created": 1791566886,
+      "model": "Qwen3.8-Flash-Next-oQ6e-mtp",
+      "choices": [
+        {
+          "index": 0,
+          "delta": {
+            "content": ", and pair them with surface storage so that overflow has"
+          }
+        }
+      ]
+    },
+    {
+      "id": "chatcmpl-16cea52c",
+      "object": "chat.completion.chunk",
+      "created": 1791566886,
+      "model": "Qwen3.8-Flash-Next-oQ6e-mtp",
+      "choices": [
+        {
+          "index": 0,
+          "delta": {
+            "content": " somewhere to go that isn't someone's living room.\n\n## Rain"
+          }
+        }
+      ]
+    },
+    {
+      "id": "chatcmpl-16cea52c",
+      "object": "chat.completion.chunk",
+      "created": 1791566886,
+      "model": "Qwen3.8-Flash-Next-oQ6e-mtp",
+      "choices": [
+        {
+          "index": 0,
+          "delta": {
+            "content": " Gardens: Slowing Water Where It Falls\n\nRain gardens are shallow"
+          }
+        }
+      ]
+    },
+    {
+      "id": "chatcmpl-16cea52c",
+      "object": "chat.completion.chunk",
+      "created": 1791566887,
+      "model": "Qwen3.8-Flash-Next-oQ6e-mtp",
+      "choices": [
+        {
+          "index": 0,
+          "delta": {
+            "content": ", planted depressions that capture runoff from roofs, parking lots"
+          }
+        }
+      ]
+    },
+    {
+      "id": "chatcmpl-16cea52c",
+      "object": "chat.completion.chunk",
+      "created": 1791566887,
+      "model": "Qwen3.8-Flash-Next-oQ6e-mtp",
+      "choices": [
+        {
+          "index": 0,
+          "delta": {
+            "content": ", and sidewalks, letting it soak into the ground instead of rushing into overloaded drains"
+          }
+        }
+      ]
+    },
+    {
+      "id": "chatcmpl-16cea52c",
+      "object": "chat.completion.chunk",
+      "created": 1791566887,
+      "model": "Qwen3.8-Flash-Next-oQ6e-mtp",
+      "choices": [
+        {
+          "index": 0,
+          "delta": {
+            "content": ". For Riverton, they are ideal for the suburban arterial roads"
+          }
+        }
+      ]
+    },
+    {
+      "id": "chatcmpl-16cea52c",
+      "object": "chat.completion.chunk",
+      "created": 1791566887,
+      "model": "Qwen3.8-Flash-Next-oQ6e-mtp",
+      "choices": [
+        {
+          "index": 0,
+          "delta": {
+            "content": " and the strip-mall parking lots, where wide paved areas"
+          }
+        }
+      ]
+    },
+    {
+      "id": "chatcmpl-16cea52c",
+      "object": "chat.completion.chunk",
+      "created": 1791566887,
+      "model": "Qwen3.8-Flash-Next-oQ6e-mtp",
+      "choices": [
+        {
+          "index": 0,
+          "delta": {
+            "content": " generate fast, dirty runoff. A typical rain garden along a bus stop"
+          }
+        }
+      ]
+    },
+    {
+      "id": "chatcmpl-16cea52c",
+      "object": "chat.completion.chunk",
+      "created": 1791566887,
+      "model": "Qwen3.8-Flash-Next-oQ6e-mtp",
+      "choices": [
+        {
+          "index": 0,
+          "delta": {
+            "content": " might be thirty feet long, eighteen inches deep, filled with engineered soil"
+          }
+        }
+      ]
+    },
+    {
+      "id": "chatcmpl-16cea52c",
+      "object": "chat.completion.chunk",
+      "created": 1791566887,
+      "model": "Qwen3.8-Flash-Next-oQ6e-mtp",
+      "choices": [
+        {
+          "index": 0,
+          "delta": {
+            "content": " and planted with sedges, switchgrass, and"
+          }
+        }
+      ]
+    },
+    {
+      "id": "chatcmpl-16cea52c",
+      "object": "chat.completion.chunk",
+      "created": 1791566887,
+      "model": "Qwen3.8-Flash-Next-oQ6e-mtp",
+      "choices": [
+        {
+          "index": 0,
+          "delta": {
+            "content": " blue flag iris—species"
+          }
+        }
+      ]
+    },
+    {
+      "id": "chatcmpl-16cea52c",
+      "object": "chat.completion.chunk",
+      "created": 1791566887,
+      "model": "Qwen3.8-Flash-Next-oQ6e-mtp",
+      "choices": [
+        {
+          "index": 0,
+          "delta": {},
+          "finish_reason": "length"
+        }
+      ]
+    },
+    {
+      "id": "chatcmpl-16cea52c",
+      "object": "chat.completion.chunk",
+      "created": 1791566887,
+      "model": "Qwen3.8-Flash-Next-oQ6e-mtp",
+      "choices": [],
+      "usage": {
+        "prompt_tokens": 5026,
+        "completion_tokens": 640,
+        "total_tokens": 5666,
+        "input_tokens": 5026,
+        "output_tokens": 640,
+        "prompt_tokens_details": {
+          "cached_tokens": 2048
+        },
+        "time_to_first_token": 1.04,
+        "time_to_first_visible_token": 1.04,
+        "total_time": 7.82,
+        "prompt_eval_duration": 1.04,
+        "generation_duration": 6.78,
+        "prompt_tokens_per_second": 2875.31,
+        "generation_tokens_per_second": 94.33
+      }
+    }
+  ]
+}

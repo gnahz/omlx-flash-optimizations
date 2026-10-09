@@ -1,0 +1,11 @@
+{
+  "status": "passed",
+  "repo_id": "mlx-community/Qwen3.8-Flash-Next-oQ6e-mtp",
+  "revision": "e171af86f499f1855b0fb71d781105e8dd609610",
+  "method": "hf cache verify --fail-on-missing-files",
+  "files_checked": 42,
+  "cli_exit_code": 0,
+  "extra_local_files": 90,
+  "extra_file_scope": "89 Hugging Face download cache files and one .DS_Store; no extra model payload",
+  "original_cli_log_sha256": "3bda93f7a02bf361953bf62c259c8cc6b17567e3f69b4840f3b01fd8bb8c7b57"
+}

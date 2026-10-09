@@ -1,0 +1,1082 @@
+{
+  "text": "{\n  \"service\": {\n    \"name\": \"orders-api\",\n    \"version\": \"3.2.1\",\n    \"request_timeout_seconds\": 45,\n    \"bind_address\": \"127.0.0.1\",\n    \"port\": 8080,\n    \"graceful_shutdown_seconds\": 15,\n    \"max_request_bytes\": 1048576\n  },\n  \"database\": {\n    \"engine\": \"postgresql\",\n    \"host\": \"db.internal\",\n    \"port\": 5432,\n    \"name\": \"orders\",\n    \"pool_min\": 4,\n    \"pool_max\": 24,\n    \"statement_timeout_seconds\": 12,\n    \"ssl\": true\n  },\n  \"cache\": {\n    \"engine\": \"redis\",\n    \"host\": \"cache.internal\",\n    \"port\": 6379,\n    \"namespace\": \"orders:v3\",\n    \"default_ttl_seconds\": 300,\n    \"connect_timeout_seconds\": 2\n  },\n  \"workers\": [\n    {\"name\": \"receipts\", \"concurrency\": 4, \"retry_limit\": 3, \"queue\": \"receipts\"},\n    {\"name\": \"shipping\", \"concurrency\": 2, \"retry_limit\": 5, \"queue\": \"shipping\"},\n    {\"name\": \"refunds\", \"concurrency\": 2, \"retry_limit\": 2, \"queue\": \"refunds\"},\n    {\"name\": \"inventory\", \"concurrency\": 6, \"retry_limit\": 4, \"queue\": \"inventory\"}\n  ],\n  \"features\": {\n    \"coupons\": true,\n    \"express_shipping\": true,\n    \"international_shipping\": false,\n    \"guest_checkout\": true,\n    \"automatic_refunds\": false,\n    \"inventory_reservations\": true\n  },\n  \"logging\": {\n    \"level\": \"INFO\",\n    \"format\": \"json\",\n    \"include_request_id\": true,\n    \"redact_fields\": [\"authorization\", \"credit_card\", \"password\"],\n    \"sample_rate\": 1.0\n  },\n  \"metrics\": {\n    \"enabled\": true,\n    \"endpoint\": \"/metrics\",\n    \"histogram_buckets_ms\": [5, 10, 25, 50, 100, 250, 500, 1000],\n    \"labels\": {\"environment\": \"staging\", \"region\": \"us-west-2\"}\n  },\n  \"security\": {\n    \"allowed_origins\": [\"https://shop.example.com\", \"https://admin.example.com\"],\n    \"csrf_enabled\": true,\n    \"rate_limit_per_minute\": 120,\n    \"trusted_proxy_count\": 1\n  },\n  \"shipping\": {\n    \"standard_fee\": \"4.99\",\n    \"express_fee\": \"12.50\",\n    \"free_threshold\": \"100.00\",\n    \"carriers\": [\"local_post\", \"express_courier\"]\n  },\n  \"notifications\": {\n    \"sender_name\": \"Example Shop\",\n    \"sender_address\": \"receipts@example.com\",\n    \"receipt_template\": \"receipt-v3\",\n    \"shipping_template\": \"shipping-v2\",\n    \"refund_template\": \"refund-v1\"\n  },\n  \"health_checks\": {\n    \"liveness_path\": \"/health/live\",\n    \"readiness_path\": \"/health/ready\",\n    \"interval_seconds\": 10,\n    \"unhealthy_threshold\": 3\n  }\n}",
+  "reasoning": "",
+  "tool_calls": [],
+  "usage": {
+    "prompt_tokens": 880,
+    "completion_tokens": 822,
+    "total_tokens": 1702,
+    "input_tokens": 880,
+    "output_tokens": 822,
+    "prompt_tokens_details": {
+      "cached_tokens": 0
+    },
+    "time_to_first_token": 0.48,
+    "time_to_first_visible_token": 0.48,
+    "total_time": 4.97,
+    "prompt_eval_duration": 0.48,
+    "generation_duration": 4.5,
+    "prompt_tokens_per_second": 1850.4,
+    "generation_tokens_per_second": 182.76
+  },
+  "finish_reason": "stop",
+  "done": true,
+  "stream_errors": [],
+  "sse_events": [
+    {
+      "relative_ns": 5179250,
+      "line": "data: {\"id\":\"chatcmpl-f44fee34\",\"object\":\"chat.completion.chunk\",\"created\":0,\"model\":\"keepalive\",\"choices\":[{\"index\":0,\"delta\":{\"role\":\"assistant\",\"content\":\"\"},\"finish_reason\":null}]}"
+    },
+    {
+      "relative_ns": 5183167,
+      "line": ""
+    },
+    {
+      "relative_ns": 6158459,
+      "line": "data: {\"id\":\"chatcmpl-f44fee34\",\"object\":\"chat.completion.chunk\",\"created\":1791566375,\"model\":\"Qwen3.8-Flash-Next-oQ6e-mtp\",\"choices\":[{\"index\":0,\"delta\":{\"role\":\"assistant\"}}]}"
+    },
+    {
+      "relative_ns": 6161292,
+      "line": ""
+    },
+    {
+      "relative_ns": 481609125,
+      "line": "data: {\"id\":\"chatcmpl-f44fee34\",\"object\":\"chat.completion.chunk\",\"created\":1791566375,\"model\":\"Qwen3.8-Flash-Next-oQ6e-mtp\",\"choices\":[{\"index\":0,\"delta\":{\"content\":\"{\"}}]}"
+    },
+    {
+      "relative_ns": 481617959,
+      "line": ""
+    },
+    {
+      "relative_ns": 593431750,
+      "line": "data: {\"id\":\"chatcmpl-f44fee34\",\"object\":\"chat.completion.chunk\",\"created\":1791566375,\"model\":\"Qwen3.8-Flash-Next-oQ6e-mtp\",\"choices\":[{\"index\":0,\"delta\":{\"content\":\"\\n  \\\"service\\\": {\\n    \\\"name\\\": \\\"orders-api\\\",\\n    \\\"\"}}]}"
+    },
+    {
+      "relative_ns": 593468292,
+      "line": ""
+    },
+    {
+      "relative_ns": 700858084,
+      "line": "data: {\"id\":\"chatcmpl-f44fee34\",\"object\":\"chat.completion.chunk\",\"created\":1791566375,\"model\":\"Qwen3.8-Flash-Next-oQ6e-mtp\",\"choices\":[{\"index\":0,\"delta\":{\"content\":\"version\\\": \\\"3.2.1\\\",\\n    \\\"request_timeout_seconds\\\": 45,\"}}]}"
+    },
+    {
+      "relative_ns": 700866250,
+      "line": ""
+    },
+    {
+      "relative_ns": 807860125,
+      "line": "data: {\"id\":\"chatcmpl-f44fee34\",\"object\":\"chat.completion.chunk\",\"created\":1791566375,\"model\":\"Qwen3.8-Flash-Next-oQ6e-mtp\",\"choices\":[{\"index\":0,\"delta\":{\"content\":\"\\n    \\\"bind_address\\\": \\\"127.0.0.1\\\",\\n    \\\"\"}}]}"
+    },
+    {
+      "relative_ns": 807868209,
+      "line": ""
+    },
+    {
+      "relative_ns": 915169167,
+      "line": "data: {\"id\":\"chatcmpl-f44fee34\",\"object\":\"chat.completion.chunk\",\"created\":1791566376,\"model\":\"Qwen3.8-Flash-Next-oQ6e-mtp\",\"choices\":[{\"index\":0,\"delta\":{\"content\":\"port\\\": 8080,\\n    \\\"graceful_shutdown_seconds\\\": 15\"}}]}"
+    },
+    {
+      "relative_ns": 915198417,
+      "line": ""
+    },
+    {
+      "relative_ns": 1021557792,
+      "line": "data: {\"id\":\"chatcmpl-f44fee34\",\"object\":\"chat.completion.chunk\",\"created\":1791566376,\"model\":\"Qwen3.8-Flash-Next-oQ6e-mtp\",\"choices\":[{\"index\":0,\"delta\":{\"content\":\",\\n    \\\"max_request_bytes\\\": 1048576\\n  },\\n\"}}]}"
+    },
+    {
+      "relative_ns": 1021567334,
+      "line": ""
+    },
+    {
+      "relative_ns": 1129705375,
+      "line": "data: {\"id\":\"chatcmpl-f44fee34\",\"object\":\"chat.completion.chunk\",\"created\":1791566376,\"model\":\"Qwen3.8-Flash-Next-oQ6e-mtp\",\"choices\":[{\"index\":0,\"delta\":{\"content\":\"  \\\"database\\\": {\\n    \\\"engine\\\": \\\"postgresql\\\",\\n    \\\"host\\\": \\\"db\"}}]}"
+    },
+    {
+      "relative_ns": 1129715542,
+      "line": ""
+    },
+    {
+      "relative_ns": 1237326750,
+      "line": "data: {\"id\":\"chatcmpl-f44fee34\",\"object\":\"chat.completion.chunk\",\"created\":1791566376,\"model\":\"Qwen3.8-Flash-Next-oQ6e-mtp\",\"choices\":[{\"index\":0,\"delta\":{\"content\":\".internal\\\",\\n    \\\"port\\\": 5432,\\n    \\\"name\\\": \\\"orders\"}}]}"
+    },
+    {
+      "relative_ns": 1237335334,
+      "line": ""
+    },
+    {
+      "relative_ns": 1345954334,
+      "line": "data: {\"id\":\"chatcmpl-f44fee34\",\"object\":\"chat.completion.chunk\",\"created\":1791566376,\"model\":\"Qwen3.8-Flash-Next-oQ6e-mtp\",\"choices\":[{\"index\":0,\"delta\":{\"content\":\"\\\",\\n    \\\"pool_min\\\": 4,\\n    \\\"pool_max\\\": 24,\"}}]}"
+    },
+    {
+      "relative_ns": 1345964667,
+      "line": ""
+    },
+    {
+      "relative_ns": 1453208709,
+      "line": "data: {\"id\":\"chatcmpl-f44fee34\",\"object\":\"chat.completion.chunk\",\"created\":1791566376,\"model\":\"Qwen3.8-Flash-Next-oQ6e-mtp\",\"choices\":[{\"index\":0,\"delta\":{\"content\":\"\\n    \\\"statement_timeout_seconds\\\": 12,\\n    \\\"ssl\\\": true\\n  },\"}}]}"
+    },
+    {
+      "relative_ns": 1453217417,
+      "line": ""
+    },
+    {
+      "relative_ns": 1560888334,
+      "line": "data: {\"id\":\"chatcmpl-f44fee34\",\"object\":\"chat.completion.chunk\",\"created\":1791566376,\"model\":\"Qwen3.8-Flash-Next-oQ6e-mtp\",\"choices\":[{\"index\":0,\"delta\":{\"content\":\"\\n  \\\"cache\\\": {\\n    \\\"engine\\\": \\\"redis\\\",\\n    \\\"host\\\": \\\"\"}}]}"
+    },
+    {
+      "relative_ns": 1560897542,
+      "line": ""
+    },
+    {
+      "relative_ns": 1669264459,
+      "line": "data: {\"id\":\"chatcmpl-f44fee34\",\"object\":\"chat.completion.chunk\",\"created\":1791566376,\"model\":\"Qwen3.8-Flash-Next-oQ6e-mtp\",\"choices\":[{\"index\":0,\"delta\":{\"content\":\"cache.internal\\\",\\n    \\\"port\\\": 6379,\\n    \\\"namespace\\\": \\\"\"}}]}"
+    },
+    {
+      "relative_ns": 1669272917,
+      "line": ""
+    },
+    {
+      "relative_ns": 1777502042,
+      "line": "data: {\"id\":\"chatcmpl-f44fee34\",\"object\":\"chat.completion.chunk\",\"created\":1791566376,\"model\":\"Qwen3.8-Flash-Next-oQ6e-mtp\",\"choices\":[{\"index\":0,\"delta\":{\"content\":\"orders:v3\\\",\\n    \\\"default_ttl_seconds\\\": 300,\\n    \\\"connect\"}}]}"
+    },
+    {
+      "relative_ns": 1777510625,
+      "line": ""
+    },
+    {
+      "relative_ns": 1889504417,
+      "line": "data: {\"id\":\"chatcmpl-f44fee34\",\"object\":\"chat.completion.chunk\",\"created\":1791566377,\"model\":\"Qwen3.8-Flash-Next-oQ6e-mtp\",\"choices\":[{\"index\":0,\"delta\":{\"content\":\"_timeout_seconds\\\": 2\\n  },\\n  \\\"workers\\\": [\\n    {\\\"name\"}}]}"
+    },
+    {
+      "relative_ns": 1889514459,
+      "line": ""
+    },
+    {
+      "relative_ns": 2006384542,
+      "line": "data: {\"id\":\"chatcmpl-f44fee34\",\"object\":\"chat.completion.chunk\",\"created\":1791566377,\"model\":\"Qwen3.8-Flash-Next-oQ6e-mtp\",\"choices\":[{\"index\":0,\"delta\":{\"content\":\"\\\": \\\"receipts\\\", \\\"concurrency\\\": 4, \\\"retry_limit\\\": 3, \\\"\"}}]}"
+    },
+    {
+      "relative_ns": 2006393834,
+      "line": ""
+    },
+    {
+      "relative_ns": 2115073125,
+      "line": "data: {\"id\":\"chatcmpl-f44fee34\",\"object\":\"chat.completion.chunk\",\"created\":1791566377,\"model\":\"Qwen3.8-Flash-Next-oQ6e-mtp\",\"choices\":[{\"index\":0,\"delta\":{\"content\":\"queue\\\": \\\"receipts\\\"},\\n    {\\\"name\\\": \\\"shipping\\\", \\\"concurrency\\\": 2\"}}]}"
+    },
+    {
+      "relative_ns": 2115081084,
+      "line": ""
+    },
+    {
+      "relative_ns": 2223786250,
+      "line": "data: {\"id\":\"chatcmpl-f44fee34\",\"object\":\"chat.completion.chunk\",\"created\":1791566377,\"model\":\"Qwen3.8-Flash-Next-oQ6e-mtp\",\"choices\":[{\"index\":0,\"delta\":{\"content\":\", \\\"retry_limit\\\": 5, \\\"queue\\\": \\\"shipping\\\"},\\n    {\\\"name\\\": \\\"\"}}]}"
+    },
+    {
+      "relative_ns": 2223795084,
+      "line": ""
+    },
+    {
+      "relative_ns": 2331121334,
+      "line": "data: {\"id\":\"chatcmpl-f44fee34\",\"object\":\"chat.completion.chunk\",\"created\":1791566377,\"model\":\"Qwen3.8-Flash-Next-oQ6e-mtp\",\"choices\":[{\"index\":0,\"delta\":{\"content\":\"refunds\\\", \\\"concurrency\\\": 2, \\\"retry_limit\\\": 2, \\\"queue\\\":\"}}]}"
+    },
+    {
+      "relative_ns": 2331129500,
+      "line": ""
+    },
+    {
+      "relative_ns": 2439407000,
+      "line": "data: {\"id\":\"chatcmpl-f44fee34\",\"object\":\"chat.completion.chunk\",\"created\":1791566377,\"model\":\"Qwen3.8-Flash-Next-oQ6e-mtp\",\"choices\":[{\"index\":0,\"delta\":{\"content\":\" \\\"refunds\\\"},\\n    {\\\"name\\\": \\\"inventory\\\", \\\"concurrency\\\": 6, \\\"\"}}]}"
+    },
+    {
+      "relative_ns": 2439415334,
+      "line": ""
+    },
+    {
+      "relative_ns": 2545565834,
+      "line": "data: {\"id\":\"chatcmpl-f44fee34\",\"object\":\"chat.completion.chunk\",\"created\":1791566377,\"model\":\"Qwen3.8-Flash-Next-oQ6e-mtp\",\"choices\":[{\"index\":0,\"delta\":{\"content\":\"retry_limit\\\": 4, \\\"queue\\\": \\\"inventory\\\"}\\n  ],\\n  \\\"features\\\":\"}}]}"
+    },
+    {
+      "relative_ns": 2545575459,
+      "line": ""
+    },
+    {
+      "relative_ns": 2654206167,
+      "line": "data: {\"id\":\"chatcmpl-f44fee34\",\"object\":\"chat.completion.chunk\",\"created\":1791566377,\"model\":\"Qwen3.8-Flash-Next-oQ6e-mtp\",\"choices\":[{\"index\":0,\"delta\":{\"content\":\" {\\n    \\\"coupons\\\": true,\\n    \\\"express_shipping\\\": true,\\n    \\\"\"}}]}"
+    },
+    {
+      "relative_ns": 2654214417,
+      "line": ""
+    },
+    {
+      "relative_ns": 2762663917,
+      "line": "data: {\"id\":\"chatcmpl-f44fee34\",\"object\":\"chat.completion.chunk\",\"created\":1791566377,\"model\":\"Qwen3.8-Flash-Next-oQ6e-mtp\",\"choices\":[{\"index\":0,\"delta\":{\"content\":\"international_shipping\\\": false,\\n    \\\"guest_checkout\\\": true,\\n    \\\"automatic_refunds\\\":\"}}]}"
+    },
+    {
+      "relative_ns": 2762675917,
+      "line": ""
+    },
+    {
+      "relative_ns": 2870688250,
+      "line": "data: {\"id\":\"chatcmpl-f44fee34\",\"object\":\"chat.completion.chunk\",\"created\":1791566378,\"model\":\"Qwen3.8-Flash-Next-oQ6e-mtp\",\"choices\":[{\"index\":0,\"delta\":{\"content\":\" false,\\n    \\\"inventory_reservations\\\": true\\n  },\\n  \\\"logging\\\": {\\n\"}}]}"
+    },
+    {
+      "relative_ns": 2870696917,
+      "line": ""
+    },
+    {
+      "relative_ns": 2979252459,
+      "line": "data: {\"id\":\"chatcmpl-f44fee34\",\"object\":\"chat.completion.chunk\",\"created\":1791566378,\"model\":\"Qwen3.8-Flash-Next-oQ6e-mtp\",\"choices\":[{\"index\":0,\"delta\":{\"content\":\"    \\\"level\\\": \\\"INFO\\\",\\n    \\\"format\\\": \\\"json\\\",\\n    \\\"include_request\"}}]}"
+    },
+    {
+      "relative_ns": 2979261625,
+      "line": ""
+    },
+    {
+      "relative_ns": 3086866334,
+      "line": "data: {\"id\":\"chatcmpl-f44fee34\",\"object\":\"chat.completion.chunk\",\"created\":1791566378,\"model\":\"Qwen3.8-Flash-Next-oQ6e-mtp\",\"choices\":[{\"index\":0,\"delta\":{\"content\":\"_id\\\": true,\\n    \\\"redact_fields\\\": [\\\"authorization\\\", \\\"credit_card\\\", \\\"password\"}}]}"
+    },
+    {
+      "relative_ns": 3086874834,
+      "line": ""
+    },
+    {
+      "relative_ns": 3194843875,
+      "line": "data: {\"id\":\"chatcmpl-f44fee34\",\"object\":\"chat.completion.chunk\",\"created\":1791566378,\"model\":\"Qwen3.8-Flash-Next-oQ6e-mtp\",\"choices\":[{\"index\":0,\"delta\":{\"content\":\"\\\"],\\n    \\\"sample_rate\\\": 1.0\\n  },\\n  \\\"metrics\\\": {\"}}]}"
+    },
+    {
+      "relative_ns": 3194852709,
+      "line": ""
+    },
+    {
+      "relative_ns": 3306568709,
+      "line": "data: {\"id\":\"chatcmpl-f44fee34\",\"object\":\"chat.completion.chunk\",\"created\":1791566378,\"model\":\"Qwen3.8-Flash-Next-oQ6e-mtp\",\"choices\":[{\"index\":0,\"delta\":{\"content\":\"\\n    \\\"enabled\\\": true,\\n    \\\"endpoint\\\": \\\"/metrics\\\",\\n    \\\"histogram\"}}]}"
+    },
+    {
+      "relative_ns": 3306575625,
+      "line": ""
+    },
+    {
+      "relative_ns": 3431498709,
+      "line": "data: {\"id\":\"chatcmpl-f44fee34\",\"object\":\"chat.completion.chunk\",\"created\":1791566378,\"model\":\"Qwen3.8-Flash-Next-oQ6e-mtp\",\"choices\":[{\"index\":0,\"delta\":{\"content\":\"_buckets_ms\\\": [5, 10, 25, 50, 1\"}}]}"
+    },
+    {
+      "relative_ns": 3431507500,
+      "line": ""
+    },
+    {
+      "relative_ns": 3538798834,
+      "line": "data: {\"id\":\"chatcmpl-f44fee34\",\"object\":\"chat.completion.chunk\",\"created\":1791566378,\"model\":\"Qwen3.8-Flash-Next-oQ6e-mtp\",\"choices\":[{\"index\":0,\"delta\":{\"content\":\"00, 250, 500, 1000],\\n\"}}]}"
+    },
+    {
+      "relative_ns": 3538806625,
+      "line": ""
+    },
+    {
+      "relative_ns": 3645337125,
+      "line": "data: {\"id\":\"chatcmpl-f44fee34\",\"object\":\"chat.completion.chunk\",\"created\":1791566378,\"model\":\"Qwen3.8-Flash-Next-oQ6e-mtp\",\"choices\":[{\"index\":0,\"delta\":{\"content\":\"    \\\"labels\\\": {\\\"environment\\\": \\\"staging\\\", \\\"region\\\": \\\"us-west-2\\\"}\"}}]}"
+    },
+    {
+      "relative_ns": 3645344125,
+      "line": ""
+    },
+    {
+      "relative_ns": 3752158917,
+      "line": "data: {\"id\":\"chatcmpl-f44fee34\",\"object\":\"chat.completion.chunk\",\"created\":1791566378,\"model\":\"Qwen3.8-Flash-Next-oQ6e-mtp\",\"choices\":[{\"index\":0,\"delta\":{\"content\":\"\\n  },\\n  \\\"security\\\": {\\n    \\\"allowed_origins\\\": [\\\"https://shop\"}}]}"
+    },
+    {
+      "relative_ns": 3752169417,
+      "line": ""
+    },
+    {
+      "relative_ns": 3860475625,
+      "line": "data: {\"id\":\"chatcmpl-f44fee34\",\"object\":\"chat.completion.chunk\",\"created\":1791566379,\"model\":\"Qwen3.8-Flash-Next-oQ6e-mtp\",\"choices\":[{\"index\":0,\"delta\":{\"content\":\".example.com\\\", \\\"https://admin.example.com\\\"],\\n    \\\"csrf_enabled\\\": true,\\n   \"}}]}"
+    },
+    {
+      "relative_ns": 3860484667,
+      "line": ""
+    },
+    {
+      "relative_ns": 3968310417,
+      "line": "data: {\"id\":\"chatcmpl-f44fee34\",\"object\":\"chat.completion.chunk\",\"created\":1791566379,\"model\":\"Qwen3.8-Flash-Next-oQ6e-mtp\",\"choices\":[{\"index\":0,\"delta\":{\"content\":\" \\\"rate_limit_per_minute\\\": 120,\\n    \\\"trusted_proxy_count\\\": 1\"}}]}"
+    },
+    {
+      "relative_ns": 3968320584,
+      "line": ""
+    },
+    {
+      "relative_ns": 4075766459,
+      "line": "data: {\"id\":\"chatcmpl-f44fee34\",\"object\":\"chat.completion.chunk\",\"created\":1791566379,\"model\":\"Qwen3.8-Flash-Next-oQ6e-mtp\",\"choices\":[{\"index\":0,\"delta\":{\"content\":\"\\n  },\\n  \\\"shipping\\\": {\\n    \\\"standard_fee\\\": \\\"4.99\"}}]}"
+    },
+    {
+      "relative_ns": 4075774084,
+      "line": ""
+    },
+    {
+      "relative_ns": 4183990584,
+      "line": "data: {\"id\":\"chatcmpl-f44fee34\",\"object\":\"chat.completion.chunk\",\"created\":1791566379,\"model\":\"Qwen3.8-Flash-Next-oQ6e-mtp\",\"choices\":[{\"index\":0,\"delta\":{\"content\":\"\\\",\\n    \\\"express_fee\\\": \\\"12.50\\\",\\n    \\\"free_threshold\\\":\"}}]}"
+    },
+    {
+      "relative_ns": 4183998667,
+      "line": ""
+    },
+    {
+      "relative_ns": 4291368417,
+      "line": "data: {\"id\":\"chatcmpl-f44fee34\",\"object\":\"chat.completion.chunk\",\"created\":1791566379,\"model\":\"Qwen3.8-Flash-Next-oQ6e-mtp\",\"choices\":[{\"index\":0,\"delta\":{\"content\":\" \\\"100.00\\\",\\n    \\\"carriers\\\": [\\\"local_post\\\", \\\"express\"}}]}"
+    },
+    {
+      "relative_ns": 4291377667,
+      "line": ""
+    },
+    {
+      "relative_ns": 4399060375,
+      "line": "data: {\"id\":\"chatcmpl-f44fee34\",\"object\":\"chat.completion.chunk\",\"created\":1791566379,\"model\":\"Qwen3.8-Flash-Next-oQ6e-mtp\",\"choices\":[{\"index\":0,\"delta\":{\"content\":\"_courier\\\"]\\n  },\\n  \\\"notifications\\\": {\\n    \\\"sender_name\\\": \\\"\"}}]}"
+    },
+    {
+      "relative_ns": 4399070417,
+      "line": ""
+    },
+    {
+      "relative_ns": 4506211292,
+      "line": "data: {\"id\":\"chatcmpl-f44fee34\",\"object\":\"chat.completion.chunk\",\"created\":1791566379,\"model\":\"Qwen3.8-Flash-Next-oQ6e-mtp\",\"choices\":[{\"index\":0,\"delta\":{\"content\":\"Example Shop\\\",\\n    \\\"sender_address\\\": \\\"receipts@example.com\\\",\\n    \\\"receipt_template\"}}]}"
+    },
+    {
+      "relative_ns": 4506221042,
+      "line": ""
+    },
+    {
+      "relative_ns": 4614614250,
+      "line": "data: {\"id\":\"chatcmpl-f44fee34\",\"object\":\"chat.completion.chunk\",\"created\":1791566379,\"model\":\"Qwen3.8-Flash-Next-oQ6e-mtp\",\"choices\":[{\"index\":0,\"delta\":{\"content\":\"\\\": \\\"receipt-v3\\\",\\n    \\\"shipping_template\\\": \\\"shipping-v2\\\",\\n    \\\"\"}}]}"
+    },
+    {
+      "relative_ns": 4614624542,
+      "line": ""
+    },
+    {
+      "relative_ns": 4731008875,
+      "line": "data: {\"id\":\"chatcmpl-f44fee34\",\"object\":\"chat.completion.chunk\",\"created\":1791566379,\"model\":\"Qwen3.8-Flash-Next-oQ6e-mtp\",\"choices\":[{\"index\":0,\"delta\":{\"content\":\"refund_template\\\": \\\"refund-v1\\\"\\n  },\\n  \\\"health_checks\\\": {\\n   \"}}]}"
+    },
+    {
+      "relative_ns": 4731017667,
+      "line": ""
+    },
+    {
+      "relative_ns": 4838669250,
+      "line": "data: {\"id\":\"chatcmpl-f44fee34\",\"object\":\"chat.completion.chunk\",\"created\":1791566380,\"model\":\"Qwen3.8-Flash-Next-oQ6e-mtp\",\"choices\":[{\"index\":0,\"delta\":{\"content\":\" \\\"liveness_path\\\": \\\"/health/live\\\",\\n    \\\"readiness_path\\\": \\\"/health/ready\"}}]}"
+    },
+    {
+      "relative_ns": 4838677167,
+      "line": ""
+    },
+    {
+      "relative_ns": 4946567792,
+      "line": "data: {\"id\":\"chatcmpl-f44fee34\",\"object\":\"chat.completion.chunk\",\"created\":1791566380,\"model\":\"Qwen3.8-Flash-Next-oQ6e-mtp\",\"choices\":[{\"index\":0,\"delta\":{\"content\":\"\\\",\\n    \\\"interval_seconds\\\": 10,\\n    \\\"unhealthy_threshold\\\": 3\"}}]}"
+    },
+    {
+      "relative_ns": 4946574709,
+      "line": ""
+    },
+    {
+      "relative_ns": 4978338875,
+      "line": "data: {\"id\":\"chatcmpl-f44fee34\",\"object\":\"chat.completion.chunk\",\"created\":1791566380,\"model\":\"Qwen3.8-Flash-Next-oQ6e-mtp\",\"choices\":[{\"index\":0,\"delta\":{\"content\":\"\\n  }\\n}\"}}]}"
+    },
+    {
+      "relative_ns": 4978346125,
+      "line": ""
+    },
+    {
+      "relative_ns": 4978405042,
+      "line": "data: {\"id\":\"chatcmpl-f44fee34\",\"object\":\"chat.completion.chunk\",\"created\":1791566380,\"model\":\"Qwen3.8-Flash-Next-oQ6e-mtp\",\"choices\":[{\"index\":0,\"delta\":{},\"finish_reason\":\"stop\"}]}"
+    },
+    {
+      "relative_ns": 4978407417,
+      "line": ""
+    },
+    {
+      "relative_ns": 4978603834,
+      "line": "data: {\"id\":\"chatcmpl-f44fee34\",\"object\":\"chat.completion.chunk\",\"created\":1791566380,\"model\":\"Qwen3.8-Flash-Next-oQ6e-mtp\",\"choices\":[],\"usage\":{\"prompt_tokens\":880,\"completion_tokens\":822,\"total_tokens\":1702,\"input_tokens\":880,\"output_tokens\":822,\"prompt_tokens_details\":{\"cached_tokens\":0},\"time_to_first_token\":0.48,\"time_to_first_visible_token\":0.48,\"total_time\":4.97,\"prompt_eval_duration\":0.48,\"generation_duration\":4.5,\"prompt_tokens_per_second\":1850.4,\"generation_tokens_per_second\":182.76}}"
+    },
+    {
+      "relative_ns": 4978607125,
+      "line": ""
+    },
+    {
+      "relative_ns": 4978692875,
+      "line": "data: [DONE]"
+    },
+    {
+      "relative_ns": 4978694792,
+      "line": ""
+    }
+  ],
+  "sse_frames": [
+    {
+      "id": "chatcmpl-f44fee34",
+      "object": "chat.completion.chunk",
+      "created": 0,
+      "model": "keepalive",
+      "choices": [
+        {
+          "index": 0,
+          "delta": {
+            "role": "assistant",
+            "content": ""
+          },
+          "finish_reason": null
+        }
+      ]
+    },
+    {
+      "id": "chatcmpl-f44fee34",
+      "object": "chat.completion.chunk",
+      "created": 1791566375,
+      "model": "Qwen3.8-Flash-Next-oQ6e-mtp",
+      "choices": [
+        {
+          "index": 0,
+          "delta": {
+            "role": "assistant"
+          }
+        }
+      ]
+    },
+    {
+      "id": "chatcmpl-f44fee34",
+      "object": "chat.completion.chunk",
+      "created": 1791566375,
+      "model": "Qwen3.8-Flash-Next-oQ6e-mtp",
+      "choices": [
+        {
+          "index": 0,
+          "delta": {
+            "content": "{"
+          }
+        }
+      ]
+    },
+    {
+      "id": "chatcmpl-f44fee34",
+      "object": "chat.completion.chunk",
+      "created": 1791566375,
+      "model": "Qwen3.8-Flash-Next-oQ6e-mtp",
+      "choices": [
+        {
+          "index": 0,
+          "delta": {
+            "content": "\n  \"service\": {\n    \"name\": \"orders-api\",\n    \""
+          }
+        }
+      ]
+    },
+    {
+      "id": "chatcmpl-f44fee34",
+      "object": "chat.completion.chunk",
+      "created": 1791566375,
+      "model": "Qwen3.8-Flash-Next-oQ6e-mtp",
+      "choices": [
+        {
+          "index": 0,
+          "delta": {
+            "content": "version\": \"3.2.1\",\n    \"request_timeout_seconds\": 45,"
+          }
+        }
+      ]
+    },
+    {
+      "id": "chatcmpl-f44fee34",
+      "object": "chat.completion.chunk",
+      "created": 1791566375,
+      "model": "Qwen3.8-Flash-Next-oQ6e-mtp",
+      "choices": [
+        {
+          "index": 0,
+          "delta": {
+            "content": "\n    \"bind_address\": \"127.0.0.1\",\n    \""
+          }
+        }
+      ]
+    },
+    {
+      "id": "chatcmpl-f44fee34",
+      "object": "chat.completion.chunk",
+      "created": 1791566376,
+      "model": "Qwen3.8-Flash-Next-oQ6e-mtp",
+      "choices": [
+        {
+          "index": 0,
+          "delta": {
+            "content": "port\": 8080,\n    \"graceful_shutdown_seconds\": 15"
+          }
+        }
+      ]
+    },
+    {
+      "id": "chatcmpl-f44fee34",
+      "object": "chat.completion.chunk",
+      "created": 1791566376,
+      "model": "Qwen3.8-Flash-Next-oQ6e-mtp",
+      "choices": [
+        {
+          "index": 0,
+          "delta": {
+            "content": ",\n    \"max_request_bytes\": 1048576\n  },\n"
+          }
+        }
+      ]
+    },
+    {
+      "id": "chatcmpl-f44fee34",
+      "object": "chat.completion.chunk",
+      "created": 1791566376,
+      "model": "Qwen3.8-Flash-Next-oQ6e-mtp",
+      "choices": [
+        {
+          "index": 0,
+          "delta": {
+            "content": "  \"database\": {\n    \"engine\": \"postgresql\",\n    \"host\": \"db"
+          }
+        }
+      ]
+    },
+    {
+      "id": "chatcmpl-f44fee34",
+      "object": "chat.completion.chunk",
+      "created": 1791566376,
+      "model": "Qwen3.8-Flash-Next-oQ6e-mtp",
+      "choices": [
+        {
+          "index": 0,
+          "delta": {
+            "content": ".internal\",\n    \"port\": 5432,\n    \"name\": \"orders"
+          }
+        }
+      ]
+    },
+    {
+      "id": "chatcmpl-f44fee34",
+      "object": "chat.completion.chunk",
+      "created": 1791566376,
+      "model": "Qwen3.8-Flash-Next-oQ6e-mtp",
+      "choices": [
+        {
+          "index": 0,
+          "delta": {
+            "content": "\",\n    \"pool_min\": 4,\n    \"pool_max\": 24,"
+          }
+        }
+      ]
+    },
+    {
+      "id": "chatcmpl-f44fee34",
+      "object": "chat.completion.chunk",
+      "created": 1791566376,
+      "model": "Qwen3.8-Flash-Next-oQ6e-mtp",
+      "choices": [
+        {
+          "index": 0,
+          "delta": {
+            "content": "\n    \"statement_timeout_seconds\": 12,\n    \"ssl\": true\n  },"
+          }
+        }
+      ]
+    },
+    {
+      "id": "chatcmpl-f44fee34",
+      "object": "chat.completion.chunk",
+      "created": 1791566376,
+      "model": "Qwen3.8-Flash-Next-oQ6e-mtp",
+      "choices": [
+        {
+          "index": 0,
+          "delta": {
+            "content": "\n  \"cache\": {\n    \"engine\": \"redis\",\n    \"host\": \""
+          }
+        }
+      ]
+    },
+    {
+      "id": "chatcmpl-f44fee34",
+      "object": "chat.completion.chunk",
+      "created": 1791566376,
+      "model": "Qwen3.8-Flash-Next-oQ6e-mtp",
+      "choices": [
+        {
+          "index": 0,
+          "delta": {
+            "content": "cache.internal\",\n    \"port\": 6379,\n    \"namespace\": \""
+          }
+        }
+      ]
+    },
+    {
+      "id": "chatcmpl-f44fee34",
+      "object": "chat.completion.chunk",
+      "created": 1791566376,
+      "model": "Qwen3.8-Flash-Next-oQ6e-mtp",
+      "choices": [
+        {
+          "index": 0,
+          "delta": {
+            "content": "orders:v3\",\n    \"default_ttl_seconds\": 300,\n    \"connect"
+          }
+        }
+      ]
+    },
+    {
+      "id": "chatcmpl-f44fee34",
+      "object": "chat.completion.chunk",
+      "created": 1791566377,
+      "model": "Qwen3.8-Flash-Next-oQ6e-mtp",
+      "choices": [
+        {
+          "index": 0,
+          "delta": {
+            "content": "_timeout_seconds\": 2\n  },\n  \"workers\": [\n    {\"name"
+          }
+        }
+      ]
+    },
+    {
+      "id": "chatcmpl-f44fee34",
+      "object": "chat.completion.chunk",
+      "created": 1791566377,
+      "model": "Qwen3.8-Flash-Next-oQ6e-mtp",
+      "choices": [
+        {
+          "index": 0,
+          "delta": {
+            "content": "\": \"receipts\", \"concurrency\": 4, \"retry_limit\": 3, \""
+          }
+        }
+      ]
+    },
+    {
+      "id": "chatcmpl-f44fee34",
+      "object": "chat.completion.chunk",
+      "created": 1791566377,
+      "model": "Qwen3.8-Flash-Next-oQ6e-mtp",
+      "choices": [
+        {
+          "index": 0,
+          "delta": {
+            "content": "queue\": \"receipts\"},\n    {\"name\": \"shipping\", \"concurrency\": 2"
+          }
+        }
+      ]
+    },
+    {
+      "id": "chatcmpl-f44fee34",
+      "object": "chat.completion.chunk",
+      "created": 1791566377,
+      "model": "Qwen3.8-Flash-Next-oQ6e-mtp",
+      "choices": [
+        {
+          "index": 0,
+          "delta": {
+            "content": ", \"retry_limit\": 5, \"queue\": \"shipping\"},\n    {\"name\": \""
+          }
+        }
+      ]
+    },
+    {
+      "id": "chatcmpl-f44fee34",
+      "object": "chat.completion.chunk",
+      "created": 1791566377,
+      "model": "Qwen3.8-Flash-Next-oQ6e-mtp",
+      "choices": [
+        {
+          "index": 0,
+          "delta": {
+            "content": "refunds\", \"concurrency\": 2, \"retry_limit\": 2, \"queue\":"
+          }
+        }
+      ]
+    },
+    {
+      "id": "chatcmpl-f44fee34",
+      "object": "chat.completion.chunk",
+      "created": 1791566377,
+      "model": "Qwen3.8-Flash-Next-oQ6e-mtp",
+      "choices": [
+        {
+          "index": 0,
+          "delta": {
+            "content": " \"refunds\"},\n    {\"name\": \"inventory\", \"concurrency\": 6, \""
+          }
+        }
+      ]
+    },
+    {
+      "id": "chatcmpl-f44fee34",
+      "object": "chat.completion.chunk",
+      "created": 1791566377,
+      "model": "Qwen3.8-Flash-Next-oQ6e-mtp",
+      "choices": [
+        {
+          "index": 0,
+          "delta": {
+            "content": "retry_limit\": 4, \"queue\": \"inventory\"}\n  ],\n  \"features\":"
+          }
+        }
+      ]
+    },
+    {
+      "id": "chatcmpl-f44fee34",
+      "object": "chat.completion.chunk",
+      "created": 1791566377,
+      "model": "Qwen3.8-Flash-Next-oQ6e-mtp",
+      "choices": [
+        {
+          "index": 0,
+          "delta": {
+            "content": " {\n    \"coupons\": true,\n    \"express_shipping\": true,\n    \""
+          }
+        }
+      ]
+    },
+    {
+      "id": "chatcmpl-f44fee34",
+      "object": "chat.completion.chunk",
+      "created": 1791566377,
+      "model": "Qwen3.8-Flash-Next-oQ6e-mtp",
+      "choices": [
+        {
+          "index": 0,
+          "delta": {
+            "content": "international_shipping\": false,\n    \"guest_checkout\": true,\n    \"automatic_refunds\":"
+          }
+        }
+      ]
+    },
+    {
+      "id": "chatcmpl-f44fee34",
+      "object": "chat.completion.chunk",
+      "created": 1791566378,
+      "model": "Qwen3.8-Flash-Next-oQ6e-mtp",
+      "choices": [
+        {
+          "index": 0,
+          "delta": {
+            "content": " false,\n    \"inventory_reservations\": true\n  },\n  \"logging\": {\n"
+          }
+        }
+      ]
+    },
+    {
+      "id": "chatcmpl-f44fee34",
+      "object": "chat.completion.chunk",
+      "created": 1791566378,
+      "model": "Qwen3.8-Flash-Next-oQ6e-mtp",
+      "choices": [
+        {
+          "index": 0,
+          "delta": {
+            "content": "    \"level\": \"INFO\",\n    \"format\": \"json\",\n    \"include_request"
+          }
+        }
+      ]
+    },
+    {
+      "id": "chatcmpl-f44fee34",
+      "object": "chat.completion.chunk",
+      "created": 1791566378,
+      "model": "Qwen3.8-Flash-Next-oQ6e-mtp",
+      "choices": [
+        {
+          "index": 0,
+          "delta": {
+            "content": "_id\": true,\n    \"redact_fields\": [\"authorization\", \"credit_card\", \"password"
+          }
+        }
+      ]
+    },
+    {
+      "id": "chatcmpl-f44fee34",
+      "object": "chat.completion.chunk",
+      "created": 1791566378,
+      "model": "Qwen3.8-Flash-Next-oQ6e-mtp",
+      "choices": [
+        {
+          "index": 0,
+          "delta": {
+            "content": "\"],\n    \"sample_rate\": 1.0\n  },\n  \"metrics\": {"
+          }
+        }
+      ]
+    },
+    {
+      "id": "chatcmpl-f44fee34",
+      "object": "chat.completion.chunk",
+      "created": 1791566378,
+      "model": "Qwen3.8-Flash-Next-oQ6e-mtp",
+      "choices": [
+        {
+          "index": 0,
+          "delta": {
+            "content": "\n    \"enabled\": true,\n    \"endpoint\": \"/metrics\",\n    \"histogram"
+          }
+        }
+      ]
+    },
+    {
+      "id": "chatcmpl-f44fee34",
+      "object": "chat.completion.chunk",
+      "created": 1791566378,
+      "model": "Qwen3.8-Flash-Next-oQ6e-mtp",
+      "choices": [
+        {
+          "index": 0,
+          "delta": {
+            "content": "_buckets_ms\": [5, 10, 25, 50, 1"
+          }
+        }
+      ]
+    },
+    {
+      "id": "chatcmpl-f44fee34",
+      "object": "chat.completion.chunk",
+      "created": 1791566378,
+      "model": "Qwen3.8-Flash-Next-oQ6e-mtp",
+      "choices": [
+        {
+          "index": 0,
+          "delta": {
+            "content": "00, 250, 500, 1000],\n"
+          }
+        }
+      ]
+    },
+    {
+      "id": "chatcmpl-f44fee34",
+      "object": "chat.completion.chunk",
+      "created": 1791566378,
+      "model": "Qwen3.8-Flash-Next-oQ6e-mtp",
+      "choices": [
+        {
+          "index": 0,
+          "delta": {
+            "content": "    \"labels\": {\"environment\": \"staging\", \"region\": \"us-west-2\"}"
+          }
+        }
+      ]
+    },
+    {
+      "id": "chatcmpl-f44fee34",
+      "object": "chat.completion.chunk",
+      "created": 1791566378,
+      "model": "Qwen3.8-Flash-Next-oQ6e-mtp",
+      "choices": [
+        {
+          "index": 0,
+          "delta": {
+            "content": "\n  },\n  \"security\": {\n    \"allowed_origins\": [\"https://shop"
+          }
+        }
+      ]
+    },
+    {
+      "id": "chatcmpl-f44fee34",
+      "object": "chat.completion.chunk",
+      "created": 1791566379,
+      "model": "Qwen3.8-Flash-Next-oQ6e-mtp",
+      "choices": [
+        {
+          "index": 0,
+          "delta": {
+            "content": ".example.com\", \"https://admin.example.com\"],\n    \"csrf_enabled\": true,\n   "
+          }
+        }
+      ]
+    },
+    {
+      "id": "chatcmpl-f44fee34",
+      "object": "chat.completion.chunk",
+      "created": 1791566379,
+      "model": "Qwen3.8-Flash-Next-oQ6e-mtp",
+      "choices": [
+        {
+          "index": 0,
+          "delta": {
+            "content": " \"rate_limit_per_minute\": 120,\n    \"trusted_proxy_count\": 1"
+          }
+        }
+      ]
+    },
+    {
+      "id": "chatcmpl-f44fee34",
+      "object": "chat.completion.chunk",
+      "created": 1791566379,
+      "model": "Qwen3.8-Flash-Next-oQ6e-mtp",
+      "choices": [
+        {
+          "index": 0,
+          "delta": {
+            "content": "\n  },\n  \"shipping\": {\n    \"standard_fee\": \"4.99"
+          }
+        }
+      ]
+    },
+    {
+      "id": "chatcmpl-f44fee34",
+      "object": "chat.completion.chunk",
+      "created": 1791566379,
+      "model": "Qwen3.8-Flash-Next-oQ6e-mtp",
+      "choices": [
+        {
+          "index": 0,
+          "delta": {
+            "content": "\",\n    \"express_fee\": \"12.50\",\n    \"free_threshold\":"
+          }
+        }
+      ]
+    },
+    {
+      "id": "chatcmpl-f44fee34",
+      "object": "chat.completion.chunk",
+      "created": 1791566379,
+      "model": "Qwen3.8-Flash-Next-oQ6e-mtp",
+      "choices": [
+        {
+          "index": 0,
+          "delta": {
+            "content": " \"100.00\",\n    \"carriers\": [\"local_post\", \"express"
+          }
+        }
+      ]
+    },
+    {
+      "id": "chatcmpl-f44fee34",
+      "object": "chat.completion.chunk",
+      "created": 1791566379,
+      "model": "Qwen3.8-Flash-Next-oQ6e-mtp",
+      "choices": [
+        {
+          "index": 0,
+          "delta": {
+            "content": "_courier\"]\n  },\n  \"notifications\": {\n    \"sender_name\": \""
+          }
+        }
+      ]
+    },
+    {
+      "id": "chatcmpl-f44fee34",
+      "object": "chat.completion.chunk",
+      "created": 1791566379,
+      "model": "Qwen3.8-Flash-Next-oQ6e-mtp",
+      "choices": [
+        {
+          "index": 0,
+          "delta": {
+            "content": "Example Shop\",\n    \"sender_address\": \"receipts@example.com\",\n    \"receipt_template"
+          }
+        }
+      ]
+    },
+    {
+      "id": "chatcmpl-f44fee34",
+      "object": "chat.completion.chunk",
+      "created": 1791566379,
+      "model": "Qwen3.8-Flash-Next-oQ6e-mtp",
+      "choices": [
+        {
+          "index": 0,
+          "delta": {
+            "content": "\": \"receipt-v3\",\n    \"shipping_template\": \"shipping-v2\",\n    \""
+          }
+        }
+      ]
+    },
+    {
+      "id": "chatcmpl-f44fee34",
+      "object": "chat.completion.chunk",
+      "created": 1791566379,
+      "model": "Qwen3.8-Flash-Next-oQ6e-mtp",
+      "choices": [
+        {
+          "index": 0,
+          "delta": {
+            "content": "refund_template\": \"refund-v1\"\n  },\n  \"health_checks\": {\n   "
+          }
+        }
+      ]
+    },
+    {
+      "id": "chatcmpl-f44fee34",
+      "object": "chat.completion.chunk",
+      "created": 1791566380,
+      "model": "Qwen3.8-Flash-Next-oQ6e-mtp",
+      "choices": [
+        {
+          "index": 0,
+          "delta": {
+            "content": " \"liveness_path\": \"/health/live\",\n    \"readiness_path\": \"/health/ready"
+          }
+        }
+      ]
+    },
+    {
+      "id": "chatcmpl-f44fee34",
+      "object": "chat.completion.chunk",
+      "created": 1791566380,
+      "model": "Qwen3.8-Flash-Next-oQ6e-mtp",
+      "choices": [
+        {
+          "index": 0,
+          "delta": {
+            "content": "\",\n    \"interval_seconds\": 10,\n    \"unhealthy_threshold\": 3"
+          }
+        }
+      ]
+    },
+    {
+      "id": "chatcmpl-f44fee34",
+      "object": "chat.completion.chunk",
+      "created": 1791566380,
+      "model": "Qwen3.8-Flash-Next-oQ6e-mtp",
+      "choices": [
+        {
+          "index": 0,
+          "delta": {
+            "content": "\n  }\n}"
+          }
+        }
+      ]
+    },
+    {
+      "id": "chatcmpl-f44fee34",
+      "object": "chat.completion.chunk",
+      "created": 1791566380,
+      "model": "Qwen3.8-Flash-Next-oQ6e-mtp",
+      "choices": [
+        {
+          "index": 0,
+          "delta": {},
+          "finish_reason": "stop"
+        }
+      ]
+    },
+    {
+      "id": "chatcmpl-f44fee34",
+      "object": "chat.completion.chunk",
+      "created": 1791566380,
+      "model": "Qwen3.8-Flash-Next-oQ6e-mtp",
+      "choices": [],
+      "usage": {
+        "prompt_tokens": 880,
+        "completion_tokens": 822,
+        "total_tokens": 1702,
+        "input_tokens": 880,
+        "output_tokens": 822,
+        "prompt_tokens_details": {
+          "cached_tokens": 0
+        },
+        "time_to_first_token": 0.48,
+        "time_to_first_visible_token": 0.48,
+        "total_time": 4.97,
+        "prompt_eval_duration": 0.48,
+        "generation_duration": 4.5,
+        "prompt_tokens_per_second": 1850.4,
+        "generation_tokens_per_second": 182.76
+      }
+    }
+  ]
+}

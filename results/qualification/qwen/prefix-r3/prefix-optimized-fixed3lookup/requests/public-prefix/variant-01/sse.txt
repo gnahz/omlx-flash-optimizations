@@ -1,0 +1,118 @@
+data: {"id":"chatcmpl-55ac976d","object":"chat.completion.chunk","created":0,"model":"keepalive","choices":[{"index":0,"delta":{"role":"assistant","content":""},"finish_reason":null}]}
+
+data: {"id":"chatcmpl-55ac976d","object":"chat.completion.chunk","created":1791566861,"model":"Qwen3.8-Flash-Next-oQ6e-mtp","choices":[{"index":0,"delta":{"role":"assistant"}}]}
+
+data: {"id":"chatcmpl-55ac976d","object":"chat.completion.chunk","created":1791566863,"model":"Qwen3.8-Flash-Next-oQ6e-mtp","choices":[{"index":0,"delta":{"content":"#"}}]}
+
+data: {"id":"chatcmpl-55ac976d","object":"chat.completion.chunk","created":1791566863,"model":"Qwen3.8-Flash-Next-oQ6e-mtp","choices":[{"index":0,"delta":{"content":" Preparing Riverton for Heavy Rain: A Practical Guide to Urban Flood"}}]}
+
+data: {"id":"chatcmpl-55ac976d","object":"chat.completion.chunk","created":1791566863,"model":"Qwen3.8-Flash-Next-oQ6e-mtp","choices":[{"index":0,"delta":{"content":" Resilience\n\nThe fictional town of Riverton sits in a river valley"}}]}
+
+data: {"id":"chatcmpl-55ac976d","object":"chat.completion.chunk","created":1791566863,"model":"Qwen3.8-Flash-Next-oQ6e-mtp","choices":[{"index":0,"delta":{"content":" surrounded by rolling hills. Its downtown core is paved with asphalt and"}}]}
+
+data: {"id":"chatcmpl-55ac976d","object":"chat.completion.chunk","created":1791566863,"model":"Qwen3.8-Flash-Next-oQ6e-mtp","choices":[{"index":0,"delta":{"content":" concrete, its older neighborhoods rely on century-old"}}]}
+
+data: {"id":"chatcmpl-55ac976d","object":"chat.completion.chunk","created":1791566863,"model":"Qwen3.8-Flash-Next-oQ6e-mtp","choices":[{"index":0,"delta":{"content":" brick sewers, and its newer suburban developments have replaced"}}]}
+
+data: {"id":"chatcmpl-55ac976d","object":"chat.completion.chunk","created":1791566863,"model":"Qwen3.8-Flash-Next-oQ6e-mtp","choices":[{"index":0,"delta":{"content":" permeable soil with rooftops and driveways. Every spring"}}]}
+
+data: {"id":"chatcmpl-55ac976d","object":"chat.completion.chunk","created":1791566863,"model":"Qwen3.8-Flash-Next-oQ6e-mtp","choices":[{"index":0,"delta":{"content":", Riverton faces the threat of heavy rain. In recent years, storms that"}}]}
+
+data: {"id":"chatcmpl-55ac976d","object":"chat.completion.chunk","created":1791566864,"model":"Qwen3.8-Flash-Next-oQ6e-mtp","choices":[{"index":0,"delta":{"content":" once produced manageable runoff have begun to overwhelm the"}}]}
+
+data: {"id":"chatcmpl-55ac976d","object":"chat.completion.chunk","created":1791566864,"model":"Qwen3.8-Flash-Next-oQ6e-mtp","choices":[{"index":0,"delta":{"content":" town’s infrastructure, flooding basements, washing out roads, and disrupting"}}]}
+
+data: {"id":"chatcmpl-55ac976d","object":"chat.completion.chunk","created":1791566864,"model":"Qwen3.8-Flash-Next-oQ6e-mtp","choices":[{"index":0,"delta":{"content":" local businesses. Preparing for these events requires more than just sand"}}]}
+
+data: {"id":"chatcmpl-55ac976d","object":"chat.completion.chunk","created":1791566864,"model":"Qwen3.8-Flash-Next-oQ6e-mtp","choices":[{"index":0,"delta":{"content":"bags and good intentions. It demands a"}}]}
+
+data: {"id":"chatcmpl-55ac976d","object":"chat.completion.chunk","created":1791566864,"model":"Qwen3.8-Flash-Next-oQ6e-mtp","choices":[{"index":0,"delta":{"content":" coordinated strategy built around five pillars: drains, rain gardens"}}]}
+
+data: {"id":"chatcmpl-55ac976d","object":"chat.completion.chunk","created":1791566864,"model":"Qwen3.8-Flash-Next-oQ6e-mtp","choices":[{"index":0,"delta":{"content":", reservoirs, maintenance, and public communication. Each of these elements plays a distinct role"}}]}
+
+data: {"id":"chatcmpl-55ac976d","object":"chat.completion.chunk","created":1791566864,"model":"Qwen3.8-Flash-Next-oQ6e-mtp","choices":[{"index":0,"delta":{"content":", and each carries tradeoffs that the town"}}]}
+
+data: {"id":"chatcmpl-55ac976d","object":"chat.completion.chunk","created":1791566864,"model":"Qwen3.8-Flash-Next-oQ6e-mtp","choices":[{"index":0,"delta":{"content":" must understand and manage.\n\n## Drains: The First Line of Defense\n\nStorm"}}]}
+
+data: {"id":"chatcmpl-55ac976d","object":"chat.completion.chunk","created":1791566865,"model":"Qwen3.8-Flash-Next-oQ6e-mtp","choices":[{"index":0,"delta":{"content":" drains are the most visible part of any flood mitigation system."}}]}
+
+data: {"id":"chatcmpl-55ac976d","object":"chat.completion.chunk","created":1791566865,"model":"Qwen3.8-Flash-Next-oQ6e-mtp","choices":[{"index":0,"delta":{"content":" In Riverton, cast-iron grates line the curbs"}}]}
+
+data: {"id":"chatcmpl-55ac976d","object":"chat.completion.chunk","created":1791566865,"model":"Qwen3.8-Flash-Next-oQ6e-mtp","choices":[{"index":0,"delta":{"content":" of every street, funneling rainwater into underground pipes that carry it to"}}]}
+
+data: {"id":"chatcmpl-55ac976d","object":"chat.completion.chunk","created":1791566865,"model":"Qwen3.8-Flash-Next-oQ6e-mtp","choices":[{"index":0,"delta":{"content":" the river. When they work well, drains make"}}]}
+
+data: {"id":"chatcmpl-55ac976d","object":"chat.completion.chunk","created":1791566865,"model":"Qwen3.8-Flash-Next-oQ6e-mtp","choices":[{"index":0,"delta":{"content":" heavy rain feel like a minor inconvenience. When they fail, water backs up"}}]}
+
+data: {"id":"chatcmpl-55ac976d","object":"chat.completion.chunk","created":1791566865,"model":"Qwen3.8-Flash-Next-oQ6e-mtp","choices":[{"index":0,"delta":{"content":" onto sidewalks and into storefronts within minutes.\n\nThe design"}}]}
+
+data: {"id":"chatcmpl-55ac976d","object":"chat.completion.chunk","created":1791566865,"model":"Qwen3.8-Flash-Next-oQ6e-mtp","choices":[{"index":0,"delta":{"content":" of a drainage system involves a fundamental tradeoff between capacity and cost. Riv"}}]}
+
+data: {"id":"chatcmpl-55ac976d","object":"chat.completion.chunk","created":1791566865,"model":"Qwen3.8-Flash-Next-oQ6e-mtp","choices":[{"index":0,"delta":{"content":"erton’s original engineers sized the pipes for the rainfall"}}]}
+
+data: {"id":"chatcmpl-55ac976d","object":"chat.completion.chunk","created":1791566866,"model":"Qwen3.8-Flash-Next-oQ6e-mtp","choices":[{"index":0,"delta":{"content":" patterns of the early twentieth century. Those patterns no longer"}}]}
+
+data: {"id":"chatcmpl-55ac976d","object":"chat.completion.chunk","created":1791566866,"model":"Qwen3.8-Flash-Next-oQ6e-mtp","choices":[{"index":0,"delta":{"content":" hold. Climate models suggest that the town"}}]}
+
+data: {"id":"chatcmpl-55ac976d","object":"chat.completion.chunk","created":1791566866,"model":"Qwen3.8-Flash-Next-oQ6e-mtp","choices":[{"index":0,"delta":{"content":"’s \"once-in-a-century\" storm now arrives every twenty"}}]}
+
+data: {"id":"chatcmpl-55ac976d","object":"chat.completion.chunk","created":1791566866,"model":"Qwen3.8-Flash-Next-oQ6e-mtp","choices":[{"index":0,"delta":{"content":" years. Upgrading the entire system to handle modern rainfall would"}}]}
+
+data: {"id":"chatcmpl-55ac976d","object":"chat.completion.chunk","created":1791566866,"model":"Qwen3.8-Flash-Next-oQ6e-mtp","choices":[{"index":0,"delta":{"content":" require tearing up every street in town, a project"}}]}
+
+data: {"id":"chatcmpl-55ac976d","object":"chat.completion.chunk","created":1791566866,"model":"Qwen3.8-Flash-Next-oQ6e-mtp","choices":[{"index":0,"delta":{"content":" that would cost tens of millions of dollars and take a decade to complete. The town"}}]}
+
+data: {"id":"chatcmpl-55ac976d","object":"chat.completion.chunk","created":1791566866,"model":"Qwen3.8-Flash-Next-oQ6e-mtp","choices":[{"index":0,"delta":{"content":" cannot afford that, so it must prioritize.\n\nOne practical"}}]}
+
+data: {"id":"chatcmpl-55ac976d","object":"chat.completion.chunk","created":1791566867,"model":"Qwen3.8-Flash-Next-oQ6e-mtp","choices":[{"index":0,"delta":{"content":" approach is to focus upgrades on critical corridors. For example"}}]}
+
+data: {"id":"chatcmpl-55ac976d","object":"chat.completion.chunk","created":1791566867,"model":"Qwen3.8-Flash-Next-oQ6e-mtp","choices":[{"index":0,"delta":{"content":", Mill Street, which runs through the commercial district, has"}}]}
+
+data: {"id":"chatcmpl-55ac976d","object":"chat.completion.chunk","created":1791566867,"model":"Qwen3.8-Flash-Next-oQ6e-mtp","choices":[{"index":0,"delta":{"content":" a drainage capacity of four inches"}}]}
+
+data: {"id":"chatcmpl-55ac976d","object":"chat.completion.chunk","created":1791566867,"model":"Qwen3.8-Flash-Next-oQ6e-mtp","choices":[{"index":0,"delta":{"content":" per hour. A five-inch storm floods it"}}]}
+
+data: {"id":"chatcmpl-55ac976d","object":"chat.completion.chunk","created":1791566867,"model":"Qwen3.8-Flash-Next-oQ6e-mtp","choices":[{"index":0,"delta":{"content":". Replacing the pipe under Mill Street with a larger-d"}}]}
+
+data: {"id":"chatcmpl-55ac976d","object":"chat.completion.chunk","created":1791566867,"model":"Qwen3.8-Flash-Next-oQ6e-mtp","choices":[{"index":0,"delta":{"content":"iameter main would cost $2.3 million and require"}}]}
+
+data: {"id":"chatcmpl-55ac976d","object":"chat.completion.chunk","created":1791566867,"model":"Qwen3.8-Flash-Next-oQ6e-mtp","choices":[{"index":0,"delta":{"content":" six months of construction. The tradeoff is clear:"}}]}
+
+data: {"id":"chatcmpl-55ac976d","object":"chat.completion.chunk","created":1791566867,"model":"Qwen3.8-Flash-Next-oQ6e-mtp","choices":[{"index":0,"delta":{"content":" the town spends a large sum and disrupts businesses during"}}]}
+
+data: {"id":"chatcmpl-55ac976d","object":"chat.completion.chunk","created":1791566867,"model":"Qwen3.8-Flash-Next-oQ6e-mtp","choices":[{"index":0,"delta":{"content":" the construction period, but it protects the economic heart of"}}]}
+
+data: {"id":"chatcmpl-55ac976d","object":"chat.completion.chunk","created":1791566868,"model":"Qwen3.8-Flash-Next-oQ6e-mtp","choices":[{"index":0,"delta":{"content":" the community. By contrast, upgrading a residential side street"}}]}
+
+data: {"id":"chatcmpl-55ac976d","object":"chat.completion.chunk","created":1791566868,"model":"Qwen3.8-Flash-Next-oQ6e-mtp","choices":[{"index":0,"delta":{"content":" with lower traffic and fewer businesses might cost the"}}]}
+
+data: {"id":"chatcmpl-55ac976d","object":"chat.completion.chunk","created":1791566868,"model":"Qwen3.8-Flash-Next-oQ6e-mtp","choices":[{"index":0,"delta":{"content":" same but deliver less overall benefit. Riverton must therefore use data"}}]}
+
+data: {"id":"chatcmpl-55ac976d","object":"chat.completion.chunk","created":1791566868,"model":"Qwen3.8-Flash-Next-oQ6e-mtp","choices":[{"index":0,"delta":{"content":"—flood maps, insurance claims, traffic counts—to"}}]}
+
+data: {"id":"chatcmpl-55ac976d","object":"chat.completion.chunk","created":1791566868,"model":"Qwen3.8-Flash-Next-oQ6e-mtp","choices":[{"index":0,"delta":{"content":" decide where new pipes deliver the most value.\n\n"}}]}
+
+data: {"id":"chatcmpl-55ac976d","object":"chat.completion.chunk","created":1791566868,"model":"Qwen3.8-Flash-Next-oQ6e-mtp","choices":[{"index":0,"delta":{"content":"Another tradeoff involves the decision between separate"}}]}
+
+data: {"id":"chatcmpl-55ac976d","object":"chat.completion.chunk","created":1791566868,"model":"Qwen3.8-Flash-Next-oQ6e-mtp","choices":[{"index":0,"delta":{"content":" and combined sewer systems. Riverton’s older neighborhoods use combined sewers"}}]}
+
+data: {"id":"chatcmpl-55ac976d","object":"chat.completion.chunk","created":1791566868,"model":"Qwen3.8-Flash-Next-oQ6e-mtp","choices":[{"index":0,"delta":{"content":", which carry both stormwater and sewage in the same pipe. During heavy rain, the volume"}}]}
+
+data: {"id":"chatcmpl-55ac976d","object":"chat.completion.chunk","created":1791566869,"model":"Qwen3.8-Flash-Next-oQ6e-mtp","choices":[{"index":0,"delta":{"content":" can exceed the capacity of the treatment plant, forcing the system to discharge untreated overflow"}}]}
+
+data: {"id":"chatcmpl-55ac976d","object":"chat.completion.chunk","created":1791566869,"model":"Qwen3.8-Flash-Next-oQ6e-mtp","choices":[{"index":0,"delta":{"content":" into the river. Separating the systems would eliminate this problem but"}}]}
+
+data: {"id":"chatcmpl-55ac976d","object":"chat.completion.chunk","created":1791566869,"model":"Qwen3.8-Flash-Next-oQ6e-mtp","choices":[{"index":0,"delta":{"content":" would require installing a second set of pipes under every street. The cost"}}]}
+
+data: {"id":"chatcmpl-55ac976d","object":"chat.completion.chunk","created":1791566869,"model":"Qwen3.8-Flash-Next-oQ6e-mtp","choices":[{"index":0,"delta":{"content":" is prohibitive. Instead, Riverton has chosen a middle"}}]}
+
+data: {"id":"chatcmpl-55ac976d","object":"chat.completion.chunk","created":1791566869,"model":"Qwen3.8-Flash-Next-oQ6e-mtp","choices":[{"index":0,"delta":{"content":" path: building retention tunnels that hold combined overflow during storms and release it slowly to the"}}]}
+
+data: {"id":"chatcmpl-55ac976d","object":"chat.completion.chunk","created":1791566869,"model":"Qwen3.8-Flash-Next-oQ6e-mtp","choices":[{"index":0,"delta":{"content":" treatment plant afterward. This"}}]}
+
+data: {"id":"chatcmpl-55ac976d","object":"chat.completion.chunk","created":1791566869,"model":"Qwen3.8-Flash-Next-oQ6e-mtp","choices":[{"index":0,"delta":{},"finish_reason":"length"}]}
+
+data: {"id":"chatcmpl-55ac976d","object":"chat.completion.chunk","created":1791566869,"model":"Qwen3.8-Flash-Next-oQ6e-mtp","choices":[],"usage":{"prompt_tokens":5026,"completion_tokens":640,"total_tokens":5666,"input_tokens":5026,"output_tokens":640,"prompt_tokens_details":{"cached_tokens":0},"time_to_first_token":1.44,"time_to_first_visible_token":1.44,"total_time":7.91,"prompt_eval_duration":1.44,"generation_duration":6.47,"prompt_tokens_per_second":3489.99,"generation_tokens_per_second":98.88}}
+
+data: [DONE]
+

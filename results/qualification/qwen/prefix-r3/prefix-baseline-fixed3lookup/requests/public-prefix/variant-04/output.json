@@ -1,0 +1,1280 @@
+{
+  "text": "# Preparing the Town of Dune for Heavy Rain: A Comprehensive Guide\n\nThe fictional town of Dune, situated in a region prone to sudden and intense downpours, faces a unique set of challenges when it comes to stormwater management. Heavy rain is not merely an inconvenience; it is a potential threat to infrastructure, public safety, and economic stability. To mitigate these risks, Dune must adopt a multi-layered strategy that integrates traditional engineering with modern ecological solutions. This approach relies on five critical pillars: efficient drainage systems, rain gardens, reservoirs, rigorous maintenance, and transparent public communication. By understanding how these elements interact, the town can build resilience against flooding while balancing cost, aesthetics, and environmental impact.\n\n## The Backbone of Drainage: Traditional Infrastructure\n\nThe first line of defense against heavy rain in Dune is its network of drains and sewers. These systems are designed to capture surface runoff and transport it away from streets and buildings as quickly as possible. In a well-planned urban environment, storm drains are strategically placed at low points and along curbs to intercept water before it accumulates to dangerous levels. However, the effectiveness of this system depends heavily on design capacity and local topography.\n\nFor example, consider the main thoroughfare of Dune, Central Avenue. If the drains here are undersized for a \"100-year storm\" event, the street will inevitably flood, disrupting traffic and potentially damaging storefronts. To prevent this, engineers must calculate the expected volume of runoff based on historical weather data and the percentage of impervious surfaces (like asphalt and concrete) in the area. A tradeoff arises here: increasing the size of the pipes increases construction costs significantly and may require digging up existing roads, causing temporary disruption. Conversely, sticking to minimum code requirements might save money upfront but could lead to expensive flood damage later.\n\nFurthermore, the type of drain matters. Grated drains are common but can become clogged with leaves and debris during autumn storms. Catch basins, which include a sump to trap sediment, are more effective at preventing blockages but require more frequent cleaning. Dune must decide whether to invest in high-maintenance, high-efficiency catch basins or lower-maintenance, lower-efficiency grated drains. In high-traffic areas, the former is usually preferred to ensure mobility, while in residential side streets, the latter may suffice.\n\n## Green Infrastructure: The Role of Rain Gardens\n\nWhile pipes move water away, rain gardens manage water where it falls. These are shallow, planted depressions that capture runoff from roofs, driveways, and sidewalks, allowing it to soak into the ground rather than overwhelming the storm drains. Rain gardens are a key component of \"green infrastructure,\" which mimics natural hydrological processes.\n\nIn Dune, rain gardens can be installed in median strips, park edges, or even in front yards. For instance, the town could convert a neglected strip of land near the library into a rain garden planted with native sedges and wildflowers. During a heavy rain, this garden would fill with water, slowing its flow and filtering out pollutants like oil and heavy metals before they reach",
+  "reasoning": "",
+  "tool_calls": [],
+  "usage": {
+    "prompt_tokens": 5026,
+    "completion_tokens": 640,
+    "total_tokens": 5666,
+    "input_tokens": 5026,
+    "output_tokens": 640,
+    "prompt_tokens_details": {
+      "cached_tokens": 0
+    },
+    "time_to_first_token": 1.44,
+    "time_to_first_visible_token": 1.44,
+    "total_time": 7.73,
+    "prompt_eval_duration": 1.44,
+    "generation_duration": 6.29,
+    "prompt_tokens_per_second": 3490.79,
+    "generation_tokens_per_second": 101.81
+  },
+  "finish_reason": "length",
+  "done": true,
+  "stream_errors": [],
+  "sse_events": [
+    {
+      "relative_ns": 11405083,
+      "line": "data: {\"id\":\"chatcmpl-8051447e\",\"object\":\"chat.completion.chunk\",\"created\":0,\"model\":\"keepalive\",\"choices\":[{\"index\":0,\"delta\":{\"role\":\"assistant\",\"content\":\"\"},\"finish_reason\":null}]}"
+    },
+    {
+      "relative_ns": 11407792,
+      "line": ""
+    },
+    {
+      "relative_ns": 16127833,
+      "line": "data: {\"id\":\"chatcmpl-8051447e\",\"object\":\"chat.completion.chunk\",\"created\":1791566705,\"model\":\"Qwen3.8-Flash-Next-oQ6e-mtp\",\"choices\":[{\"index\":0,\"delta\":{\"role\":\"assistant\"}}]}"
+    },
+    {
+      "relative_ns": 16134500,
+      "line": ""
+    },
+    {
+      "relative_ns": 1452047000,
+      "line": "data: {\"id\":\"chatcmpl-8051447e\",\"object\":\"chat.completion.chunk\",\"created\":1791566706,\"model\":\"Qwen3.8-Flash-Next-oQ6e-mtp\",\"choices\":[{\"index\":0,\"delta\":{\"content\":\"#\"}}]}"
+    },
+    {
+      "relative_ns": 1452056750,
+      "line": ""
+    },
+    {
+      "relative_ns": 1572739375,
+      "line": "data: {\"id\":\"chatcmpl-8051447e\",\"object\":\"chat.completion.chunk\",\"created\":1791566706,\"model\":\"Qwen3.8-Flash-Next-oQ6e-mtp\",\"choices\":[{\"index\":0,\"delta\":{\"content\":\" Preparing the Town of Dune for Heavy Rain: A Comprehensive Guide\\n\\nThe\"}}]}"
+    },
+    {
+      "relative_ns": 1572749333,
+      "line": ""
+    },
+    {
+      "relative_ns": 1718459125,
+      "line": "data: {\"id\":\"chatcmpl-8051447e\",\"object\":\"chat.completion.chunk\",\"created\":1791566707,\"model\":\"Qwen3.8-Flash-Next-oQ6e-mtp\",\"choices\":[{\"index\":0,\"delta\":{\"content\":\" fictional town of Dune, situated in a region prone to\"}}]}"
+    },
+    {
+      "relative_ns": 1718468083,
+      "line": ""
+    },
+    {
+      "relative_ns": 1835998583,
+      "line": "data: {\"id\":\"chatcmpl-8051447e\",\"object\":\"chat.completion.chunk\",\"created\":1791566707,\"model\":\"Qwen3.8-Flash-Next-oQ6e-mtp\",\"choices\":[{\"index\":0,\"delta\":{\"content\":\" sudden and intense downpours, faces a unique set of\"}}]}"
+    },
+    {
+      "relative_ns": 1836007083,
+      "line": ""
+    },
+    {
+      "relative_ns": 1953466708,
+      "line": "data: {\"id\":\"chatcmpl-8051447e\",\"object\":\"chat.completion.chunk\",\"created\":1791566707,\"model\":\"Qwen3.8-Flash-Next-oQ6e-mtp\",\"choices\":[{\"index\":0,\"delta\":{\"content\":\" challenges when it comes to stormwater management. Heavy rain is not merely an inconvenience\"}}]}"
+    },
+    {
+      "relative_ns": 1953475000,
+      "line": ""
+    },
+    {
+      "relative_ns": 2070360875,
+      "line": "data: {\"id\":\"chatcmpl-8051447e\",\"object\":\"chat.completion.chunk\",\"created\":1791566707,\"model\":\"Qwen3.8-Flash-Next-oQ6e-mtp\",\"choices\":[{\"index\":0,\"delta\":{\"content\":\"; it is a potential threat to infrastructure, public safety, and economic stability. To mitigate\"}}]}"
+    },
+    {
+      "relative_ns": 2070369250,
+      "line": ""
+    },
+    {
+      "relative_ns": 2210529458,
+      "line": "data: {\"id\":\"chatcmpl-8051447e\",\"object\":\"chat.completion.chunk\",\"created\":1791566707,\"model\":\"Qwen3.8-Flash-Next-oQ6e-mtp\",\"choices\":[{\"index\":0,\"delta\":{\"content\":\" these risks, Dune must adopt a multi-layered strategy that\"}}]}"
+    },
+    {
+      "relative_ns": 2210537750,
+      "line": ""
+    },
+    {
+      "relative_ns": 2326401833,
+      "line": "data: {\"id\":\"chatcmpl-8051447e\",\"object\":\"chat.completion.chunk\",\"created\":1791566707,\"model\":\"Qwen3.8-Flash-Next-oQ6e-mtp\",\"choices\":[{\"index\":0,\"delta\":{\"content\":\" integrates traditional engineering with modern ecological solutions.\"}}]}"
+    },
+    {
+      "relative_ns": 2326408208,
+      "line": ""
+    },
+    {
+      "relative_ns": 2467376333,
+      "line": "data: {\"id\":\"chatcmpl-8051447e\",\"object\":\"chat.completion.chunk\",\"created\":1791566707,\"model\":\"Qwen3.8-Flash-Next-oQ6e-mtp\",\"choices\":[{\"index\":0,\"delta\":{\"content\":\" This approach relies on five critical pillars: efficient drainage systems, rain gardens, reservoirs,\"}}]}"
+    },
+    {
+      "relative_ns": 2467384792,
+      "line": ""
+    },
+    {
+      "relative_ns": 2584831792,
+      "line": "data: {\"id\":\"chatcmpl-8051447e\",\"object\":\"chat.completion.chunk\",\"created\":1791566708,\"model\":\"Qwen3.8-Flash-Next-oQ6e-mtp\",\"choices\":[{\"index\":0,\"delta\":{\"content\":\" rigorous maintenance, and transparent public communication. By understanding how these elements interact\"}}]}"
+    },
+    {
+      "relative_ns": 2584841958,
+      "line": ""
+    },
+    {
+      "relative_ns": 2700325500,
+      "line": "data: {\"id\":\"chatcmpl-8051447e\",\"object\":\"chat.completion.chunk\",\"created\":1791566708,\"model\":\"Qwen3.8-Flash-Next-oQ6e-mtp\",\"choices\":[{\"index\":0,\"delta\":{\"content\":\", the town can build resilience against flooding while balancing\"}}]}"
+    },
+    {
+      "relative_ns": 2700336792,
+      "line": ""
+    },
+    {
+      "relative_ns": 2840713542,
+      "line": "data: {\"id\":\"chatcmpl-8051447e\",\"object\":\"chat.completion.chunk\",\"created\":1791566708,\"model\":\"Qwen3.8-Flash-Next-oQ6e-mtp\",\"choices\":[{\"index\":0,\"delta\":{\"content\":\" cost, aesthetics, and environmental impact.\\n\\n## The Backbone of\"}}]}"
+    },
+    {
+      "relative_ns": 2840723333,
+      "line": ""
+    },
+    {
+      "relative_ns": 2958681417,
+      "line": "data: {\"id\":\"chatcmpl-8051447e\",\"object\":\"chat.completion.chunk\",\"created\":1791566708,\"model\":\"Qwen3.8-Flash-Next-oQ6e-mtp\",\"choices\":[{\"index\":0,\"delta\":{\"content\":\" Drainage: Traditional Infrastructure\\n\\nThe first line of defense against heavy\"}}]}"
+    },
+    {
+      "relative_ns": 2958691583,
+      "line": ""
+    },
+    {
+      "relative_ns": 3074735542,
+      "line": "data: {\"id\":\"chatcmpl-8051447e\",\"object\":\"chat.completion.chunk\",\"created\":1791566708,\"model\":\"Qwen3.8-Flash-Next-oQ6e-mtp\",\"choices\":[{\"index\":0,\"delta\":{\"content\":\" rain in Dune is its network of drains and\"}}]}"
+    },
+    {
+      "relative_ns": 3074745083,
+      "line": ""
+    },
+    {
+      "relative_ns": 3191390750,
+      "line": "data: {\"id\":\"chatcmpl-8051447e\",\"object\":\"chat.completion.chunk\",\"created\":1791566708,\"model\":\"Qwen3.8-Flash-Next-oQ6e-mtp\",\"choices\":[{\"index\":0,\"delta\":{\"content\":\" sewers. These systems are designed to capture surface runoff and transport it away\"}}]}"
+    },
+    {
+      "relative_ns": 3191397625,
+      "line": ""
+    },
+    {
+      "relative_ns": 3308011750,
+      "line": "data: {\"id\":\"chatcmpl-8051447e\",\"object\":\"chat.completion.chunk\",\"created\":1791566708,\"model\":\"Qwen3.8-Flash-Next-oQ6e-mtp\",\"choices\":[{\"index\":0,\"delta\":{\"content\":\" from streets and buildings as quickly as possible. In a\"}}]}"
+    },
+    {
+      "relative_ns": 3308020542,
+      "line": ""
+    },
+    {
+      "relative_ns": 3423816625,
+      "line": "data: {\"id\":\"chatcmpl-8051447e\",\"object\":\"chat.completion.chunk\",\"created\":1791566708,\"model\":\"Qwen3.8-Flash-Next-oQ6e-mtp\",\"choices\":[{\"index\":0,\"delta\":{\"content\":\" well-planned urban environment, storm drains are strategically placed\"}}]}"
+    },
+    {
+      "relative_ns": 3423828917,
+      "line": ""
+    },
+    {
+      "relative_ns": 3539476625,
+      "line": "data: {\"id\":\"chatcmpl-8051447e\",\"object\":\"chat.completion.chunk\",\"created\":1791566708,\"model\":\"Qwen3.8-Flash-Next-oQ6e-mtp\",\"choices\":[{\"index\":0,\"delta\":{\"content\":\" at low points and along curbs to intercept water\"}}]}"
+    },
+    {
+      "relative_ns": 3539486750,
+      "line": ""
+    },
+    {
+      "relative_ns": 3656428542,
+      "line": "data: {\"id\":\"chatcmpl-8051447e\",\"object\":\"chat.completion.chunk\",\"created\":1791566709,\"model\":\"Qwen3.8-Flash-Next-oQ6e-mtp\",\"choices\":[{\"index\":0,\"delta\":{\"content\":\" before it accumulates to dangerous levels. However, the\"}}]}"
+    },
+    {
+      "relative_ns": 3656437333,
+      "line": ""
+    },
+    {
+      "relative_ns": 3774278333,
+      "line": "data: {\"id\":\"chatcmpl-8051447e\",\"object\":\"chat.completion.chunk\",\"created\":1791566709,\"model\":\"Qwen3.8-Flash-Next-oQ6e-mtp\",\"choices\":[{\"index\":0,\"delta\":{\"content\":\" effectiveness of this system depends heavily on design capacity and local top\"}}]}"
+    },
+    {
+      "relative_ns": 3774286542,
+      "line": ""
+    },
+    {
+      "relative_ns": 3913246875,
+      "line": "data: {\"id\":\"chatcmpl-8051447e\",\"object\":\"chat.completion.chunk\",\"created\":1791566709,\"model\":\"Qwen3.8-Flash-Next-oQ6e-mtp\",\"choices\":[{\"index\":0,\"delta\":{\"content\":\"ography.\\n\\nFor example, consider the main thoroughfare\"}}]}"
+    },
+    {
+      "relative_ns": 3913257958,
+      "line": ""
+    },
+    {
+      "relative_ns": 4028971500,
+      "line": "data: {\"id\":\"chatcmpl-8051447e\",\"object\":\"chat.completion.chunk\",\"created\":1791566709,\"model\":\"Qwen3.8-Flash-Next-oQ6e-mtp\",\"choices\":[{\"index\":0,\"delta\":{\"content\":\" of Dune, Central Avenue. If the drains here are\"}}]}"
+    },
+    {
+      "relative_ns": 4028980250,
+      "line": ""
+    },
+    {
+      "relative_ns": 4146936417,
+      "line": "data: {\"id\":\"chatcmpl-8051447e\",\"object\":\"chat.completion.chunk\",\"created\":1791566709,\"model\":\"Qwen3.8-Flash-Next-oQ6e-mtp\",\"choices\":[{\"index\":0,\"delta\":{\"content\":\" undersized for a \\\"100-year storm\\\" event, the street will\"}}]}"
+    },
+    {
+      "relative_ns": 4146945167,
+      "line": ""
+    },
+    {
+      "relative_ns": 4263405875,
+      "line": "data: {\"id\":\"chatcmpl-8051447e\",\"object\":\"chat.completion.chunk\",\"created\":1791566709,\"model\":\"Qwen3.8-Flash-Next-oQ6e-mtp\",\"choices\":[{\"index\":0,\"delta\":{\"content\":\" inevitably flood, disrupting traffic and potentially damaging storefronts\"}}]}"
+    },
+    {
+      "relative_ns": 4263414917,
+      "line": ""
+    },
+    {
+      "relative_ns": 4379690375,
+      "line": "data: {\"id\":\"chatcmpl-8051447e\",\"object\":\"chat.completion.chunk\",\"created\":1791566709,\"model\":\"Qwen3.8-Flash-Next-oQ6e-mtp\",\"choices\":[{\"index\":0,\"delta\":{\"content\":\". To prevent this, engineers must calculate the expected volume\"}}]}"
+    },
+    {
+      "relative_ns": 4379699875,
+      "line": ""
+    },
+    {
+      "relative_ns": 4518230833,
+      "line": "data: {\"id\":\"chatcmpl-8051447e\",\"object\":\"chat.completion.chunk\",\"created\":1791566709,\"model\":\"Qwen3.8-Flash-Next-oQ6e-mtp\",\"choices\":[{\"index\":0,\"delta\":{\"content\":\" of runoff based on historical weather data and the percentage of impervious surfaces (like\"}}]}"
+    },
+    {
+      "relative_ns": 4518241708,
+      "line": ""
+    },
+    {
+      "relative_ns": 4657152792,
+      "line": "data: {\"id\":\"chatcmpl-8051447e\",\"object\":\"chat.completion.chunk\",\"created\":1791566710,\"model\":\"Qwen3.8-Flash-Next-oQ6e-mtp\",\"choices\":[{\"index\":0,\"delta\":{\"content\":\" asphalt and concrete) in the area. A tradeoff arises\"}}]}"
+    },
+    {
+      "relative_ns": 4657163500,
+      "line": ""
+    },
+    {
+      "relative_ns": 4795162208,
+      "line": "data: {\"id\":\"chatcmpl-8051447e\",\"object\":\"chat.completion.chunk\",\"created\":1791566710,\"model\":\"Qwen3.8-Flash-Next-oQ6e-mtp\",\"choices\":[{\"index\":0,\"delta\":{\"content\":\" here: increasing the size of the pipes increases construction costs\"}}]}"
+    },
+    {
+      "relative_ns": 4795168958,
+      "line": ""
+    },
+    {
+      "relative_ns": 4911094917,
+      "line": "data: {\"id\":\"chatcmpl-8051447e\",\"object\":\"chat.completion.chunk\",\"created\":1791566710,\"model\":\"Qwen3.8-Flash-Next-oQ6e-mtp\",\"choices\":[{\"index\":0,\"delta\":{\"content\":\" significantly and may require digging up existing roads, causing\"}}]}"
+    },
+    {
+      "relative_ns": 4911102083,
+      "line": ""
+    },
+    {
+      "relative_ns": 5050739208,
+      "line": "data: {\"id\":\"chatcmpl-8051447e\",\"object\":\"chat.completion.chunk\",\"created\":1791566710,\"model\":\"Qwen3.8-Flash-Next-oQ6e-mtp\",\"choices\":[{\"index\":0,\"delta\":{\"content\":\" temporary disruption. Conversely, sticking to minimum code\"}}]}"
+    },
+    {
+      "relative_ns": 5050749875,
+      "line": ""
+    },
+    {
+      "relative_ns": 5188493833,
+      "line": "data: {\"id\":\"chatcmpl-8051447e\",\"object\":\"chat.completion.chunk\",\"created\":1791566710,\"model\":\"Qwen3.8-Flash-Next-oQ6e-mtp\",\"choices\":[{\"index\":0,\"delta\":{\"content\":\" requirements might save money upfront but could lead to expensive flood\"}}]}"
+    },
+    {
+      "relative_ns": 5188504208,
+      "line": ""
+    },
+    {
+      "relative_ns": 5328877958,
+      "line": "data: {\"id\":\"chatcmpl-8051447e\",\"object\":\"chat.completion.chunk\",\"created\":1791566710,\"model\":\"Qwen3.8-Flash-Next-oQ6e-mtp\",\"choices\":[{\"index\":0,\"delta\":{\"content\":\" damage later.\\n\\nFurthermore, the type of drain matters.\"}}]}"
+    },
+    {
+      "relative_ns": 5328887792,
+      "line": ""
+    },
+    {
+      "relative_ns": 5445273750,
+      "line": "data: {\"id\":\"chatcmpl-8051447e\",\"object\":\"chat.completion.chunk\",\"created\":1791566710,\"model\":\"Qwen3.8-Flash-Next-oQ6e-mtp\",\"choices\":[{\"index\":0,\"delta\":{\"content\":\" Grated drains are common but can become clogged with leaves and\"}}]}"
+    },
+    {
+      "relative_ns": 5445281292,
+      "line": ""
+    },
+    {
+      "relative_ns": 5561402958,
+      "line": "data: {\"id\":\"chatcmpl-8051447e\",\"object\":\"chat.completion.chunk\",\"created\":1791566710,\"model\":\"Qwen3.8-Flash-Next-oQ6e-mtp\",\"choices\":[{\"index\":0,\"delta\":{\"content\":\" debris during autumn storms. Catch basins, which\"}}]}"
+    },
+    {
+      "relative_ns": 5561410250,
+      "line": ""
+    },
+    {
+      "relative_ns": 5676195792,
+      "line": "data: {\"id\":\"chatcmpl-8051447e\",\"object\":\"chat.completion.chunk\",\"created\":1791566711,\"model\":\"Qwen3.8-Flash-Next-oQ6e-mtp\",\"choices\":[{\"index\":0,\"delta\":{\"content\":\" include a sump to trap sediment, are more\"}}]}"
+    },
+    {
+      "relative_ns": 5676205292,
+      "line": ""
+    },
+    {
+      "relative_ns": 5792652792,
+      "line": "data: {\"id\":\"chatcmpl-8051447e\",\"object\":\"chat.completion.chunk\",\"created\":1791566711,\"model\":\"Qwen3.8-Flash-Next-oQ6e-mtp\",\"choices\":[{\"index\":0,\"delta\":{\"content\":\" effective at preventing blockages but require more frequent cleaning. Dune\"}}]}"
+    },
+    {
+      "relative_ns": 5792662792,
+      "line": ""
+    },
+    {
+      "relative_ns": 5910260167,
+      "line": "data: {\"id\":\"chatcmpl-8051447e\",\"object\":\"chat.completion.chunk\",\"created\":1791566711,\"model\":\"Qwen3.8-Flash-Next-oQ6e-mtp\",\"choices\":[{\"index\":0,\"delta\":{\"content\":\" must decide whether to invest in high-maintenance, high-efficiency catch bas\"}}]}"
+    },
+    {
+      "relative_ns": 5910267458,
+      "line": ""
+    },
+    {
+      "relative_ns": 6028094583,
+      "line": "data: {\"id\":\"chatcmpl-8051447e\",\"object\":\"chat.completion.chunk\",\"created\":1791566711,\"model\":\"Qwen3.8-Flash-Next-oQ6e-mtp\",\"choices\":[{\"index\":0,\"delta\":{\"content\":\"ins or lower-maintenance, lower-efficiency grated drains. In high-\"}}]}"
+    },
+    {
+      "relative_ns": 6028101667,
+      "line": ""
+    },
+    {
+      "relative_ns": 6169218458,
+      "line": "data: {\"id\":\"chatcmpl-8051447e\",\"object\":\"chat.completion.chunk\",\"created\":1791566711,\"model\":\"Qwen3.8-Flash-Next-oQ6e-mtp\",\"choices\":[{\"index\":0,\"delta\":{\"content\":\"traffic areas, the former is usually preferred to ensure mobility, while in residential side streets\"}}]}"
+    },
+    {
+      "relative_ns": 6169228167,
+      "line": ""
+    },
+    {
+      "relative_ns": 6286086125,
+      "line": "data: {\"id\":\"chatcmpl-8051447e\",\"object\":\"chat.completion.chunk\",\"created\":1791566711,\"model\":\"Qwen3.8-Flash-Next-oQ6e-mtp\",\"choices\":[{\"index\":0,\"delta\":{\"content\":\", the latter may suffice.\\n\\n## Green Infrastructure: The Role of\"}}]}"
+    },
+    {
+      "relative_ns": 6286094167,
+      "line": ""
+    },
+    {
+      "relative_ns": 6402518542,
+      "line": "data: {\"id\":\"chatcmpl-8051447e\",\"object\":\"chat.completion.chunk\",\"created\":1791566711,\"model\":\"Qwen3.8-Flash-Next-oQ6e-mtp\",\"choices\":[{\"index\":0,\"delta\":{\"content\":\" Rain Gardens\\n\\nWhile pipes move water away, rain gardens manage water\"}}]}"
+    },
+    {
+      "relative_ns": 6402536708,
+      "line": ""
+    },
+    {
+      "relative_ns": 6541797292,
+      "line": "data: {\"id\":\"chatcmpl-8051447e\",\"object\":\"chat.completion.chunk\",\"created\":1791566711,\"model\":\"Qwen3.8-Flash-Next-oQ6e-mtp\",\"choices\":[{\"index\":0,\"delta\":{\"content\":\" where it falls. These are shallow, planted depressions\"}}]}"
+    },
+    {
+      "relative_ns": 6541806333,
+      "line": ""
+    },
+    {
+      "relative_ns": 6663832000,
+      "line": "data: {\"id\":\"chatcmpl-8051447e\",\"object\":\"chat.completion.chunk\",\"created\":1791566712,\"model\":\"Qwen3.8-Flash-Next-oQ6e-mtp\",\"choices\":[{\"index\":0,\"delta\":{\"content\":\" that capture runoff from roofs, driveways, and sidewalks,\"}}]}"
+    },
+    {
+      "relative_ns": 6663839042,
+      "line": ""
+    },
+    {
+      "relative_ns": 6781529292,
+      "line": "data: {\"id\":\"chatcmpl-8051447e\",\"object\":\"chat.completion.chunk\",\"created\":1791566712,\"model\":\"Qwen3.8-Flash-Next-oQ6e-mtp\",\"choices\":[{\"index\":0,\"delta\":{\"content\":\" allowing it to soak into the ground rather than overwhelming the storm drains\"}}]}"
+    },
+    {
+      "relative_ns": 6781538125,
+      "line": ""
+    },
+    {
+      "relative_ns": 6898010333,
+      "line": "data: {\"id\":\"chatcmpl-8051447e\",\"object\":\"chat.completion.chunk\",\"created\":1791566712,\"model\":\"Qwen3.8-Flash-Next-oQ6e-mtp\",\"choices\":[{\"index\":0,\"delta\":{\"content\":\". Rain gardens are a key component of \\\"green infrastructure,\\\" which mimics\"}}]}"
+    },
+    {
+      "relative_ns": 6898018250,
+      "line": ""
+    },
+    {
+      "relative_ns": 7015477167,
+      "line": "data: {\"id\":\"chatcmpl-8051447e\",\"object\":\"chat.completion.chunk\",\"created\":1791566712,\"model\":\"Qwen3.8-Flash-Next-oQ6e-mtp\",\"choices\":[{\"index\":0,\"delta\":{\"content\":\" natural hydrological processes.\\n\\nIn Dune, rain gardens\"}}]}"
+    },
+    {
+      "relative_ns": 7015483750,
+      "line": ""
+    },
+    {
+      "relative_ns": 7130328250,
+      "line": "data: {\"id\":\"chatcmpl-8051447e\",\"object\":\"chat.completion.chunk\",\"created\":1791566712,\"model\":\"Qwen3.8-Flash-Next-oQ6e-mtp\",\"choices\":[{\"index\":0,\"delta\":{\"content\":\" can be installed in median strips, park edges, or even in\"}}]}"
+    },
+    {
+      "relative_ns": 7130336292,
+      "line": ""
+    },
+    {
+      "relative_ns": 7268518917,
+      "line": "data: {\"id\":\"chatcmpl-8051447e\",\"object\":\"chat.completion.chunk\",\"created\":1791566712,\"model\":\"Qwen3.8-Flash-Next-oQ6e-mtp\",\"choices\":[{\"index\":0,\"delta\":{\"content\":\" front yards. For instance, the town could convert a\"}}]}"
+    },
+    {
+      "relative_ns": 7268525500,
+      "line": ""
+    },
+    {
+      "relative_ns": 7381862625,
+      "line": "data: {\"id\":\"chatcmpl-8051447e\",\"object\":\"chat.completion.chunk\",\"created\":1791566712,\"model\":\"Qwen3.8-Flash-Next-oQ6e-mtp\",\"choices\":[{\"index\":0,\"delta\":{\"content\":\" neglected strip of land near the library into a\"}}]}"
+    },
+    {
+      "relative_ns": 7381872542,
+      "line": ""
+    },
+    {
+      "relative_ns": 7499153833,
+      "line": "data: {\"id\":\"chatcmpl-8051447e\",\"object\":\"chat.completion.chunk\",\"created\":1791566712,\"model\":\"Qwen3.8-Flash-Next-oQ6e-mtp\",\"choices\":[{\"index\":0,\"delta\":{\"content\":\" rain garden planted with native sedges and wildflowers. During a heavy rain, this\"}}]}"
+    },
+    {
+      "relative_ns": 7499160750,
+      "line": ""
+    },
+    {
+      "relative_ns": 7613207333,
+      "line": "data: {\"id\":\"chatcmpl-8051447e\",\"object\":\"chat.completion.chunk\",\"created\":1791566713,\"model\":\"Qwen3.8-Flash-Next-oQ6e-mtp\",\"choices\":[{\"index\":0,\"delta\":{\"content\":\" garden would fill with water, slowing its flow\"}}]}"
+    },
+    {
+      "relative_ns": 7613216208,
+      "line": ""
+    },
+    {
+      "relative_ns": 7737260000,
+      "line": "data: {\"id\":\"chatcmpl-8051447e\",\"object\":\"chat.completion.chunk\",\"created\":1791566713,\"model\":\"Qwen3.8-Flash-Next-oQ6e-mtp\",\"choices\":[{\"index\":0,\"delta\":{\"content\":\" and filtering out pollutants like oil and heavy metals before they reach\"}}]}"
+    },
+    {
+      "relative_ns": 7737266375,
+      "line": ""
+    },
+    {
+      "relative_ns": 7737417875,
+      "line": "data: {\"id\":\"chatcmpl-8051447e\",\"object\":\"chat.completion.chunk\",\"created\":1791566713,\"model\":\"Qwen3.8-Flash-Next-oQ6e-mtp\",\"choices\":[{\"index\":0,\"delta\":{},\"finish_reason\":\"length\"}]}"
+    },
+    {
+      "relative_ns": 7737424375,
+      "line": ""
+    },
+    {
+      "relative_ns": 7737619958,
+      "line": "data: {\"id\":\"chatcmpl-8051447e\",\"object\":\"chat.completion.chunk\",\"created\":1791566713,\"model\":\"Qwen3.8-Flash-Next-oQ6e-mtp\",\"choices\":[],\"usage\":{\"prompt_tokens\":5026,\"completion_tokens\":640,\"total_tokens\":5666,\"input_tokens\":5026,\"output_tokens\":640,\"prompt_tokens_details\":{\"cached_tokens\":0},\"time_to_first_token\":1.44,\"time_to_first_visible_token\":1.44,\"total_time\":7.73,\"prompt_eval_duration\":1.44,\"generation_duration\":6.29,\"prompt_tokens_per_second\":3490.79,\"generation_tokens_per_second\":101.81}}"
+    },
+    {
+      "relative_ns": 7737627042,
+      "line": ""
+    },
+    {
+      "relative_ns": 7737685958,
+      "line": "data: [DONE]"
+    },
+    {
+      "relative_ns": 7737689375,
+      "line": ""
+    }
+  ],
+  "sse_frames": [
+    {
+      "id": "chatcmpl-8051447e",
+      "object": "chat.completion.chunk",
+      "created": 0,
+      "model": "keepalive",
+      "choices": [
+        {
+          "index": 0,
+          "delta": {
+            "role": "assistant",
+            "content": ""
+          },
+          "finish_reason": null
+        }
+      ]
+    },
+    {
+      "id": "chatcmpl-8051447e",
+      "object": "chat.completion.chunk",
+      "created": 1791566705,
+      "model": "Qwen3.8-Flash-Next-oQ6e-mtp",
+      "choices": [
+        {
+          "index": 0,
+          "delta": {
+            "role": "assistant"
+          }
+        }
+      ]
+    },
+    {
+      "id": "chatcmpl-8051447e",
+      "object": "chat.completion.chunk",
+      "created": 1791566706,
+      "model": "Qwen3.8-Flash-Next-oQ6e-mtp",
+      "choices": [
+        {
+          "index": 0,
+          "delta": {
+            "content": "#"
+          }
+        }
+      ]
+    },
+    {
+      "id": "chatcmpl-8051447e",
+      "object": "chat.completion.chunk",
+      "created": 1791566706,
+      "model": "Qwen3.8-Flash-Next-oQ6e-mtp",
+      "choices": [
+        {
+          "index": 0,
+          "delta": {
+            "content": " Preparing the Town of Dune for Heavy Rain: A Comprehensive Guide\n\nThe"
+          }
+        }
+      ]
+    },
+    {
+      "id": "chatcmpl-8051447e",
+      "object": "chat.completion.chunk",
+      "created": 1791566707,
+      "model": "Qwen3.8-Flash-Next-oQ6e-mtp",
+      "choices": [
+        {
+          "index": 0,
+          "delta": {
+            "content": " fictional town of Dune, situated in a region prone to"
+          }
+        }
+      ]
+    },
+    {
+      "id": "chatcmpl-8051447e",
+      "object": "chat.completion.chunk",
+      "created": 1791566707,
+      "model": "Qwen3.8-Flash-Next-oQ6e-mtp",
+      "choices": [
+        {
+          "index": 0,
+          "delta": {
+            "content": " sudden and intense downpours, faces a unique set of"
+          }
+        }
+      ]
+    },
+    {
+      "id": "chatcmpl-8051447e",
+      "object": "chat.completion.chunk",
+      "created": 1791566707,
+      "model": "Qwen3.8-Flash-Next-oQ6e-mtp",
+      "choices": [
+        {
+          "index": 0,
+          "delta": {
+            "content": " challenges when it comes to stormwater management. Heavy rain is not merely an inconvenience"
+          }
+        }
+      ]
+    },
+    {
+      "id": "chatcmpl-8051447e",
+      "object": "chat.completion.chunk",
+      "created": 1791566707,
+      "model": "Qwen3.8-Flash-Next-oQ6e-mtp",
+      "choices": [
+        {
+          "index": 0,
+          "delta": {
+            "content": "; it is a potential threat to infrastructure, public safety, and economic stability. To mitigate"
+          }
+        }
+      ]
+    },
+    {
+      "id": "chatcmpl-8051447e",
+      "object": "chat.completion.chunk",
+      "created": 1791566707,
+      "model": "Qwen3.8-Flash-Next-oQ6e-mtp",
+      "choices": [
+        {
+          "index": 0,
+          "delta": {
+            "content": " these risks, Dune must adopt a multi-layered strategy that"
+          }
+        }
+      ]
+    },
+    {
+      "id": "chatcmpl-8051447e",
+      "object": "chat.completion.chunk",
+      "created": 1791566707,
+      "model": "Qwen3.8-Flash-Next-oQ6e-mtp",
+      "choices": [
+        {
+          "index": 0,
+          "delta": {
+            "content": " integrates traditional engineering with modern ecological solutions."
+          }
+        }
+      ]
+    },
+    {
+      "id": "chatcmpl-8051447e",
+      "object": "chat.completion.chunk",
+      "created": 1791566707,
+      "model": "Qwen3.8-Flash-Next-oQ6e-mtp",
+      "choices": [
+        {
+          "index": 0,
+          "delta": {
+            "content": " This approach relies on five critical pillars: efficient drainage systems, rain gardens, reservoirs,"
+          }
+        }
+      ]
+    },
+    {
+      "id": "chatcmpl-8051447e",
+      "object": "chat.completion.chunk",
+      "created": 1791566708,
+      "model": "Qwen3.8-Flash-Next-oQ6e-mtp",
+      "choices": [
+        {
+          "index": 0,
+          "delta": {
+            "content": " rigorous maintenance, and transparent public communication. By understanding how these elements interact"
+          }
+        }
+      ]
+    },
+    {
+      "id": "chatcmpl-8051447e",
+      "object": "chat.completion.chunk",
+      "created": 1791566708,
+      "model": "Qwen3.8-Flash-Next-oQ6e-mtp",
+      "choices": [
+        {
+          "index": 0,
+          "delta": {
+            "content": ", the town can build resilience against flooding while balancing"
+          }
+        }
+      ]
+    },
+    {
+      "id": "chatcmpl-8051447e",
+      "object": "chat.completion.chunk",
+      "created": 1791566708,
+      "model": "Qwen3.8-Flash-Next-oQ6e-mtp",
+      "choices": [
+        {
+          "index": 0,
+          "delta": {
+            "content": " cost, aesthetics, and environmental impact.\n\n## The Backbone of"
+          }
+        }
+      ]
+    },
+    {
+      "id": "chatcmpl-8051447e",
+      "object": "chat.completion.chunk",
+      "created": 1791566708,
+      "model": "Qwen3.8-Flash-Next-oQ6e-mtp",
+      "choices": [
+        {
+          "index": 0,
+          "delta": {
+            "content": " Drainage: Traditional Infrastructure\n\nThe first line of defense against heavy"
+          }
+        }
+      ]
+    },
+    {
+      "id": "chatcmpl-8051447e",
+      "object": "chat.completion.chunk",
+      "created": 1791566708,
+      "model": "Qwen3.8-Flash-Next-oQ6e-mtp",
+      "choices": [
+        {
+          "index": 0,
+          "delta": {
+            "content": " rain in Dune is its network of drains and"
+          }
+        }
+      ]
+    },
+    {
+      "id": "chatcmpl-8051447e",
+      "object": "chat.completion.chunk",
+      "created": 1791566708,
+      "model": "Qwen3.8-Flash-Next-oQ6e-mtp",
+      "choices": [
+        {
+          "index": 0,
+          "delta": {
+            "content": " sewers. These systems are designed to capture surface runoff and transport it away"
+          }
+        }
+      ]
+    },
+    {
+      "id": "chatcmpl-8051447e",
+      "object": "chat.completion.chunk",
+      "created": 1791566708,
+      "model": "Qwen3.8-Flash-Next-oQ6e-mtp",
+      "choices": [
+        {
+          "index": 0,
+          "delta": {
+            "content": " from streets and buildings as quickly as possible. In a"
+          }
+        }
+      ]
+    },
+    {
+      "id": "chatcmpl-8051447e",
+      "object": "chat.completion.chunk",
+      "created": 1791566708,
+      "model": "Qwen3.8-Flash-Next-oQ6e-mtp",
+      "choices": [
+        {
+          "index": 0,
+          "delta": {
+            "content": " well-planned urban environment, storm drains are strategically placed"
+          }
+        }
+      ]
+    },
+    {
+      "id": "chatcmpl-8051447e",
+      "object": "chat.completion.chunk",
+      "created": 1791566708,
+      "model": "Qwen3.8-Flash-Next-oQ6e-mtp",
+      "choices": [
+        {
+          "index": 0,
+          "delta": {
+            "content": " at low points and along curbs to intercept water"
+          }
+        }
+      ]
+    },
+    {
+      "id": "chatcmpl-8051447e",
+      "object": "chat.completion.chunk",
+      "created": 1791566709,
+      "model": "Qwen3.8-Flash-Next-oQ6e-mtp",
+      "choices": [
+        {
+          "index": 0,
+          "delta": {
+            "content": " before it accumulates to dangerous levels. However, the"
+          }
+        }
+      ]
+    },
+    {
+      "id": "chatcmpl-8051447e",
+      "object": "chat.completion.chunk",
+      "created": 1791566709,
+      "model": "Qwen3.8-Flash-Next-oQ6e-mtp",
+      "choices": [
+        {
+          "index": 0,
+          "delta": {
+            "content": " effectiveness of this system depends heavily on design capacity and local top"
+          }
+        }
+      ]
+    },
+    {
+      "id": "chatcmpl-8051447e",
+      "object": "chat.completion.chunk",
+      "created": 1791566709,
+      "model": "Qwen3.8-Flash-Next-oQ6e-mtp",
+      "choices": [
+        {
+          "index": 0,
+          "delta": {
+            "content": "ography.\n\nFor example, consider the main thoroughfare"
+          }
+        }
+      ]
+    },
+    {
+      "id": "chatcmpl-8051447e",
+      "object": "chat.completion.chunk",
+      "created": 1791566709,
+      "model": "Qwen3.8-Flash-Next-oQ6e-mtp",
+      "choices": [
+        {
+          "index": 0,
+          "delta": {
+            "content": " of Dune, Central Avenue. If the drains here are"
+          }
+        }
+      ]
+    },
+    {
+      "id": "chatcmpl-8051447e",
+      "object": "chat.completion.chunk",
+      "created": 1791566709,
+      "model": "Qwen3.8-Flash-Next-oQ6e-mtp",
+      "choices": [
+        {
+          "index": 0,
+          "delta": {
+            "content": " undersized for a \"100-year storm\" event, the street will"
+          }
+        }
+      ]
+    },
+    {
+      "id": "chatcmpl-8051447e",
+      "object": "chat.completion.chunk",
+      "created": 1791566709,
+      "model": "Qwen3.8-Flash-Next-oQ6e-mtp",
+      "choices": [
+        {
+          "index": 0,
+          "delta": {
+            "content": " inevitably flood, disrupting traffic and potentially damaging storefronts"
+          }
+        }
+      ]
+    },
+    {
+      "id": "chatcmpl-8051447e",
+      "object": "chat.completion.chunk",
+      "created": 1791566709,
+      "model": "Qwen3.8-Flash-Next-oQ6e-mtp",
+      "choices": [
+        {
+          "index": 0,
+          "delta": {
+            "content": ". To prevent this, engineers must calculate the expected volume"
+          }
+        }
+      ]
+    },
+    {
+      "id": "chatcmpl-8051447e",
+      "object": "chat.completion.chunk",
+      "created": 1791566709,
+      "model": "Qwen3.8-Flash-Next-oQ6e-mtp",
+      "choices": [
+        {
+          "index": 0,
+          "delta": {
+            "content": " of runoff based on historical weather data and the percentage of impervious surfaces (like"
+          }
+        }
+      ]
+    },
+    {
+      "id": "chatcmpl-8051447e",
+      "object": "chat.completion.chunk",
+      "created": 1791566710,
+      "model": "Qwen3.8-Flash-Next-oQ6e-mtp",
+      "choices": [
+        {
+          "index": 0,
+          "delta": {
+            "content": " asphalt and concrete) in the area. A tradeoff arises"
+          }
+        }
+      ]
+    },
+    {
+      "id": "chatcmpl-8051447e",
+      "object": "chat.completion.chunk",
+      "created": 1791566710,
+      "model": "Qwen3.8-Flash-Next-oQ6e-mtp",
+      "choices": [
+        {
+          "index": 0,
+          "delta": {
+            "content": " here: increasing the size of the pipes increases construction costs"
+          }
+        }
+      ]
+    },
+    {
+      "id": "chatcmpl-8051447e",
+      "object": "chat.completion.chunk",
+      "created": 1791566710,
+      "model": "Qwen3.8-Flash-Next-oQ6e-mtp",
+      "choices": [
+        {
+          "index": 0,
+          "delta": {
+            "content": " significantly and may require digging up existing roads, causing"
+          }
+        }
+      ]
+    },
+    {
+      "id": "chatcmpl-8051447e",
+      "object": "chat.completion.chunk",
+      "created": 1791566710,
+      "model": "Qwen3.8-Flash-Next-oQ6e-mtp",
+      "choices": [
+        {
+          "index": 0,
+          "delta": {
+            "content": " temporary disruption. Conversely, sticking to minimum code"
+          }
+        }
+      ]
+    },
+    {
+      "id": "chatcmpl-8051447e",
+      "object": "chat.completion.chunk",
+      "created": 1791566710,
+      "model": "Qwen3.8-Flash-Next-oQ6e-mtp",
+      "choices": [
+        {
+          "index": 0,
+          "delta": {
+            "content": " requirements might save money upfront but could lead to expensive flood"
+          }
+        }
+      ]
+    },
+    {
+      "id": "chatcmpl-8051447e",
+      "object": "chat.completion.chunk",
+      "created": 1791566710,
+      "model": "Qwen3.8-Flash-Next-oQ6e-mtp",
+      "choices": [
+        {
+          "index": 0,
+          "delta": {
+            "content": " damage later.\n\nFurthermore, the type of drain matters."
+          }
+        }
+      ]
+    },
+    {
+      "id": "chatcmpl-8051447e",
+      "object": "chat.completion.chunk",
+      "created": 1791566710,
+      "model": "Qwen3.8-Flash-Next-oQ6e-mtp",
+      "choices": [
+        {
+          "index": 0,
+          "delta": {
+            "content": " Grated drains are common but can become clogged with leaves and"
+          }
+        }
+      ]
+    },
+    {
+      "id": "chatcmpl-8051447e",
+      "object": "chat.completion.chunk",
+      "created": 1791566710,
+      "model": "Qwen3.8-Flash-Next-oQ6e-mtp",
+      "choices": [
+        {
+          "index": 0,
+          "delta": {
+            "content": " debris during autumn storms. Catch basins, which"
+          }
+        }
+      ]
+    },
+    {
+      "id": "chatcmpl-8051447e",
+      "object": "chat.completion.chunk",
+      "created": 1791566711,
+      "model": "Qwen3.8-Flash-Next-oQ6e-mtp",
+      "choices": [
+        {
+          "index": 0,
+          "delta": {
+            "content": " include a sump to trap sediment, are more"
+          }
+        }
+      ]
+    },
+    {
+      "id": "chatcmpl-8051447e",
+      "object": "chat.completion.chunk",
+      "created": 1791566711,
+      "model": "Qwen3.8-Flash-Next-oQ6e-mtp",
+      "choices": [
+        {
+          "index": 0,
+          "delta": {
+            "content": " effective at preventing blockages but require more frequent cleaning. Dune"
+          }
+        }
+      ]
+    },
+    {
+      "id": "chatcmpl-8051447e",
+      "object": "chat.completion.chunk",
+      "created": 1791566711,
+      "model": "Qwen3.8-Flash-Next-oQ6e-mtp",
+      "choices": [
+        {
+          "index": 0,
+          "delta": {
+            "content": " must decide whether to invest in high-maintenance, high-efficiency catch bas"
+          }
+        }
+      ]
+    },
+    {
+      "id": "chatcmpl-8051447e",
+      "object": "chat.completion.chunk",
+      "created": 1791566711,
+      "model": "Qwen3.8-Flash-Next-oQ6e-mtp",
+      "choices": [
+        {
+          "index": 0,
+          "delta": {
+            "content": "ins or lower-maintenance, lower-efficiency grated drains. In high-"
+          }
+        }
+      ]
+    },
+    {
+      "id": "chatcmpl-8051447e",
+      "object": "chat.completion.chunk",
+      "created": 1791566711,
+      "model": "Qwen3.8-Flash-Next-oQ6e-mtp",
+      "choices": [
+        {
+          "index": 0,
+          "delta": {
+            "content": "traffic areas, the former is usually preferred to ensure mobility, while in residential side streets"
+          }
+        }
+      ]
+    },
+    {
+      "id": "chatcmpl-8051447e",
+      "object": "chat.completion.chunk",
+      "created": 1791566711,
+      "model": "Qwen3.8-Flash-Next-oQ6e-mtp",
+      "choices": [
+        {
+          "index": 0,
+          "delta": {
+            "content": ", the latter may suffice.\n\n## Green Infrastructure: The Role of"
+          }
+        }
+      ]
+    },
+    {
+      "id": "chatcmpl-8051447e",
+      "object": "chat.completion.chunk",
+      "created": 1791566711,
+      "model": "Qwen3.8-Flash-Next-oQ6e-mtp",
+      "choices": [
+        {
+          "index": 0,
+          "delta": {
+            "content": " Rain Gardens\n\nWhile pipes move water away, rain gardens manage water"
+          }
+        }
+      ]
+    },
+    {
+      "id": "chatcmpl-8051447e",
+      "object": "chat.completion.chunk",
+      "created": 1791566711,
+      "model": "Qwen3.8-Flash-Next-oQ6e-mtp",
+      "choices": [
+        {
+          "index": 0,
+          "delta": {
+            "content": " where it falls. These are shallow, planted depressions"
+          }
+        }
+      ]
+    },
+    {
+      "id": "chatcmpl-8051447e",
+      "object": "chat.completion.chunk",
+      "created": 1791566712,
+      "model": "Qwen3.8-Flash-Next-oQ6e-mtp",
+      "choices": [
+        {
+          "index": 0,
+          "delta": {
+            "content": " that capture runoff from roofs, driveways, and sidewalks,"
+          }
+        }
+      ]
+    },
+    {
+      "id": "chatcmpl-8051447e",
+      "object": "chat.completion.chunk",
+      "created": 1791566712,
+      "model": "Qwen3.8-Flash-Next-oQ6e-mtp",
+      "choices": [
+        {
+          "index": 0,
+          "delta": {
+            "content": " allowing it to soak into the ground rather than overwhelming the storm drains"
+          }
+        }
+      ]
+    },
+    {
+      "id": "chatcmpl-8051447e",
+      "object": "chat.completion.chunk",
+      "created": 1791566712,
+      "model": "Qwen3.8-Flash-Next-oQ6e-mtp",
+      "choices": [
+        {
+          "index": 0,
+          "delta": {
+            "content": ". Rain gardens are a key component of \"green infrastructure,\" which mimics"
+          }
+        }
+      ]
+    },
+    {
+      "id": "chatcmpl-8051447e",
+      "object": "chat.completion.chunk",
+      "created": 1791566712,
+      "model": "Qwen3.8-Flash-Next-oQ6e-mtp",
+      "choices": [
+        {
+          "index": 0,
+          "delta": {
+            "content": " natural hydrological processes.\n\nIn Dune, rain gardens"
+          }
+        }
+      ]
+    },
+    {
+      "id": "chatcmpl-8051447e",
+      "object": "chat.completion.chunk",
+      "created": 1791566712,
+      "model": "Qwen3.8-Flash-Next-oQ6e-mtp",
+      "choices": [
+        {
+          "index": 0,
+          "delta": {
+            "content": " can be installed in median strips, park edges, or even in"
+          }
+        }
+      ]
+    },
+    {
+      "id": "chatcmpl-8051447e",
+      "object": "chat.completion.chunk",
+      "created": 1791566712,
+      "model": "Qwen3.8-Flash-Next-oQ6e-mtp",
+      "choices": [
+        {
+          "index": 0,
+          "delta": {
+            "content": " front yards. For instance, the town could convert a"
+          }
+        }
+      ]
+    },
+    {
+      "id": "chatcmpl-8051447e",
+      "object": "chat.completion.chunk",
+      "created": 1791566712,
+      "model": "Qwen3.8-Flash-Next-oQ6e-mtp",
+      "choices": [
+        {
+          "index": 0,
+          "delta": {
+            "content": " neglected strip of land near the library into a"
+          }
+        }
+      ]
+    },
+    {
+      "id": "chatcmpl-8051447e",
+      "object": "chat.completion.chunk",
+      "created": 1791566712,
+      "model": "Qwen3.8-Flash-Next-oQ6e-mtp",
+      "choices": [
+        {
+          "index": 0,
+          "delta": {
+            "content": " rain garden planted with native sedges and wildflowers. During a heavy rain, this"
+          }
+        }
+      ]
+    },
+    {
+      "id": "chatcmpl-8051447e",
+      "object": "chat.completion.chunk",
+      "created": 1791566713,
+      "model": "Qwen3.8-Flash-Next-oQ6e-mtp",
+      "choices": [
+        {
+          "index": 0,
+          "delta": {
+            "content": " garden would fill with water, slowing its flow"
+          }
+        }
+      ]
+    },
+    {
+      "id": "chatcmpl-8051447e",
+      "object": "chat.completion.chunk",
+      "created": 1791566713,
+      "model": "Qwen3.8-Flash-Next-oQ6e-mtp",
+      "choices": [
+        {
+          "index": 0,
+          "delta": {
+            "content": " and filtering out pollutants like oil and heavy metals before they reach"
+          }
+        }
+      ]
+    },
+    {
+      "id": "chatcmpl-8051447e",
+      "object": "chat.completion.chunk",
+      "created": 1791566713,
+      "model": "Qwen3.8-Flash-Next-oQ6e-mtp",
+      "choices": [
+        {
+          "index": 0,
+          "delta": {},
+          "finish_reason": "length"
+        }
+      ]
+    },
+    {
+      "id": "chatcmpl-8051447e",
+      "object": "chat.completion.chunk",
+      "created": 1791566713,
+      "model": "Qwen3.8-Flash-Next-oQ6e-mtp",
+      "choices": [],
+      "usage": {
+        "prompt_tokens": 5026,
+        "completion_tokens": 640,
+        "total_tokens": 5666,
+        "input_tokens": 5026,
+        "output_tokens": 640,
+        "prompt_tokens_details": {
+          "cached_tokens": 0
+        },
+        "time_to_first_token": 1.44,
+        "time_to_first_visible_token": 1.44,
+        "total_time": 7.73,
+        "prompt_eval_duration": 1.44,
+        "generation_duration": 6.29,
+        "prompt_tokens_per_second": 3490.79,
+        "generation_tokens_per_second": 101.81
+      }
+    }
+  ]
+}

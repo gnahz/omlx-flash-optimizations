@@ -57,6 +57,8 @@ The patched runtime consumes dictionaries directly for native decode and qualifi
 
 Use an Apple silicon Mac with **256 GiB** unified memory, the qualified arm64 kernel build, and a 240 GiB wired allocation capacity. Only the large Engram tables are SSD-offloaded; routed experts remain resident. The published measurements used M5 Ultra, 30 CPU / 64 GPU cores and macOS 27.0.1.
 
+Install the full Xcode/SDK 27.2 toolchain, Git, `uv` and the `hf` CLI on `PATH` before these commands. The [environment setup](https://github.com/gnahz/omlx-flash-optimizations/blob/main/docs/REPRODUCE.md#1-requirements-and-fixed-sources) installs the pinned Python 3.13.15 and Hub CLI and gives the complete requirements.
+
 ```bash
 git clone https://github.com/gnahz/omlx-flash-optimizations.git
 cd omlx-flash-optimizations
