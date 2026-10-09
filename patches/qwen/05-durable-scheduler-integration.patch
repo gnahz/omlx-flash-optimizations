@@ -1,0 +1,51 @@
+diff --git a/omlx/scheduler.py b/omlx/scheduler.py
+--- a/omlx/scheduler.py
++++ b/omlx/scheduler.py
+@@ -2026,6 +2026,9 @@
+         # every block boundary, so a boundary narrower than the effective
+         # prefill step changes cache-ON from one forward into multiple forwards.
+         self._qwen35_prefill_floor = self._detect_qwen35_prefill_floor()
++        prefix_block = int(os.environ.get("OMLX_PREFIX_BLOCK_SIZE", "8192"))
++        if prefix_block not in (4096, 8192, 16384):
++            raise ValueError("OMLX_PREFIX_BLOCK_SIZE must be 4096, 8192, or 16384")
+         self._qwen4_wide_prefill_step = self._detect_qwen4_wide_prefill_step()
+         self._qwen4_wide_first_chunk = bool(
+             self._qwen4_wide_prefill_step
+@@ -3133,6 +3136,11 @@
+             logger.debug("qwen3_5 prefill floor probe failed", exc_info=True)
+         return 0
+ 
++    def _on_auxiliary_tail_stored(self, tokens, block_table):
++        """Bind the completed public snapshot on the scheduler owner thread."""
++        from .cache.public_prefix_runtime import stored
++        stored(self, tokens, block_table)
++
+     def _detect_qwen4_wide_prefill_step(self) -> int:
+         """Return the wide Qwen4-Exp prefill step (0 when the host cannot use it)."""
+         try:
+@@ -3153,7 +3161,10 @@
+                 and is_nax_available()
+                 and get_system_memory() >= 64 * 1024**3
+             ):
+-                return _QWEN4_WIDE_PREFILL_STEP
++                block = int(os.environ.get("OMLX_PREFIX_BLOCK_SIZE", "8192"))
++                if block not in (4096, 8192, 16384):
++                    raise ValueError("OMLX_PREFIX_BLOCK_SIZE must be 4096, 8192, or 16384")
++                return block
+         except Exception:
+             logger.debug("qwen4 wide prefill probe failed", exc_info=True)
+         return 0
+@@ -3195,6 +3206,13 @@
+         aligned to its window size) or if the configured block size already
+         meets the effective model-specific target.
+         """
++        if self._qwen4_wide_prefill_step:
++            self.config.paged_cache_block_size = self._qwen4_wide_prefill_step
++            self.config.prefill_step_size = min(
++                self.config.prefill_step_size or self._qwen4_wide_prefill_step,
++                self._qwen4_wide_prefill_step,
++            )
++
+         if not self.config.paged_ssd_cache_dir:
+             return
+ 

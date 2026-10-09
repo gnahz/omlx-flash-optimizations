@@ -1,0 +1,473 @@
+{
+  "schema_version": 1,
+  "required_numbers": {
+    "resident_original_GiB": 223.48109132796526,
+    "resident_compact_GiB": 215.58061911910772,
+    "saved_GiB": 7.900472208857536,
+    "final_8k_decode_geomean": 76.0686369170085,
+    "final_8k_case_decode": [
+      91.21988530308266,
+      71.59249567916106,
+      67.39999666194106
+    ],
+    "prefill_gain_percent": [
+      4.206452634097579,
+      3.792708647851595,
+      3.751908388632419
+    ],
+    "TTFT_A": [
+      3.9314078986713317,
+      7.776758193741647,
+      15.580638664460524
+    ],
+    "TTFT_B": [
+      3.7742066587298355,
+      7.49534178453878,
+      15.022039367858282
+    ],
+    "all_full_prefill_requests": 42,
+    "measured_prefill_requests": 32,
+    "warmup_prefill_requests": 10,
+    "measured_generated_tokens": 16384
+  },
+  "hardware": {
+    "CPU_device": "Apple M5 Ultra",
+    "model_identifier": "Mac17,15",
+    "physical_memory_bytes": 274877906944,
+    "physical_memory_GiB": 256.0,
+    "physical_CPU_cores": 30,
+    "logical_CPU_cores": 30,
+    "GPU_architecture": "applegpu_g17d",
+    "GPU_device": "Apple M5 Ultra",
+    "OS": {
+      "ProductName": "macOS",
+      "ProductVersion": "27.0.1",
+      "BuildVersion": "26A434"
+    },
+    "unverified_bandwidth_and_scaling": [
+      "1.2TB/s",
+      "M5=1.5xM3"
+    ],
+    "source": {
+      "filename": "hardware-observation.json",
+      "sha256": "7b9b48e4b5876dc23c93e52a7264a7350d06fcc2a4bff95f54bcc37cc8f3b8eb"
+    },
+    "archived_GPU_cores": 64,
+    "archived_GPU_cores_source": {
+      "filename": "reproduction-manifest.json",
+      "sha256": "bf796325de671465d193ffc78d1b4d6460fdcc22f884be6adc8bf4fcc390fa46"
+    },
+    "archived_GPU_cores_scope": "The archived reproduction manifest records 64 GPU cores. The current read-only inventory confirms CPU and physical memory but does not independently recount GPU cores."
+  },
+  "source_pins": {
+    "official_checkpoint_revision": "2cba9e42aa026125f3ed06c6d98c1db82f7ca027",
+    "author_quantizer_revision": "4e4d5a81f8135249815a3f284c0ed5bbd1faee58",
+    "original_backport_baseline_commit": "1c06c468d1cad8ffd290b0c9cfa7d5554d978ca0",
+    "native_backport_commit": "c4f6345de1b420f91adda9edbb2008282b0d8fff",
+    "final_prefill_commit": "78a5a474c85d67e62b6d3d4575ed3a68f751de2e",
+    "binary_sha256": {
+      "_ext.cpython-313-darwin.so": "f62f712104f5ef19600ebebd1c5ad545fafa68790a1ab313e66bee8ae7e47ddb",
+      "libomlx_glm_kernel_ops.dylib": "c284eebb594df9e63ebf251d48632f2ff7e5cb84305ae4261177e0f5de02b1ee"
+    },
+    "runtime_source_pins_verified": 597,
+    "selected_sources": [
+      {
+        "filename": "lsq_quant.py",
+        "sha256": "5d13d994c7f60cd1433278dfb31b830c2052b345103a2a2353f073a1b14a08a1"
+      },
+      {
+        "filename": "mixed_convert.py",
+        "sha256": "04a0771f6b1092491c70e0537eb48798d98771c90625e8b54740e0cbe6373887"
+      },
+      {
+        "filename": "build_dwarfstar_lsq_metadata.py",
+        "sha256": "3abe76239f677030588bf1d26d0a2f74334e7956b710a177b4241fdb4306c80d"
+      },
+      {
+        "filename": "native_metadata.py",
+        "sha256": "7994e3ac33652e27ae97a5fde6c0ba98a878865cd5126ff4ab6f0d5955e55285"
+      },
+      {
+        "filename": "native_metadata_prefill.py",
+        "sha256": "bd55dedd48e98c2da8e737c3cec6c08807f631665fc5b33e668b103ac4d8b7ed"
+      },
+      {
+        "filename": "deepseek_v41_joint_metadata.metal",
+        "sha256": "e40af7fecdcbd3946c4e86ad161bd2053dc925364665b329bb28b112376763fe"
+      },
+      {
+        "filename": "deepseek_v41_joint_metadata.cpp",
+        "sha256": "b80bc7338168d642da2a3704cabb7b51f1044bf55402d8bb4d38a15722836f67"
+      },
+      {
+        "filename": "ds41-conversion.json",
+        "sha256": "b8fa67916cda0b2d1a45da81a34d292e2bac2711b9e4365c23814da83d5946a6"
+      },
+      {
+        "filename": "config.json",
+        "sha256": "4b83ef14c5aff58f1a60b9c6fe872dabc4c0f484e68800ffb71db711a0f14209"
+      },
+      {
+        "filename": "model.safetensors.index.json",
+        "sha256": "ac23b22906e97f9864e48f811e8eeba39dc82ae3bac6bb31f537ca966d4ae89b"
+      }
+    ],
+    "metadata_proof": {
+      "filename": "metadata-proof.json",
+      "sha256": "f4601e6be63ad6907faf9473a6532209865d8f1656c2de5e64fc0eb4d400a37f"
+    }
+  },
+  "dictionary": {
+    "projections": 120,
+    "original_metadata_bytes": 16986931200,
+    "compact_metadata_bytes": 8503863760,
+    "saved_bytes": 8483067440,
+    "saved_GiB": 7.900472208857536,
+    "dictionary_entries_min": 17885,
+    "dictionary_entries_max": 64321,
+    "all_raw_words_roundtrip_exact": true,
+    "quantization_codes_changed": false,
+    "format": "Per-projection fixed U16 indices referencing raw U32 BF16 scale/bias pairs.",
+    "underlying_quantizer_bits": 3,
+    "effective_routed_storage_bits_before": 3.25,
+    "effective_routed_storage_bits_after": 3.1251530317612635,
+    "fallback_reserve_bytes": 424673280,
+    "source": {
+      "filename": "metadata-proof.json",
+      "sha256": "f4601e6be63ad6907faf9473a6532209865d8f1656c2de5e64fc0eb4d400a37f"
+    }
+  },
+  "resident_totals": {
+    "original_bytes": 239960994632,
+    "original_GiB": 223.48109132796526,
+    "compact_bytes": 231477927192,
+    "compact_GiB": 215.58061911910772,
+    "saved_bytes": 8483067440,
+    "weight_scope": "Includes quantization metadata. Excludes KV caches and computation workspaces. All DSpark and vision components are retained."
+  },
+  "final_prefill": [
+    {
+      "context_tokens": 8192,
+      "measured_requests": 24,
+      "warmups": 6,
+      "generated_tokens": 12288,
+      "prefill_gain_percent": 4.206452634097579,
+      "TTFT_change_percent": -3.998599076799514,
+      "TTFT_A_s": 3.9314078986713317,
+      "TTFT_B_s": 3.7742066587298355,
+      "A_prefill_tps": 2107.5670376599646,
+      "B_prefill_tps": 2196.2208468309864,
+      "A_decode_tps": 76.10280149126429,
+      "B_decode_tps": 76.06863670608568,
+      "decode_change_percent": -0.044892940219198874,
+      "complete_output_and_non_timing_draft_identity": true,
+      "scenarios": [
+        {
+          "name": "campaign-store-implementation",
+          "A": {
+            "requests": 4,
+            "actual_generated_tokens": 2048,
+            "prefill_geomean_tps": 2109.685573774635,
+            "prompt_eval_geomean_seconds": 3.882497587389121,
+            "client_ttft_geomean_seconds": 3.9275383888234825,
+            "server_ttft_geomean_seconds": 3.882497587389121,
+            "decode_geomean_tps": 91.38498891954166,
+            "end_to_end_geomean_seconds": 9.529778958741662,
+            "accepted": 1472,
+            "drafted": 1652
+          },
+          "B": {
+            "requests": 4,
+            "actual_generated_tokens": 2048,
+            "prefill_geomean_tps": 2205.348691218382,
+            "prompt_eval_geomean_seconds": 3.714915878853395,
+            "client_ttft_geomean_seconds": 3.7586336631270383,
+            "server_ttft_geomean_seconds": 3.714915878853395,
+            "decode_geomean_tps": 91.21988530308266,
+            "end_to_end_geomean_seconds": 9.371181320575456,
+            "accepted": 1472,
+            "drafted": 1652
+          },
+          "prefill_gain_percent": 4.534472749538088,
+          "TTFT_change_percent": -4.300523864441219,
+          "decode_change_percent": -0.18066820208771928
+        },
+        {
+          "name": "community-launch-campaign",
+          "A": {
+            "requests": 4,
+            "actual_generated_tokens": 2048,
+            "prefill_geomean_tps": 2104.6445673175967,
+            "prompt_eval_geomean_seconds": 3.89246557079419,
+            "client_ttft_geomean_seconds": 3.93659241298742,
+            "server_ttft_geomean_seconds": 3.89246557079419,
+            "decode_geomean_tps": 71.6099797420615,
+            "end_to_end_geomean_seconds": 11.086068134285943,
+            "accepted": 1256,
+            "drafted": 1636
+          },
+          "B": {
+            "requests": 4,
+            "actual_generated_tokens": 2048,
+            "prefill_geomean_tps": 2182.016807721183,
+            "prompt_eval_geomean_seconds": 3.7547445073384953,
+            "client_ttft_geomean_seconds": 3.798814179217095,
+            "server_ttft_geomean_seconds": 3.7547445073384953,
+            "decode_geomean_tps": 71.59249567916106,
+            "end_to_end_geomean_seconds": 10.950259842079848,
+            "accepted": 1256,
+            "drafted": 1636
+          },
+          "prefill_gain_percent": 3.676261617048171,
+          "TTFT_change_percent": -3.4999364759169205,
+          "decode_change_percent": -0.024415679160105785
+        },
+        {
+          "name": "video-and-computer-use-plan",
+          "A": {
+            "requests": 4,
+            "actual_generated_tokens": 2048,
+            "prefill_geomean_tps": 2108.3742185936812,
+            "prompt_eval_geomean_seconds": 3.88740061426833,
+            "client_ttft_geomean_seconds": 3.930098433389154,
+            "server_ttft_geomean_seconds": 3.88740061426833,
+            "decode_geomean_tps": 67.35246865828702,
+            "end_to_end_geomean_seconds": 11.531677806088592,
+            "accepted": 1192,
+            "drafted": 1624
+          },
+          "B": {
+            "requests": 4,
+            "actual_generated_tokens": 2048,
+            "prefill_geomean_tps": 2201.368111200155,
+            "prompt_eval_geomean_seconds": 3.7224773449495223,
+            "client_ttft_geomean_seconds": 3.7652947616555585,
+            "server_ttft_geomean_seconds": 3.7224773449495223,
+            "decode_geomean_tps": 67.39999666194106,
+            "end_to_end_geomean_seconds": 11.361384338363063,
+            "accepted": 1192,
+            "drafted": 1624
+          },
+          "prefill_gain_percent": 4.410691981829595,
+          "TTFT_change_percent": -4.193372622259628,
+          "decode_change_percent": 0.0705660900050642
+        }
+      ],
+      "memory": {
+        "interval_seconds": 0.5,
+        "samples": 728,
+        "max_phys_bytes": 242189735296,
+        "min_available_bytes": 13146537984,
+        "all_pressure_normal": true,
+        "all_phys_under_240GiB": true,
+        "no_between_sample_peak_certificate": true,
+        "sampled_peak_GiB": 225.55676782131195,
+        "sampled_min_available_GiB": 12.243667602539062,
+        "errors": 0
+      },
+      "direct_bulk_calls": 20,
+      "dense_tail_calls": 20,
+      "bulk_dense_calls_B": 0,
+      "same_process": true,
+      "cached_tokens": 0,
+      "source": {
+        "filename": "omlx-metadata-prefill-8k-live-r1.json",
+        "sha256": "9d45ae3b9684cf34574e3212dfe7b1085c36296850dd367a559e75c3f36114fc"
+      }
+    },
+    {
+      "context_tokens": 16384,
+      "measured_requests": 4,
+      "warmups": 2,
+      "generated_tokens": 2048,
+      "prefill_gain_percent": 3.792708647851595,
+      "TTFT_change_percent": -3.6186853466697255,
+      "TTFT_A_s": 7.776758193741647,
+      "TTFT_B_s": 7.49534178453878,
+      "A_prefill_tps": 2122.8874039147718,
+      "B_prefill_tps": 2203.4023380671997,
+      "A_decode_tps": 94.39999152542337,
+      "B_decode_tps": 94.39999947033894,
+      "decode_change_percent": 8.416224872576095e-06,
+      "complete_output_and_non_timing_draft_identity": true,
+      "scenarios": [
+        {
+          "name": "campaign-store-implementation",
+          "A": {
+            "requests": 2,
+            "actual_generated_tokens": 1024,
+            "prefill_geomean_tps": 2122.8874039147718,
+            "prompt_eval_geomean_seconds": 7.719993523313346,
+            "client_ttft_geomean_seconds": 7.776758193741647,
+            "server_ttft_geomean_seconds": 7.719993523313346,
+            "decode_geomean_tps": 94.39999152542337,
+            "end_to_end_geomean_seconds": 13.200138438860025,
+            "accepted": 750,
+            "drafted": 824
+          },
+          "B": {
+            "requests": 2,
+            "actual_generated_tokens": 1024,
+            "prefill_geomean_tps": 2203.4023380671997,
+            "prompt_eval_geomean_seconds": 7.434984868848087,
+            "client_ttft_geomean_seconds": 7.49534178453878,
+            "server_ttft_geomean_seconds": 7.434984868848087,
+            "decode_geomean_tps": 94.39999947033894,
+            "end_to_end_geomean_seconds": 12.918615632735657,
+            "accepted": 750,
+            "drafted": 824
+          },
+          "prefill_gain_percent": 3.792708647851595,
+          "TTFT_change_percent": -3.6186853466697255,
+          "decode_change_percent": 8.416224872576095e-06
+        }
+      ],
+      "memory": {
+        "interval_seconds": 0.5,
+        "samples": 167,
+        "max_phys_bytes": 242378462616,
+        "min_available_bytes": 13421887488,
+        "all_pressure_normal": true,
+        "all_phys_under_240GiB": true,
+        "no_between_sample_peak_certificate": true,
+        "sampled_peak_GiB": 225.73253383487463,
+        "sampled_min_available_GiB": 12.500106811523438,
+        "errors": 0
+      },
+      "direct_bulk_calls": 40,
+      "dense_tail_calls": 40,
+      "bulk_dense_calls_B": 0,
+      "same_process": true,
+      "cached_tokens": 0,
+      "source": {
+        "filename": "omlx-metadata-prefill-16k-live-r1.json",
+        "sha256": "19d1102888cf30880d6e056360e47e3c1349495d8dfaad4e4e4930de49b5178c"
+      }
+    },
+    {
+      "context_tokens": 32768,
+      "measured_requests": 4,
+      "warmups": 2,
+      "generated_tokens": 2048,
+      "prefill_gain_percent": 3.751908388632419,
+      "TTFT_change_percent": -3.5852143717087115,
+      "TTFT_A_s": 15.580638664460524,
+      "TTFT_B_s": 15.022039367858282,
+      "A_prefill_tps": 2114.764970203545,
+      "B_prefill_tps": 2194.1090145204716,
+      "A_decode_tps": 97.22499884289013,
+      "B_decode_tps": 97.23499987144544,
+      "decode_change_percent": 0.010286478451360104,
+      "complete_output_and_non_timing_draft_identity": true,
+      "scenarios": [
+        {
+          "name": "campaign-store-implementation",
+          "A": {
+            "requests": 2,
+            "actual_generated_tokens": 1024,
+            "prefill_geomean_tps": 2114.764970203545,
+            "prompt_eval_geomean_seconds": 15.49499919328814,
+            "client_ttft_geomean_seconds": 15.580638664460524,
+            "server_ttft_geomean_seconds": 15.49499919328814,
+            "decode_geomean_tps": 97.22499884289013,
+            "end_to_end_geomean_seconds": 20.846643216788465,
+            "accepted": 762,
+            "drafted": 828
+          },
+          "B": {
+            "requests": 2,
+            "actual_generated_tokens": 1024,
+            "prefill_geomean_tps": 2194.1090145204716,
+            "prompt_eval_geomean_seconds": 14.934958988895817,
+            "client_ttft_geomean_seconds": 15.022039367858282,
+            "server_ttft_geomean_seconds": 14.934958988895817,
+            "decode_geomean_tps": 97.23499987144544,
+            "end_to_end_geomean_seconds": 20.28720342891784,
+            "accepted": 762,
+            "drafted": 828
+          },
+          "prefill_gain_percent": 3.751908388632419,
+          "TTFT_change_percent": -3.5852143717087115,
+          "decode_change_percent": 0.010286478451360104
+        }
+      ],
+      "memory": {
+        "interval_seconds": 0.5,
+        "samples": 254,
+        "max_phys_bytes": 242260350360,
+        "min_available_bytes": 14099906560,
+        "all_pressure_normal": true,
+        "all_phys_under_240GiB": true,
+        "no_between_sample_peak_certificate": true,
+        "sampled_peak_GiB": 225.62253322452307,
+        "sampled_min_available_GiB": 13.131561279296875,
+        "errors": 0
+      },
+      "direct_bulk_calls": 80,
+      "dense_tail_calls": 80,
+      "bulk_dense_calls_B": 0,
+      "same_process": true,
+      "cached_tokens": 0,
+      "source": {
+        "filename": "omlx-metadata-prefill-32k-live-r1.json",
+        "sha256": "ce59ab002c74521424edfe749555ede93e510ee96b4fa3b09651fe74757de220"
+      }
+    }
+  ],
+  "final_AB_totals": {
+    "all_requests": 42,
+    "measured_requests": 32,
+    "warmup_requests": 10,
+    "measured_generated_tokens": 16384,
+    "all_generated_tokens_including_warmups": 21504,
+    "generated_tokens_per_request": 512,
+    "prefix_reuse_tokens": 0,
+    "full_logits_assessed": false,
+    "same_checkpoint": true,
+    "source": {
+      "filename": "omlx-metadata-prefill-acceptance-r1.json",
+      "sha256": "d9e2c3b3f2dbbe1041baf44a468bc163309a0e05b9c24bd7e618e99dfb27d6ae"
+    }
+  },
+  "final_flags": {
+    "DS41_NATIVE_DECODE": "1",
+    "DS41_NATIVE_VERIFY": "0",
+    "DS41_SPARSE": "1",
+    "DS41_MHC": "1",
+    "DS41_GATHER": "1",
+    "DS41_NATIVE_GATE_UP": "0",
+    "DS41_NATIVE_METADATA": "<model-dir>/exact-metadata/metadata-proof.json",
+    "DS41_NATIVE_METADATA_PREFILL": "1",
+    "DS41_DRAFT_ASYNC": "1",
+    "max_concurrent_requests": 1,
+    "process_limit_GiB": 240,
+    "wired_limit_MiB": 245760,
+    "system_budget_GiB": 16,
+    "runtime_free_16GiB_floor": false,
+    "prefix_cache_enabled": false,
+    "all_target_DSpark_vision_resident": true,
+    "SSD_only_large_Engram_tables": true,
+    "pairing_bypassed_by_compact_metadata": true,
+    "metadata_default_off_unqualified_concurrency": true,
+    "source": {
+      "filename": "omlx-v41-service-acceptance-20261007-r1.json",
+      "sha256": "0a897946979cb3c975879ab58912aea3b5e0130f019a403c2378c7ccb3d8bc6f"
+    }
+  },
+  "limits": [
+    "Do not add percentage gains across experiments or multiply the historical 72.80 tokens/s result by them.",
+    "Compact metadata bypasses paired gate/up execution. The final profile has pairing off, compact metadata and direct prefill on, DSpark asynchronous starts on, concurrency one, prefix reuse off, and a 240 GiB limit.",
+    "The 16 GiB system budget does not require available memory to remain above 16 GiB at runtime.",
+    "The 1.2 TB/s bandwidth and 1.5x M3-to-M5 scaling ratio are unmeasured assumptions.",
+    "Sampled weight MSE and exact generated-output comparisons do not establish general quantization accuracy, whole-model logit identity or broad semantic quality.",
+    "Each 8K/16K/32K candidate request retains 20/40/80 dense short-tail expert calls alongside 20/40/80 native bulk MoE calls. The 405 MiB reserve remains.",
+    "Each final harness run covers one SQLite feature task. Hermes discovers 4 public plus 22 added tests, totaling 26; DeepSeek Harness discovers 4 plus 31, totaling 35. Each also passes a separate suite of 5 hidden tests.",
+    "The code, marketing and video/computer-use throughput groups are frozen text prompts, not executed marketing, video or computer-use completion-rate evaluations.",
+    "The latest 512-token LAN correctness probe includes first-use bulk JIT compilation. It does not replace the warm A/B timing study.",
+    "The historical 1M-context probe generated 256 tokens and does not qualify long-task accuracy for the latest profile.",
+    "Original mixed LSQ3 quantization is lossy. Later metadata compression is exact relative to that fixed quantized checkpoint.",
+    "No public content was posted during final evaluation. Private IPs, usernames, absolute user directories, credentials and private prompts are excluded from this public data package.",
+    "Historical verification of 892 SHA256 chunks differs from recent structural checks; no new full-payload provenance proof is claimed."
+  ],
+  "origin": "Archived 2026-10-07 acceptance, not a new public-package benchmark run."
+}

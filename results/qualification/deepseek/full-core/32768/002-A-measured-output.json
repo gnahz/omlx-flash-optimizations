@@ -1,0 +1,84 @@
+{
+  "content": "# SQLite Campaign Draft Store\n\nBelow is a complete, runnable implementation using only the Python standard library. It provides a `CampaignDraftStore` with create/get/list/update, idempotency keys, explicit transactions, validation, optimistic version checks, and rollback. Tests cover duplicate requests, conflicting updates, pagination, and transaction failure.\n\n## `campaign_store.py`\n\n```python\nimport sqlite3\nimport json\nimport uuid\nfrom datetime import datetime, timezone\nfrom typing import Optional, List, Dict, Any\n\nSCHEMA = \"\"\"\nCREATE TABLE IF NOT EXISTS campaign_drafts (\n    id TEXT PRIMARY KEY,\n    name TEXT NOT NULL,\n    status TEXT NOT NULL,\n    budget INTEGER NOT NULL,\n    version INTEGER NOT NULL DEFAULT 1,\n    created_at TEXT NOT NULL,\n    updated_at TEXT NOT NULL\n);\nCREATE TABLE IF NOT EXISTS idempotency_keys (\n    key TEXT PRIMARY KEY,\n    operation TEXT NOT NULL,\n    resource_id TEXT NOT NULL,\n    response TEXT NOT NULL,\n    created_at TEXT NOT NULL\n);\nCREATE INDEX IF NOT EXISTS idx_drafts_created ON campaign_drafts(created_at, id);\n\"\"\"\n\nVALID_STATUSES = {\"draft\", \"active\", \"paused\", \"archived\"}\n\n\nclass ValidationError(ValueError):\n    pass\n\n\nclass ConflictError(RuntimeError):\n    pass\n\n\nclass NotFoundError(LookupError):\n    pass\n\n\ndef _now() -> str:\n    return datetime.now(timezone.utc).isoformat()\n\n\ndef _validate_name(name: Any) -> str:\n    if not isinstance(name, str) or not name.strip():\n        raise ValidationError(\"name must be a non-empty string\")\n    if len(name) > 200:\n        raise ValidationError(\"name must be <= 200 chars\")\n    return name.strip()\n\n\ndef _validate_status(status: Any) -> str:\n    if status not in VALID_STATUSES:\n        raise ValidationError(f\"status must be one of {sorted(VALID_STATUSES)}\")\n    return status\n\n\ndef _validate_budget(budget: Any) -> int:\n    if isinstance(budget, bool) or not isinstance(budget, int):\n        raise ValidationError(\"budget must be an integer\")\n    if budget < 0 or budget > 10_000_000:\n        raise ValidationError(\"budget must be between 0 and 10,000,000\")\n    return budget\n\n\nclass CampaignDraftStore:\n    def __init__(",
+  "reasoning": "",
+  "usage": {
+    "prompt_tokens": 32768,
+    "completion_tokens": 512,
+    "total_tokens": 33280,
+    "input_tokens": 32768,
+    "output_tokens": 512,
+    "prompt_tokens_details": {
+      "cached_tokens": 0
+    },
+    "time_to_first_token": 16.11,
+    "time_to_first_visible_token": 16.11,
+    "total_time": 21.47,
+    "prompt_eval_duration": 16.11,
+    "generation_duration": 5.35,
+    "prompt_tokens_per_second": 2033.65,
+    "generation_tokens_per_second": 95.63
+  },
+  "finish_reason": "length",
+  "done": true,
+  "elapsed_seconds": 21.57764083397342,
+  "ttft_seconds": 16.222270708996803,
+  "server_decode_tps": 95.63,
+  "server_prefill_tps": 2033.65,
+  "reported_cached_tokens": 0,
+  "log_start_offset": 43606,
+  "artifacts": {
+    "raw_sse": "002-A-measured-sse.txt",
+    "events": "002-A-measured-events.json",
+    "output": "002-A-measured-output.json"
+  },
+  "whole_output_sha256": "ca9d9937424fabb10717270978a2373e4421e835af70d5f041023ffee8df6f9c",
+  "scenario": 0,
+  "arm": "A",
+  "warmup": false,
+  "round": 0,
+  "position": 0,
+  "serial": 2,
+  "case": "campaign-store-implementation",
+  "module_stats": {
+    "metadata_prefill_dense_calls": 80,
+    "metadata_dense_expert_calls": 80,
+    "dspark_single_calls": 128
+  },
+  "speculative": {
+    "finish": "length",
+    "tokens": 512,
+    "cycles": 129,
+    "tokens_per_cycle": 3.97,
+    "accepted": 381,
+    "drafted": 414,
+    "acceptance_rate": 0.9202898550724637,
+    "timing_ms": {
+      "backbone": 5052.9,
+      "mtp_head": 231.2,
+      "sampling": 3.4,
+      "cache": 17.6
+    },
+    "prompt_copy": {
+      "cycles": 2,
+      "accepted": 4,
+      "drafted": 8
+    }
+  },
+  "speculative_counter_identity": {
+    "finish": "length",
+    "tokens": 512,
+    "cycles": 129,
+    "tokens_per_cycle": 3.97,
+    "accepted": 381,
+    "drafted": 414,
+    "acceptance_rate": 0.9202898550724637,
+    "prompt_copy": {
+      "cycles": 2,
+      "accepted": 4,
+      "drafted": 8
+    }
+  },
+  "server_prompt_eval_seconds": 16.11,
+  "server_model_ttft_seconds": 16.11,
+  "server_model_load_seconds": null
+}

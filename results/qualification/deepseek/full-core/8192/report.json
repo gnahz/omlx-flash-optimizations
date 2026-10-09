@@ -1,0 +1,3020 @@
+{
+  "status": "passed",
+  "context_target": 8192,
+  "max_output_tokens": 512,
+  "repeat": 2,
+  "order": "ABBA",
+  "plan": [
+    {
+      "scenario": 0,
+      "arm": "A",
+      "warmup": true,
+      "round": null,
+      "position": null
+    },
+    {
+      "scenario": 0,
+      "arm": "B",
+      "warmup": true,
+      "round": null,
+      "position": null
+    },
+    {
+      "scenario": 0,
+      "arm": "A",
+      "warmup": false,
+      "round": 0,
+      "position": 0
+    },
+    {
+      "scenario": 0,
+      "arm": "B",
+      "warmup": false,
+      "round": 0,
+      "position": 1
+    },
+    {
+      "scenario": 0,
+      "arm": "B",
+      "warmup": false,
+      "round": 0,
+      "position": 2
+    },
+    {
+      "scenario": 0,
+      "arm": "A",
+      "warmup": false,
+      "round": 0,
+      "position": 3
+    },
+    {
+      "scenario": 0,
+      "arm": "A",
+      "warmup": false,
+      "round": 1,
+      "position": 0
+    },
+    {
+      "scenario": 0,
+      "arm": "B",
+      "warmup": false,
+      "round": 1,
+      "position": 1
+    },
+    {
+      "scenario": 0,
+      "arm": "B",
+      "warmup": false,
+      "round": 1,
+      "position": 2
+    },
+    {
+      "scenario": 0,
+      "arm": "A",
+      "warmup": false,
+      "round": 1,
+      "position": 3
+    },
+    {
+      "scenario": 1,
+      "arm": "A",
+      "warmup": true,
+      "round": null,
+      "position": null
+    },
+    {
+      "scenario": 1,
+      "arm": "B",
+      "warmup": true,
+      "round": null,
+      "position": null
+    },
+    {
+      "scenario": 1,
+      "arm": "A",
+      "warmup": false,
+      "round": 0,
+      "position": 0
+    },
+    {
+      "scenario": 1,
+      "arm": "B",
+      "warmup": false,
+      "round": 0,
+      "position": 1
+    },
+    {
+      "scenario": 1,
+      "arm": "B",
+      "warmup": false,
+      "round": 0,
+      "position": 2
+    },
+    {
+      "scenario": 1,
+      "arm": "A",
+      "warmup": false,
+      "round": 0,
+      "position": 3
+    },
+    {
+      "scenario": 1,
+      "arm": "A",
+      "warmup": false,
+      "round": 1,
+      "position": 0
+    },
+    {
+      "scenario": 1,
+      "arm": "B",
+      "warmup": false,
+      "round": 1,
+      "position": 1
+    },
+    {
+      "scenario": 1,
+      "arm": "B",
+      "warmup": false,
+      "round": 1,
+      "position": 2
+    },
+    {
+      "scenario": 1,
+      "arm": "A",
+      "warmup": false,
+      "round": 1,
+      "position": 3
+    },
+    {
+      "scenario": 2,
+      "arm": "A",
+      "warmup": true,
+      "round": null,
+      "position": null
+    },
+    {
+      "scenario": 2,
+      "arm": "B",
+      "warmup": true,
+      "round": null,
+      "position": null
+    },
+    {
+      "scenario": 2,
+      "arm": "A",
+      "warmup": false,
+      "round": 0,
+      "position": 0
+    },
+    {
+      "scenario": 2,
+      "arm": "B",
+      "warmup": false,
+      "round": 0,
+      "position": 1
+    },
+    {
+      "scenario": 2,
+      "arm": "B",
+      "warmup": false,
+      "round": 0,
+      "position": 2
+    },
+    {
+      "scenario": 2,
+      "arm": "A",
+      "warmup": false,
+      "round": 0,
+      "position": 3
+    },
+    {
+      "scenario": 2,
+      "arm": "A",
+      "warmup": false,
+      "round": 1,
+      "position": 0
+    },
+    {
+      "scenario": 2,
+      "arm": "B",
+      "warmup": false,
+      "round": 1,
+      "position": 1
+    },
+    {
+      "scenario": 2,
+      "arm": "B",
+      "warmup": false,
+      "round": 1,
+      "position": 2
+    },
+    {
+      "scenario": 2,
+      "arm": "A",
+      "warmup": false,
+      "round": 1,
+      "position": 3
+    }
+  ],
+  "payload_manifest": {
+    "0": {
+      "context_target": 8192,
+      "cpu_prompt_tokens": 8192,
+      "prompt_sha256": "f92897f934bc812465b9ecaf90ad48a3a6c3d4db84823d7a14676455e3b3fbbc",
+      "historical_payload_sha256": "2338d121ff5f995a558830422443606812bad76085f35266f31f231aa5318c01",
+      "historical_output_golden_applicable": true,
+      "prepared_payload_sha256": "2338d121ff5f995a558830422443606812bad76085f35266f31f231aa5318c01"
+    },
+    "1": {
+      "context_target": 8192,
+      "cpu_prompt_tokens": 8192,
+      "prompt_sha256": "695aa4e904be3d5b64b2ea8a9f7fbf2367e683233ce103592bf6f5e7a953e3d9",
+      "historical_payload_sha256": "b569fea2d995338b467deced2d657dafe1b7eedac7ec4cfa5a6853c7196621a1",
+      "historical_output_golden_applicable": true,
+      "prepared_payload_sha256": "b569fea2d995338b467deced2d657dafe1b7eedac7ec4cfa5a6853c7196621a1"
+    },
+    "2": {
+      "context_target": 8192,
+      "cpu_prompt_tokens": 8192,
+      "prompt_sha256": "68b0b21cfeacb1ffef309495373497635c483880147de8fb810fb6359f7f1359",
+      "historical_payload_sha256": "90e79a442ea6923427b39d6f3c3215f6ec35e954b71d12bf04f3ee9f8e17f532",
+      "historical_output_golden_applicable": true,
+      "prepared_payload_sha256": "90e79a442ea6923427b39d6f3c3215f6ec35e954b71d12bf04f3ee9f8e17f532"
+    }
+  },
+  "source_sha256": {
+    "tokenizer": "c90dfa01249db1be4245780a052ede752e1361c612ac6d08e2bdada7d599476b",
+    "encoder": "13f678b10c73da6fb8e4c231fae1ed29542538e5a62fe75176a202cd82dd327a",
+    "fixture_manifest": "22ca0c75452e9eef77ef1ae0dd3d840844afa9f657b92f2e132bd6ee2acd1080",
+    "script": "96531081a1d49c0652c658b8ffdbe83a3a2db8847a011619fb6ed622e8e2aa7f"
+  },
+  "rows": [
+    {
+      "content": "# SQLite Campaign Draft Store (stdlib only)\n\nBelow is a complete, runnable implementation using only the Python standard library. It provides a small \"campaign draft\" store with create/get/list/update, idempotency keys, explicit transactions, validation, optimistic version checks, and rollback.\n\n## `campaign_store.py`\n\n```python\n\"\"\"SQLite-backed campaign draft store (stdlib only).\"\"\"\nfrom __future__ import annotations\n\nimport json\nimport re\nimport sqlite3\nimport uuid\nfrom dataclasses import dataclass\nfrom typing import Any, Iterable, Optional\n\nNAME_RE = re.compile(r\"^[A-Za-z0-9 _\\-\\.]{1,80}$\")\nMAX_BUDGET = 10_000_000\nMAX_PAGE = 200\n\n\nclass ValidationError(ValueError):\n    \"\"\"Raised when input fails validation.\"\"\"\n\n\nclass ConflictError(RuntimeError):\n    \"\"\"Raised on optimistic version mismatch.\"\"\"\n\n\nclass NotFoundError(LookupError):\n    \"\"\"Raised when a draft does not exist.\"\"\"\n\n\n@dataclass(frozen=True)\nclass Draft:\n    id: str\n    name: str\n    budget: int\n    owner_team: int\n    status: str\n    version: int\n    idempotency_key: Optional[str]\n    created_at: str\n    updated_at: str\n\n    def as_dict(self) -> dict[str, Any]:\n        return {\n            \"id\": self.id,\n            \"name\": self.name,\n            \"budget\": self.budget,\n            \"owner_team\": self.owner_team,\n            \"status\": self.status,\n            \"version\": self.version,\n            \"idempotency_key\": self.idempotency_key,\n            \"created_at\": self.created_at,\n            \"updated_at\": self.updated_at,\n        }\n\n\ndef _validate_name(name: Any) -> str:\n    if not isinstance(name, str) or not NAME_RE.match(name):\n        raise ValidationError(\"name must be 1-80 chars of letters, digits, space, _-.\")\n    return name\n\n\ndef _validate_budget(budget: Any) -> int:\n    if isinstance(budget, bool) or not isinstance(budget, int):\n        raise ValidationError(\"budget must be an integer\")\n    if budget < 0 or budget > MAX_BUDGET:\n        raise ValidationError(f\"budget must be between 0 and {MAX_BUD",
+      "reasoning": "",
+      "usage": {
+        "prompt_tokens": 8192,
+        "completion_tokens": 512,
+        "total_tokens": 8704,
+        "input_tokens": 8192,
+        "output_tokens": 512,
+        "prompt_tokens_details": {
+          "cached_tokens": 0
+        },
+        "time_to_first_token": 20.22,
+        "time_to_first_visible_token": 20.28,
+        "total_time": 28.01,
+        "prompt_eval_duration": 20.22,
+        "generation_duration": 7.79,
+        "prompt_tokens_per_second": 405.17,
+        "generation_tokens_per_second": 65.72
+      },
+      "finish_reason": "length",
+      "done": true,
+      "elapsed_seconds": 28.077994291030336,
+      "ttft_seconds": 20.344319250027183,
+      "server_decode_tps": 65.72,
+      "server_prefill_tps": 405.17,
+      "reported_cached_tokens": 0,
+      "log_start_offset": 10049,
+      "artifacts": {
+        "raw_sse": "000-A-warmup-sse.txt",
+        "events": "000-A-warmup-events.json",
+        "output": "000-A-warmup-output.json"
+      },
+      "whole_output_sha256": "55354dfb641499f2954e99606da1e83717295a126cd03d4fb4c0d16b6217df7f",
+      "scenario": 0,
+      "arm": "A",
+      "warmup": true,
+      "round": null,
+      "position": null,
+      "serial": 0,
+      "case": "campaign-store-implementation",
+      "module_stats": {
+        "metadata_prefill_dense_calls": 20,
+        "metadata_dense_expert_calls": 20,
+        "dspark_single_calls": 141
+      },
+      "speculative": {
+        "finish": "length",
+        "tokens": 512,
+        "cycles": 142,
+        "tokens_per_cycle": 3.61,
+        "accepted": 368,
+        "drafted": 413,
+        "acceptance_rate": 0.8910411622276029,
+        "timing_ms": {
+          "backbone": 6920.1,
+          "mtp_head": 735.8,
+          "sampling": 4.0,
+          "cache": 22.0
+        },
+        "prompt_copy": {
+          "cycles": 2,
+          "accepted": 5,
+          "drafted": 8
+        }
+      },
+      "speculative_counter_identity": {
+        "finish": "length",
+        "tokens": 512,
+        "cycles": 142,
+        "tokens_per_cycle": 3.61,
+        "accepted": 368,
+        "drafted": 413,
+        "acceptance_rate": 0.8910411622276029,
+        "prompt_copy": {
+          "cycles": 2,
+          "accepted": 5,
+          "drafted": 8
+        }
+      },
+      "server_prompt_eval_seconds": 20.22,
+      "server_model_ttft_seconds": 20.22,
+      "server_model_load_seconds": null
+    },
+    {
+      "content": "# SQLite Campaign Draft Store (stdlib only)\n\nBelow is a complete, runnable implementation using only the Python standard library. It provides a small \"campaign draft\" store with create/get/list/update, idempotency keys, explicit transactions, validation, optimistic version checks, and rollback.\n\n## `campaign_store.py`\n\n```python\n\"\"\"SQLite-backed campaign draft store (stdlib only).\"\"\"\nfrom __future__ import annotations\n\nimport json\nimport re\nimport sqlite3\nimport uuid\nfrom dataclasses import dataclass\nfrom typing import Any, Iterable, Optional\n\nNAME_RE = re.compile(r\"^[A-Za-z0-9 _\\-\\.]{1,80}$\")\nMAX_BUDGET = 10_000_000\nMAX_PAGE = 200\n\n\nclass ValidationError(ValueError):\n    \"\"\"Raised when input fails validation.\"\"\"\n\n\nclass ConflictError(RuntimeError):\n    \"\"\"Raised on optimistic version mismatch.\"\"\"\n\n\nclass NotFoundError(LookupError):\n    \"\"\"Raised when a draft does not exist.\"\"\"\n\n\n@dataclass(frozen=True)\nclass Draft:\n    id: str\n    name: str\n    budget: int\n    owner_team: int\n    status: str\n    version: int\n    idempotency_key: Optional[str]\n    created_at: str\n    updated_at: str\n\n    def as_dict(self) -> dict[str, Any]:\n        return {\n            \"id\": self.id,\n            \"name\": self.name,\n            \"budget\": self.budget,\n            \"owner_team\": self.owner_team,\n            \"status\": self.status,\n            \"version\": self.version,\n            \"idempotency_key\": self.idempotency_key,\n            \"created_at\": self.created_at,\n            \"updated_at\": self.updated_at,\n        }\n\n\ndef _validate_name(name: Any) -> str:\n    if not isinstance(name, str) or not NAME_RE.match(name):\n        raise ValidationError(\"name must be 1-80 chars of letters, digits, space, _-.\")\n    return name\n\n\ndef _validate_budget(budget: Any) -> int:\n    if isinstance(budget, bool) or not isinstance(budget, int):\n        raise ValidationError(\"budget must be an integer\")\n    if budget < 0 or budget > MAX_BUDGET:\n        raise ValidationError(f\"budget must be between 0 and {MAX_BUD",
+      "reasoning": "",
+      "usage": {
+        "prompt_tokens": 8192,
+        "completion_tokens": 512,
+        "total_tokens": 8704,
+        "input_tokens": 8192,
+        "output_tokens": 512,
+        "prompt_tokens_details": {
+          "cached_tokens": 0
+        },
+        "time_to_first_token": 3.91,
+        "time_to_first_visible_token": 3.91,
+        "total_time": 9.61,
+        "prompt_eval_duration": 3.91,
+        "generation_duration": 5.7,
+        "prompt_tokens_per_second": 2095.28,
+        "generation_tokens_per_second": 89.84
+      },
+      "finish_reason": "length",
+      "done": true,
+      "elapsed_seconds": 9.679204625019338,
+      "ttft_seconds": 3.9806766670080833,
+      "server_decode_tps": 89.84,
+      "server_prefill_tps": 2095.28,
+      "reported_cached_tokens": 0,
+      "log_start_offset": 11171,
+      "artifacts": {
+        "raw_sse": "001-B-warmup-sse.txt",
+        "events": "001-B-warmup-events.json",
+        "output": "001-B-warmup-output.json"
+      },
+      "whole_output_sha256": "55354dfb641499f2954e99606da1e83717295a126cd03d4fb4c0d16b6217df7f",
+      "scenario": 0,
+      "arm": "B",
+      "warmup": true,
+      "round": null,
+      "position": null,
+      "serial": 1,
+      "case": "campaign-store-implementation",
+      "module_stats": {
+        "metadata_prefill_direct_calls": 20,
+        "metadata_dense_expert_calls": 20,
+        "dspark_single_calls": 141
+      },
+      "speculative": {
+        "finish": "length",
+        "tokens": 512,
+        "cycles": 142,
+        "tokens_per_cycle": 3.61,
+        "accepted": 368,
+        "drafted": 413,
+        "acceptance_rate": 0.8910411622276029,
+        "timing_ms": {
+          "backbone": 5362.1,
+          "mtp_head": 257.4,
+          "sampling": 3.9,
+          "cache": 22.2
+        },
+        "prompt_copy": {
+          "cycles": 2,
+          "accepted": 5,
+          "drafted": 8
+        }
+      },
+      "speculative_counter_identity": {
+        "finish": "length",
+        "tokens": 512,
+        "cycles": 142,
+        "tokens_per_cycle": 3.61,
+        "accepted": 368,
+        "drafted": 413,
+        "acceptance_rate": 0.8910411622276029,
+        "prompt_copy": {
+          "cycles": 2,
+          "accepted": 5,
+          "drafted": 8
+        }
+      },
+      "server_prompt_eval_seconds": 3.91,
+      "server_model_ttft_seconds": 3.91,
+      "server_model_load_seconds": null
+    },
+    {
+      "content": "# SQLite Campaign Draft Store (stdlib only)\n\nBelow is a complete, runnable implementation using only the Python standard library. It provides a small \"campaign draft\" store with create/get/list/update, idempotency keys, explicit transactions, validation, optimistic version checks, and rollback.\n\n## `campaign_store.py`\n\n```python\n\"\"\"SQLite-backed campaign draft store (stdlib only).\"\"\"\nfrom __future__ import annotations\n\nimport json\nimport re\nimport sqlite3\nimport uuid\nfrom dataclasses import dataclass\nfrom typing import Any, Iterable, Optional\n\nNAME_RE = re.compile(r\"^[A-Za-z0-9 _\\-\\.]{1,80}$\")\nMAX_BUDGET = 10_000_000\nMAX_PAGE = 200\n\n\nclass ValidationError(ValueError):\n    \"\"\"Raised when input fails validation.\"\"\"\n\n\nclass ConflictError(RuntimeError):\n    \"\"\"Raised on optimistic version mismatch.\"\"\"\n\n\nclass NotFoundError(LookupError):\n    \"\"\"Raised when a draft does not exist.\"\"\"\n\n\n@dataclass(frozen=True)\nclass Draft:\n    id: str\n    name: str\n    budget: int\n    owner_team: int\n    status: str\n    version: int\n    idempotency_key: Optional[str]\n    created_at: str\n    updated_at: str\n\n    def as_dict(self) -> dict[str, Any]:\n        return {\n            \"id\": self.id,\n            \"name\": self.name,\n            \"budget\": self.budget,\n            \"owner_team\": self.owner_team,\n            \"status\": self.status,\n            \"version\": self.version,\n            \"idempotency_key\": self.idempotency_key,\n            \"created_at\": self.created_at,\n            \"updated_at\": self.updated_at,\n        }\n\n\ndef _validate_name(name: Any) -> str:\n    if not isinstance(name, str) or not NAME_RE.match(name):\n        raise ValidationError(\"name must be 1-80 chars of letters, digits, space, _-.\")\n    return name\n\n\ndef _validate_budget(budget: Any) -> int:\n    if isinstance(budget, bool) or not isinstance(budget, int):\n        raise ValidationError(\"budget must be an integer\")\n    if budget < 0 or budget > MAX_BUDGET:\n        raise ValidationError(f\"budget must be between 0 and {MAX_BUD",
+      "reasoning": "",
+      "usage": {
+        "prompt_tokens": 8192,
+        "completion_tokens": 512,
+        "total_tokens": 8704,
+        "input_tokens": 8192,
+        "output_tokens": 512,
+        "prompt_tokens_details": {
+          "cached_tokens": 0
+        },
+        "time_to_first_token": 4.07,
+        "time_to_first_visible_token": 4.07,
+        "total_time": 9.76,
+        "prompt_eval_duration": 4.07,
+        "generation_duration": 5.69,
+        "prompt_tokens_per_second": 2013.73,
+        "generation_tokens_per_second": 89.99
+      },
+      "finish_reason": "length",
+      "done": true,
+      "elapsed_seconds": 9.82401762495283,
+      "ttft_seconds": 4.134815041965339,
+      "server_decode_tps": 89.99,
+      "server_prefill_tps": 2013.73,
+      "reported_cached_tokens": 0,
+      "log_start_offset": 12043,
+      "artifacts": {
+        "raw_sse": "002-A-measured-sse.txt",
+        "events": "002-A-measured-events.json",
+        "output": "002-A-measured-output.json"
+      },
+      "whole_output_sha256": "55354dfb641499f2954e99606da1e83717295a126cd03d4fb4c0d16b6217df7f",
+      "scenario": 0,
+      "arm": "A",
+      "warmup": false,
+      "round": 0,
+      "position": 0,
+      "serial": 2,
+      "case": "campaign-store-implementation",
+      "module_stats": {
+        "metadata_prefill_dense_calls": 20,
+        "metadata_dense_expert_calls": 20,
+        "dspark_single_calls": 141
+      },
+      "speculative": {
+        "finish": "length",
+        "tokens": 512,
+        "cycles": 142,
+        "tokens_per_cycle": 3.61,
+        "accepted": 368,
+        "drafted": 413,
+        "acceptance_rate": 0.8910411622276029,
+        "timing_ms": {
+          "backbone": 5365.1,
+          "mtp_head": 248.0,
+          "sampling": 3.8,
+          "cache": 22.2
+        },
+        "prompt_copy": {
+          "cycles": 2,
+          "accepted": 5,
+          "drafted": 8
+        }
+      },
+      "speculative_counter_identity": {
+        "finish": "length",
+        "tokens": 512,
+        "cycles": 142,
+        "tokens_per_cycle": 3.61,
+        "accepted": 368,
+        "drafted": 413,
+        "acceptance_rate": 0.8910411622276029,
+        "prompt_copy": {
+          "cycles": 2,
+          "accepted": 5,
+          "drafted": 8
+        }
+      },
+      "server_prompt_eval_seconds": 4.07,
+      "server_model_ttft_seconds": 4.07,
+      "server_model_load_seconds": null
+    },
+    {
+      "content": "# SQLite Campaign Draft Store (stdlib only)\n\nBelow is a complete, runnable implementation using only the Python standard library. It provides a small \"campaign draft\" store with create/get/list/update, idempotency keys, explicit transactions, validation, optimistic version checks, and rollback.\n\n## `campaign_store.py`\n\n```python\n\"\"\"SQLite-backed campaign draft store (stdlib only).\"\"\"\nfrom __future__ import annotations\n\nimport json\nimport re\nimport sqlite3\nimport uuid\nfrom dataclasses import dataclass\nfrom typing import Any, Iterable, Optional\n\nNAME_RE = re.compile(r\"^[A-Za-z0-9 _\\-\\.]{1,80}$\")\nMAX_BUDGET = 10_000_000\nMAX_PAGE = 200\n\n\nclass ValidationError(ValueError):\n    \"\"\"Raised when input fails validation.\"\"\"\n\n\nclass ConflictError(RuntimeError):\n    \"\"\"Raised on optimistic version mismatch.\"\"\"\n\n\nclass NotFoundError(LookupError):\n    \"\"\"Raised when a draft does not exist.\"\"\"\n\n\n@dataclass(frozen=True)\nclass Draft:\n    id: str\n    name: str\n    budget: int\n    owner_team: int\n    status: str\n    version: int\n    idempotency_key: Optional[str]\n    created_at: str\n    updated_at: str\n\n    def as_dict(self) -> dict[str, Any]:\n        return {\n            \"id\": self.id,\n            \"name\": self.name,\n            \"budget\": self.budget,\n            \"owner_team\": self.owner_team,\n            \"status\": self.status,\n            \"version\": self.version,\n            \"idempotency_key\": self.idempotency_key,\n            \"created_at\": self.created_at,\n            \"updated_at\": self.updated_at,\n        }\n\n\ndef _validate_name(name: Any) -> str:\n    if not isinstance(name, str) or not NAME_RE.match(name):\n        raise ValidationError(\"name must be 1-80 chars of letters, digits, space, _-.\")\n    return name\n\n\ndef _validate_budget(budget: Any) -> int:\n    if isinstance(budget, bool) or not isinstance(budget, int):\n        raise ValidationError(\"budget must be an integer\")\n    if budget < 0 or budget > MAX_BUDGET:\n        raise ValidationError(f\"budget must be between 0 and {MAX_BUD",
+      "reasoning": "",
+      "usage": {
+        "prompt_tokens": 8192,
+        "completion_tokens": 512,
+        "total_tokens": 8704,
+        "input_tokens": 8192,
+        "output_tokens": 512,
+        "prompt_tokens_details": {
+          "cached_tokens": 0
+        },
+        "time_to_first_token": 3.87,
+        "time_to_first_visible_token": 3.87,
+        "total_time": 9.56,
+        "prompt_eval_duration": 3.87,
+        "generation_duration": 5.69,
+        "prompt_tokens_per_second": 2114.41,
+        "generation_tokens_per_second": 90.03
+      },
+      "finish_reason": "length",
+      "done": true,
+      "elapsed_seconds": 9.627256790990941,
+      "ttft_seconds": 3.9407215410028584,
+      "server_decode_tps": 90.03,
+      "server_prefill_tps": 2114.41,
+      "reported_cached_tokens": 0,
+      "log_start_offset": 12915,
+      "artifacts": {
+        "raw_sse": "003-B-measured-sse.txt",
+        "events": "003-B-measured-events.json",
+        "output": "003-B-measured-output.json"
+      },
+      "whole_output_sha256": "55354dfb641499f2954e99606da1e83717295a126cd03d4fb4c0d16b6217df7f",
+      "scenario": 0,
+      "arm": "B",
+      "warmup": false,
+      "round": 0,
+      "position": 1,
+      "serial": 3,
+      "case": "campaign-store-implementation",
+      "module_stats": {
+        "metadata_prefill_direct_calls": 20,
+        "metadata_dense_expert_calls": 20,
+        "dspark_single_calls": 141
+      },
+      "speculative": {
+        "finish": "length",
+        "tokens": 512,
+        "cycles": 142,
+        "tokens_per_cycle": 3.61,
+        "accepted": 368,
+        "drafted": 413,
+        "acceptance_rate": 0.8910411622276029,
+        "timing_ms": {
+          "backbone": 5364.0,
+          "mtp_head": 245.8,
+          "sampling": 3.8,
+          "cache": 21.9
+        },
+        "prompt_copy": {
+          "cycles": 2,
+          "accepted": 5,
+          "drafted": 8
+        }
+      },
+      "speculative_counter_identity": {
+        "finish": "length",
+        "tokens": 512,
+        "cycles": 142,
+        "tokens_per_cycle": 3.61,
+        "accepted": 368,
+        "drafted": 413,
+        "acceptance_rate": 0.8910411622276029,
+        "prompt_copy": {
+          "cycles": 2,
+          "accepted": 5,
+          "drafted": 8
+        }
+      },
+      "server_prompt_eval_seconds": 3.87,
+      "server_model_ttft_seconds": 3.87,
+      "server_model_load_seconds": null
+    },
+    {
+      "content": "# SQLite Campaign Draft Store (stdlib only)\n\nBelow is a complete, runnable implementation using only the Python standard library. It provides a small \"campaign draft\" store with create/get/list/update, idempotency keys, explicit transactions, validation, optimistic version checks, and rollback.\n\n## `campaign_store.py`\n\n```python\n\"\"\"SQLite-backed campaign draft store (stdlib only).\"\"\"\nfrom __future__ import annotations\n\nimport json\nimport re\nimport sqlite3\nimport uuid\nfrom dataclasses import dataclass\nfrom typing import Any, Iterable, Optional\n\nNAME_RE = re.compile(r\"^[A-Za-z0-9 _\\-\\.]{1,80}$\")\nMAX_BUDGET = 10_000_000\nMAX_PAGE = 200\n\n\nclass ValidationError(ValueError):\n    \"\"\"Raised when input fails validation.\"\"\"\n\n\nclass ConflictError(RuntimeError):\n    \"\"\"Raised on optimistic version mismatch.\"\"\"\n\n\nclass NotFoundError(LookupError):\n    \"\"\"Raised when a draft does not exist.\"\"\"\n\n\n@dataclass(frozen=True)\nclass Draft:\n    id: str\n    name: str\n    budget: int\n    owner_team: int\n    status: str\n    version: int\n    idempotency_key: Optional[str]\n    created_at: str\n    updated_at: str\n\n    def as_dict(self) -> dict[str, Any]:\n        return {\n            \"id\": self.id,\n            \"name\": self.name,\n            \"budget\": self.budget,\n            \"owner_team\": self.owner_team,\n            \"status\": self.status,\n            \"version\": self.version,\n            \"idempotency_key\": self.idempotency_key,\n            \"created_at\": self.created_at,\n            \"updated_at\": self.updated_at,\n        }\n\n\ndef _validate_name(name: Any) -> str:\n    if not isinstance(name, str) or not NAME_RE.match(name):\n        raise ValidationError(\"name must be 1-80 chars of letters, digits, space, _-.\")\n    return name\n\n\ndef _validate_budget(budget: Any) -> int:\n    if isinstance(budget, bool) or not isinstance(budget, int):\n        raise ValidationError(\"budget must be an integer\")\n    if budget < 0 or budget > MAX_BUDGET:\n        raise ValidationError(f\"budget must be between 0 and {MAX_BUD",
+      "reasoning": "",
+      "usage": {
+        "prompt_tokens": 8192,
+        "completion_tokens": 512,
+        "total_tokens": 8704,
+        "input_tokens": 8192,
+        "output_tokens": 512,
+        "prompt_tokens_details": {
+          "cached_tokens": 0
+        },
+        "time_to_first_token": 3.84,
+        "time_to_first_visible_token": 3.84,
+        "total_time": 9.53,
+        "prompt_eval_duration": 3.84,
+        "generation_duration": 5.69,
+        "prompt_tokens_per_second": 2133.19,
+        "generation_tokens_per_second": 89.93
+      },
+      "finish_reason": "length",
+      "done": true,
+      "elapsed_seconds": 9.5991445829859,
+      "ttft_seconds": 3.9061174579546787,
+      "server_decode_tps": 89.93,
+      "server_prefill_tps": 2133.19,
+      "reported_cached_tokens": 0,
+      "log_start_offset": 13787,
+      "artifacts": {
+        "raw_sse": "004-B-measured-sse.txt",
+        "events": "004-B-measured-events.json",
+        "output": "004-B-measured-output.json"
+      },
+      "whole_output_sha256": "55354dfb641499f2954e99606da1e83717295a126cd03d4fb4c0d16b6217df7f",
+      "scenario": 0,
+      "arm": "B",
+      "warmup": false,
+      "round": 0,
+      "position": 2,
+      "serial": 4,
+      "case": "campaign-store-implementation",
+      "module_stats": {
+        "metadata_prefill_direct_calls": 20,
+        "metadata_dense_expert_calls": 20,
+        "dspark_single_calls": 141
+      },
+      "speculative": {
+        "finish": "length",
+        "tokens": 512,
+        "cycles": 142,
+        "tokens_per_cycle": 3.61,
+        "accepted": 368,
+        "drafted": 413,
+        "acceptance_rate": 0.8910411622276029,
+        "timing_ms": {
+          "backbone": 5368.8,
+          "mtp_head": 247.2,
+          "sampling": 3.8,
+          "cache": 22.5
+        },
+        "prompt_copy": {
+          "cycles": 2,
+          "accepted": 5,
+          "drafted": 8
+        }
+      },
+      "speculative_counter_identity": {
+        "finish": "length",
+        "tokens": 512,
+        "cycles": 142,
+        "tokens_per_cycle": 3.61,
+        "accepted": 368,
+        "drafted": 413,
+        "acceptance_rate": 0.8910411622276029,
+        "prompt_copy": {
+          "cycles": 2,
+          "accepted": 5,
+          "drafted": 8
+        }
+      },
+      "server_prompt_eval_seconds": 3.84,
+      "server_model_ttft_seconds": 3.84,
+      "server_model_load_seconds": null
+    },
+    {
+      "content": "# SQLite Campaign Draft Store (stdlib only)\n\nBelow is a complete, runnable implementation using only the Python standard library. It provides a small \"campaign draft\" store with create/get/list/update, idempotency keys, explicit transactions, validation, optimistic version checks, and rollback.\n\n## `campaign_store.py`\n\n```python\n\"\"\"SQLite-backed campaign draft store (stdlib only).\"\"\"\nfrom __future__ import annotations\n\nimport json\nimport re\nimport sqlite3\nimport uuid\nfrom dataclasses import dataclass\nfrom typing import Any, Iterable, Optional\n\nNAME_RE = re.compile(r\"^[A-Za-z0-9 _\\-\\.]{1,80}$\")\nMAX_BUDGET = 10_000_000\nMAX_PAGE = 200\n\n\nclass ValidationError(ValueError):\n    \"\"\"Raised when input fails validation.\"\"\"\n\n\nclass ConflictError(RuntimeError):\n    \"\"\"Raised on optimistic version mismatch.\"\"\"\n\n\nclass NotFoundError(LookupError):\n    \"\"\"Raised when a draft does not exist.\"\"\"\n\n\n@dataclass(frozen=True)\nclass Draft:\n    id: str\n    name: str\n    budget: int\n    owner_team: int\n    status: str\n    version: int\n    idempotency_key: Optional[str]\n    created_at: str\n    updated_at: str\n\n    def as_dict(self) -> dict[str, Any]:\n        return {\n            \"id\": self.id,\n            \"name\": self.name,\n            \"budget\": self.budget,\n            \"owner_team\": self.owner_team,\n            \"status\": self.status,\n            \"version\": self.version,\n            \"idempotency_key\": self.idempotency_key,\n            \"created_at\": self.created_at,\n            \"updated_at\": self.updated_at,\n        }\n\n\ndef _validate_name(name: Any) -> str:\n    if not isinstance(name, str) or not NAME_RE.match(name):\n        raise ValidationError(\"name must be 1-80 chars of letters, digits, space, _-.\")\n    return name\n\n\ndef _validate_budget(budget: Any) -> int:\n    if isinstance(budget, bool) or not isinstance(budget, int):\n        raise ValidationError(\"budget must be an integer\")\n    if budget < 0 or budget > MAX_BUDGET:\n        raise ValidationError(f\"budget must be between 0 and {MAX_BUD",
+      "reasoning": "",
+      "usage": {
+        "prompt_tokens": 8192,
+        "completion_tokens": 512,
+        "total_tokens": 8704,
+        "input_tokens": 8192,
+        "output_tokens": 512,
+        "prompt_tokens_details": {
+          "cached_tokens": 0
+        },
+        "time_to_first_token": 4.03,
+        "time_to_first_visible_token": 4.03,
+        "total_time": 9.72,
+        "prompt_eval_duration": 4.03,
+        "generation_duration": 5.69,
+        "prompt_tokens_per_second": 2034.33,
+        "generation_tokens_per_second": 90.0
+      },
+      "finish_reason": "length",
+      "done": true,
+      "elapsed_seconds": 9.78109233401483,
+      "ttft_seconds": 4.092538041993976,
+      "server_decode_tps": 90.0,
+      "server_prefill_tps": 2034.33,
+      "reported_cached_tokens": 0,
+      "log_start_offset": 14659,
+      "artifacts": {
+        "raw_sse": "005-A-measured-sse.txt",
+        "events": "005-A-measured-events.json",
+        "output": "005-A-measured-output.json"
+      },
+      "whole_output_sha256": "55354dfb641499f2954e99606da1e83717295a126cd03d4fb4c0d16b6217df7f",
+      "scenario": 0,
+      "arm": "A",
+      "warmup": false,
+      "round": 0,
+      "position": 3,
+      "serial": 5,
+      "case": "campaign-store-implementation",
+      "module_stats": {
+        "metadata_prefill_dense_calls": 20,
+        "metadata_dense_expert_calls": 20,
+        "dspark_single_calls": 141
+      },
+      "speculative": {
+        "finish": "length",
+        "tokens": 512,
+        "cycles": 142,
+        "tokens_per_cycle": 3.61,
+        "accepted": 368,
+        "drafted": 413,
+        "acceptance_rate": 0.8910411622276029,
+        "timing_ms": {
+          "backbone": 5365.7,
+          "mtp_head": 246.2,
+          "sampling": 3.9,
+          "cache": 21.7
+        },
+        "prompt_copy": {
+          "cycles": 2,
+          "accepted": 5,
+          "drafted": 8
+        }
+      },
+      "speculative_counter_identity": {
+        "finish": "length",
+        "tokens": 512,
+        "cycles": 142,
+        "tokens_per_cycle": 3.61,
+        "accepted": 368,
+        "drafted": 413,
+        "acceptance_rate": 0.8910411622276029,
+        "prompt_copy": {
+          "cycles": 2,
+          "accepted": 5,
+          "drafted": 8
+        }
+      },
+      "server_prompt_eval_seconds": 4.03,
+      "server_model_ttft_seconds": 4.03,
+      "server_model_load_seconds": null
+    },
+    {
+      "content": "# SQLite Campaign Draft Store (stdlib only)\n\nBelow is a complete, runnable implementation using only the Python standard library. It provides a small \"campaign draft\" store with create/get/list/update, idempotency keys, explicit transactions, validation, optimistic version checks, and rollback.\n\n## `campaign_store.py`\n\n```python\n\"\"\"SQLite-backed campaign draft store (stdlib only).\"\"\"\nfrom __future__ import annotations\n\nimport json\nimport re\nimport sqlite3\nimport uuid\nfrom dataclasses import dataclass\nfrom typing import Any, Iterable, Optional\n\nNAME_RE = re.compile(r\"^[A-Za-z0-9 _\\-\\.]{1,80}$\")\nMAX_BUDGET = 10_000_000\nMAX_PAGE = 200\n\n\nclass ValidationError(ValueError):\n    \"\"\"Raised when input fails validation.\"\"\"\n\n\nclass ConflictError(RuntimeError):\n    \"\"\"Raised on optimistic version mismatch.\"\"\"\n\n\nclass NotFoundError(LookupError):\n    \"\"\"Raised when a draft does not exist.\"\"\"\n\n\n@dataclass(frozen=True)\nclass Draft:\n    id: str\n    name: str\n    budget: int\n    owner_team: int\n    status: str\n    version: int\n    idempotency_key: Optional[str]\n    created_at: str\n    updated_at: str\n\n    def as_dict(self) -> dict[str, Any]:\n        return {\n            \"id\": self.id,\n            \"name\": self.name,\n            \"budget\": self.budget,\n            \"owner_team\": self.owner_team,\n            \"status\": self.status,\n            \"version\": self.version,\n            \"idempotency_key\": self.idempotency_key,\n            \"created_at\": self.created_at,\n            \"updated_at\": self.updated_at,\n        }\n\n\ndef _validate_name(name: Any) -> str:\n    if not isinstance(name, str) or not NAME_RE.match(name):\n        raise ValidationError(\"name must be 1-80 chars of letters, digits, space, _-.\")\n    return name\n\n\ndef _validate_budget(budget: Any) -> int:\n    if isinstance(budget, bool) or not isinstance(budget, int):\n        raise ValidationError(\"budget must be an integer\")\n    if budget < 0 or budget > MAX_BUDGET:\n        raise ValidationError(f\"budget must be between 0 and {MAX_BUD",
+      "reasoning": "",
+      "usage": {
+        "prompt_tokens": 8192,
+        "completion_tokens": 512,
+        "total_tokens": 8704,
+        "input_tokens": 8192,
+        "output_tokens": 512,
+        "prompt_tokens_details": {
+          "cached_tokens": 0
+        },
+        "time_to_first_token": 4.01,
+        "time_to_first_visible_token": 4.01,
+        "total_time": 9.7,
+        "prompt_eval_duration": 4.01,
+        "generation_duration": 5.69,
+        "prompt_tokens_per_second": 2040.69,
+        "generation_tokens_per_second": 90.02
+      },
+      "finish_reason": "length",
+      "done": true,
+      "elapsed_seconds": 9.765881792001892,
+      "ttft_seconds": 4.0788032920099795,
+      "server_decode_tps": 90.02,
+      "server_prefill_tps": 2040.69,
+      "reported_cached_tokens": 0,
+      "log_start_offset": 15531,
+      "artifacts": {
+        "raw_sse": "006-A-measured-sse.txt",
+        "events": "006-A-measured-events.json",
+        "output": "006-A-measured-output.json"
+      },
+      "whole_output_sha256": "55354dfb641499f2954e99606da1e83717295a126cd03d4fb4c0d16b6217df7f",
+      "scenario": 0,
+      "arm": "A",
+      "warmup": false,
+      "round": 1,
+      "position": 0,
+      "serial": 6,
+      "case": "campaign-store-implementation",
+      "module_stats": {
+        "metadata_prefill_dense_calls": 20,
+        "metadata_dense_expert_calls": 20,
+        "dspark_single_calls": 141
+      },
+      "speculative": {
+        "finish": "length",
+        "tokens": 512,
+        "cycles": 142,
+        "tokens_per_cycle": 3.61,
+        "accepted": 368,
+        "drafted": 413,
+        "acceptance_rate": 0.8910411622276029,
+        "timing_ms": {
+          "backbone": 5365.3,
+          "mtp_head": 246.8,
+          "sampling": 3.7,
+          "cache": 21.9
+        },
+        "prompt_copy": {
+          "cycles": 2,
+          "accepted": 5,
+          "drafted": 8
+        }
+      },
+      "speculative_counter_identity": {
+        "finish": "length",
+        "tokens": 512,
+        "cycles": 142,
+        "tokens_per_cycle": 3.61,
+        "accepted": 368,
+        "drafted": 413,
+        "acceptance_rate": 0.8910411622276029,
+        "prompt_copy": {
+          "cycles": 2,
+          "accepted": 5,
+          "drafted": 8
+        }
+      },
+      "server_prompt_eval_seconds": 4.01,
+      "server_model_ttft_seconds": 4.01,
+      "server_model_load_seconds": null
+    },
+    {
+      "content": "# SQLite Campaign Draft Store (stdlib only)\n\nBelow is a complete, runnable implementation using only the Python standard library. It provides a small \"campaign draft\" store with create/get/list/update, idempotency keys, explicit transactions, validation, optimistic version checks, and rollback.\n\n## `campaign_store.py`\n\n```python\n\"\"\"SQLite-backed campaign draft store (stdlib only).\"\"\"\nfrom __future__ import annotations\n\nimport json\nimport re\nimport sqlite3\nimport uuid\nfrom dataclasses import dataclass\nfrom typing import Any, Iterable, Optional\n\nNAME_RE = re.compile(r\"^[A-Za-z0-9 _\\-\\.]{1,80}$\")\nMAX_BUDGET = 10_000_000\nMAX_PAGE = 200\n\n\nclass ValidationError(ValueError):\n    \"\"\"Raised when input fails validation.\"\"\"\n\n\nclass ConflictError(RuntimeError):\n    \"\"\"Raised on optimistic version mismatch.\"\"\"\n\n\nclass NotFoundError(LookupError):\n    \"\"\"Raised when a draft does not exist.\"\"\"\n\n\n@dataclass(frozen=True)\nclass Draft:\n    id: str\n    name: str\n    budget: int\n    owner_team: int\n    status: str\n    version: int\n    idempotency_key: Optional[str]\n    created_at: str\n    updated_at: str\n\n    def as_dict(self) -> dict[str, Any]:\n        return {\n            \"id\": self.id,\n            \"name\": self.name,\n            \"budget\": self.budget,\n            \"owner_team\": self.owner_team,\n            \"status\": self.status,\n            \"version\": self.version,\n            \"idempotency_key\": self.idempotency_key,\n            \"created_at\": self.created_at,\n            \"updated_at\": self.updated_at,\n        }\n\n\ndef _validate_name(name: Any) -> str:\n    if not isinstance(name, str) or not NAME_RE.match(name):\n        raise ValidationError(\"name must be 1-80 chars of letters, digits, space, _-.\")\n    return name\n\n\ndef _validate_budget(budget: Any) -> int:\n    if isinstance(budget, bool) or not isinstance(budget, int):\n        raise ValidationError(\"budget must be an integer\")\n    if budget < 0 or budget > MAX_BUDGET:\n        raise ValidationError(f\"budget must be between 0 and {MAX_BUD",
+      "reasoning": "",
+      "usage": {
+        "prompt_tokens": 8192,
+        "completion_tokens": 512,
+        "total_tokens": 8704,
+        "input_tokens": 8192,
+        "output_tokens": 512,
+        "prompt_tokens_details": {
+          "cached_tokens": 0
+        },
+        "time_to_first_token": 3.9,
+        "time_to_first_visible_token": 3.9,
+        "total_time": 9.59,
+        "prompt_eval_duration": 3.9,
+        "generation_duration": 5.69,
+        "prompt_tokens_per_second": 2099.32,
+        "generation_tokens_per_second": 89.98
+      },
+      "finish_reason": "length",
+      "done": true,
+      "elapsed_seconds": 9.657436958048493,
+      "ttft_seconds": 3.9672315000207163,
+      "server_decode_tps": 89.98,
+      "server_prefill_tps": 2099.32,
+      "reported_cached_tokens": 0,
+      "log_start_offset": 16403,
+      "artifacts": {
+        "raw_sse": "007-B-measured-sse.txt",
+        "events": "007-B-measured-events.json",
+        "output": "007-B-measured-output.json"
+      },
+      "whole_output_sha256": "55354dfb641499f2954e99606da1e83717295a126cd03d4fb4c0d16b6217df7f",
+      "scenario": 0,
+      "arm": "B",
+      "warmup": false,
+      "round": 1,
+      "position": 1,
+      "serial": 7,
+      "case": "campaign-store-implementation",
+      "module_stats": {
+        "metadata_prefill_direct_calls": 20,
+        "metadata_dense_expert_calls": 20,
+        "dspark_single_calls": 141
+      },
+      "speculative": {
+        "finish": "length",
+        "tokens": 512,
+        "cycles": 142,
+        "tokens_per_cycle": 3.61,
+        "accepted": 368,
+        "drafted": 413,
+        "acceptance_rate": 0.8910411622276029,
+        "timing_ms": {
+          "backbone": 5365.4,
+          "mtp_head": 247.9,
+          "sampling": 3.9,
+          "cache": 21.7
+        },
+        "prompt_copy": {
+          "cycles": 2,
+          "accepted": 5,
+          "drafted": 8
+        }
+      },
+      "speculative_counter_identity": {
+        "finish": "length",
+        "tokens": 512,
+        "cycles": 142,
+        "tokens_per_cycle": 3.61,
+        "accepted": 368,
+        "drafted": 413,
+        "acceptance_rate": 0.8910411622276029,
+        "prompt_copy": {
+          "cycles": 2,
+          "accepted": 5,
+          "drafted": 8
+        }
+      },
+      "server_prompt_eval_seconds": 3.9,
+      "server_model_ttft_seconds": 3.9,
+      "server_model_load_seconds": null
+    },
+    {
+      "content": "# SQLite Campaign Draft Store (stdlib only)\n\nBelow is a complete, runnable implementation using only the Python standard library. It provides a small \"campaign draft\" store with create/get/list/update, idempotency keys, explicit transactions, validation, optimistic version checks, and rollback.\n\n## `campaign_store.py`\n\n```python\n\"\"\"SQLite-backed campaign draft store (stdlib only).\"\"\"\nfrom __future__ import annotations\n\nimport json\nimport re\nimport sqlite3\nimport uuid\nfrom dataclasses import dataclass\nfrom typing import Any, Iterable, Optional\n\nNAME_RE = re.compile(r\"^[A-Za-z0-9 _\\-\\.]{1,80}$\")\nMAX_BUDGET = 10_000_000\nMAX_PAGE = 200\n\n\nclass ValidationError(ValueError):\n    \"\"\"Raised when input fails validation.\"\"\"\n\n\nclass ConflictError(RuntimeError):\n    \"\"\"Raised on optimistic version mismatch.\"\"\"\n\n\nclass NotFoundError(LookupError):\n    \"\"\"Raised when a draft does not exist.\"\"\"\n\n\n@dataclass(frozen=True)\nclass Draft:\n    id: str\n    name: str\n    budget: int\n    owner_team: int\n    status: str\n    version: int\n    idempotency_key: Optional[str]\n    created_at: str\n    updated_at: str\n\n    def as_dict(self) -> dict[str, Any]:\n        return {\n            \"id\": self.id,\n            \"name\": self.name,\n            \"budget\": self.budget,\n            \"owner_team\": self.owner_team,\n            \"status\": self.status,\n            \"version\": self.version,\n            \"idempotency_key\": self.idempotency_key,\n            \"created_at\": self.created_at,\n            \"updated_at\": self.updated_at,\n        }\n\n\ndef _validate_name(name: Any) -> str:\n    if not isinstance(name, str) or not NAME_RE.match(name):\n        raise ValidationError(\"name must be 1-80 chars of letters, digits, space, _-.\")\n    return name\n\n\ndef _validate_budget(budget: Any) -> int:\n    if isinstance(budget, bool) or not isinstance(budget, int):\n        raise ValidationError(\"budget must be an integer\")\n    if budget < 0 or budget > MAX_BUDGET:\n        raise ValidationError(f\"budget must be between 0 and {MAX_BUD",
+      "reasoning": "",
+      "usage": {
+        "prompt_tokens": 8192,
+        "completion_tokens": 512,
+        "total_tokens": 8704,
+        "input_tokens": 8192,
+        "output_tokens": 512,
+        "prompt_tokens_details": {
+          "cached_tokens": 0
+        },
+        "time_to_first_token": 3.82,
+        "time_to_first_visible_token": 3.82,
+        "total_time": 9.52,
+        "prompt_eval_duration": 3.82,
+        "generation_duration": 5.69,
+        "prompt_tokens_per_second": 2141.94,
+        "generation_tokens_per_second": 89.92
+      },
+      "finish_reason": "length",
+      "done": true,
+      "elapsed_seconds": 9.585010459006298,
+      "ttft_seconds": 3.8916304589947686,
+      "server_decode_tps": 89.92,
+      "server_prefill_tps": 2141.94,
+      "reported_cached_tokens": 0,
+      "log_start_offset": 17275,
+      "artifacts": {
+        "raw_sse": "008-B-measured-sse.txt",
+        "events": "008-B-measured-events.json",
+        "output": "008-B-measured-output.json"
+      },
+      "whole_output_sha256": "55354dfb641499f2954e99606da1e83717295a126cd03d4fb4c0d16b6217df7f",
+      "scenario": 0,
+      "arm": "B",
+      "warmup": false,
+      "round": 1,
+      "position": 2,
+      "serial": 8,
+      "case": "campaign-store-implementation",
+      "module_stats": {
+        "metadata_prefill_direct_calls": 20,
+        "metadata_dense_expert_calls": 20,
+        "dspark_single_calls": 141
+      },
+      "speculative": {
+        "finish": "length",
+        "tokens": 512,
+        "cycles": 142,
+        "tokens_per_cycle": 3.61,
+        "accepted": 368,
+        "drafted": 413,
+        "acceptance_rate": 0.8910411622276029,
+        "timing_ms": {
+          "backbone": 5368.3,
+          "mtp_head": 249.3,
+          "sampling": 3.8,
+          "cache": 22.0
+        },
+        "prompt_copy": {
+          "cycles": 2,
+          "accepted": 5,
+          "drafted": 8
+        }
+      },
+      "speculative_counter_identity": {
+        "finish": "length",
+        "tokens": 512,
+        "cycles": 142,
+        "tokens_per_cycle": 3.61,
+        "accepted": 368,
+        "drafted": 413,
+        "acceptance_rate": 0.8910411622276029,
+        "prompt_copy": {
+          "cycles": 2,
+          "accepted": 5,
+          "drafted": 8
+        }
+      },
+      "server_prompt_eval_seconds": 3.82,
+      "server_model_ttft_seconds": 3.82,
+      "server_model_load_seconds": null
+    },
+    {
+      "content": "# SQLite Campaign Draft Store (stdlib only)\n\nBelow is a complete, runnable implementation using only the Python standard library. It provides a small \"campaign draft\" store with create/get/list/update, idempotency keys, explicit transactions, validation, optimistic version checks, and rollback.\n\n## `campaign_store.py`\n\n```python\n\"\"\"SQLite-backed campaign draft store (stdlib only).\"\"\"\nfrom __future__ import annotations\n\nimport json\nimport re\nimport sqlite3\nimport uuid\nfrom dataclasses import dataclass\nfrom typing import Any, Iterable, Optional\n\nNAME_RE = re.compile(r\"^[A-Za-z0-9 _\\-\\.]{1,80}$\")\nMAX_BUDGET = 10_000_000\nMAX_PAGE = 200\n\n\nclass ValidationError(ValueError):\n    \"\"\"Raised when input fails validation.\"\"\"\n\n\nclass ConflictError(RuntimeError):\n    \"\"\"Raised on optimistic version mismatch.\"\"\"\n\n\nclass NotFoundError(LookupError):\n    \"\"\"Raised when a draft does not exist.\"\"\"\n\n\n@dataclass(frozen=True)\nclass Draft:\n    id: str\n    name: str\n    budget: int\n    owner_team: int\n    status: str\n    version: int\n    idempotency_key: Optional[str]\n    created_at: str\n    updated_at: str\n\n    def as_dict(self) -> dict[str, Any]:\n        return {\n            \"id\": self.id,\n            \"name\": self.name,\n            \"budget\": self.budget,\n            \"owner_team\": self.owner_team,\n            \"status\": self.status,\n            \"version\": self.version,\n            \"idempotency_key\": self.idempotency_key,\n            \"created_at\": self.created_at,\n            \"updated_at\": self.updated_at,\n        }\n\n\ndef _validate_name(name: Any) -> str:\n    if not isinstance(name, str) or not NAME_RE.match(name):\n        raise ValidationError(\"name must be 1-80 chars of letters, digits, space, _-.\")\n    return name\n\n\ndef _validate_budget(budget: Any) -> int:\n    if isinstance(budget, bool) or not isinstance(budget, int):\n        raise ValidationError(\"budget must be an integer\")\n    if budget < 0 or budget > MAX_BUDGET:\n        raise ValidationError(f\"budget must be between 0 and {MAX_BUD",
+      "reasoning": "",
+      "usage": {
+        "prompt_tokens": 8192,
+        "completion_tokens": 512,
+        "total_tokens": 8704,
+        "input_tokens": 8192,
+        "output_tokens": 512,
+        "prompt_tokens_details": {
+          "cached_tokens": 0
+        },
+        "time_to_first_token": 3.99,
+        "time_to_first_visible_token": 3.99,
+        "total_time": 9.67,
+        "prompt_eval_duration": 3.99,
+        "generation_duration": 5.69,
+        "prompt_tokens_per_second": 2055.35,
+        "generation_tokens_per_second": 90.06
+      },
+      "finish_reason": "length",
+      "done": true,
+      "elapsed_seconds": 9.737751542008482,
+      "ttft_seconds": 4.052892583014909,
+      "server_decode_tps": 90.06,
+      "server_prefill_tps": 2055.35,
+      "reported_cached_tokens": 0,
+      "log_start_offset": 18147,
+      "artifacts": {
+        "raw_sse": "009-A-measured-sse.txt",
+        "events": "009-A-measured-events.json",
+        "output": "009-A-measured-output.json"
+      },
+      "whole_output_sha256": "55354dfb641499f2954e99606da1e83717295a126cd03d4fb4c0d16b6217df7f",
+      "scenario": 0,
+      "arm": "A",
+      "warmup": false,
+      "round": 1,
+      "position": 3,
+      "serial": 9,
+      "case": "campaign-store-implementation",
+      "module_stats": {
+        "metadata_prefill_dense_calls": 20,
+        "metadata_dense_expert_calls": 20,
+        "dspark_single_calls": 141
+      },
+      "speculative": {
+        "finish": "length",
+        "tokens": 512,
+        "cycles": 142,
+        "tokens_per_cycle": 3.61,
+        "accepted": 368,
+        "drafted": 413,
+        "acceptance_rate": 0.8910411622276029,
+        "timing_ms": {
+          "backbone": 5363.9,
+          "mtp_head": 244.7,
+          "sampling": 3.9,
+          "cache": 21.3
+        },
+        "prompt_copy": {
+          "cycles": 2,
+          "accepted": 5,
+          "drafted": 8
+        }
+      },
+      "speculative_counter_identity": {
+        "finish": "length",
+        "tokens": 512,
+        "cycles": 142,
+        "tokens_per_cycle": 3.61,
+        "accepted": 368,
+        "drafted": 413,
+        "acceptance_rate": 0.8910411622276029,
+        "prompt_copy": {
+          "cycles": 2,
+          "accepted": 5,
+          "drafted": 8
+        }
+      },
+      "server_prompt_eval_seconds": 3.99,
+      "server_model_ttft_seconds": 3.99,
+      "server_model_load_seconds": null
+    },
+    {
+      "content": "Here is the complete launch campaign for LumaDesk Pro, prepared as drafts only.\n\n---\n\n## LumaDesk Pro Launch Campaign — Draft Deliverables\n\n**Product:** LumaDesk Pro desktop organizer\n**Price:** CNY 299\n**Launch date:** 2026-10-18\n**Approved discount:** Maximum 17% using code AUTUMN17\n**Core function:** Organizes local documents\n**Explicit limitations:** No video export. No offline sync.\n**Compliance note:** Orchid Forum prohibits external links. All Orchid Forum posts must end with #LumaDesk. All targets below are goals, not observed results. No customer numbers, endorsements, or unsupported capabilities are claimed.\n\n---\n\n## 1. Seven-Day Content Calendar\n\n| Day | Date | Channel | Content Type | Draft Title / Hook | Key Message | CTA |\n|---|---|---|---|---|---|---|\n| 1 | 2026-10-12 | Orchid Forum | Teaser post | \"Your desktop, before and after\" | Local document organization without cloud dependency | Comment with your biggest clutter pain point. End with #LumaDesk |\n| 2 | 2026-10-13 | Email | Pre-launch email | \"LumaDesk Pro arrives 2026-10-18\" | CNY 299, AUTUMN17 saves up to 17% | Add launch date to calendar |\n| 3 | 2026-10-14 | Orchid Forum | Feature explainer | \"What LumaDesk Pro does — and what it does not do\" | Organizes local documents; no video export; no offline sync | Ask questions in thread. End with #LumaDesk |\n| 4 | 2026-10-15 | Social / Community | Poll post | \"Which file type clutters your desktop most?\" | Local organization matters | Vote and reply. End with #LumaDesk |\n| 5 | 2026-10-16 | Email | Launch reminder | \"Two days until LumaDesk Pro\" | AUTUMN17 maximum 17% discount | Confirm interest |\n| 6 | 2026-10-17 | Orchid Forum | Launch eve post | \"Tomorrow: LumaDesk Pro\" | CNY 299, local document organizer | Prepare your desktop. End with #LumaDesk |\n| 7 | 2026-10-18 | Orchid Forum + Email | Launch day post",
+      "reasoning": "",
+      "usage": {
+        "prompt_tokens": 8192,
+        "completion_tokens": 512,
+        "total_tokens": 8704,
+        "input_tokens": 8192,
+        "output_tokens": 512,
+        "prompt_tokens_details": {
+          "cached_tokens": 0
+        },
+        "time_to_first_token": 3.97,
+        "time_to_first_visible_token": 3.97,
+        "total_time": 11.38,
+        "prompt_eval_duration": 3.97,
+        "generation_duration": 7.41,
+        "prompt_tokens_per_second": 2061.78,
+        "generation_tokens_per_second": 69.1
+      },
+      "finish_reason": "length",
+      "done": true,
+      "elapsed_seconds": 11.449436708993744,
+      "ttft_seconds": 4.039721584005747,
+      "server_decode_tps": 69.1,
+      "server_prefill_tps": 2061.78,
+      "reported_cached_tokens": 0,
+      "log_start_offset": 19020,
+      "artifacts": {
+        "raw_sse": "010-A-warmup-sse.txt",
+        "events": "010-A-warmup-events.json",
+        "output": "010-A-warmup-output.json"
+      },
+      "whole_output_sha256": "35b6ce2b70ef342622ae57d72eaf96eedca34da60cfbf7879743d3da8477e9e2",
+      "scenario": 1,
+      "arm": "A",
+      "warmup": true,
+      "round": null,
+      "position": null,
+      "serial": 10,
+      "case": "community-launch-campaign",
+      "module_stats": {
+        "metadata_prefill_dense_calls": 20,
+        "metadata_dense_expert_calls": 20,
+        "dspark_single_calls": 195
+      },
+      "speculative": {
+        "finish": "length",
+        "tokens": 512,
+        "cycles": 196,
+        "tokens_per_cycle": 2.61,
+        "accepted": 314,
+        "drafted": 409,
+        "acceptance_rate": 0.7677261613691931,
+        "timing_ms": {
+          "backbone": 6970.2,
+          "mtp_head": 334.3,
+          "sampling": 5.2,
+          "cache": 40.1
+        },
+        "prompt_copy": {
+          "cycles": 2,
+          "accepted": 1,
+          "drafted": 8
+        }
+      },
+      "speculative_counter_identity": {
+        "finish": "length",
+        "tokens": 512,
+        "cycles": 196,
+        "tokens_per_cycle": 2.61,
+        "accepted": 314,
+        "drafted": 409,
+        "acceptance_rate": 0.7677261613691931,
+        "prompt_copy": {
+          "cycles": 2,
+          "accepted": 1,
+          "drafted": 8
+        }
+      },
+      "server_prompt_eval_seconds": 3.97,
+      "server_model_ttft_seconds": 3.97,
+      "server_model_load_seconds": null
+    },
+    {
+      "content": "Here is the complete launch campaign for LumaDesk Pro, prepared as drafts only.\n\n---\n\n## LumaDesk Pro Launch Campaign — Draft Deliverables\n\n**Product:** LumaDesk Pro desktop organizer\n**Price:** CNY 299\n**Launch date:** 2026-10-18\n**Approved discount:** Maximum 17% using code AUTUMN17\n**Core function:** Organizes local documents\n**Explicit limitations:** No video export. No offline sync.\n**Compliance note:** Orchid Forum prohibits external links. All Orchid Forum posts must end with #LumaDesk. All targets below are goals, not observed results. No customer numbers, endorsements, or unsupported capabilities are claimed.\n\n---\n\n## 1. Seven-Day Content Calendar\n\n| Day | Date | Channel | Content Type | Draft Title / Hook | Key Message | CTA |\n|---|---|---|---|---|---|---|\n| 1 | 2026-10-12 | Orchid Forum | Teaser post | \"Your desktop, before and after\" | Local document organization without cloud dependency | Comment with your biggest clutter pain point. End with #LumaDesk |\n| 2 | 2026-10-13 | Email | Pre-launch email | \"LumaDesk Pro arrives 2026-10-18\" | CNY 299, AUTUMN17 saves up to 17% | Add launch date to calendar |\n| 3 | 2026-10-14 | Orchid Forum | Feature explainer | \"What LumaDesk Pro does — and what it does not do\" | Organizes local documents; no video export; no offline sync | Ask questions in thread. End with #LumaDesk |\n| 4 | 2026-10-15 | Social / Community | Poll post | \"Which file type clutters your desktop most?\" | Local organization matters | Vote and reply. End with #LumaDesk |\n| 5 | 2026-10-16 | Email | Launch reminder | \"Two days until LumaDesk Pro\" | AUTUMN17 maximum 17% discount | Confirm interest |\n| 6 | 2026-10-17 | Orchid Forum | Launch eve post | \"Tomorrow: LumaDesk Pro\" | CNY 299, local document organizer | Prepare your desktop. End with #LumaDesk |\n| 7 | 2026-10-18 | Orchid Forum + Email | Launch day post",
+      "reasoning": "",
+      "usage": {
+        "prompt_tokens": 8192,
+        "completion_tokens": 512,
+        "total_tokens": 8704,
+        "input_tokens": 8192,
+        "output_tokens": 512,
+        "prompt_tokens_details": {
+          "cached_tokens": 0
+        },
+        "time_to_first_token": 3.87,
+        "time_to_first_visible_token": 3.87,
+        "total_time": 11.16,
+        "prompt_eval_duration": 3.87,
+        "generation_duration": 7.29,
+        "prompt_tokens_per_second": 2119.48,
+        "generation_tokens_per_second": 70.22
+      },
+      "finish_reason": "length",
+      "done": true,
+      "elapsed_seconds": 11.222518082999159,
+      "ttft_seconds": 3.932082332961727,
+      "server_decode_tps": 70.22,
+      "server_prefill_tps": 2119.48,
+      "reported_cached_tokens": 0,
+      "log_start_offset": 19896,
+      "artifacts": {
+        "raw_sse": "011-B-warmup-sse.txt",
+        "events": "011-B-warmup-events.json",
+        "output": "011-B-warmup-output.json"
+      },
+      "whole_output_sha256": "35b6ce2b70ef342622ae57d72eaf96eedca34da60cfbf7879743d3da8477e9e2",
+      "scenario": 1,
+      "arm": "B",
+      "warmup": true,
+      "round": null,
+      "position": null,
+      "serial": 11,
+      "case": "community-launch-campaign",
+      "module_stats": {
+        "metadata_prefill_direct_calls": 20,
+        "metadata_dense_expert_calls": 20,
+        "dspark_single_calls": 195
+      },
+      "speculative": {
+        "finish": "length",
+        "tokens": 512,
+        "cycles": 196,
+        "tokens_per_cycle": 2.61,
+        "accepted": 314,
+        "drafted": 409,
+        "acceptance_rate": 0.7677261613691931,
+        "timing_ms": {
+          "backbone": 6839.2,
+          "mtp_head": 342.9,
+          "sampling": 5.8,
+          "cache": 41.4
+        },
+        "prompt_copy": {
+          "cycles": 2,
+          "accepted": 1,
+          "drafted": 8
+        }
+      },
+      "speculative_counter_identity": {
+        "finish": "length",
+        "tokens": 512,
+        "cycles": 196,
+        "tokens_per_cycle": 2.61,
+        "accepted": 314,
+        "drafted": 409,
+        "acceptance_rate": 0.7677261613691931,
+        "prompt_copy": {
+          "cycles": 2,
+          "accepted": 1,
+          "drafted": 8
+        }
+      },
+      "server_prompt_eval_seconds": 3.87,
+      "server_model_ttft_seconds": 3.87,
+      "server_model_load_seconds": null
+    },
+    {
+      "content": "Here is the complete launch campaign for LumaDesk Pro, prepared as drafts only.\n\n---\n\n## LumaDesk Pro Launch Campaign — Draft Deliverables\n\n**Product:** LumaDesk Pro desktop organizer\n**Price:** CNY 299\n**Launch date:** 2026-10-18\n**Approved discount:** Maximum 17% using code AUTUMN17\n**Core function:** Organizes local documents\n**Explicit limitations:** No video export. No offline sync.\n**Compliance note:** Orchid Forum prohibits external links. All Orchid Forum posts must end with #LumaDesk. All targets below are goals, not observed results. No customer numbers, endorsements, or unsupported capabilities are claimed.\n\n---\n\n## 1. Seven-Day Content Calendar\n\n| Day | Date | Channel | Content Type | Draft Title / Hook | Key Message | CTA |\n|---|---|---|---|---|---|---|\n| 1 | 2026-10-12 | Orchid Forum | Teaser post | \"Your desktop, before and after\" | Local document organization without cloud dependency | Comment with your biggest clutter pain point. End with #LumaDesk |\n| 2 | 2026-10-13 | Email | Pre-launch email | \"LumaDesk Pro arrives 2026-10-18\" | CNY 299, AUTUMN17 saves up to 17% | Add launch date to calendar |\n| 3 | 2026-10-14 | Orchid Forum | Feature explainer | \"What LumaDesk Pro does — and what it does not do\" | Organizes local documents; no video export; no offline sync | Ask questions in thread. End with #LumaDesk |\n| 4 | 2026-10-15 | Social / Community | Poll post | \"Which file type clutters your desktop most?\" | Local organization matters | Vote and reply. End with #LumaDesk |\n| 5 | 2026-10-16 | Email | Launch reminder | \"Two days until LumaDesk Pro\" | AUTUMN17 maximum 17% discount | Confirm interest |\n| 6 | 2026-10-17 | Orchid Forum | Launch eve post | \"Tomorrow: LumaDesk Pro\" | CNY 299, local document organizer | Prepare your desktop. End with #LumaDesk |\n| 7 | 2026-10-18 | Orchid Forum + Email | Launch day post",
+      "reasoning": "",
+      "usage": {
+        "prompt_tokens": 8192,
+        "completion_tokens": 512,
+        "total_tokens": 8704,
+        "input_tokens": 8192,
+        "output_tokens": 512,
+        "prompt_tokens_details": {
+          "cached_tokens": 0
+        },
+        "time_to_first_token": 4.04,
+        "time_to_first_visible_token": 4.04,
+        "total_time": 11.29,
+        "prompt_eval_duration": 4.04,
+        "generation_duration": 7.25,
+        "prompt_tokens_per_second": 2029.71,
+        "generation_tokens_per_second": 70.61
+      },
+      "finish_reason": "length",
+      "done": true,
+      "elapsed_seconds": 11.346239999984391,
+      "ttft_seconds": 4.096745582995936,
+      "server_decode_tps": 70.61,
+      "server_prefill_tps": 2029.71,
+      "reported_cached_tokens": 0,
+      "log_start_offset": 20772,
+      "artifacts": {
+        "raw_sse": "012-A-measured-sse.txt",
+        "events": "012-A-measured-events.json",
+        "output": "012-A-measured-output.json"
+      },
+      "whole_output_sha256": "35b6ce2b70ef342622ae57d72eaf96eedca34da60cfbf7879743d3da8477e9e2",
+      "scenario": 1,
+      "arm": "A",
+      "warmup": false,
+      "round": 0,
+      "position": 0,
+      "serial": 12,
+      "case": "community-launch-campaign",
+      "module_stats": {
+        "metadata_prefill_dense_calls": 20,
+        "metadata_dense_expert_calls": 20,
+        "dspark_single_calls": 195
+      },
+      "speculative": {
+        "finish": "length",
+        "tokens": 512,
+        "cycles": 196,
+        "tokens_per_cycle": 2.61,
+        "accepted": 314,
+        "drafted": 409,
+        "acceptance_rate": 0.7677261613691931,
+        "timing_ms": {
+          "backbone": 6808.2,
+          "mtp_head": 336.6,
+          "sampling": 5.5,
+          "cache": 40.4
+        },
+        "prompt_copy": {
+          "cycles": 2,
+          "accepted": 1,
+          "drafted": 8
+        }
+      },
+      "speculative_counter_identity": {
+        "finish": "length",
+        "tokens": 512,
+        "cycles": 196,
+        "tokens_per_cycle": 2.61,
+        "accepted": 314,
+        "drafted": 409,
+        "acceptance_rate": 0.7677261613691931,
+        "prompt_copy": {
+          "cycles": 2,
+          "accepted": 1,
+          "drafted": 8
+        }
+      },
+      "server_prompt_eval_seconds": 4.04,
+      "server_model_ttft_seconds": 4.04,
+      "server_model_load_seconds": null
+    },
+    {
+      "content": "Here is the complete launch campaign for LumaDesk Pro, prepared as drafts only.\n\n---\n\n## LumaDesk Pro Launch Campaign — Draft Deliverables\n\n**Product:** LumaDesk Pro desktop organizer\n**Price:** CNY 299\n**Launch date:** 2026-10-18\n**Approved discount:** Maximum 17% using code AUTUMN17\n**Core function:** Organizes local documents\n**Explicit limitations:** No video export. No offline sync.\n**Compliance note:** Orchid Forum prohibits external links. All Orchid Forum posts must end with #LumaDesk. All targets below are goals, not observed results. No customer numbers, endorsements, or unsupported capabilities are claimed.\n\n---\n\n## 1. Seven-Day Content Calendar\n\n| Day | Date | Channel | Content Type | Draft Title / Hook | Key Message | CTA |\n|---|---|---|---|---|---|---|\n| 1 | 2026-10-12 | Orchid Forum | Teaser post | \"Your desktop, before and after\" | Local document organization without cloud dependency | Comment with your biggest clutter pain point. End with #LumaDesk |\n| 2 | 2026-10-13 | Email | Pre-launch email | \"LumaDesk Pro arrives 2026-10-18\" | CNY 299, AUTUMN17 saves up to 17% | Add launch date to calendar |\n| 3 | 2026-10-14 | Orchid Forum | Feature explainer | \"What LumaDesk Pro does — and what it does not do\" | Organizes local documents; no video export; no offline sync | Ask questions in thread. End with #LumaDesk |\n| 4 | 2026-10-15 | Social / Community | Poll post | \"Which file type clutters your desktop most?\" | Local organization matters | Vote and reply. End with #LumaDesk |\n| 5 | 2026-10-16 | Email | Launch reminder | \"Two days until LumaDesk Pro\" | AUTUMN17 maximum 17% discount | Confirm interest |\n| 6 | 2026-10-17 | Orchid Forum | Launch eve post | \"Tomorrow: LumaDesk Pro\" | CNY 299, local document organizer | Prepare your desktop. End with #LumaDesk |\n| 7 | 2026-10-18 | Orchid Forum + Email | Launch day post",
+      "reasoning": "",
+      "usage": {
+        "prompt_tokens": 8192,
+        "completion_tokens": 512,
+        "total_tokens": 8704,
+        "input_tokens": 8192,
+        "output_tokens": 512,
+        "prompt_tokens_details": {
+          "cached_tokens": 0
+        },
+        "time_to_first_token": 3.88,
+        "time_to_first_visible_token": 3.88,
+        "total_time": 11.14,
+        "prompt_eval_duration": 3.88,
+        "generation_duration": 7.26,
+        "prompt_tokens_per_second": 2109.31,
+        "generation_tokens_per_second": 70.54
+      },
+      "finish_reason": "length",
+      "done": true,
+      "elapsed_seconds": 11.207893582992256,
+      "ttft_seconds": 3.9498450829996727,
+      "server_decode_tps": 70.54,
+      "server_prefill_tps": 2109.31,
+      "reported_cached_tokens": 0,
+      "log_start_offset": 21648,
+      "artifacts": {
+        "raw_sse": "013-B-measured-sse.txt",
+        "events": "013-B-measured-events.json",
+        "output": "013-B-measured-output.json"
+      },
+      "whole_output_sha256": "35b6ce2b70ef342622ae57d72eaf96eedca34da60cfbf7879743d3da8477e9e2",
+      "scenario": 1,
+      "arm": "B",
+      "warmup": false,
+      "round": 0,
+      "position": 1,
+      "serial": 13,
+      "case": "community-launch-campaign",
+      "module_stats": {
+        "metadata_prefill_direct_calls": 20,
+        "metadata_dense_expert_calls": 20,
+        "dspark_single_calls": 195
+      },
+      "speculative": {
+        "finish": "length",
+        "tokens": 512,
+        "cycles": 196,
+        "tokens_per_cycle": 2.61,
+        "accepted": 314,
+        "drafted": 409,
+        "acceptance_rate": 0.7677261613691931,
+        "timing_ms": {
+          "backbone": 6814.8,
+          "mtp_head": 338.7,
+          "sampling": 4.4,
+          "cache": 39.8
+        },
+        "prompt_copy": {
+          "cycles": 2,
+          "accepted": 1,
+          "drafted": 8
+        }
+      },
+      "speculative_counter_identity": {
+        "finish": "length",
+        "tokens": 512,
+        "cycles": 196,
+        "tokens_per_cycle": 2.61,
+        "accepted": 314,
+        "drafted": 409,
+        "acceptance_rate": 0.7677261613691931,
+        "prompt_copy": {
+          "cycles": 2,
+          "accepted": 1,
+          "drafted": 8
+        }
+      },
+      "server_prompt_eval_seconds": 3.88,
+      "server_model_ttft_seconds": 3.88,
+      "server_model_load_seconds": null
+    },
+    {
+      "content": "Here is the complete launch campaign for LumaDesk Pro, prepared as drafts only.\n\n---\n\n## LumaDesk Pro Launch Campaign — Draft Deliverables\n\n**Product:** LumaDesk Pro desktop organizer\n**Price:** CNY 299\n**Launch date:** 2026-10-18\n**Approved discount:** Maximum 17% using code AUTUMN17\n**Core function:** Organizes local documents\n**Explicit limitations:** No video export. No offline sync.\n**Compliance note:** Orchid Forum prohibits external links. All Orchid Forum posts must end with #LumaDesk. All targets below are goals, not observed results. No customer numbers, endorsements, or unsupported capabilities are claimed.\n\n---\n\n## 1. Seven-Day Content Calendar\n\n| Day | Date | Channel | Content Type | Draft Title / Hook | Key Message | CTA |\n|---|---|---|---|---|---|---|\n| 1 | 2026-10-12 | Orchid Forum | Teaser post | \"Your desktop, before and after\" | Local document organization without cloud dependency | Comment with your biggest clutter pain point. End with #LumaDesk |\n| 2 | 2026-10-13 | Email | Pre-launch email | \"LumaDesk Pro arrives 2026-10-18\" | CNY 299, AUTUMN17 saves up to 17% | Add launch date to calendar |\n| 3 | 2026-10-14 | Orchid Forum | Feature explainer | \"What LumaDesk Pro does — and what it does not do\" | Organizes local documents; no video export; no offline sync | Ask questions in thread. End with #LumaDesk |\n| 4 | 2026-10-15 | Social / Community | Poll post | \"Which file type clutters your desktop most?\" | Local organization matters | Vote and reply. End with #LumaDesk |\n| 5 | 2026-10-16 | Email | Launch reminder | \"Two days until LumaDesk Pro\" | AUTUMN17 maximum 17% discount | Confirm interest |\n| 6 | 2026-10-17 | Orchid Forum | Launch eve post | \"Tomorrow: LumaDesk Pro\" | CNY 299, local document organizer | Prepare your desktop. End with #LumaDesk |\n| 7 | 2026-10-18 | Orchid Forum + Email | Launch day post",
+      "reasoning": "",
+      "usage": {
+        "prompt_tokens": 8192,
+        "completion_tokens": 512,
+        "total_tokens": 8704,
+        "input_tokens": 8192,
+        "output_tokens": 512,
+        "prompt_tokens_details": {
+          "cached_tokens": 0
+        },
+        "time_to_first_token": 3.83,
+        "time_to_first_visible_token": 3.83,
+        "total_time": 11.08,
+        "prompt_eval_duration": 3.83,
+        "generation_duration": 7.25,
+        "prompt_tokens_per_second": 2141.52,
+        "generation_tokens_per_second": 70.6
+      },
+      "finish_reason": "length",
+      "done": true,
+      "elapsed_seconds": 11.166055416048039,
+      "ttft_seconds": 3.9143660000409,
+      "server_decode_tps": 70.6,
+      "server_prefill_tps": 2141.52,
+      "reported_cached_tokens": 0,
+      "log_start_offset": 22524,
+      "artifacts": {
+        "raw_sse": "014-B-measured-sse.txt",
+        "events": "014-B-measured-events.json",
+        "output": "014-B-measured-output.json"
+      },
+      "whole_output_sha256": "35b6ce2b70ef342622ae57d72eaf96eedca34da60cfbf7879743d3da8477e9e2",
+      "scenario": 1,
+      "arm": "B",
+      "warmup": false,
+      "round": 0,
+      "position": 2,
+      "serial": 14,
+      "case": "community-launch-campaign",
+      "module_stats": {
+        "metadata_prefill_direct_calls": 20,
+        "metadata_dense_expert_calls": 20,
+        "dspark_single_calls": 195
+      },
+      "speculative": {
+        "finish": "length",
+        "tokens": 512,
+        "cycles": 196,
+        "tokens_per_cycle": 2.61,
+        "accepted": 314,
+        "drafted": 409,
+        "acceptance_rate": 0.7677261613691931,
+        "timing_ms": {
+          "backbone": 6813.8,
+          "mtp_head": 332.8,
+          "sampling": 5.6,
+          "cache": 40.5
+        },
+        "prompt_copy": {
+          "cycles": 2,
+          "accepted": 1,
+          "drafted": 8
+        }
+      },
+      "speculative_counter_identity": {
+        "finish": "length",
+        "tokens": 512,
+        "cycles": 196,
+        "tokens_per_cycle": 2.61,
+        "accepted": 314,
+        "drafted": 409,
+        "acceptance_rate": 0.7677261613691931,
+        "prompt_copy": {
+          "cycles": 2,
+          "accepted": 1,
+          "drafted": 8
+        }
+      },
+      "server_prompt_eval_seconds": 3.83,
+      "server_model_ttft_seconds": 3.83,
+      "server_model_load_seconds": null
+    },
+    {
+      "content": "Here is the complete launch campaign for LumaDesk Pro, prepared as drafts only.\n\n---\n\n## LumaDesk Pro Launch Campaign — Draft Deliverables\n\n**Product:** LumaDesk Pro desktop organizer\n**Price:** CNY 299\n**Launch date:** 2026-10-18\n**Approved discount:** Maximum 17% using code AUTUMN17\n**Core function:** Organizes local documents\n**Explicit limitations:** No video export. No offline sync.\n**Compliance note:** Orchid Forum prohibits external links. All Orchid Forum posts must end with #LumaDesk. All targets below are goals, not observed results. No customer numbers, endorsements, or unsupported capabilities are claimed.\n\n---\n\n## 1. Seven-Day Content Calendar\n\n| Day | Date | Channel | Content Type | Draft Title / Hook | Key Message | CTA |\n|---|---|---|---|---|---|---|\n| 1 | 2026-10-12 | Orchid Forum | Teaser post | \"Your desktop, before and after\" | Local document organization without cloud dependency | Comment with your biggest clutter pain point. End with #LumaDesk |\n| 2 | 2026-10-13 | Email | Pre-launch email | \"LumaDesk Pro arrives 2026-10-18\" | CNY 299, AUTUMN17 saves up to 17% | Add launch date to calendar |\n| 3 | 2026-10-14 | Orchid Forum | Feature explainer | \"What LumaDesk Pro does — and what it does not do\" | Organizes local documents; no video export; no offline sync | Ask questions in thread. End with #LumaDesk |\n| 4 | 2026-10-15 | Social / Community | Poll post | \"Which file type clutters your desktop most?\" | Local organization matters | Vote and reply. End with #LumaDesk |\n| 5 | 2026-10-16 | Email | Launch reminder | \"Two days until LumaDesk Pro\" | AUTUMN17 maximum 17% discount | Confirm interest |\n| 6 | 2026-10-17 | Orchid Forum | Launch eve post | \"Tomorrow: LumaDesk Pro\" | CNY 299, local document organizer | Prepare your desktop. End with #LumaDesk |\n| 7 | 2026-10-18 | Orchid Forum + Email | Launch day post",
+      "reasoning": "",
+      "usage": {
+        "prompt_tokens": 8192,
+        "completion_tokens": 512,
+        "total_tokens": 8704,
+        "input_tokens": 8192,
+        "output_tokens": 512,
+        "prompt_tokens_details": {
+          "cached_tokens": 0
+        },
+        "time_to_first_token": 3.97,
+        "time_to_first_visible_token": 3.97,
+        "total_time": 11.25,
+        "prompt_eval_duration": 3.97,
+        "generation_duration": 7.29,
+        "prompt_tokens_per_second": 2064.91,
+        "generation_tokens_per_second": 70.26
+      },
+      "finish_reason": "length",
+      "done": true,
+      "elapsed_seconds": 11.31434454198461,
+      "ttft_seconds": 4.02721616695635,
+      "server_decode_tps": 70.26,
+      "server_prefill_tps": 2064.91,
+      "reported_cached_tokens": 0,
+      "log_start_offset": 23400,
+      "artifacts": {
+        "raw_sse": "015-A-measured-sse.txt",
+        "events": "015-A-measured-events.json",
+        "output": "015-A-measured-output.json"
+      },
+      "whole_output_sha256": "35b6ce2b70ef342622ae57d72eaf96eedca34da60cfbf7879743d3da8477e9e2",
+      "scenario": 1,
+      "arm": "A",
+      "warmup": false,
+      "round": 0,
+      "position": 3,
+      "serial": 15,
+      "case": "community-launch-campaign",
+      "module_stats": {
+        "metadata_prefill_dense_calls": 20,
+        "metadata_dense_expert_calls": 20,
+        "dspark_single_calls": 195
+      },
+      "speculative": {
+        "finish": "length",
+        "tokens": 512,
+        "cycles": 196,
+        "tokens_per_cycle": 2.61,
+        "accepted": 314,
+        "drafted": 409,
+        "acceptance_rate": 0.7677261613691931,
+        "timing_ms": {
+          "backbone": 6823.5,
+          "mtp_head": 352.9,
+          "sampling": 5.7,
+          "cache": 43.6
+        },
+        "prompt_copy": {
+          "cycles": 2,
+          "accepted": 1,
+          "drafted": 8
+        }
+      },
+      "speculative_counter_identity": {
+        "finish": "length",
+        "tokens": 512,
+        "cycles": 196,
+        "tokens_per_cycle": 2.61,
+        "accepted": 314,
+        "drafted": 409,
+        "acceptance_rate": 0.7677261613691931,
+        "prompt_copy": {
+          "cycles": 2,
+          "accepted": 1,
+          "drafted": 8
+        }
+      },
+      "server_prompt_eval_seconds": 3.97,
+      "server_model_ttft_seconds": 3.97,
+      "server_model_load_seconds": null
+    },
+    {
+      "content": "Here is the complete launch campaign for LumaDesk Pro, prepared as drafts only.\n\n---\n\n## LumaDesk Pro Launch Campaign — Draft Deliverables\n\n**Product:** LumaDesk Pro desktop organizer\n**Price:** CNY 299\n**Launch date:** 2026-10-18\n**Approved discount:** Maximum 17% using code AUTUMN17\n**Core function:** Organizes local documents\n**Explicit limitations:** No video export. No offline sync.\n**Compliance note:** Orchid Forum prohibits external links. All Orchid Forum posts must end with #LumaDesk. All targets below are goals, not observed results. No customer numbers, endorsements, or unsupported capabilities are claimed.\n\n---\n\n## 1. Seven-Day Content Calendar\n\n| Day | Date | Channel | Content Type | Draft Title / Hook | Key Message | CTA |\n|---|---|---|---|---|---|---|\n| 1 | 2026-10-12 | Orchid Forum | Teaser post | \"Your desktop, before and after\" | Local document organization without cloud dependency | Comment with your biggest clutter pain point. End with #LumaDesk |\n| 2 | 2026-10-13 | Email | Pre-launch email | \"LumaDesk Pro arrives 2026-10-18\" | CNY 299, AUTUMN17 saves up to 17% | Add launch date to calendar |\n| 3 | 2026-10-14 | Orchid Forum | Feature explainer | \"What LumaDesk Pro does — and what it does not do\" | Organizes local documents; no video export; no offline sync | Ask questions in thread. End with #LumaDesk |\n| 4 | 2026-10-15 | Social / Community | Poll post | \"Which file type clutters your desktop most?\" | Local organization matters | Vote and reply. End with #LumaDesk |\n| 5 | 2026-10-16 | Email | Launch reminder | \"Two days until LumaDesk Pro\" | AUTUMN17 maximum 17% discount | Confirm interest |\n| 6 | 2026-10-17 | Orchid Forum | Launch eve post | \"Tomorrow: LumaDesk Pro\" | CNY 299, local document organizer | Prepare your desktop. End with #LumaDesk |\n| 7 | 2026-10-18 | Orchid Forum + Email | Launch day post",
+      "reasoning": "",
+      "usage": {
+        "prompt_tokens": 8192,
+        "completion_tokens": 512,
+        "total_tokens": 8704,
+        "input_tokens": 8192,
+        "output_tokens": 512,
+        "prompt_tokens_details": {
+          "cached_tokens": 0
+        },
+        "time_to_first_token": 4.02,
+        "time_to_first_visible_token": 4.02,
+        "total_time": 11.29,
+        "prompt_eval_duration": 4.02,
+        "generation_duration": 7.27,
+        "prompt_tokens_per_second": 2037.67,
+        "generation_tokens_per_second": 70.43
+      },
+      "finish_reason": "length",
+      "done": true,
+      "elapsed_seconds": 11.35564591694856,
+      "ttft_seconds": 4.08607324998593,
+      "server_decode_tps": 70.43,
+      "server_prefill_tps": 2037.67,
+      "reported_cached_tokens": 0,
+      "log_start_offset": 24276,
+      "artifacts": {
+        "raw_sse": "016-A-measured-sse.txt",
+        "events": "016-A-measured-events.json",
+        "output": "016-A-measured-output.json"
+      },
+      "whole_output_sha256": "35b6ce2b70ef342622ae57d72eaf96eedca34da60cfbf7879743d3da8477e9e2",
+      "scenario": 1,
+      "arm": "A",
+      "warmup": false,
+      "round": 1,
+      "position": 0,
+      "serial": 16,
+      "case": "community-launch-campaign",
+      "module_stats": {
+        "metadata_prefill_dense_calls": 20,
+        "metadata_dense_expert_calls": 20,
+        "dspark_single_calls": 195
+      },
+      "speculative": {
+        "finish": "length",
+        "tokens": 512,
+        "cycles": 196,
+        "tokens_per_cycle": 2.61,
+        "accepted": 314,
+        "drafted": 409,
+        "acceptance_rate": 0.7677261613691931,
+        "timing_ms": {
+          "backbone": 6823.9,
+          "mtp_head": 339.0,
+          "sampling": 5.5,
+          "cache": 41.1
+        },
+        "prompt_copy": {
+          "cycles": 2,
+          "accepted": 1,
+          "drafted": 8
+        }
+      },
+      "speculative_counter_identity": {
+        "finish": "length",
+        "tokens": 512,
+        "cycles": 196,
+        "tokens_per_cycle": 2.61,
+        "accepted": 314,
+        "drafted": 409,
+        "acceptance_rate": 0.7677261613691931,
+        "prompt_copy": {
+          "cycles": 2,
+          "accepted": 1,
+          "drafted": 8
+        }
+      },
+      "server_prompt_eval_seconds": 4.02,
+      "server_model_ttft_seconds": 4.02,
+      "server_model_load_seconds": null
+    },
+    {
+      "content": "Here is the complete launch campaign for LumaDesk Pro, prepared as drafts only.\n\n---\n\n## LumaDesk Pro Launch Campaign — Draft Deliverables\n\n**Product:** LumaDesk Pro desktop organizer\n**Price:** CNY 299\n**Launch date:** 2026-10-18\n**Approved discount:** Maximum 17% using code AUTUMN17\n**Core function:** Organizes local documents\n**Explicit limitations:** No video export. No offline sync.\n**Compliance note:** Orchid Forum prohibits external links. All Orchid Forum posts must end with #LumaDesk. All targets below are goals, not observed results. No customer numbers, endorsements, or unsupported capabilities are claimed.\n\n---\n\n## 1. Seven-Day Content Calendar\n\n| Day | Date | Channel | Content Type | Draft Title / Hook | Key Message | CTA |\n|---|---|---|---|---|---|---|\n| 1 | 2026-10-12 | Orchid Forum | Teaser post | \"Your desktop, before and after\" | Local document organization without cloud dependency | Comment with your biggest clutter pain point. End with #LumaDesk |\n| 2 | 2026-10-13 | Email | Pre-launch email | \"LumaDesk Pro arrives 2026-10-18\" | CNY 299, AUTUMN17 saves up to 17% | Add launch date to calendar |\n| 3 | 2026-10-14 | Orchid Forum | Feature explainer | \"What LumaDesk Pro does — and what it does not do\" | Organizes local documents; no video export; no offline sync | Ask questions in thread. End with #LumaDesk |\n| 4 | 2026-10-15 | Social / Community | Poll post | \"Which file type clutters your desktop most?\" | Local organization matters | Vote and reply. End with #LumaDesk |\n| 5 | 2026-10-16 | Email | Launch reminder | \"Two days until LumaDesk Pro\" | AUTUMN17 maximum 17% discount | Confirm interest |\n| 6 | 2026-10-17 | Orchid Forum | Launch eve post | \"Tomorrow: LumaDesk Pro\" | CNY 299, local document organizer | Prepare your desktop. End with #LumaDesk |\n| 7 | 2026-10-18 | Orchid Forum + Email | Launch day post",
+      "reasoning": "",
+      "usage": {
+        "prompt_tokens": 8192,
+        "completion_tokens": 512,
+        "total_tokens": 8704,
+        "input_tokens": 8192,
+        "output_tokens": 512,
+        "prompt_tokens_details": {
+          "cached_tokens": 0
+        },
+        "time_to_first_token": 3.91,
+        "time_to_first_visible_token": 3.91,
+        "total_time": 11.16,
+        "prompt_eval_duration": 3.91,
+        "generation_duration": 7.25,
+        "prompt_tokens_per_second": 2096.41,
+        "generation_tokens_per_second": 70.61
+      },
+      "finish_reason": "length",
+      "done": true,
+      "elapsed_seconds": 11.224398666003253,
+      "ttft_seconds": 3.973607416031882,
+      "server_decode_tps": 70.61,
+      "server_prefill_tps": 2096.41,
+      "reported_cached_tokens": 0,
+      "log_start_offset": 25152,
+      "artifacts": {
+        "raw_sse": "017-B-measured-sse.txt",
+        "events": "017-B-measured-events.json",
+        "output": "017-B-measured-output.json"
+      },
+      "whole_output_sha256": "35b6ce2b70ef342622ae57d72eaf96eedca34da60cfbf7879743d3da8477e9e2",
+      "scenario": 1,
+      "arm": "B",
+      "warmup": false,
+      "round": 1,
+      "position": 1,
+      "serial": 17,
+      "case": "community-launch-campaign",
+      "module_stats": {
+        "metadata_prefill_direct_calls": 20,
+        "metadata_dense_expert_calls": 20,
+        "dspark_single_calls": 195
+      },
+      "speculative": {
+        "finish": "length",
+        "tokens": 512,
+        "cycles": 196,
+        "tokens_per_cycle": 2.61,
+        "accepted": 314,
+        "drafted": 409,
+        "acceptance_rate": 0.7677261613691931,
+        "timing_ms": {
+          "backbone": 6814.2,
+          "mtp_head": 331.1,
+          "sampling": 5.3,
+          "cache": 39.9
+        },
+        "prompt_copy": {
+          "cycles": 2,
+          "accepted": 1,
+          "drafted": 8
+        }
+      },
+      "speculative_counter_identity": {
+        "finish": "length",
+        "tokens": 512,
+        "cycles": 196,
+        "tokens_per_cycle": 2.61,
+        "accepted": 314,
+        "drafted": 409,
+        "acceptance_rate": 0.7677261613691931,
+        "prompt_copy": {
+          "cycles": 2,
+          "accepted": 1,
+          "drafted": 8
+        }
+      },
+      "server_prompt_eval_seconds": 3.91,
+      "server_model_ttft_seconds": 3.91,
+      "server_model_load_seconds": null
+    },
+    {
+      "content": "Here is the complete launch campaign for LumaDesk Pro, prepared as drafts only.\n\n---\n\n## LumaDesk Pro Launch Campaign — Draft Deliverables\n\n**Product:** LumaDesk Pro desktop organizer\n**Price:** CNY 299\n**Launch date:** 2026-10-18\n**Approved discount:** Maximum 17% using code AUTUMN17\n**Core function:** Organizes local documents\n**Explicit limitations:** No video export. No offline sync.\n**Compliance note:** Orchid Forum prohibits external links. All Orchid Forum posts must end with #LumaDesk. All targets below are goals, not observed results. No customer numbers, endorsements, or unsupported capabilities are claimed.\n\n---\n\n## 1. Seven-Day Content Calendar\n\n| Day | Date | Channel | Content Type | Draft Title / Hook | Key Message | CTA |\n|---|---|---|---|---|---|---|\n| 1 | 2026-10-12 | Orchid Forum | Teaser post | \"Your desktop, before and after\" | Local document organization without cloud dependency | Comment with your biggest clutter pain point. End with #LumaDesk |\n| 2 | 2026-10-13 | Email | Pre-launch email | \"LumaDesk Pro arrives 2026-10-18\" | CNY 299, AUTUMN17 saves up to 17% | Add launch date to calendar |\n| 3 | 2026-10-14 | Orchid Forum | Feature explainer | \"What LumaDesk Pro does — and what it does not do\" | Organizes local documents; no video export; no offline sync | Ask questions in thread. End with #LumaDesk |\n| 4 | 2026-10-15 | Social / Community | Poll post | \"Which file type clutters your desktop most?\" | Local organization matters | Vote and reply. End with #LumaDesk |\n| 5 | 2026-10-16 | Email | Launch reminder | \"Two days until LumaDesk Pro\" | AUTUMN17 maximum 17% discount | Confirm interest |\n| 6 | 2026-10-17 | Orchid Forum | Launch eve post | \"Tomorrow: LumaDesk Pro\" | CNY 299, local document organizer | Prepare your desktop. End with #LumaDesk |\n| 7 | 2026-10-18 | Orchid Forum + Email | Launch day post",
+      "reasoning": "",
+      "usage": {
+        "prompt_tokens": 8192,
+        "completion_tokens": 512,
+        "total_tokens": 8704,
+        "input_tokens": 8192,
+        "output_tokens": 512,
+        "prompt_tokens_details": {
+          "cached_tokens": 0
+        },
+        "time_to_first_token": 3.8,
+        "time_to_first_visible_token": 3.8,
+        "total_time": 11.05,
+        "prompt_eval_duration": 3.8,
+        "generation_duration": 7.25,
+        "prompt_tokens_per_second": 2157.76,
+        "generation_tokens_per_second": 70.6
+      },
+      "finish_reason": "length",
+      "done": true,
+      "elapsed_seconds": 11.11424929095665,
+      "ttft_seconds": 3.862229957943782,
+      "server_decode_tps": 70.6,
+      "server_prefill_tps": 2157.76,
+      "reported_cached_tokens": 0,
+      "log_start_offset": 26028,
+      "artifacts": {
+        "raw_sse": "018-B-measured-sse.txt",
+        "events": "018-B-measured-events.json",
+        "output": "018-B-measured-output.json"
+      },
+      "whole_output_sha256": "35b6ce2b70ef342622ae57d72eaf96eedca34da60cfbf7879743d3da8477e9e2",
+      "scenario": 1,
+      "arm": "B",
+      "warmup": false,
+      "round": 1,
+      "position": 2,
+      "serial": 18,
+      "case": "community-launch-campaign",
+      "module_stats": {
+        "metadata_prefill_direct_calls": 20,
+        "metadata_dense_expert_calls": 20,
+        "dspark_single_calls": 195
+      },
+      "speculative": {
+        "finish": "length",
+        "tokens": 512,
+        "cycles": 196,
+        "tokens_per_cycle": 2.61,
+        "accepted": 314,
+        "drafted": 409,
+        "acceptance_rate": 0.7677261613691931,
+        "timing_ms": {
+          "backbone": 6814.4,
+          "mtp_head": 332.9,
+          "sampling": 5.6,
+          "cache": 40.3
+        },
+        "prompt_copy": {
+          "cycles": 2,
+          "accepted": 1,
+          "drafted": 8
+        }
+      },
+      "speculative_counter_identity": {
+        "finish": "length",
+        "tokens": 512,
+        "cycles": 196,
+        "tokens_per_cycle": 2.61,
+        "accepted": 314,
+        "drafted": 409,
+        "acceptance_rate": 0.7677261613691931,
+        "prompt_copy": {
+          "cycles": 2,
+          "accepted": 1,
+          "drafted": 8
+        }
+      },
+      "server_prompt_eval_seconds": 3.8,
+      "server_model_ttft_seconds": 3.8,
+      "server_model_load_seconds": null
+    },
+    {
+      "content": "Here is the complete launch campaign for LumaDesk Pro, prepared as drafts only.\n\n---\n\n## LumaDesk Pro Launch Campaign — Draft Deliverables\n\n**Product:** LumaDesk Pro desktop organizer\n**Price:** CNY 299\n**Launch date:** 2026-10-18\n**Approved discount:** Maximum 17% using code AUTUMN17\n**Core function:** Organizes local documents\n**Explicit limitations:** No video export. No offline sync.\n**Compliance note:** Orchid Forum prohibits external links. All Orchid Forum posts must end with #LumaDesk. All targets below are goals, not observed results. No customer numbers, endorsements, or unsupported capabilities are claimed.\n\n---\n\n## 1. Seven-Day Content Calendar\n\n| Day | Date | Channel | Content Type | Draft Title / Hook | Key Message | CTA |\n|---|---|---|---|---|---|---|\n| 1 | 2026-10-12 | Orchid Forum | Teaser post | \"Your desktop, before and after\" | Local document organization without cloud dependency | Comment with your biggest clutter pain point. End with #LumaDesk |\n| 2 | 2026-10-13 | Email | Pre-launch email | \"LumaDesk Pro arrives 2026-10-18\" | CNY 299, AUTUMN17 saves up to 17% | Add launch date to calendar |\n| 3 | 2026-10-14 | Orchid Forum | Feature explainer | \"What LumaDesk Pro does — and what it does not do\" | Organizes local documents; no video export; no offline sync | Ask questions in thread. End with #LumaDesk |\n| 4 | 2026-10-15 | Social / Community | Poll post | \"Which file type clutters your desktop most?\" | Local organization matters | Vote and reply. End with #LumaDesk |\n| 5 | 2026-10-16 | Email | Launch reminder | \"Two days until LumaDesk Pro\" | AUTUMN17 maximum 17% discount | Confirm interest |\n| 6 | 2026-10-17 | Orchid Forum | Launch eve post | \"Tomorrow: LumaDesk Pro\" | CNY 299, local document organizer | Prepare your desktop. End with #LumaDesk |\n| 7 | 2026-10-18 | Orchid Forum + Email | Launch day post",
+      "reasoning": "",
+      "usage": {
+        "prompt_tokens": 8192,
+        "completion_tokens": 512,
+        "total_tokens": 8704,
+        "input_tokens": 8192,
+        "output_tokens": 512,
+        "prompt_tokens_details": {
+          "cached_tokens": 0
+        },
+        "time_to_first_token": 3.99,
+        "time_to_first_visible_token": 3.99,
+        "total_time": 11.28,
+        "prompt_eval_duration": 3.99,
+        "generation_duration": 7.3,
+        "prompt_tokens_per_second": 2054.77,
+        "generation_tokens_per_second": 70.16
+      },
+      "finish_reason": "length",
+      "done": true,
+      "elapsed_seconds": 11.349241957999766,
+      "ttft_seconds": 4.051592416013591,
+      "server_decode_tps": 70.16,
+      "server_prefill_tps": 2054.77,
+      "reported_cached_tokens": 0,
+      "log_start_offset": 26904,
+      "artifacts": {
+        "raw_sse": "019-A-measured-sse.txt",
+        "events": "019-A-measured-events.json",
+        "output": "019-A-measured-output.json"
+      },
+      "whole_output_sha256": "35b6ce2b70ef342622ae57d72eaf96eedca34da60cfbf7879743d3da8477e9e2",
+      "scenario": 1,
+      "arm": "A",
+      "warmup": false,
+      "round": 1,
+      "position": 3,
+      "serial": 19,
+      "case": "community-launch-campaign",
+      "module_stats": {
+        "metadata_prefill_dense_calls": 20,
+        "metadata_dense_expert_calls": 20,
+        "dspark_single_calls": 195
+      },
+      "speculative": {
+        "finish": "length",
+        "tokens": 512,
+        "cycles": 196,
+        "tokens_per_cycle": 2.61,
+        "accepted": 314,
+        "drafted": 409,
+        "acceptance_rate": 0.7677261613691931,
+        "timing_ms": {
+          "backbone": 6847.0,
+          "mtp_head": 342.0,
+          "sampling": 5.5,
+          "cache": 42.0
+        },
+        "prompt_copy": {
+          "cycles": 2,
+          "accepted": 1,
+          "drafted": 8
+        }
+      },
+      "speculative_counter_identity": {
+        "finish": "length",
+        "tokens": 512,
+        "cycles": 196,
+        "tokens_per_cycle": 2.61,
+        "accepted": 314,
+        "drafted": 409,
+        "acceptance_rate": 0.7677261613691931,
+        "prompt_copy": {
+          "cycles": 2,
+          "accepted": 1,
+          "drafted": 8
+        }
+      },
+      "server_prompt_eval_seconds": 3.99,
+      "server_model_ttft_seconds": 3.99,
+      "server_model_load_seconds": null
+    },
+    {
+      "content": "# LumaDesk Pro — 45-Second Launch Video Plan + Computer-Use Workflow\n\nAll deliverables below are **plans and specifications only**. No tools were run, no files were created, and no browser actions were performed. Product facts are treated as fixed: local document organizer, CNY 299, launch 2026-10-18, **no video export**, **no offline sync**.\n\n---\n\n## 1. Timed Shot List (exactly 45.0 s)\n\n| # | Time | Duration | Shot | Visual direction | Narration | Caption |\n|---|------|----------|------|------------------|-----------|---------|\n| 1 | 0.0–4.0 | 4.0 s | Cold open: chaotic desktop | Screen recording of a cluttered desktop; 40+ loose files, overlapping windows. Slow 5% push-in. Cool desaturated grade. | \"Your desktop isn't a filing system. It's a pile.\" | Your desktop is a pile. |\n| 2 | 4.0–9.0 | 5.0 s | Problem montage | Three quick cuts: misfiled invoice, duplicate scan, lost contract. Each 1.6 s, hard cuts on beat. Red highlight boxes. | \"Invoices in Downloads. Contracts in Screenshots. Nothing where you left it.\" | Invoices in Downloads. Contracts in Screenshots. |\n| 3 | 9.0–14.0 | 5.0 s | Product reveal | LumaDesk Pro logo animates in over clean UI. Warm key light, soft shadow. Logo holds 1.5 s. | \"Meet LumaDesk Pro — the local document organizer.\" | LumaDesk Pro — local document organizer |\n| 4 | 14.0–21.0 | 7.0 s | Core action: auto-sort | Screen capture: drag 12 files into LumaDesk; they snap into labeled folders (Finance, Contracts, Receipts). 1.2× speed. Cursor visible. | \"Drop files in. LumaDesk sorts them locally — by type, date, and project.\" | Drop in. Sorted locally. |\n| 5 | 21.0–27.0 | 6.0 s | Search + preview | Type \"Q3 lease\" in search bar; result appears in 0.4 s; preview pane opens.",
+      "reasoning": "",
+      "usage": {
+        "prompt_tokens": 8192,
+        "completion_tokens": 512,
+        "total_tokens": 8704,
+        "input_tokens": 8192,
+        "output_tokens": 512,
+        "prompt_tokens_details": {
+          "cached_tokens": 0
+        },
+        "time_to_first_token": 4.02,
+        "time_to_first_visible_token": 4.02,
+        "total_time": 11.97,
+        "prompt_eval_duration": 4.02,
+        "generation_duration": 7.95,
+        "prompt_tokens_per_second": 2038.32,
+        "generation_tokens_per_second": 64.36
+      },
+      "finish_reason": "length",
+      "done": true,
+      "elapsed_seconds": 12.025977666955441,
+      "ttft_seconds": 4.071587166981772,
+      "server_decode_tps": 64.36,
+      "server_prefill_tps": 2038.32,
+      "reported_cached_tokens": 0,
+      "log_start_offset": 27780,
+      "artifacts": {
+        "raw_sse": "020-A-warmup-sse.txt",
+        "events": "020-A-warmup-events.json",
+        "output": "020-A-warmup-output.json"
+      },
+      "whole_output_sha256": "0967fa70a249a93c3de1a871571f3da2de11b5754dab48a3dfa148ac3418bab1",
+      "scenario": 2,
+      "arm": "A",
+      "warmup": true,
+      "round": null,
+      "position": null,
+      "serial": 20,
+      "case": "video-and-computer-use-plan",
+      "module_stats": {
+        "metadata_prefill_dense_calls": 20,
+        "metadata_dense_expert_calls": 20,
+        "dspark_single_calls": 208
+      },
+      "speculative": {
+        "finish": "length",
+        "tokens": 512,
+        "cycles": 212,
+        "tokens_per_cycle": 2.42,
+        "accepted": 298,
+        "drafted": 406,
+        "acceptance_rate": 0.7339901477832512,
+        "timing_ms": {
+          "backbone": 7485.1,
+          "mtp_head": 354.6,
+          "sampling": 5.9,
+          "cache": 46.3
+        },
+        "prompt_copy": {
+          "cycles": 5,
+          "accepted": 10,
+          "drafted": 20
+        }
+      },
+      "speculative_counter_identity": {
+        "finish": "length",
+        "tokens": 512,
+        "cycles": 212,
+        "tokens_per_cycle": 2.42,
+        "accepted": 298,
+        "drafted": 406,
+        "acceptance_rate": 0.7339901477832512,
+        "prompt_copy": {
+          "cycles": 5,
+          "accepted": 10,
+          "drafted": 20
+        }
+      },
+      "server_prompt_eval_seconds": 4.02,
+      "server_model_ttft_seconds": 4.02,
+      "server_model_load_seconds": null
+    },
+    {
+      "content": "# LumaDesk Pro — 45-Second Launch Video Plan + Computer-Use Workflow\n\nAll deliverables below are **plans and specifications only**. No tools were run, no files were created, and no browser actions were performed. Product facts are treated as fixed: local document organizer, CNY 299, launch 2026-10-18, **no video export**, **no offline sync**.\n\n---\n\n## 1. Timed Shot List (exactly 45.0 s)\n\n| # | Time | Duration | Shot | Visual direction | Narration | Caption |\n|---|------|----------|------|------------------|-----------|---------|\n| 1 | 0.0–4.0 | 4.0 s | Cold open: chaotic desktop | Screen recording of a cluttered desktop; 40+ loose files, overlapping windows. Slow 5% push-in. Cool desaturated grade. | \"Your desktop isn't a filing system. It's a pile.\" | Your desktop is a pile. |\n| 2 | 4.0–9.0 | 5.0 s | Problem montage | Three quick cuts: misfiled invoice, duplicate scan, lost contract. Each 1.6 s, hard cuts on beat. Red highlight boxes. | \"Invoices in Downloads. Contracts in Screenshots. Nothing where you left it.\" | Invoices in Downloads. Contracts in Screenshots. |\n| 3 | 9.0–14.0 | 5.0 s | Product reveal | LumaDesk Pro logo animates in over clean UI. Warm key light, soft shadow. Logo holds 1.5 s. | \"Meet LumaDesk Pro — the local document organizer.\" | LumaDesk Pro — local document organizer |\n| 4 | 14.0–21.0 | 7.0 s | Core action: auto-sort | Screen capture: drag 12 files into LumaDesk; they snap into labeled folders (Finance, Contracts, Receipts). 1.2× speed. Cursor visible. | \"Drop files in. LumaDesk sorts them locally — by type, date, and project.\" | Drop in. Sorted locally. |\n| 5 | 21.0–27.0 | 6.0 s | Search + preview | Type \"Q3 lease\" in search bar; result appears in 0.4 s; preview pane opens.",
+      "reasoning": "",
+      "usage": {
+        "prompt_tokens": 8192,
+        "completion_tokens": 512,
+        "total_tokens": 8704,
+        "input_tokens": 8192,
+        "output_tokens": 512,
+        "prompt_tokens_details": {
+          "cached_tokens": 0
+        },
+        "time_to_first_token": 3.96,
+        "time_to_first_visible_token": 3.96,
+        "total_time": 11.68,
+        "prompt_eval_duration": 3.96,
+        "generation_duration": 7.72,
+        "prompt_tokens_per_second": 2069.45,
+        "generation_tokens_per_second": 66.33
+      },
+      "finish_reason": "length",
+      "done": true,
+      "elapsed_seconds": 11.74417529196944,
+      "ttft_seconds": 4.02528825000627,
+      "server_decode_tps": 66.33,
+      "server_prefill_tps": 2069.45,
+      "reported_cached_tokens": 0,
+      "log_start_offset": 28659,
+      "artifacts": {
+        "raw_sse": "021-B-warmup-sse.txt",
+        "events": "021-B-warmup-events.json",
+        "output": "021-B-warmup-output.json"
+      },
+      "whole_output_sha256": "0967fa70a249a93c3de1a871571f3da2de11b5754dab48a3dfa148ac3418bab1",
+      "scenario": 2,
+      "arm": "B",
+      "warmup": true,
+      "round": null,
+      "position": null,
+      "serial": 21,
+      "case": "video-and-computer-use-plan",
+      "module_stats": {
+        "metadata_prefill_direct_calls": 20,
+        "metadata_dense_expert_calls": 20,
+        "dspark_single_calls": 208
+      },
+      "speculative": {
+        "finish": "length",
+        "tokens": 512,
+        "cycles": 212,
+        "tokens_per_cycle": 2.42,
+        "accepted": 298,
+        "drafted": 406,
+        "acceptance_rate": 0.7339901477832512,
+        "timing_ms": {
+          "backbone": 7252.4,
+          "mtp_head": 353.6,
+          "sampling": 5.7,
+          "cache": 44.6
+        },
+        "prompt_copy": {
+          "cycles": 5,
+          "accepted": 10,
+          "drafted": 20
+        }
+      },
+      "speculative_counter_identity": {
+        "finish": "length",
+        "tokens": 512,
+        "cycles": 212,
+        "tokens_per_cycle": 2.42,
+        "accepted": 298,
+        "drafted": 406,
+        "acceptance_rate": 0.7339901477832512,
+        "prompt_copy": {
+          "cycles": 5,
+          "accepted": 10,
+          "drafted": 20
+        }
+      },
+      "server_prompt_eval_seconds": 3.96,
+      "server_model_ttft_seconds": 3.96,
+      "server_model_load_seconds": null
+    },
+    {
+      "content": "# LumaDesk Pro — 45-Second Launch Video Plan + Computer-Use Workflow\n\nAll deliverables below are **plans and specifications only**. No tools were run, no files were created, and no browser actions were performed. Product facts are treated as fixed: local document organizer, CNY 299, launch 2026-10-18, **no video export**, **no offline sync**.\n\n---\n\n## 1. Timed Shot List (exactly 45.0 s)\n\n| # | Time | Duration | Shot | Visual direction | Narration | Caption |\n|---|------|----------|------|------------------|-----------|---------|\n| 1 | 0.0–4.0 | 4.0 s | Cold open: chaotic desktop | Screen recording of a cluttered desktop; 40+ loose files, overlapping windows. Slow 5% push-in. Cool desaturated grade. | \"Your desktop isn't a filing system. It's a pile.\" | Your desktop is a pile. |\n| 2 | 4.0–9.0 | 5.0 s | Problem montage | Three quick cuts: misfiled invoice, duplicate scan, lost contract. Each 1.6 s, hard cuts on beat. Red highlight boxes. | \"Invoices in Downloads. Contracts in Screenshots. Nothing where you left it.\" | Invoices in Downloads. Contracts in Screenshots. |\n| 3 | 9.0–14.0 | 5.0 s | Product reveal | LumaDesk Pro logo animates in over clean UI. Warm key light, soft shadow. Logo holds 1.5 s. | \"Meet LumaDesk Pro — the local document organizer.\" | LumaDesk Pro — local document organizer |\n| 4 | 14.0–21.0 | 7.0 s | Core action: auto-sort | Screen capture: drag 12 files into LumaDesk; they snap into labeled folders (Finance, Contracts, Receipts). 1.2× speed. Cursor visible. | \"Drop files in. LumaDesk sorts them locally — by type, date, and project.\" | Drop in. Sorted locally. |\n| 5 | 21.0–27.0 | 6.0 s | Search + preview | Type \"Q3 lease\" in search bar; result appears in 0.4 s; preview pane opens.",
+      "reasoning": "",
+      "usage": {
+        "prompt_tokens": 8192,
+        "completion_tokens": 512,
+        "total_tokens": 8704,
+        "input_tokens": 8192,
+        "output_tokens": 512,
+        "prompt_tokens_details": {
+          "cached_tokens": 0
+        },
+        "time_to_first_token": 4.02,
+        "time_to_first_visible_token": 4.02,
+        "total_time": 11.74,
+        "prompt_eval_duration": 4.02,
+        "generation_duration": 7.72,
+        "prompt_tokens_per_second": 2036.84,
+        "generation_tokens_per_second": 66.31
+      },
+      "finish_reason": "length",
+      "done": true,
+      "elapsed_seconds": 11.808677249995526,
+      "ttft_seconds": 4.088207666005474,
+      "server_decode_tps": 66.31,
+      "server_prefill_tps": 2036.84,
+      "reported_cached_tokens": 0,
+      "log_start_offset": 29538,
+      "artifacts": {
+        "raw_sse": "022-A-measured-sse.txt",
+        "events": "022-A-measured-events.json",
+        "output": "022-A-measured-output.json"
+      },
+      "whole_output_sha256": "0967fa70a249a93c3de1a871571f3da2de11b5754dab48a3dfa148ac3418bab1",
+      "scenario": 2,
+      "arm": "A",
+      "warmup": false,
+      "round": 0,
+      "position": 0,
+      "serial": 22,
+      "case": "video-and-computer-use-plan",
+      "module_stats": {
+        "metadata_prefill_dense_calls": 20,
+        "metadata_dense_expert_calls": 20,
+        "dspark_single_calls": 208
+      },
+      "speculative": {
+        "finish": "length",
+        "tokens": 512,
+        "cycles": 212,
+        "tokens_per_cycle": 2.42,
+        "accepted": 298,
+        "drafted": 406,
+        "acceptance_rate": 0.7339901477832512,
+        "timing_ms": {
+          "backbone": 7253.9,
+          "mtp_head": 353.7,
+          "sampling": 5.8,
+          "cache": 45.1
+        },
+        "prompt_copy": {
+          "cycles": 5,
+          "accepted": 10,
+          "drafted": 20
+        }
+      },
+      "speculative_counter_identity": {
+        "finish": "length",
+        "tokens": 512,
+        "cycles": 212,
+        "tokens_per_cycle": 2.42,
+        "accepted": 298,
+        "drafted": 406,
+        "acceptance_rate": 0.7339901477832512,
+        "prompt_copy": {
+          "cycles": 5,
+          "accepted": 10,
+          "drafted": 20
+        }
+      },
+      "server_prompt_eval_seconds": 4.02,
+      "server_model_ttft_seconds": 4.02,
+      "server_model_load_seconds": null
+    },
+    {
+      "content": "# LumaDesk Pro — 45-Second Launch Video Plan + Computer-Use Workflow\n\nAll deliverables below are **plans and specifications only**. No tools were run, no files were created, and no browser actions were performed. Product facts are treated as fixed: local document organizer, CNY 299, launch 2026-10-18, **no video export**, **no offline sync**.\n\n---\n\n## 1. Timed Shot List (exactly 45.0 s)\n\n| # | Time | Duration | Shot | Visual direction | Narration | Caption |\n|---|------|----------|------|------------------|-----------|---------|\n| 1 | 0.0–4.0 | 4.0 s | Cold open: chaotic desktop | Screen recording of a cluttered desktop; 40+ loose files, overlapping windows. Slow 5% push-in. Cool desaturated grade. | \"Your desktop isn't a filing system. It's a pile.\" | Your desktop is a pile. |\n| 2 | 4.0–9.0 | 5.0 s | Problem montage | Three quick cuts: misfiled invoice, duplicate scan, lost contract. Each 1.6 s, hard cuts on beat. Red highlight boxes. | \"Invoices in Downloads. Contracts in Screenshots. Nothing where you left it.\" | Invoices in Downloads. Contracts in Screenshots. |\n| 3 | 9.0–14.0 | 5.0 s | Product reveal | LumaDesk Pro logo animates in over clean UI. Warm key light, soft shadow. Logo holds 1.5 s. | \"Meet LumaDesk Pro — the local document organizer.\" | LumaDesk Pro — local document organizer |\n| 4 | 14.0–21.0 | 7.0 s | Core action: auto-sort | Screen capture: drag 12 files into LumaDesk; they snap into labeled folders (Finance, Contracts, Receipts). 1.2× speed. Cursor visible. | \"Drop files in. LumaDesk sorts them locally — by type, date, and project.\" | Drop in. Sorted locally. |\n| 5 | 21.0–27.0 | 6.0 s | Search + preview | Type \"Q3 lease\" in search bar; result appears in 0.4 s; preview pane opens.",
+      "reasoning": "",
+      "usage": {
+        "prompt_tokens": 8192,
+        "completion_tokens": 512,
+        "total_tokens": 8704,
+        "input_tokens": 8192,
+        "output_tokens": 512,
+        "prompt_tokens_details": {
+          "cached_tokens": 0
+        },
+        "time_to_first_token": 3.9,
+        "time_to_first_visible_token": 3.9,
+        "total_time": 11.63,
+        "prompt_eval_duration": 3.9,
+        "generation_duration": 7.73,
+        "prompt_tokens_per_second": 2100.6,
+        "generation_tokens_per_second": 66.27
+      },
+      "finish_reason": "length",
+      "done": true,
+      "elapsed_seconds": 11.68929491698509,
+      "ttft_seconds": 3.964213125000242,
+      "server_decode_tps": 66.27,
+      "server_prefill_tps": 2100.6,
+      "reported_cached_tokens": 0,
+      "log_start_offset": 30417,
+      "artifacts": {
+        "raw_sse": "023-B-measured-sse.txt",
+        "events": "023-B-measured-events.json",
+        "output": "023-B-measured-output.json"
+      },
+      "whole_output_sha256": "0967fa70a249a93c3de1a871571f3da2de11b5754dab48a3dfa148ac3418bab1",
+      "scenario": 2,
+      "arm": "B",
+      "warmup": false,
+      "round": 0,
+      "position": 1,
+      "serial": 23,
+      "case": "video-and-computer-use-plan",
+      "module_stats": {
+        "metadata_prefill_direct_calls": 20,
+        "metadata_dense_expert_calls": 20,
+        "dspark_single_calls": 208
+      },
+      "speculative": {
+        "finish": "length",
+        "tokens": 512,
+        "cycles": 212,
+        "tokens_per_cycle": 2.42,
+        "accepted": 298,
+        "drafted": 406,
+        "acceptance_rate": 0.7339901477832512,
+        "timing_ms": {
+          "backbone": 7254.8,
+          "mtp_head": 356.1,
+          "sampling": 5.9,
+          "cache": 45.3
+        },
+        "prompt_copy": {
+          "cycles": 5,
+          "accepted": 10,
+          "drafted": 20
+        }
+      },
+      "speculative_counter_identity": {
+        "finish": "length",
+        "tokens": 512,
+        "cycles": 212,
+        "tokens_per_cycle": 2.42,
+        "accepted": 298,
+        "drafted": 406,
+        "acceptance_rate": 0.7339901477832512,
+        "prompt_copy": {
+          "cycles": 5,
+          "accepted": 10,
+          "drafted": 20
+        }
+      },
+      "server_prompt_eval_seconds": 3.9,
+      "server_model_ttft_seconds": 3.9,
+      "server_model_load_seconds": null
+    },
+    {
+      "content": "# LumaDesk Pro — 45-Second Launch Video Plan + Computer-Use Workflow\n\nAll deliverables below are **plans and specifications only**. No tools were run, no files were created, and no browser actions were performed. Product facts are treated as fixed: local document organizer, CNY 299, launch 2026-10-18, **no video export**, **no offline sync**.\n\n---\n\n## 1. Timed Shot List (exactly 45.0 s)\n\n| # | Time | Duration | Shot | Visual direction | Narration | Caption |\n|---|------|----------|------|------------------|-----------|---------|\n| 1 | 0.0–4.0 | 4.0 s | Cold open: chaotic desktop | Screen recording of a cluttered desktop; 40+ loose files, overlapping windows. Slow 5% push-in. Cool desaturated grade. | \"Your desktop isn't a filing system. It's a pile.\" | Your desktop is a pile. |\n| 2 | 4.0–9.0 | 5.0 s | Problem montage | Three quick cuts: misfiled invoice, duplicate scan, lost contract. Each 1.6 s, hard cuts on beat. Red highlight boxes. | \"Invoices in Downloads. Contracts in Screenshots. Nothing where you left it.\" | Invoices in Downloads. Contracts in Screenshots. |\n| 3 | 9.0–14.0 | 5.0 s | Product reveal | LumaDesk Pro logo animates in over clean UI. Warm key light, soft shadow. Logo holds 1.5 s. | \"Meet LumaDesk Pro — the local document organizer.\" | LumaDesk Pro — local document organizer |\n| 4 | 14.0–21.0 | 7.0 s | Core action: auto-sort | Screen capture: drag 12 files into LumaDesk; they snap into labeled folders (Finance, Contracts, Receipts). 1.2× speed. Cursor visible. | \"Drop files in. LumaDesk sorts them locally — by type, date, and project.\" | Drop in. Sorted locally. |\n| 5 | 21.0–27.0 | 6.0 s | Search + preview | Type \"Q3 lease\" in search bar; result appears in 0.4 s; preview pane opens.",
+      "reasoning": "",
+      "usage": {
+        "prompt_tokens": 8192,
+        "completion_tokens": 512,
+        "total_tokens": 8704,
+        "input_tokens": 8192,
+        "output_tokens": 512,
+        "prompt_tokens_details": {
+          "cached_tokens": 0
+        },
+        "time_to_first_token": 3.92,
+        "time_to_first_visible_token": 3.92,
+        "total_time": 11.66,
+        "prompt_eval_duration": 3.92,
+        "generation_duration": 7.74,
+        "prompt_tokens_per_second": 2089.64,
+        "generation_tokens_per_second": 66.12
+      },
+      "finish_reason": "length",
+      "done": true,
+      "elapsed_seconds": 11.730974374979269,
+      "ttft_seconds": 3.987556207983289,
+      "server_decode_tps": 66.12,
+      "server_prefill_tps": 2089.64,
+      "reported_cached_tokens": 0,
+      "log_start_offset": 31296,
+      "artifacts": {
+        "raw_sse": "024-B-measured-sse.txt",
+        "events": "024-B-measured-events.json",
+        "output": "024-B-measured-output.json"
+      },
+      "whole_output_sha256": "0967fa70a249a93c3de1a871571f3da2de11b5754dab48a3dfa148ac3418bab1",
+      "scenario": 2,
+      "arm": "B",
+      "warmup": false,
+      "round": 0,
+      "position": 2,
+      "serial": 24,
+      "case": "video-and-computer-use-plan",
+      "module_stats": {
+        "metadata_prefill_direct_calls": 20,
+        "metadata_dense_expert_calls": 20,
+        "dspark_single_calls": 208
+      },
+      "speculative": {
+        "finish": "length",
+        "tokens": 512,
+        "cycles": 212,
+        "tokens_per_cycle": 2.42,
+        "accepted": 298,
+        "drafted": 406,
+        "acceptance_rate": 0.7339901477832512,
+        "timing_ms": {
+          "backbone": 7262.4,
+          "mtp_head": 365.0,
+          "sampling": 6.0,
+          "cache": 46.7
+        },
+        "prompt_copy": {
+          "cycles": 5,
+          "accepted": 10,
+          "drafted": 20
+        }
+      },
+      "speculative_counter_identity": {
+        "finish": "length",
+        "tokens": 512,
+        "cycles": 212,
+        "tokens_per_cycle": 2.42,
+        "accepted": 298,
+        "drafted": 406,
+        "acceptance_rate": 0.7339901477832512,
+        "prompt_copy": {
+          "cycles": 5,
+          "accepted": 10,
+          "drafted": 20
+        }
+      },
+      "server_prompt_eval_seconds": 3.92,
+      "server_model_ttft_seconds": 3.92,
+      "server_model_load_seconds": null
+    },
+    {
+      "content": "# LumaDesk Pro — 45-Second Launch Video Plan + Computer-Use Workflow\n\nAll deliverables below are **plans and specifications only**. No tools were run, no files were created, and no browser actions were performed. Product facts are treated as fixed: local document organizer, CNY 299, launch 2026-10-18, **no video export**, **no offline sync**.\n\n---\n\n## 1. Timed Shot List (exactly 45.0 s)\n\n| # | Time | Duration | Shot | Visual direction | Narration | Caption |\n|---|------|----------|------|------------------|-----------|---------|\n| 1 | 0.0–4.0 | 4.0 s | Cold open: chaotic desktop | Screen recording of a cluttered desktop; 40+ loose files, overlapping windows. Slow 5% push-in. Cool desaturated grade. | \"Your desktop isn't a filing system. It's a pile.\" | Your desktop is a pile. |\n| 2 | 4.0–9.0 | 5.0 s | Problem montage | Three quick cuts: misfiled invoice, duplicate scan, lost contract. Each 1.6 s, hard cuts on beat. Red highlight boxes. | \"Invoices in Downloads. Contracts in Screenshots. Nothing where you left it.\" | Invoices in Downloads. Contracts in Screenshots. |\n| 3 | 9.0–14.0 | 5.0 s | Product reveal | LumaDesk Pro logo animates in over clean UI. Warm key light, soft shadow. Logo holds 1.5 s. | \"Meet LumaDesk Pro — the local document organizer.\" | LumaDesk Pro — local document organizer |\n| 4 | 14.0–21.0 | 7.0 s | Core action: auto-sort | Screen capture: drag 12 files into LumaDesk; they snap into labeled folders (Finance, Contracts, Receipts). 1.2× speed. Cursor visible. | \"Drop files in. LumaDesk sorts them locally — by type, date, and project.\" | Drop in. Sorted locally. |\n| 5 | 21.0–27.0 | 6.0 s | Search + preview | Type \"Q3 lease\" in search bar; result appears in 0.4 s; preview pane opens.",
+      "reasoning": "",
+      "usage": {
+        "prompt_tokens": 8192,
+        "completion_tokens": 512,
+        "total_tokens": 8704,
+        "input_tokens": 8192,
+        "output_tokens": 512,
+        "prompt_tokens_details": {
+          "cached_tokens": 0
+        },
+        "time_to_first_token": 4.05,
+        "time_to_first_visible_token": 4.05,
+        "total_time": 11.77,
+        "prompt_eval_duration": 4.05,
+        "generation_duration": 7.72,
+        "prompt_tokens_per_second": 2020.74,
+        "generation_tokens_per_second": 66.32
+      },
+      "finish_reason": "length",
+      "done": true,
+      "elapsed_seconds": 11.840495000011288,
+      "ttft_seconds": 4.120556125009898,
+      "server_decode_tps": 66.32,
+      "server_prefill_tps": 2020.74,
+      "reported_cached_tokens": 0,
+      "log_start_offset": 32175,
+      "artifacts": {
+        "raw_sse": "025-A-measured-sse.txt",
+        "events": "025-A-measured-events.json",
+        "output": "025-A-measured-output.json"
+      },
+      "whole_output_sha256": "0967fa70a249a93c3de1a871571f3da2de11b5754dab48a3dfa148ac3418bab1",
+      "scenario": 2,
+      "arm": "A",
+      "warmup": false,
+      "round": 0,
+      "position": 3,
+      "serial": 25,
+      "case": "video-and-computer-use-plan",
+      "module_stats": {
+        "metadata_prefill_dense_calls": 20,
+        "metadata_dense_expert_calls": 20,
+        "dspark_single_calls": 208
+      },
+      "speculative": {
+        "finish": "length",
+        "tokens": 512,
+        "cycles": 212,
+        "tokens_per_cycle": 2.42,
+        "accepted": 298,
+        "drafted": 406,
+        "acceptance_rate": 0.7339901477832512,
+        "timing_ms": {
+          "backbone": 7252.1,
+          "mtp_head": 354.1,
+          "sampling": 5.8,
+          "cache": 45.6
+        },
+        "prompt_copy": {
+          "cycles": 5,
+          "accepted": 10,
+          "drafted": 20
+        }
+      },
+      "speculative_counter_identity": {
+        "finish": "length",
+        "tokens": 512,
+        "cycles": 212,
+        "tokens_per_cycle": 2.42,
+        "accepted": 298,
+        "drafted": 406,
+        "acceptance_rate": 0.7339901477832512,
+        "prompt_copy": {
+          "cycles": 5,
+          "accepted": 10,
+          "drafted": 20
+        }
+      },
+      "server_prompt_eval_seconds": 4.05,
+      "server_model_ttft_seconds": 4.05,
+      "server_model_load_seconds": null
+    },
+    {
+      "content": "# LumaDesk Pro — 45-Second Launch Video Plan + Computer-Use Workflow\n\nAll deliverables below are **plans and specifications only**. No tools were run, no files were created, and no browser actions were performed. Product facts are treated as fixed: local document organizer, CNY 299, launch 2026-10-18, **no video export**, **no offline sync**.\n\n---\n\n## 1. Timed Shot List (exactly 45.0 s)\n\n| # | Time | Duration | Shot | Visual direction | Narration | Caption |\n|---|------|----------|------|------------------|-----------|---------|\n| 1 | 0.0–4.0 | 4.0 s | Cold open: chaotic desktop | Screen recording of a cluttered desktop; 40+ loose files, overlapping windows. Slow 5% push-in. Cool desaturated grade. | \"Your desktop isn't a filing system. It's a pile.\" | Your desktop is a pile. |\n| 2 | 4.0–9.0 | 5.0 s | Problem montage | Three quick cuts: misfiled invoice, duplicate scan, lost contract. Each 1.6 s, hard cuts on beat. Red highlight boxes. | \"Invoices in Downloads. Contracts in Screenshots. Nothing where you left it.\" | Invoices in Downloads. Contracts in Screenshots. |\n| 3 | 9.0–14.0 | 5.0 s | Product reveal | LumaDesk Pro logo animates in over clean UI. Warm key light, soft shadow. Logo holds 1.5 s. | \"Meet LumaDesk Pro — the local document organizer.\" | LumaDesk Pro — local document organizer |\n| 4 | 14.0–21.0 | 7.0 s | Core action: auto-sort | Screen capture: drag 12 files into LumaDesk; they snap into labeled folders (Finance, Contracts, Receipts). 1.2× speed. Cursor visible. | \"Drop files in. LumaDesk sorts them locally — by type, date, and project.\" | Drop in. Sorted locally. |\n| 5 | 21.0–27.0 | 6.0 s | Search + preview | Type \"Q3 lease\" in search bar; result appears in 0.4 s; preview pane opens.",
+      "reasoning": "",
+      "usage": {
+        "prompt_tokens": 8192,
+        "completion_tokens": 512,
+        "total_tokens": 8704,
+        "input_tokens": 8192,
+        "output_tokens": 512,
+        "prompt_tokens_details": {
+          "cached_tokens": 0
+        },
+        "time_to_first_token": 4.04,
+        "time_to_first_visible_token": 4.04,
+        "total_time": 11.77,
+        "prompt_eval_duration": 4.04,
+        "generation_duration": 7.73,
+        "prompt_tokens_per_second": 2026.37,
+        "generation_tokens_per_second": 66.26
+      },
+      "finish_reason": "length",
+      "done": true,
+      "elapsed_seconds": 11.835932917019818,
+      "ttft_seconds": 4.108758291986305,
+      "server_decode_tps": 66.26,
+      "server_prefill_tps": 2026.37,
+      "reported_cached_tokens": 0,
+      "log_start_offset": 33054,
+      "artifacts": {
+        "raw_sse": "026-A-measured-sse.txt",
+        "events": "026-A-measured-events.json",
+        "output": "026-A-measured-output.json"
+      },
+      "whole_output_sha256": "0967fa70a249a93c3de1a871571f3da2de11b5754dab48a3dfa148ac3418bab1",
+      "scenario": 2,
+      "arm": "A",
+      "warmup": false,
+      "round": 1,
+      "position": 0,
+      "serial": 26,
+      "case": "video-and-computer-use-plan",
+      "module_stats": {
+        "metadata_prefill_dense_calls": 20,
+        "metadata_dense_expert_calls": 20,
+        "dspark_single_calls": 208
+      },
+      "speculative": {
+        "finish": "length",
+        "tokens": 512,
+        "cycles": 212,
+        "tokens_per_cycle": 2.42,
+        "accepted": 298,
+        "drafted": 406,
+        "acceptance_rate": 0.7339901477832512,
+        "timing_ms": {
+          "backbone": 7256.4,
+          "mtp_head": 357.1,
+          "sampling": 5.8,
+          "cache": 46.0
+        },
+        "prompt_copy": {
+          "cycles": 5,
+          "accepted": 10,
+          "drafted": 20
+        }
+      },
+      "speculative_counter_identity": {
+        "finish": "length",
+        "tokens": 512,
+        "cycles": 212,
+        "tokens_per_cycle": 2.42,
+        "accepted": 298,
+        "drafted": 406,
+        "acceptance_rate": 0.7339901477832512,
+        "prompt_copy": {
+          "cycles": 5,
+          "accepted": 10,
+          "drafted": 20
+        }
+      },
+      "server_prompt_eval_seconds": 4.04,
+      "server_model_ttft_seconds": 4.04,
+      "server_model_load_seconds": null
+    },
+    {
+      "content": "# LumaDesk Pro — 45-Second Launch Video Plan + Computer-Use Workflow\n\nAll deliverables below are **plans and specifications only**. No tools were run, no files were created, and no browser actions were performed. Product facts are treated as fixed: local document organizer, CNY 299, launch 2026-10-18, **no video export**, **no offline sync**.\n\n---\n\n## 1. Timed Shot List (exactly 45.0 s)\n\n| # | Time | Duration | Shot | Visual direction | Narration | Caption |\n|---|------|----------|------|------------------|-----------|---------|\n| 1 | 0.0–4.0 | 4.0 s | Cold open: chaotic desktop | Screen recording of a cluttered desktop; 40+ loose files, overlapping windows. Slow 5% push-in. Cool desaturated grade. | \"Your desktop isn't a filing system. It's a pile.\" | Your desktop is a pile. |\n| 2 | 4.0–9.0 | 5.0 s | Problem montage | Three quick cuts: misfiled invoice, duplicate scan, lost contract. Each 1.6 s, hard cuts on beat. Red highlight boxes. | \"Invoices in Downloads. Contracts in Screenshots. Nothing where you left it.\" | Invoices in Downloads. Contracts in Screenshots. |\n| 3 | 9.0–14.0 | 5.0 s | Product reveal | LumaDesk Pro logo animates in over clean UI. Warm key light, soft shadow. Logo holds 1.5 s. | \"Meet LumaDesk Pro — the local document organizer.\" | LumaDesk Pro — local document organizer |\n| 4 | 14.0–21.0 | 7.0 s | Core action: auto-sort | Screen capture: drag 12 files into LumaDesk; they snap into labeled folders (Finance, Contracts, Receipts). 1.2× speed. Cursor visible. | \"Drop files in. LumaDesk sorts them locally — by type, date, and project.\" | Drop in. Sorted locally. |\n| 5 | 21.0–27.0 | 6.0 s | Search + preview | Type \"Q3 lease\" in search bar; result appears in 0.4 s; preview pane opens.",
+      "reasoning": "",
+      "usage": {
+        "prompt_tokens": 8192,
+        "completion_tokens": 512,
+        "total_tokens": 8704,
+        "input_tokens": 8192,
+        "output_tokens": 512,
+        "prompt_tokens_details": {
+          "cached_tokens": 0
+        },
+        "time_to_first_token": 3.91,
+        "time_to_first_visible_token": 3.91,
+        "total_time": 11.67,
+        "prompt_eval_duration": 3.91,
+        "generation_duration": 7.76,
+        "prompt_tokens_per_second": 2094.78,
+        "generation_tokens_per_second": 65.95
+      },
+      "finish_reason": "length",
+      "done": true,
+      "elapsed_seconds": 11.73960170801729,
+      "ttft_seconds": 3.976008416968398,
+      "server_decode_tps": 65.95,
+      "server_prefill_tps": 2094.78,
+      "reported_cached_tokens": 0,
+      "log_start_offset": 33933,
+      "artifacts": {
+        "raw_sse": "027-B-measured-sse.txt",
+        "events": "027-B-measured-events.json",
+        "output": "027-B-measured-output.json"
+      },
+      "whole_output_sha256": "0967fa70a249a93c3de1a871571f3da2de11b5754dab48a3dfa148ac3418bab1",
+      "scenario": 2,
+      "arm": "B",
+      "warmup": false,
+      "round": 1,
+      "position": 1,
+      "serial": 27,
+      "case": "video-and-computer-use-plan",
+      "module_stats": {
+        "metadata_prefill_direct_calls": 20,
+        "metadata_dense_expert_calls": 20,
+        "dspark_single_calls": 208
+      },
+      "speculative": {
+        "finish": "length",
+        "tokens": 512,
+        "cycles": 212,
+        "tokens_per_cycle": 2.42,
+        "accepted": 298,
+        "drafted": 406,
+        "acceptance_rate": 0.7339901477832512,
+        "timing_ms": {
+          "backbone": 7271.7,
+          "mtp_head": 371.8,
+          "sampling": 6.1,
+          "cache": 49.0
+        },
+        "prompt_copy": {
+          "cycles": 5,
+          "accepted": 10,
+          "drafted": 20
+        }
+      },
+      "speculative_counter_identity": {
+        "finish": "length",
+        "tokens": 512,
+        "cycles": 212,
+        "tokens_per_cycle": 2.42,
+        "accepted": 298,
+        "drafted": 406,
+        "acceptance_rate": 0.7339901477832512,
+        "prompt_copy": {
+          "cycles": 5,
+          "accepted": 10,
+          "drafted": 20
+        }
+      },
+      "server_prompt_eval_seconds": 3.91,
+      "server_model_ttft_seconds": 3.91,
+      "server_model_load_seconds": null
+    },
+    {
+      "content": "# LumaDesk Pro — 45-Second Launch Video Plan + Computer-Use Workflow\n\nAll deliverables below are **plans and specifications only**. No tools were run, no files were created, and no browser actions were performed. Product facts are treated as fixed: local document organizer, CNY 299, launch 2026-10-18, **no video export**, **no offline sync**.\n\n---\n\n## 1. Timed Shot List (exactly 45.0 s)\n\n| # | Time | Duration | Shot | Visual direction | Narration | Caption |\n|---|------|----------|------|------------------|-----------|---------|\n| 1 | 0.0–4.0 | 4.0 s | Cold open: chaotic desktop | Screen recording of a cluttered desktop; 40+ loose files, overlapping windows. Slow 5% push-in. Cool desaturated grade. | \"Your desktop isn't a filing system. It's a pile.\" | Your desktop is a pile. |\n| 2 | 4.0–9.0 | 5.0 s | Problem montage | Three quick cuts: misfiled invoice, duplicate scan, lost contract. Each 1.6 s, hard cuts on beat. Red highlight boxes. | \"Invoices in Downloads. Contracts in Screenshots. Nothing where you left it.\" | Invoices in Downloads. Contracts in Screenshots. |\n| 3 | 9.0–14.0 | 5.0 s | Product reveal | LumaDesk Pro logo animates in over clean UI. Warm key light, soft shadow. Logo holds 1.5 s. | \"Meet LumaDesk Pro — the local document organizer.\" | LumaDesk Pro — local document organizer |\n| 4 | 14.0–21.0 | 7.0 s | Core action: auto-sort | Screen capture: drag 12 files into LumaDesk; they snap into labeled folders (Finance, Contracts, Receipts). 1.2× speed. Cursor visible. | \"Drop files in. LumaDesk sorts them locally — by type, date, and project.\" | Drop in. Sorted locally. |\n| 5 | 21.0–27.0 | 6.0 s | Search + preview | Type \"Q3 lease\" in search bar; result appears in 0.4 s; preview pane opens.",
+      "reasoning": "",
+      "usage": {
+        "prompt_tokens": 8192,
+        "completion_tokens": 512,
+        "total_tokens": 8704,
+        "input_tokens": 8192,
+        "output_tokens": 512,
+        "prompt_tokens_details": {
+          "cached_tokens": 0
+        },
+        "time_to_first_token": 3.89,
+        "time_to_first_visible_token": 3.89,
+        "total_time": 11.62,
+        "prompt_eval_duration": 3.89,
+        "generation_duration": 7.74,
+        "prompt_tokens_per_second": 2108.17,
+        "generation_tokens_per_second": 66.16
+      },
+      "finish_reason": "length",
+      "done": true,
+      "elapsed_seconds": 11.68299483298324,
+      "ttft_seconds": 3.944402708031703,
+      "server_decode_tps": 66.16,
+      "server_prefill_tps": 2108.17,
+      "reported_cached_tokens": 0,
+      "log_start_offset": 34812,
+      "artifacts": {
+        "raw_sse": "028-B-measured-sse.txt",
+        "events": "028-B-measured-events.json",
+        "output": "028-B-measured-output.json"
+      },
+      "whole_output_sha256": "0967fa70a249a93c3de1a871571f3da2de11b5754dab48a3dfa148ac3418bab1",
+      "scenario": 2,
+      "arm": "B",
+      "warmup": false,
+      "round": 1,
+      "position": 2,
+      "serial": 28,
+      "case": "video-and-computer-use-plan",
+      "module_stats": {
+        "metadata_prefill_direct_calls": 20,
+        "metadata_dense_expert_calls": 20,
+        "dspark_single_calls": 208
+      },
+      "speculative": {
+        "finish": "length",
+        "tokens": 512,
+        "cycles": 212,
+        "tokens_per_cycle": 2.42,
+        "accepted": 298,
+        "drafted": 406,
+        "acceptance_rate": 0.7339901477832512,
+        "timing_ms": {
+          "backbone": 7260.9,
+          "mtp_head": 361.7,
+          "sampling": 6.0,
+          "cache": 47.2
+        },
+        "prompt_copy": {
+          "cycles": 5,
+          "accepted": 10,
+          "drafted": 20
+        }
+      },
+      "speculative_counter_identity": {
+        "finish": "length",
+        "tokens": 512,
+        "cycles": 212,
+        "tokens_per_cycle": 2.42,
+        "accepted": 298,
+        "drafted": 406,
+        "acceptance_rate": 0.7339901477832512,
+        "prompt_copy": {
+          "cycles": 5,
+          "accepted": 10,
+          "drafted": 20
+        }
+      },
+      "server_prompt_eval_seconds": 3.89,
+      "server_model_ttft_seconds": 3.89,
+      "server_model_load_seconds": null
+    },
+    {
+      "content": "# LumaDesk Pro — 45-Second Launch Video Plan + Computer-Use Workflow\n\nAll deliverables below are **plans and specifications only**. No tools were run, no files were created, and no browser actions were performed. Product facts are treated as fixed: local document organizer, CNY 299, launch 2026-10-18, **no video export**, **no offline sync**.\n\n---\n\n## 1. Timed Shot List (exactly 45.0 s)\n\n| # | Time | Duration | Shot | Visual direction | Narration | Caption |\n|---|------|----------|------|------------------|-----------|---------|\n| 1 | 0.0–4.0 | 4.0 s | Cold open: chaotic desktop | Screen recording of a cluttered desktop; 40+ loose files, overlapping windows. Slow 5% push-in. Cool desaturated grade. | \"Your desktop isn't a filing system. It's a pile.\" | Your desktop is a pile. |\n| 2 | 4.0–9.0 | 5.0 s | Problem montage | Three quick cuts: misfiled invoice, duplicate scan, lost contract. Each 1.6 s, hard cuts on beat. Red highlight boxes. | \"Invoices in Downloads. Contracts in Screenshots. Nothing where you left it.\" | Invoices in Downloads. Contracts in Screenshots. |\n| 3 | 9.0–14.0 | 5.0 s | Product reveal | LumaDesk Pro logo animates in over clean UI. Warm key light, soft shadow. Logo holds 1.5 s. | \"Meet LumaDesk Pro — the local document organizer.\" | LumaDesk Pro — local document organizer |\n| 4 | 14.0–21.0 | 7.0 s | Core action: auto-sort | Screen capture: drag 12 files into LumaDesk; they snap into labeled folders (Finance, Contracts, Receipts). 1.2× speed. Cursor visible. | \"Drop files in. LumaDesk sorts them locally — by type, date, and project.\" | Drop in. Sorted locally. |\n| 5 | 21.0–27.0 | 6.0 s | Search + preview | Type \"Q3 lease\" in search bar; result appears in 0.4 s; preview pane opens.",
+      "reasoning": "",
+      "usage": {
+        "prompt_tokens": 8192,
+        "completion_tokens": 512,
+        "total_tokens": 8704,
+        "input_tokens": 8192,
+        "output_tokens": 512,
+        "prompt_tokens_details": {
+          "cached_tokens": 0
+        },
+        "time_to_first_token": 4.02,
+        "time_to_first_visible_token": 4.02,
+        "total_time": 11.76,
+        "prompt_eval_duration": 4.02,
+        "generation_duration": 7.74,
+        "prompt_tokens_per_second": 2036.55,
+        "generation_tokens_per_second": 66.17
+      },
+      "finish_reason": "length",
+      "done": true,
+      "elapsed_seconds": 11.825634124979842,
+      "ttft_seconds": 4.088911957980599,
+      "server_decode_tps": 66.17,
+      "server_prefill_tps": 2036.55,
+      "reported_cached_tokens": 0,
+      "log_start_offset": 35691,
+      "artifacts": {
+        "raw_sse": "029-A-measured-sse.txt",
+        "events": "029-A-measured-events.json",
+        "output": "029-A-measured-output.json"
+      },
+      "whole_output_sha256": "0967fa70a249a93c3de1a871571f3da2de11b5754dab48a3dfa148ac3418bab1",
+      "scenario": 2,
+      "arm": "A",
+      "warmup": false,
+      "round": 1,
+      "position": 3,
+      "serial": 29,
+      "case": "video-and-computer-use-plan",
+      "module_stats": {
+        "metadata_prefill_dense_calls": 20,
+        "metadata_dense_expert_calls": 20,
+        "dspark_single_calls": 208
+      },
+      "speculative": {
+        "finish": "length",
+        "tokens": 512,
+        "cycles": 212,
+        "tokens_per_cycle": 2.42,
+        "accepted": 298,
+        "drafted": 406,
+        "acceptance_rate": 0.7339901477832512,
+        "timing_ms": {
+          "backbone": 7266.0,
+          "mtp_head": 355.7,
+          "sampling": 6.0,
+          "cache": 45.8
+        },
+        "prompt_copy": {
+          "cycles": 5,
+          "accepted": 10,
+          "drafted": 20
+        }
+      },
+      "speculative_counter_identity": {
+        "finish": "length",
+        "tokens": 512,
+        "cycles": 212,
+        "tokens_per_cycle": 2.42,
+        "accepted": 298,
+        "drafted": 406,
+        "acceptance_rate": 0.7339901477832512,
+        "prompt_copy": {
+          "cycles": 5,
+          "accepted": 10,
+          "drafted": 20
+        }
+      },
+      "server_prompt_eval_seconds": 4.02,
+      "server_model_ttft_seconds": 4.02,
+      "server_model_load_seconds": null
+    }
+  ],
+  "prefix_cache_enabled": false,
+  "compressed_resident_weights_identical": true,
+  "sampled_memory_assessed": false,
+  "model_already_loaded_by_service": true,
+  "server_initial": {
+    "pid": 19612,
+    "ready": true,
+    "error": null,
+    "profile": {
+      "profile": "benchmark",
+      "max_concurrent_requests": 1,
+      "prefix_cache_enabled": false,
+      "process_limit_gib": 240,
+      "wired_limit_mib": 245760,
+      "prefill_step_size": 8192,
+      "gate_up": false,
+      "dspark_async": true,
+      "metadata_prefill": true
+    },
+    "controls": {
+      "metadata_prefill": true
+    },
+    "runtime_flags": {
+      "gate_up": false,
+      "dspark_async": true
+    },
+    "idle": {
+      "inflight_http": 0,
+      "models_loading": 0,
+      "leases": 0,
+      "scheduler_work": 0
+    },
+    "stats": {},
+    "fingerprint": {
+      "runtime": "5b4d49fb49b1608b61e39614d1992f4beaab712f1e67b075e79bdf0c677a6947",
+      "metadata_proof": "380103ef39a0785dbedbb65a95c3c9ad9e8492c8e67248f49e5ffa3d84c14fea",
+      "chunk_tokens": 8192,
+      "dspark_async": true,
+      "model_settings": "79ff0d22c0cbc034f92576d19e86c93be373975254910052a8751534ee9b3561",
+      "model_files": {
+        "config.json": "4b83ef14c5aff58f1a60b9c6fe872dabc4c0f484e68800ffb71db711a0f14209",
+        "tokenizer.json": "c90dfa01249db1be4245780a052ede752e1361c612ac6d08e2bdada7d599476b",
+        "tokenizer_config.json": "6ac8c8dc065ed118161d02dd532749ae3f52c243deac27872134fae2f50d8547",
+        "model.safetensors.index.json": "ac23b22906e97f9864e48f811e8eeba39dc82ae3bac6bb31f537ca966d4ae89b"
+      }
+    },
+    "cache": {
+      "ready": true,
+      "pid": 19612,
+      "error": null,
+      "read_policy": "startup_only",
+      "models": {}
+    },
+    "source_unchanged": true
+  },
+  "server_final": {
+    "pid": 19612,
+    "ready": true,
+    "error": null,
+    "profile": {
+      "profile": "benchmark",
+      "max_concurrent_requests": 1,
+      "prefix_cache_enabled": false,
+      "process_limit_gib": 240,
+      "wired_limit_mib": 245760,
+      "prefill_step_size": 8192,
+      "gate_up": false,
+      "dspark_async": true,
+      "metadata_prefill": true
+    },
+    "controls": {
+      "metadata_prefill": false
+    },
+    "runtime_flags": {
+      "gate_up": false,
+      "dspark_async": true
+    },
+    "idle": {
+      "inflight_http": 0,
+      "models_loading": 0,
+      "leases": 0,
+      "scheduler_work": 0
+    },
+    "stats": {
+      "metadata_prefill_dense_calls": 20,
+      "metadata_dense_expert_calls": 20,
+      "dspark_single_calls": 208
+    },
+    "fingerprint": {
+      "runtime": "5b4d49fb49b1608b61e39614d1992f4beaab712f1e67b075e79bdf0c677a6947",
+      "metadata_proof": "380103ef39a0785dbedbb65a95c3c9ad9e8492c8e67248f49e5ffa3d84c14fea",
+      "chunk_tokens": 8192,
+      "dspark_async": true,
+      "model_settings": "79ff0d22c0cbc034f92576d19e86c93be373975254910052a8751534ee9b3561",
+      "model_files": {
+        "config.json": "4b83ef14c5aff58f1a60b9c6fe872dabc4c0f484e68800ffb71db711a0f14209",
+        "tokenizer.json": "c90dfa01249db1be4245780a052ede752e1361c612ac6d08e2bdada7d599476b",
+        "tokenizer_config.json": "6ac8c8dc065ed118161d02dd532749ae3f52c243deac27872134fae2f50d8547",
+        "model.safetensors.index.json": "ac23b22906e97f9864e48f811e8eeba39dc82ae3bac6bb31f537ca966d4ae89b"
+      }
+    },
+    "cache": {
+      "ready": true,
+      "pid": 19612,
+      "error": null,
+      "read_policy": "startup_only",
+      "models": {}
+    },
+    "source_unchanged": true
+  },
+  "summary": {
+    "scenarios": {
+      "campaign-store-implementation": {
+        "A": {
+          "requests": 4,
+          "actual_generated_tokens": 2048,
+          "prefill_geomean_tps": 2035.9699646664953,
+          "prompt_eval_geomean_seconds": 4.024891531888741,
+          "client_ttft_geomean_seconds": 4.089654943265363,
+          "server_ttft_geomean_seconds": 4.024891531888741,
+          "decode_geomean_tps": 90.01749600824111,
+          "end_to_end_geomean_seconds": 9.777136107733327,
+          "accepted": 1472,
+          "drafted": 1652,
+          "whole_output_hashes": [
+            "55354dfb641499f2954e99606da1e83717295a126cd03d4fb4c0d16b6217df7f"
+          ]
+        },
+        "B": {
+          "requests": 4,
+          "actual_generated_tokens": 2048,
+          "prefill_geomean_tps": 2122.1504594525236,
+          "prompt_eval_geomean_seconds": 3.857381025323618,
+          "client_ttft_geomean_seconds": 3.9263141570964657,
+          "server_ttft_geomean_seconds": 3.857381025323618,
+          "decode_geomean_tps": 89.96498930287625,
+          "end_to_end_geomean_seconds": 9.6171721592366,
+          "accepted": 1472,
+          "drafted": 1652,
+          "whole_output_hashes": [
+            "55354dfb641499f2954e99606da1e83717295a126cd03d4fb4c0d16b6217df7f"
+          ]
+        },
+        "prefill_change_percent": 4.232896176351253,
+        "ttft_change_percent": -3.993999211055166,
+        "decode_change_percent": -0.05832944448939115
+      },
+      "community-launch-campaign": {
+        "A": {
+          "requests": 4,
+          "actual_generated_tokens": 2048,
+          "prefill_geomean_tps": 2046.7181775394024,
+          "prompt_eval_geomean_seconds": 4.004909486144055,
+          "client_ttft_geomean_seconds": 4.06531271457333,
+          "server_ttft_geomean_seconds": 4.004909486144055,
+          "decode_geomean_tps": 70.36479170923141,
+          "end_to_end_geomean_seconds": 11.341356853194789,
+          "accepted": 1256,
+          "drafted": 1636,
+          "whole_output_hashes": [
+            "35b6ce2b70ef342622ae57d72eaf96eedca34da60cfbf7879743d3da8477e9e2"
+          ]
+        },
+        "B": {
+          "requests": 4,
+          "actual_generated_tokens": 2048,
+          "prefill_geomean_tps": 2126.108759358119,
+          "prompt_eval_geomean_seconds": 3.854763280870198,
+          "client_ttft_geomean_seconds": 3.924787472807381,
+          "server_ttft_geomean_seconds": 3.854763280870198,
+          "decode_geomean_tps": 70.5874945530934,
+          "end_to_end_geomean_seconds": 11.17806803751475,
+          "accepted": 1256,
+          "drafted": 1636,
+          "whole_output_hashes": [
+            "35b6ce2b70ef342622ae57d72eaf96eedca34da60cfbf7879743d3da8477e9e2"
+          ]
+        },
+        "prefill_change_percent": 3.8789210302593524,
+        "ttft_change_percent": -3.456689598863927,
+        "decode_change_percent": 0.31649755289870907
+      },
+      "video-and-computer-use-plan": {
+        "A": {
+          "requests": 4,
+          "actual_generated_tokens": 2048,
+          "prefill_geomean_tps": 2030.113384133467,
+          "prompt_eval_geomean_seconds": 4.032479085779755,
+          "client_ttft_geomean_seconds": 4.101585638765603,
+          "server_ttft_geomean_seconds": 4.032479085779755,
+          "decode_geomean_tps": 66.2649733908467,
+          "end_to_end_geomean_seconds": 11.827678504534045,
+          "accepted": 1192,
+          "drafted": 1624,
+          "whole_output_hashes": [
+            "0967fa70a249a93c3de1a871571f3da2de11b5754dab48a3dfa148ac3418bab1"
+          ]
+        },
+        "B": {
+          "requests": 4,
+          "actual_generated_tokens": 2048,
+          "prefill_geomean_tps": 2098.286181032198,
+          "prompt_eval_geomean_seconds": 3.904983994803578,
+          "client_ttft_geomean_seconds": 3.9680130252675156,
+          "server_ttft_geomean_seconds": 3.904983994803578,
+          "decode_geomean_tps": 66.12489995655221,
+          "end_to_end_geomean_seconds": 11.710690071702594,
+          "accepted": 1192,
+          "drafted": 1624,
+          "whole_output_hashes": [
+            "0967fa70a249a93c3de1a871571f3da2de11b5754dab48a3dfa148ac3418bab1"
+          ]
+        },
+        "prefill_change_percent": 3.35807829412591,
+        "ttft_change_percent": -3.2566091570938593,
+        "decode_change_percent": -0.21138382334858763
+      }
+    },
+    "geometric_prefill_change_percent": 3.822676449022744,
+    "geometric_ttft_change_percent": -3.569602510006875,
+    "geometric_decode_change_percent": 0.015349090072613869,
+    "measured_requests": 24,
+    "measured_actual_generated_tokens": 12288,
+    "complete_speculative_counters_equal": true,
+    "warmup_requests_discarded": 6,
+    "first_driver_request_separate": {
+      "arm": "A",
+      "client_ttft_seconds": 20.344319250027183,
+      "server_model_load_seconds": null,
+      "decode_tps": 65.72,
+      "elapsed_seconds": 28.077994291030336
+    },
+    "timing_note": "SSE prompt_eval_duration and prompt_tokens_per_second include the server first-token boundary; this is not a pure GPU prefill kernel timer. Model load is reported separately. Client TTFT includes loopback request overhead.",
+    "cold_start_note": "The first driver request is a discarded warmup. Only claim process-cold loading if initial loaded_weight_inventory is empty and model_load_duration is reported; candidate warmup JIT costs are also retained separately in rows.",
+    "full_logits_assessed": false,
+    "concurrency_assessed": false,
+    "agent_task_completion_assessed": false,
+    "comparison_note": "Same compressed checkpoint, same process, same fresh payloads, same decode and DSpark settings; no historical speed is added to the measured gain."
+  },
+  "controls_restored_to_initial": true,
+  "provenance": {
+    "original_report_sha256": "377ba8e08e84e71ee058377275d3d1108e79d704c47d25fa6f3f9bbb7d50e4bd",
+    "original_report_filename": "8192/report.json",
+    "local_paths_sanitized": true,
+    "full_server_logs_released": false,
+    "timing_scope": "Portable release qualification; background Hub upload and other host workload were active. Timings are retained as run evidence, not headline benchmark replacements."
+  }
+}

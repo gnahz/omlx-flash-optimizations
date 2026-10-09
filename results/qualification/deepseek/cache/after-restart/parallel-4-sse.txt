@@ -1,0 +1,36 @@
+data: {"id":"chatcmpl-5b4b356f","object":"chat.completion.chunk","created":0,"model":"keepalive","choices":[{"index":0,"delta":{"role":"assistant","content":""},"finish_reason":null}]}
+
+data: {"id":"chatcmpl-5b4b356f","object":"chat.completion.chunk","created":1791565357,"model":"deepseek-v41-lsq","choices":[{"index":0,"delta":{"role":"assistant"}}]}
+
+data: {"id":"chatcmpl-5b4b356f","object":"chat.completion.chunk","created":1791565361,"model":"deepseek-v41-lsq","choices":[{"index":0,"delta":{"content":"# SQL"}}]}
+
+data: {"id":"chatcmpl-5b4b356f","object":"chat.completion.chunk","created":1791565362,"model":"deepseek-v41-lsq","choices":[{"index":0,"delta":{"content":"ite Campaign Draft Store ("}}]}
+
+data: {"id":"chatcmpl-5b4b356f","object":"chat.completion.chunk","created":1791565362,"model":"deepseek-v41-lsq","choices":[{"index":0,"delta":{"content":"stdlib only)\n\nBelow"}}]}
+
+data: {"id":"chatcmpl-5b4b356f","object":"chat.completion.chunk","created":1791565363,"model":"deepseek-v41-lsq","choices":[{"index":0,"delta":{"content":" is a complete, runn"}}]}
+
+data: {"id":"chatcmpl-5b4b356f","object":"chat.completion.chunk","created":1791565364,"model":"deepseek-v41-lsq","choices":[{"index":0,"delta":{"content":"able implementation using only the Python"}}]}
+
+data: {"id":"chatcmpl-5b4b356f","object":"chat.completion.chunk","created":1791565364,"model":"deepseek-v41-lsq","choices":[{"index":0,"delta":{"content":" standard library. It provides a `"}}]}
+
+data: {"id":"chatcmpl-5b4b356f","object":"chat.completion.chunk","created":1791565365,"model":"deepseek-v41-lsq","choices":[{"index":0,"delta":{"content":"CampaignDraftStore`"}}]}
+
+data: {"id":"chatcmpl-5b4b356f","object":"chat.completion.chunk","created":1791565366,"model":"deepseek-v41-lsq","choices":[{"index":0,"delta":{"content":" with create/get"}}]}
+
+data: {"id":"chatcmpl-5b4b356f","object":"chat.completion.chunk","created":1791565366,"model":"deepseek-v41-lsq","choices":[{"index":0,"delta":{"content":"/list/update,"}}]}
+
+data: {"id":"chatcmpl-5b4b356f","object":"chat.completion.chunk","created":1791565367,"model":"deepseek-v41-lsq","choices":[{"index":0,"delta":{"content":" idempotency keys, explicit transactions"}}]}
+
+data: {"id":"chatcmpl-5b4b356f","object":"chat.completion.chunk","created":1791565367,"model":"deepseek-v41-lsq","choices":[{"index":0,"delta":{"content":", validation, optimistic version"}}]}
+
+data: {"id":"chatcmpl-5b4b356f","object":"chat.completion.chunk","created":1791565368,"model":"deepseek-v41-lsq","choices":[{"index":0,"delta":{"content":" checks, and rollback."}}]}
+
+data: {"id":"chatcmpl-5b4b356f","object":"chat.completion.chunk","created":1791565368,"model":"deepseek-v41-lsq","choices":[{"index":0,"delta":{"content":" Tests cover"}}]}
+
+data: {"id":"chatcmpl-5b4b356f","object":"chat.completion.chunk","created":1791565368,"model":"deepseek-v41-lsq","choices":[{"index":0,"delta":{},"finish_reason":"length"}]}
+
+data: {"id":"chatcmpl-5b4b356f","object":"chat.completion.chunk","created":1791565368,"model":"deepseek-v41-lsq","choices":[],"usage":{"prompt_tokens":8242,"completion_tokens":64,"total_tokens":8306,"input_tokens":8242,"output_tokens":64,"prompt_tokens_details":{"cached_tokens":8192},"time_to_first_token":4.24,"time_to_first_visible_token":4.24,"total_time":10.47,"prompt_eval_duration":4.24,"generation_duration":6.24,"prompt_tokens_per_second":1945.48,"generation_tokens_per_second":10.26}}
+
+data: [DONE]
+

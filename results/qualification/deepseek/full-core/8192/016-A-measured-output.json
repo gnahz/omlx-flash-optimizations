@@ -1,0 +1,84 @@
+{
+  "content": "Here is the complete launch campaign for LumaDesk Pro, prepared as drafts only.\n\n---\n\n## LumaDesk Pro Launch Campaign — Draft Deliverables\n\n**Product:** LumaDesk Pro desktop organizer\n**Price:** CNY 299\n**Launch date:** 2026-10-18\n**Approved discount:** Maximum 17% using code AUTUMN17\n**Core function:** Organizes local documents\n**Explicit limitations:** No video export. No offline sync.\n**Compliance note:** Orchid Forum prohibits external links. All Orchid Forum posts must end with #LumaDesk. All targets below are goals, not observed results. No customer numbers, endorsements, or unsupported capabilities are claimed.\n\n---\n\n## 1. Seven-Day Content Calendar\n\n| Day | Date | Channel | Content Type | Draft Title / Hook | Key Message | CTA |\n|---|---|---|---|---|---|---|\n| 1 | 2026-10-12 | Orchid Forum | Teaser post | \"Your desktop, before and after\" | Local document organization without cloud dependency | Comment with your biggest clutter pain point. End with #LumaDesk |\n| 2 | 2026-10-13 | Email | Pre-launch email | \"LumaDesk Pro arrives 2026-10-18\" | CNY 299, AUTUMN17 saves up to 17% | Add launch date to calendar |\n| 3 | 2026-10-14 | Orchid Forum | Feature explainer | \"What LumaDesk Pro does — and what it does not do\" | Organizes local documents; no video export; no offline sync | Ask questions in thread. End with #LumaDesk |\n| 4 | 2026-10-15 | Social / Community | Poll post | \"Which file type clutters your desktop most?\" | Local organization matters | Vote and reply. End with #LumaDesk |\n| 5 | 2026-10-16 | Email | Launch reminder | \"Two days until LumaDesk Pro\" | AUTUMN17 maximum 17% discount | Confirm interest |\n| 6 | 2026-10-17 | Orchid Forum | Launch eve post | \"Tomorrow: LumaDesk Pro\" | CNY 299, local document organizer | Prepare your desktop. End with #LumaDesk |\n| 7 | 2026-10-18 | Orchid Forum + Email | Launch day post",
+  "reasoning": "",
+  "usage": {
+    "prompt_tokens": 8192,
+    "completion_tokens": 512,
+    "total_tokens": 8704,
+    "input_tokens": 8192,
+    "output_tokens": 512,
+    "prompt_tokens_details": {
+      "cached_tokens": 0
+    },
+    "time_to_first_token": 4.02,
+    "time_to_first_visible_token": 4.02,
+    "total_time": 11.29,
+    "prompt_eval_duration": 4.02,
+    "generation_duration": 7.27,
+    "prompt_tokens_per_second": 2037.67,
+    "generation_tokens_per_second": 70.43
+  },
+  "finish_reason": "length",
+  "done": true,
+  "elapsed_seconds": 11.35564591694856,
+  "ttft_seconds": 4.08607324998593,
+  "server_decode_tps": 70.43,
+  "server_prefill_tps": 2037.67,
+  "reported_cached_tokens": 0,
+  "log_start_offset": 24276,
+  "artifacts": {
+    "raw_sse": "016-A-measured-sse.txt",
+    "events": "016-A-measured-events.json",
+    "output": "016-A-measured-output.json"
+  },
+  "whole_output_sha256": "35b6ce2b70ef342622ae57d72eaf96eedca34da60cfbf7879743d3da8477e9e2",
+  "scenario": 1,
+  "arm": "A",
+  "warmup": false,
+  "round": 1,
+  "position": 0,
+  "serial": 16,
+  "case": "community-launch-campaign",
+  "module_stats": {
+    "metadata_prefill_dense_calls": 20,
+    "metadata_dense_expert_calls": 20,
+    "dspark_single_calls": 195
+  },
+  "speculative": {
+    "finish": "length",
+    "tokens": 512,
+    "cycles": 196,
+    "tokens_per_cycle": 2.61,
+    "accepted": 314,
+    "drafted": 409,
+    "acceptance_rate": 0.7677261613691931,
+    "timing_ms": {
+      "backbone": 6823.9,
+      "mtp_head": 339.0,
+      "sampling": 5.5,
+      "cache": 41.1
+    },
+    "prompt_copy": {
+      "cycles": 2,
+      "accepted": 1,
+      "drafted": 8
+    }
+  },
+  "speculative_counter_identity": {
+    "finish": "length",
+    "tokens": 512,
+    "cycles": 196,
+    "tokens_per_cycle": 2.61,
+    "accepted": 314,
+    "drafted": 409,
+    "acceptance_rate": 0.7677261613691931,
+    "prompt_copy": {
+      "cycles": 2,
+      "accepted": 1,
+      "drafted": 8
+    }
+  },
+  "server_prompt_eval_seconds": 4.02,
+  "server_model_ttft_seconds": 4.02,
+  "server_model_load_seconds": null
+}

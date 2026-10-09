@@ -1,0 +1,94 @@
+diff --git a/docs/native-lsq-backports.md b/docs/native-lsq-backports.md
+new file mode 100644
+index 00000000..8d0f6140
+--- /dev/null
++++ b/docs/native-lsq-backports.md
+@@ -0,0 +1,12 @@
++# Exact metadata backports
++
++The portable patch release supplies reproduction instructions, benchmark
++records, and licenses in its README and profiles.
++
++`DS41_NATIVE_METADATA` is an absolute path to the published proof.
++`DS41_NATIVE_METADATA_PREFILL=1` enables direct dictionary NAX prefill.
++`DS41_NATIVE_GATE_UP=1` enables the separate ordinary-layout paired profile.
++Pairing and exact metadata do not stack.
++
++The loader validates published content identity while retaining file identities
++through each load; copied files may have new modification times.
+diff --git a/omlx/patches/deepseek_v41/native_metadata.py b/omlx/patches/deepseek_v41/native_metadata.py
+index 4e2d3f83..8b019cba 100644
+--- a/omlx/patches/deepseek_v41/native_metadata.py
++++ b/omlx/patches/deepseek_v41/native_metadata.py
+@@ -384,13 +384,15 @@ class NativeMetadataPlan:
+         self.source_identities = {}
+         self.encoded_identities = {}
+         encoded_names = {record.get("file") for record in proof.get("projections", [])}
++        # Release manifests pin content; download mtimes are machine-specific.
++        # _identity still detects replacement during this load.
+         pins = sidecar.get("files")
+         if not isinstance(pins, list) or not pins:
+             raise ValueError("Missing native source header identities")
+         for pin in pins:
+             source_path = (self.root / pin["path"]).resolve()
+-            original = source_path.is_relative_to(self.checkpoint)
+             encoded = source_path.parent == self.root and source_path.name in encoded_names
++            original = not encoded and source_path.is_relative_to(self.checkpoint)
+             if not original and not encoded:
+                 raise ValueError("Native pinned source escapes checkpoint")
+             with source_path.open("rb") as stream:
+@@ -403,7 +405,6 @@ class NativeMetadataPlan:
+                     raise ValueError("Invalid native pinned source header extent")
+                 raw += stream.read(length)
+                 if (len(raw) != length + 8 or stat.st_size != pin.get("size")
+-                        or stat.st_mtime_ns != pin.get("mtime_ns")
+                         or len(raw) != pin.get("header_bytes")
+                         or hashlib.sha256(raw).hexdigest() != pin.get("header_sha256")
+                         or _identity(stat) != _identity(os.fstat(stream.fileno()))):
+diff --git a/pyproject.toml b/pyproject.toml
+index 8683c349..38f86f86 100644
+--- a/pyproject.toml
++++ b/pyproject.toml
+@@ -3,13 +3,13 @@ requires = [
+     "setuptools>=61.0",
+     "wheel",
+     "cmake>=3.27",
+-    # Pin nanobind to match the ABI version MLX 0.32.2 was built with
+-    # (MLX pins nanobind v2.15.0 via FetchContent in its CMakeLists.txt).
++    # Match the nanobind ABI of the pinned patched MLX source
++    # (this MLX source fetches nanobind v3.0.1).
+     # A mismatched nanobind isolates the `mlx` NB_DOMAIN, so custom kernel
+     # extensions (omlx.custom_kernels.*) reject every mlx.core.array at the
+     # type caster with `incompatible function arguments`.
+-    "nanobind==2.15.0",
+-    "mlx==0.32.2",
++    "nanobind==3.0.1",
++    "mlx>=0.32.3.dev0,<0.32.4",
+ ]
+ build-backend = "setuptools.build_meta"
+ 
+@@ -39,11 +39,11 @@ classifiers = [
+ ]
+ 
+ dependencies = [
+-    # Vanilla MLX v0.32.2; optional custom kernels live under
+-    # omlx.custom_kernels.* when built for release. The bundled kernel
+-    # binaries are ABI-coupled to this exact mlx version — bumping the pin
++    # Patched MLX dev wheel; the release installer pins its exact source SHA.
++    # Custom kernels under omlx.custom_kernels.* and their native ABI
++    # must be rebuilt with that same source; changing only the package pin
+     # requires rebuilding them (OMLX_WITH_CUSTOM_KERNEL=1 setup.py build_ext).
+-    "mlx==0.32.2",
++    "mlx>=0.32.3.dev0,<0.32.4",
+     # mlx-lm 0.32.0: full cache state, per-stream stop matchers, and counters.
+     "mlx-lm @ git+https://github.com/ml-explore/mlx-lm@872ae88d1fac77350db23c8c04fe8dd372a9e3e8",
+     # regex for mlx-lm's Gemma 4 tool parser (uses recursive patterns)
+@@ -275,7 +275,7 @@ include = ["omlx*"]
+ # mlx and mlx-lm are git-pinned; override transitive pins
+ # so dependency resolution retains the selected runtime versions.
+ override-dependencies = [
+-    "mlx==0.32.2",
++    "mlx>=0.32.3.dev0,<0.32.4",
+     "mlx-lm @ git+https://github.com/ml-explore/mlx-lm@872ae88d1fac77350db23c8c04fe8dd372a9e3e8",
+ ]
+ 

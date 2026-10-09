@@ -1,0 +1,1635 @@
+diff --git a/omlx/patches/deepseek_v41/prefix_cache.py b/omlx/patches/deepseek_v41/prefix_cache.py
+index 4aa1c497..f69491f2 100644
+--- a/omlx/patches/deepseek_v41/prefix_cache.py
++++ b/omlx/patches/deepseek_v41/prefix_cache.py
+@@ -7,7 +7,8 @@ cold prefill of a longer prompt. Each checkpoint includes the decoder window,
+ compressed KV, index keys, compressor tails, Engram history and DSpark prime
+ ring. Model identity is implicit in ownership by one loaded language model.
+ 
+-No SSD writes or background MLX work. The engine thread owns all operations.
++The engine thread owns all MLX operations. Optional persistence only stages one
++checkpoint at a time; a worker writes already materialized CPU bytes.
+ """
+ 
+ from collections import OrderedDict
+@@ -114,10 +115,73 @@ class ExactPrefixCache:
+         self.entries = OrderedDict()
+         self.bytes = 0
+         self.hits = self.stores = self.evictions = 0
++        self.reused_tokens = self.skipped_memory = self.restore_failures = 0
++        self.ensure_headroom = None
++        self._protected_keys = set()
++        self._revision = 0
++        self._persistence = None
+ 
+     def clear(self):
+         self.entries.clear()
+         self.bytes = 0
++        self._revision += 1
++
++    def evict_bytes(self, required):
++        """Release least recently used snapshots, except a pinned restore."""
++        freed = 0
++        for key in list(self.entries):
++            if freed >= required:
++                break
++            if key in self._protected_keys:
++                continue
++            old = self.entries.pop(key)
++            freed += old.size
++            self.bytes -= old.size
++            self.evictions += 1
++            self._revision += 1
++        return freed
++
++    def _headroom(self, additional_bytes):
++        if self.ensure_headroom is not None and not self.ensure_headroom(additional_bytes):
++            self.skipped_memory += 1
++            return False
++        return True
++
++    def snapshot_stats(self):
++        result = dict(
++            enabled=bool(self.max_bytes), max_bytes=self.max_bytes,
++            bytes=self.bytes, checkpoints=len(self.entries), hits=self.hits,
++            reused_tokens=self.reused_tokens, stores=self.stores,
++            evictions=self.evictions, skipped_memory=self.skipped_memory,
++            restore_failures=self.restore_failures,
++        )
++        result["persistence"] = (
++            self._persistence.stats() if self._persistence else {"enabled": False}
++        )
++        return result
++
++    def configure_persistence(self, directory, fingerprint, interval_seconds=300):
++        from .prefix_cache_store import PrefixCacheStore
++
++        if self._persistence is not None:
++            self.close_persistence()
++        self._persistence = PrefixCacheStore(self, directory, fingerprint, interval_seconds)
++
++    def restore_persisted(self):
++        """Startup only: inference prepare() never consults the filesystem."""
++        return self._persistence.restore() if self._persistence else 0
++
++    def persistence_step(self, force=False):
++        """Called while idle on the engine thread; stage at most one snapshot."""
++        return self._persistence.step(force=force) if self._persistence else False
++
++    @property
++    def persistence_pending(self):
++        return bool(self._persistence and self._persistence.pending)
++
++    def close_persistence(self, wait=True):
++        if self._persistence:
++            self._persistence.close(wait=wait)
+ 
+     def prepare(self, tokens, step=CHUNK):
+         # Leave the final prompt token for the ordinary generation kickoff.
+@@ -134,9 +198,26 @@ class ExactPrefixCache:
+             # Hashes are an index only: compare every token before reuse.
+             if entry is not None and entry.tokens == packed[: end * 4]:
+                 t0 = time.perf_counter()
+-                cache = clone_cache(entry.cache)
++                self._protected_keys.add(key)
++                try:
++                    # Copies initially share storage. Reserve their eventual
++                    # copy-on-write allocation before restoring any handles.
++                    if not self._headroom(entry.size):
++                        continue
++                    cache = clone_cache(entry.cache)
++                except Exception:
++                    self.restore_failures += 1
++                    logger.exception("DS41 prefix restore failed; using cold prefill")
++                    continue
++                finally:
++                    self._protected_keys.discard(key)
++                if key not in self.entries:
++                    # A pressure callback may clear the entire manager.
++                    continue
+                 self.entries.move_to_end(key)
+                 self.hits += 1
++                self.reused_tokens += end
++                self._revision += 1
+                 logger.info(
+                     "DS41 exact prefix hit: tokens=%d restore_ms=%.3f hot_MiB=%.1f",
+                     end,
+@@ -160,6 +241,7 @@ class ExactPrefixCache:
+             return
+         if key in self.entries:
+             self.entries.move_to_end(key)
++            self._revision += 1
+             return
+         arrays = cache_arrays(cache)
+         # Include metadata/tokens and array views conservatively (shared buffers
+@@ -167,17 +249,18 @@ class ExactPrefixCache:
+         size = sum(x.nbytes for x in arrays) + end * 4
+         if size > self.max_bytes:
+             return
+-        while self.entries and self.bytes + size > self.max_bytes:
+-            _, old = self.entries.popitem(last=False)
+-            self.bytes -= old.size
+-            del old
+-            self.evictions += 1
++        self.evict_bytes(self.bytes + size - self.max_bytes)
++        # A non-contiguous view can require both a compact temporary and its
++        # owned snapshot. Existing active allocations already include source.
++        if not self._headroom(2 * size):
++            return
+         mx.eval(arrays)
+         snapshot = clone_cache(cache, compact=True)
+         mx.eval(cache_arrays(snapshot))
+         self.entries[key] = Entry(plan.tokens[: end * 4], snapshot, size)
+         self.bytes += size
+         self.stores += 1
++        self._revision += 1
+ 
+ 
+ def for_model(model):
+diff --git a/omlx/patches/deepseek_v41/prefix_cache_store.py b/omlx/patches/deepseek_v41/prefix_cache_store.py
+new file mode 100644
+index 00000000..27e04fea
+--- /dev/null
++++ b/omlx/patches/deepseek_v41/prefix_cache_store.py
+@@ -0,0 +1,491 @@
++# SPDX-License-Identifier: MIT
++"""Restart-only persistence for exact CED snapshots.
++
++All tensor evaluation/conversion/reconstruction runs in the calling engine
++thread. The sole worker receives immutable bytes and plain metadata only.
++Files use the public safetensors format (no pickle or Python object loading).
++"""
++
++from concurrent.futures import ThreadPoolExecutor
++import hashlib
++import json
++import logging
++import math
++import os
++from pathlib import Path
++import shutil
++import struct
++import time
++import uuid
++
++import mlx.core as mx
++import numpy as np
++
++from .cache import DeepseekV41Cache
++from ..mlx_lm_mtp.deepseek_v4_dspark import DSparkContextCache, _DSparkPrimeContext
++
++logger = logging.getLogger(__name__)
++FORMAT = "ds41-exact-prefix-v1"
++MAX_METADATA = 8 * 2**20
++# Durable validation must not depend on this process's smaller memory budget.
++# Files remain capped by the supported exact-cache pool size before any load.
++MAX_CHECKPOINT_BYTES = 3 * 2**30
++_DTYPES = {
++    "BOOL": (mx.bool_, 1), "U8": (mx.uint8, 1), "I8": (mx.int8, 1),
++    "U16": (mx.uint16, 2), "I16": (mx.int16, 2),
++    "U32": (mx.uint32, 4), "I32": (mx.int32, 4),
++    "U64": (mx.uint64, 8), "I64": (mx.int64, 8),
++    "F16": (mx.float16, 2), "BF16": (mx.bfloat16, 2), "F32": (mx.float32, 4),
++}
++
++
++def _json_bytes(value):
++    return json.dumps(value, sort_keys=True, separators=(",", ":")).encode()
++
++
++def _read_json(path):
++    with path.open("rb") as stream:
++        data = stream.read(MAX_METADATA + 1)
++    if len(data) > MAX_METADATA:
++        raise ValueError("oversized manifest")
++    return json.loads(data)
++
++
++def _atomic_json(path, value):
++    temporary = path.with_name(path.name + ".tmp")
++    with temporary.open("wb") as stream:
++        stream.write(_json_bytes(value))
++        stream.flush()
++        os.fsync(stream.fileno())
++    os.replace(temporary, path)
++
++
++def _fsync_directory(path):
++    fd = os.open(path, os.O_RDONLY)
++    try:
++        os.fsync(fd)
++    finally:
++        os.close(fd)
++
++
++def _integer(value, low=0, high=2**63 - 1):
++    if type(value) is not int or not low <= value <= high:
++        raise ValueError("invalid integer metadata")
++    return value
++
++
++def _stage(entry):
++    """Make one CPU checkpoint, preserving raw BF16/NaN/ring bits."""
++    from .prefix_cache import cache_arrays
++
++    mx.eval(cache_arrays(entry.cache))
++    tensors, chunks, offset = {}, [], 0
++
++    def add(name, value):
++        nonlocal offset
++        if value is None:
++            return None
++        dtype = next((name for name, (kind, _) in _DTYPES.items() if kind == value.dtype), None)
++        if dtype is None:
++            raise ValueError(f"unsupported checkpoint dtype {value.dtype}")
++        raw = np.asarray(mx.contiguous(value).view(mx.uint8)).tobytes()
++        tensors[name] = {"dtype": dtype, "shape": list(value.shape),
++                         "data_offsets": [offset, offset + len(raw)]}
++        chunks.append(raw)
++        offset += len(raw)
++        return name
++
++    layers = []
++    for index, layer in enumerate(entry.cache):
++        prefix = f"layer.{index}."
++        layers.append({
++            "compress_ratio": layer.compress_ratio,
++            "slots": [add(prefix + str(slot), value) for slot, value in enumerate(layer.cache)],
++            "left_padding": add(prefix + "left_padding", layer.left_padding),
++            "lengths": add(prefix + "lengths", layer.lengths),
++        })
++    ctx = getattr(entry.cache[0], "_omlx_mtp_prime_ctx", None)
++    prime = None if ctx is None else {
++        "expected_target_offset": ctx.expected_target_offset,
++        "stages": [{"max_size": stage.max_size, "offset": stage.offset,
++                    "keys": add(f"prime.{index}", stage.keys)}
++                   for index, stage in enumerate(ctx.caches)],
++    }
++    tensors["tokens"] = {"dtype": "U32", "shape": [len(entry.tokens) // 4],
++                         "data_offsets": [offset, offset + len(entry.tokens)]}
++    chunks.append(entry.tokens)
++    layout = {"layers": layers, "prime": prime}
++    tensors["__metadata__"] = {"format": FORMAT, "layout": _json_bytes(layout).decode()}
++    header = _json_bytes(tensors)
++    header += b" " * (-len(header) % 8)
++    if len(header) > MAX_METADATA:
++        raise ValueError("oversized checkpoint header")
++    return struct.pack("<Q", len(header)) + header, chunks, layout
++
++
++def _write_checkpoint(path, header, chunks, descriptor):
++    checksum = hashlib.sha256()
++    with path.open("wb") as stream:
++        for data in [header, *chunks]:
++            checksum.update(data)
++            stream.write(data)
++        stream.flush()
++        os.fsync(stream.fileno())
++    return {**descriptor, "sha256": checksum.hexdigest(), "file_bytes": path.stat().st_size}
++
++
++def _validate_file(path, descriptor, max_bytes):
++    """Reject sizes/shapes/references before mx.load can allocate anything."""
++    end = _integer(descriptor["tokens"], 8192, max_bytes // 4)
++    if end % 8192 or len(descriptor["key"]) != 64:
++        raise ValueError("invalid checkpoint token boundary")
++    size = _integer(descriptor["size"], end * 4, max_bytes)
++    if path.is_symlink() or path.stat().st_size != descriptor["file_bytes"]:
++        raise ValueError("invalid checkpoint file size")
++    with path.open("rb") as stream:
++        prefix = stream.read(8)
++        if len(prefix) != 8:
++            raise ValueError("truncated checkpoint")
++        length = struct.unpack("<Q", prefix)[0]
++        if not 0 < length <= MAX_METADATA:
++            raise ValueError("invalid safetensors header size")
++        raw_header = stream.read(length)
++        if len(raw_header) != length:
++            raise ValueError("truncated header")
++        tensors = json.loads(raw_header)
++        if not isinstance(tensors, dict) or len(tensors) > 2048:
++            raise ValueError("invalid tensor table")
++        metadata = tensors.pop("__metadata__", None)
++        if metadata != {"format": FORMAT, "layout": _json_bytes(descriptor["layout"]).decode()}:
++            raise ValueError("checkpoint layout metadata mismatch")
++        total = 0
++        for spec in tensors.values():
++            dtype = spec["dtype"]
++            shape = spec["shape"]
++            if dtype not in _DTYPES or not isinstance(shape, list) or len(shape) > 5:
++                raise ValueError("invalid dtype or rank")
++            for dim in shape:
++                _integer(dim, 0, max_bytes)
++            amount = math.prod(shape) * _DTYPES[dtype][1]
++            start, stop = spec["data_offsets"]
++            _integer(start, 0, size)
++            _integer(stop, start, size)
++            if stop - start != amount:
++                raise ValueError("tensor shape does not match stored byte range")
++            total += amount
++        ranges = sorted((spec["data_offsets"] for spec in tensors.values()), key=lambda x: (x[0], x[1]))
++        cursor = 0
++        for start, stop in ranges:
++            if start != cursor:
++                raise ValueError("overlapping or sparse tensor offsets")
++            cursor = stop
++        if cursor != size or total != size or 8 + length + size != descriptor["file_bytes"]:
++            raise ValueError("checkpoint exceeds declared memory size")
++        if tensors.get("tokens") != {"dtype": "U32", "shape": [end],
++                                     "data_offsets": [size - end * 4, size]}:
++            raise ValueError("invalid token tensor")
++        layout = descriptor["layout"]
++        layers = layout["layers"]
++        if not isinstance(layers, list) or not 1 <= len(layers) <= 128:
++            raise ValueError("invalid layer count")
++        names = {"tokens"}
++
++        def reference(name, rank, integer=False):
++            if name is None:
++                return None
++            if not isinstance(name, str) or name in names or name not in tensors:
++                raise ValueError("invalid tensor reference")
++            names.add(name)
++            spec = tensors[name]
++            if len(spec["shape"]) != rank or spec["shape"][0] != 1:
++                raise ValueError("invalid batch/rank")
++            if integer and spec["dtype"] not in ("I32", "U32", "I64", "U64"):
++                raise ValueError("invalid integer state dtype")
++            return spec
++
++        for layer in layers:
++            ratio = layer["compress_ratio"]
++            if ratio is not None:
++                _integer(ratio, 0, 8192)
++            if len(layer["slots"]) != 7:
++                raise ValueError("invalid layer state")
++            for slot, name in enumerate(layer["slots"]):
++                rank = 1 if slot == 0 else 2 if slot == 6 else 3
++                reference(name, rank, integer=slot in (0, 6))
++            if layer["slots"][0] is None:
++                raise ValueError("missing layer offset")
++            reference(layer["left_padding"], 1, integer=True)
++            reference(layer["lengths"], 1, integer=True)
++        prime = layout["prime"]
++        if prime is not None:
++            if _integer(prime["expected_target_offset"]) != end:
++                raise ValueError("invalid prime context position")
++            stages = prime["stages"]
++            if not isinstance(stages, list) or not 1 <= len(stages) <= 128:
++                raise ValueError("invalid draft stage count")
++            for stage in stages:
++                maximum = _integer(stage["max_size"], 1, 2**24)
++                if _integer(stage["offset"]) != end:
++                    raise ValueError("invalid draft offset")
++                spec = reference(stage["keys"], 4)
++                if spec is not None and spec["shape"][2] > min(maximum, end):
++                    raise ValueError("invalid draft ring size")
++        if names != set(tensors):
++            raise ValueError("unreferenced tensors")
++        checksum = hashlib.sha256(prefix + raw_header)
++        while data := stream.read(2**20):
++            checksum.update(data)
++        if checksum.hexdigest() != descriptor["sha256"]:
++            raise ValueError("checkpoint checksum mismatch")
++    return size
++
++
++def _load_checkpoint(path, descriptor):
++    from .prefix_cache import Entry, cache_arrays
++
++    arrays = mx.load(str(path))
++    tokens = np.asarray(arrays.pop("tokens")).astype("<u4", copy=False).tobytes()
++    if hashlib.sha256(b"ds41-ced-8192-v1" + tokens).hexdigest() != descriptor["key"]:
++        raise ValueError("checkpoint token digest mismatch")
++    cache = []
++    get = lambda name: None if name is None else arrays[name]
++    for layer in descriptor["layout"]["layers"]:
++        item = DeepseekV41Cache(layer["compress_ratio"])
++        item.cache = [get(name) for name in layer["slots"]]
++        item.left_padding, item.lengths = get(layer["left_padding"]), get(layer["lengths"])
++        if int(item.cache[0].item()) != descriptor["tokens"]:
++            raise ValueError("checkpoint target offset mismatch")
++        cache.append(item)
++    prime = descriptor["layout"]["prime"]
++    if prime is not None:
++        stages = []
++        for state in prime["stages"]:
++            stage = DSparkContextCache(state["max_size"])
++            stage.offset, stage.keys = state["offset"], get(state["keys"])
++            stages.append(stage)
++        cache[0]._omlx_mtp_prime_ctx = _DSparkPrimeContext(stages, prime["expected_target_offset"])
++    mx.eval(cache_arrays(cache))
++    return Entry(tokens, cache, descriptor["size"])
++
++
++class PrefixCacheStore:
++    def __init__(self, manager, directory, fingerprint, interval_seconds):
++        self.manager = manager
++        self.directory = Path(directory)
++        self.fingerprint = hashlib.sha256(_json_bytes(fingerprint)).hexdigest()
++        self.identity = fingerprint
++        self.interval = max(0, float(interval_seconds))
++        self.executor = ThreadPoolExecutor(max_workers=1, thread_name_prefix="ds41-cache-ssd")
++        self.future = None
++        self.future_kind = None
++        self.transaction = None
++        self.persisted_revision = -1
++        self.last_save = time.monotonic()
++        self.saved_at = None
++        self.saved_generation = None
++        self.restored_entries = self.restore_skipped = self.saves = self.failures = 0
++        self.last_error = None
++        self._closed = False
++        self._restore_attempted = False
++        self._committed_manifest = None
++        self.disk_reads = self.restore_loads = 0
++
++    @property
++    def pending(self):
++        return self.future is not None or self.transaction is not None
++
++    def stats(self):
++        return dict(enabled=True, directory=str(self.directory), pending=self.pending,
++                    interval_seconds=self.interval, saved_at=self.saved_at,
++                    saved_generation=self.saved_generation,
++                    disk_reads=self.disk_reads, restore_loads=self.restore_loads,
++                    saves=self.saves, restored_checkpoints=self.restored_entries,
++                    restore_skipped=self.restore_skipped, failures=self.failures,
++                    last_error=self.last_error,
++                    dirty=self.manager._revision != self.persisted_revision)
++
++    def _manifest(self, name):
++        manifest = _read_json(self.directory / name)
++        if manifest["format"] != FORMAT or manifest["fingerprint"] != self.fingerprint:
++            raise ValueError("checkpoint model/runtime/config fingerprint mismatch")
++        generation = manifest["generation"]
++        if (not isinstance(generation, str) or not generation.startswith("generation-")
++                or len(generation) != 43 or any(c not in "0123456789abcdef" for c in generation[11:])):
++            raise ValueError("invalid checkpoint generation")
++        if not isinstance(manifest["entries"], list) or len(manifest["entries"]) > 16384:
++            raise ValueError("invalid checkpoint list")
++        keys = [entry["key"] for entry in manifest["entries"]]
++        if len(set(keys)) != len(keys) or any(
++            not isinstance(key, str) or len(key) != 64
++            or any(c not in "0123456789abcdef" for c in key) for key in keys
++        ):
++            raise ValueError("invalid or duplicate checkpoint keys")
++        return manifest
++
++    def restore(self):
++        if self._restore_attempted:
++            return 0
++        self._restore_attempted = True
++        manager = self.manager
++        for name in ("current.json", "previous.json"):
++            try:
++                manifest = self._manifest(name)
++            except FileNotFoundError:
++                continue
++            except Exception as exc:
++                self.last_error = str(exc)
++                self.restore_skipped += 1
++                continue
++            restored = []
++            verified = []
++            # Newest first under the memory cap; insert back in original LRU order.
++            for descriptor in reversed(manifest["entries"]):
++                try:
++                    key = bytes.fromhex(descriptor["key"])
++                    path = self.directory / manifest["generation"] / (key.hex() + ".safetensors")
++                    self.disk_reads += 1
++                    size = _validate_file(path, descriptor, MAX_CHECKPOINT_BYTES)
++                    verified.append(descriptor)
++                    if manager.bytes + size > manager.max_bytes:
++                        self.restore_skipped += 1
++                        continue
++                    manager._protected_keys.update(restored)
++                    try:
++                        if not manager._headroom(2 * size):
++                            self.restore_skipped += 1
++                            continue
++                    finally:
++                        manager._protected_keys.difference_update(restored)
++                    self.disk_reads += 1
++                    self.restore_loads += 1
++                    entry = _load_checkpoint(path, descriptor)
++                    manager.entries[key] = entry
++                    manager.bytes += entry.size
++                    restored.append(key)
++                except Exception as exc:
++                    logger.warning("Skipping DS41 persisted checkpoint: %s", exc)
++                    self.last_error = str(exc)
++                    self.restore_skipped += 1
++            if verified or not manifest["entries"]:
++                # A pressure callback may have evicted earlier restored entries.
++                manager.entries = type(manager.entries)((key, manager.entries[key])
++                    for key in reversed(restored) if key in manager.entries)
++                self.restored_entries = len(manager.entries)
++                self.saved_at = manifest.get("saved_at")
++                self.saved_generation = manifest["generation"]
++                self._committed_manifest = {**manifest, "entries": list(reversed(verified))}
++                manager._revision += 1
++                self.persisted_revision = manager._revision
++                logger.info("DS41 startup cache restore: checkpoints=%d bytes=%d skipped=%d",
++                            self.restored_entries, manager.bytes, self.restore_skipped)
++                return self.restored_entries
++        return 0
++
++    def _begin(self, transaction):
++        self.directory.mkdir(parents=True, exist_ok=True)
++        # The engine passes the last startup-verified or freshly committed
++        # manifest. Never reread checkpoint payloads during ordinary operation.
++        current = transaction["previous_manifest"]
++        keep = {current["generation"]} if current is not None else set()
++        # Failed initial writes have no manifest yet. They are still orphans
++        # and must be reclaimed before another attempt creates a generation.
++        for directory in self.directory.glob("generation-*"):
++            if directory.is_dir() and directory.name not in keep:
++                shutil.rmtree(directory, ignore_errors=True)
++        if current is not None:
++            # Keep an atomic pointer to the verified generation even if the
++            # current manifest was corrupt at startup and we used the backup.
++            _atomic_json(self.directory / "previous.json", current)
++        (self.directory / transaction["generation"]).mkdir()
++
++    def _commit(self, transaction):
++        manifest = dict(format=FORMAT, fingerprint=self.fingerprint, identity=self.identity,
++                        generation=transaction["generation"], entries=transaction["entries"],
++                        saved_at=time.time())
++        old = transaction["previous_manifest"]
++        _fsync_directory(self.directory / transaction["generation"])
++        if old is not None:
++            _atomic_json(self.directory / "previous.json", old)
++            _fsync_directory(self.directory)
++        _atomic_json(self.directory / "current.json", manifest)
++        _fsync_directory(self.directory)
++        keep = {manifest["generation"]}
++        if old:
++            keep.add(old["generation"])
++        for directory in self.directory.glob("generation-*"):
++            if directory.is_dir() and directory.name not in keep:
++                shutil.rmtree(directory, ignore_errors=True)
++        return manifest
++
++    def step(self, force=False):
++        if self._closed:
++            return False
++        try:
++            if self.future is not None:
++                if not self.future.done():
++                    return True
++                result = self.future.result()
++                self.future = None
++                if self.future_kind == "commit":
++                    self.saved_at = result["saved_at"]
++                    self.saved_generation = self.transaction["generation"]
++                    self._committed_manifest = result
++                    self.persisted_revision = self.transaction["revision"]
++                    self.transaction = None
++                    self.last_save = time.monotonic()
++                    self.saves += 1
++                    self.last_error = None
++                    return force and self.manager._revision != self.persisted_revision
++                if self.future_kind == "write":
++                    self.transaction["entries"].append(result)
++                self.future_kind = None
++            if self.transaction is None:
++                if self.manager._revision == self.persisted_revision:
++                    return False
++                if not force and time.monotonic() - self.last_save < self.interval:
++                    return False
++                self.transaction = dict(generation="generation-" + uuid.uuid4().hex,
++                    keys=list(self.manager.entries), entries=[],
++                    revision=self.manager._revision, index=0,
++                    previous_manifest=self._committed_manifest)
++                self.future_kind = "begin"
++                self.future = self.executor.submit(self._begin, self.transaction)
++                return True
++            transaction = self.transaction
++            while transaction["index"] < len(transaction["keys"]):
++                key = transaction["keys"][transaction["index"]]
++                transaction["index"] += 1
++                entry = self.manager.entries.get(key)
++                if entry is None:
++                    continue
++                self.manager._protected_keys.add(key)
++                try:
++                    if not self.manager._headroom(2 * entry.size):
++                        raise RuntimeError("insufficient memory to stage checkpoint; save deferred")
++                    header, chunks, layout = _stage(entry)
++                finally:
++                    self.manager._protected_keys.discard(key)
++                descriptor = dict(key=key.hex(), tokens=len(entry.tokens) // 4,
++                                  size=entry.size, layout=layout)
++                path = self.directory / transaction["generation"] / (key.hex() + ".safetensors")
++                self.future_kind = "write"
++                self.future = self.executor.submit(_write_checkpoint, path, header, chunks, descriptor)
++                return True
++            transaction["index"] = "commit"
++            self.future_kind = "commit"
++            self.future = self.executor.submit(self._commit, transaction)
++            return True
++        except Exception as exc:
++            self.last_error = str(exc)
++            self.failures += 1
++            self.last_save = time.monotonic()
++            self.future = None
++            self.transaction = None
++            logger.exception("DS41 checkpoint persistence failed; keeping committed snapshot")
++            return False
++
++    def close(self, wait=True):
++        self._closed = True
++        # Shutdown callers first drain step(force=True) on the engine thread.
++        # A bounded caller can close(wait=False); only one raw-byte write can remain.
++        self.executor.shutdown(wait=wait, cancel_futures=True)
+diff --git a/omlx/request.py b/omlx/request.py
+index d2a5c864..a213b181 100644
+--- a/omlx/request.py
++++ b/omlx/request.py
+@@ -134,7 +134,10 @@ class Request:
+ 
+     # Prefix cache fields
+     prompt_cache: Optional[List[Any]] = None  # Cached KV state from prefix cache
+-    cached_tokens: int = 0  # Number of tokens retrieved from cache
++    cached_tokens: int = 0  # Prefix already computed, including local prefill resumes
++    # Frozen before a request-local prefill resume advances cached_tokens.
++    # None retains legacy accounting for paths without local resumes.
++    cache_reused_tokens: Optional[int] = None
+     remaining_tokens: Optional[List[int]] = None  # Tokens still needing processing
+ 
+     # Paged cache fields (for BlockAwarePrefixCache)
+@@ -238,6 +241,16 @@ class Request:
+     # Request-scoped tool schemas used by protocol output parsers.
+     tools: list[dict[str, Any]] | None = None
+ 
++    @property
++    def api_cached_tokens(self) -> int:
++        """Only tokens reused from another request, never local retry progress."""
++        count = (
++            self.cached_tokens
++            if self.cache_reused_tokens is None
++            else self.cache_reused_tokens
++        )
++        return max(0, min(int(count), self.num_prompt_tokens))
++
+     @property
+     def num_output_tokens(self) -> int:
+         """Number of output tokens generated so far."""
+diff --git a/omlx/scheduler.py b/omlx/scheduler.py
+index 49d5485a..dcc412b4 100644
+--- a/omlx/scheduler.py
++++ b/omlx/scheduler.py
+@@ -14,10 +14,12 @@ The scheduler follows vLLM's design with:
+ import concurrent.futures
+ import copy
+ import gc
++import hashlib
+ import importlib
+ import inspect
+ import logging
+ import os
++import struct
+ import threading
+ import time
+ from array import array
+@@ -450,6 +452,14 @@ class PrefillEvictionRequest:
+     stale_usage: bool = False
+ 
+ 
++def _exact_prefix_manager(model):
++    """Return the model's opted-in, bounded exact-prefix cache, when present."""
++    manager = getattr(model, "_omlx_exact_prefix_cache", None)
++    if manager is None or not isinstance(getattr(manager, "max_bytes", None), int):
++        return None
++    return manager
++
++
+ class _PrefillEvictionNeeded(Exception):
+     """Raised inside scheduler.step() to pause and request async eviction."""
+ 
+@@ -1933,6 +1943,7 @@ class Scheduler:
+         self._prefill_states: dict[str, _PrefillState] = {}
+         self.requests: dict[str, Request] = {}  # All requests by ID
+         self.finished_req_ids: set[str] = set()  # Recently finished
++        self.exact_prefix_completed: deque[dict[str, Any]] = deque(maxlen=16)
+         self._generation_overflow_recovery_ids: set[str] = set()
+ 
+         # Thread-safe set for deferred aborts (main thread → executor thread)
+@@ -3776,6 +3787,8 @@ class Scheduler:
+                 if processed_tokens > 0:
+                     if existing_cache is None:
+                         request.prompt_cache = prompt_cache
++                    if request.cache_reused_tokens is None:
++                        request.cache_reused_tokens = request.cached_tokens
+                     request.cached_tokens += processed_tokens
+                     request.remaining_tokens = tokens[processed_tokens:]
+                 raise
+@@ -3840,7 +3853,7 @@ class Scheduler:
+                     **model_kwargs,
+                 )
+                 mx.eval([c.state for c in prompt_cache])
+-                exact = getattr(self.model, "_omlx_exact_prefix_cache", None)
++                exact = _exact_prefix_manager(self.model)
+                 if exact is not None and embeds_array is None:
+                     exact.record(getattr(request, "_ds41_prefix_plan", None),
+                                  prompt_cache, request.cached_tokens + processed_tokens,
+@@ -4654,6 +4667,14 @@ class Scheduler:
+             # prevents.
+             if current + per_token * requested <= target:
+                 return requested
++            # Exact snapshots hold real MLX buffers. Release their idle LRU
++            # entries before changing the CED chunk program or pausing to evict
++            # another model. The usual guard still validates the chunk peak.
++            if _exact_prefix_manager(getattr(self, "model", None)) is not None:
++                self._evict_exact_prefix_for_headroom(int(per_token * requested), target)
++                current = self._current_usage_bytes()
++                if current + per_token * requested <= target:
++                    return requested
+             maybe_raise_eviction = getattr(
+                 self, "_raise_prefill_eviction_if_available", None
+             )
+@@ -5239,11 +5260,15 @@ class Scheduler:
+         ``CacheBlock`` metadata back into the free queue (the pool never
+         shrinks, see ``PagedCacheManager._grow_blocks``), so it is deliberately
+         not attempted here — it would drop reusable prefix-cache entries for no
+-        memory benefit.
++        memory benefit. Dedicated exact-prefix snapshots own MLX arrays, so
++        dropping those snapshots does release reclaimable memory.
+ 
+         Returns:
+             ``max(active, phys_footprint)`` after reclaim.
+         """
++        exact = _exact_prefix_manager(getattr(self, "model", None))
++        if exact is not None:
++            exact.evict_bytes(exact.bytes)
+         Scheduler._clear_cache(self)
+         return self._current_usage_bytes()
+ 
+@@ -5682,7 +5707,7 @@ class Scheduler:
+             else:
+                 prefill_model(chunk, cache=state.cache)
+             mx.eval([c.state for c in state.cache])
+-            exact = getattr(self.model, "_omlx_exact_prefix_cache", None)
++            exact = _exact_prefix_manager(self.model)
+             if exact is not None:
+                 exact.record(getattr(state.request, "_ds41_prefix_plan", None),
+                              state.cache, state.request.cached_tokens + state.tokens_processed, n)
+@@ -8881,23 +8906,87 @@ class Scheduler:
+         self._unreconstructible_cache_model = result
+         return result
+ 
++    def _configure_exact_prefix_cache(self):
++        """Bind allocation checks before both startup restore and request use.
++
++        The caller runs on the engine thread. Live snapshot bytes are already
++        included in MLX/physical usage; only the pending allocation is added.
++        """
++        exact = _exact_prefix_manager(getattr(self, "model", None))
++        if exact is not None:
++            exact.ensure_headroom = self._ensure_exact_prefix_headroom
++        return exact
++
++    def _record_exact_prefix_completion(self, request: Request) -> None:
++        """Bounded token-parity diagnostics without storing generated content."""
++        if _exact_prefix_manager(self.model) is None:
++            return
++        tokens = request.output_token_ids
++        self.exact_prefix_completed.append({
++            "request_id": request.request_id,
++            "prompt_tokens": request.num_prompt_tokens,
++            "reused_tokens": request.api_cached_tokens,
++            "output_tokens": len(tokens),
++            "output_token_ids_sha256": hashlib.sha256(
++                struct.pack(f"<{len(tokens)}I", *tokens)
++            ).hexdigest(),
++            "prefill_chunks": list(request.benchmark_prefill_chunks),
++        })
++
++    def _ensure_exact_prefix_headroom(self, additional_bytes: int) -> bool:
++        if not self._prefill_memory_guard:
++            return True
++        limits = [
++            limit for limit in (self._admission_limit_bytes(), self._prefill_abort_cap())
++            if limit > 0
++        ]
++        # Startup restore must wait for configured limits, never treat an
++        # uninitialised guard as permission to make unbounded allocations.
++        if not limits:
++            return False
++        return self._evict_exact_prefix_for_headroom(
++            max(0, int(additional_bytes)), min(limits)
++        )
++
++    def _evict_exact_prefix_for_headroom(self, additional_bytes: int, cap: int) -> bool:
++        """Evict idle snapshots before shrinking a chunk or copying state."""
++        current = self._current_usage_bytes()
++        if current + additional_bytes <= cap:
++            return True
++        exact = _exact_prefix_manager(getattr(self, "model", None))
++        if exact is None:
++            return False
++        # Release pooled forward temporaries first; they can otherwise make
++        # a tiny checkpoint unnecessarily evict the entire prefix cache.
++        Scheduler._clear_cache(self)
++        current = self._current_usage_bytes()
++        if current + additional_bytes > cap:
++            exact.evict_bytes(current + additional_bytes - cap)
++            Scheduler._clear_cache(self)
++            current = self._current_usage_bytes()
++        return current + additional_bytes <= cap
++
+     def _prepare_prefix_cache_for_request(self, request: Request) -> None:
+         if request.request_id in self._prefix_cache_prepared:
+             return
+ 
+         # DS41 snapshots preserve the exact CED chunk program and its DSpark
+         # prime ring. Keep generic paged caching off: it uses other boundaries.
+-        exact = getattr(self.model, "_omlx_exact_prefix_cache", None)
++        exact = self._configure_exact_prefix_cache()
+         if (exact is not None and self.block_aware_cache is None
+-                and not self._prefill_memory_guard
+                 and request.vlm_inputs_embeds is None
+                 and not request.vlm_extra_keys_for_cache):
++            # Exact CED reuse requires an identical prefill chunk program.
++            # Keep its small chunk trace available to completion diagnostics;
++            # the prepared-request gate above preserves it across resumes.
++            request.benchmark_trace = True
+             cache, count, plan = exact.prepare(
+                 request.prompt_token_ids, self.config.prefill_step_size
+             )
+             request._ds41_prefix_plan = plan
+             request.prompt_cache = cache
+             request.cached_tokens = count
++            request.cache_reused_tokens = count
+             request.remaining_tokens = request.prompt_token_ids[count:]
+             self._prefix_cache_prepared.add(request.request_id)
+             return
+@@ -9027,6 +9116,7 @@ class Scheduler:
+                             request.prompt_cache = None
+                             request.block_table = None
+                             request.cached_tokens = 0
++                            request.cache_reused_tokens = None
+                             request.shared_prefix_blocks = 0
+                             request.remaining_tokens = request.prompt_token_ids
+                             logger.debug(
+@@ -9056,6 +9146,7 @@ class Scheduler:
+                             request.prompt_cache = None
+                             request.block_table = None
+                             request.cached_tokens = 0
++                            request.cache_reused_tokens = None
+                             request.shared_prefix_blocks = 0
+                             request.remaining_tokens = request.prompt_token_ids
+                             logger.debug(
+@@ -10050,6 +10141,9 @@ class Scheduler:
+         if not self._pending_pressure_clear:
+             return False
+         self._pending_pressure_clear = False
++        exact = _exact_prefix_manager(getattr(self, "model", None))
++        if exact is not None:
++            exact.evict_bytes(exact.bytes)
+         return True
+ 
+     def _process_pending_reclaim(self) -> None:
+@@ -10490,6 +10584,12 @@ class Scheduler:
+ 
+         hard_limit = self._admission_limit_bytes()
+         peak = est.kv_exact + est.transient
++        safety_cap = self._prefill_abort_cap()
++        target = min(hard_limit, safety_cap) if safety_cap > 0 else hard_limit
++        if est.estimated > target and _exact_prefix_manager(self.model) is not None:
++            self._evict_exact_prefix_for_headroom(peak, target)
++            current = self._current_usage_bytes()
++            est.estimated = current + peak
+ 
+         if est.estimated > hard_limit:
+             # Try LRU eviction first (upstream's predictive-throttle
+@@ -11054,6 +11154,7 @@ class Scheduler:
+                 cache_to_use = None
+                 request.prompt_cache = None
+                 request.cached_tokens = 0
++                request.cache_reused_tokens = None
+                 request.remaining_tokens = request.prompt_token_ids
+                 tokens_to_process = request.prompt_token_ids
+ 
+@@ -11324,6 +11425,7 @@ class Scheduler:
+                         cache_to_use = None
+                         request.prompt_cache = None
+                         request.cached_tokens = 0
++                        request.cache_reused_tokens = None
+                         request.remaining_tokens = request.prompt_token_ids
+                         tokens_to_process = request.prompt_token_ids
+                     # Fall through to normal prefill
+@@ -11825,7 +11927,7 @@ class Scheduler:
+                 completion_tokens=request.num_output_tokens,
+                 generated_at=output_generated_at,
+                 generated_until=output_generated_at,
+-                cached_tokens=request.cached_tokens,
++                cached_tokens=request.api_cached_tokens,
+                 benchmark_prefill_chunks=(
+                     list(getattr(request, "benchmark_prefill_chunks", []))
+                     if getattr(request, "benchmark_trace", False)
+@@ -11968,6 +12070,7 @@ class Scheduler:
+ 
+                 self.total_completion_tokens += request.num_output_tokens
+                 self.num_requests_processed += 1
++                self._record_exact_prefix_completion(request)
+ 
+                 logger.debug(
+                     f"Request {request_id} finished: {response.finish_reason}, "
+@@ -12536,6 +12639,9 @@ class Scheduler:
+             self.model.clear_pending_embeddings()
+ 
+         # Clear caches
++        exact = _exact_prefix_manager(getattr(self, "model", None))
++        if exact is not None:
++            exact.clear()
+         if self.block_aware_cache is not None:
+             self.block_aware_cache.clear()
+         self._cache_rate_tracker.clear()
+@@ -12596,6 +12702,8 @@ class Scheduler:
+         request.batch_uid = None
+         request.prompt_cache = None
+         request.cached_tokens = 0
++        request.cache_reused_tokens = None
++        request._ds41_prefix_plan = None
+         request.remaining_tokens = request.prompt_token_ids
+         request.block_table = None
+         request.shared_prefix_blocks = 0
+@@ -12849,6 +12957,8 @@ class Scheduler:
+         request.batch_uid = None
+         request.prompt_cache = None
+         request.cached_tokens = 0
++        request.cache_reused_tokens = None
++        request._ds41_prefix_plan = None
+         request.remaining_tokens = request.prompt_token_ids
+         request.block_table = None
+         request.shared_prefix_blocks = 0
+@@ -13239,12 +13349,18 @@ class Scheduler:
+         # Include cache stats
+         if self.block_aware_cache is not None:
+             stats["ssd_cache"] = self.block_aware_cache.get_stats()
++        exact = _exact_prefix_manager(getattr(self, "model", None))
++        if exact is not None:
++            stats["exact_prefix_cache"] = exact.snapshot_stats()
+         return stats
+ 
+     def get_cache_stats(self) -> dict[str, Any] | None:
+         """Get cache statistics."""
+         if self.block_aware_cache is not None:
+             return self.block_aware_cache.get_stats()
++        exact = _exact_prefix_manager(getattr(self, "model", None))
++        if exact is not None:
++            return exact.snapshot_stats()
+         return None
+ 
+     def reset(self) -> None:
+@@ -13311,6 +13427,9 @@ class Scheduler:
+         self._boundary_snapshot_required = None
+ 
+         # Clear caches
++        exact = _exact_prefix_manager(getattr(self, "model", None))
++        if exact is not None:
++            exact.clear()
+         if self.block_aware_cache is not None:
+             self.block_aware_cache.clear()
+         self._cache_rate_tracker.clear()
+@@ -14314,6 +14433,10 @@ class Scheduler:
+     def get_ssd_cache_stats(self) -> dict[str, Any] | None:
+         """Get paged SSD + prefix cache observability statistics."""
+         stats = {}
++        exact = _exact_prefix_manager(getattr(self, "model", None))
++        if exact is not None:
++            stats["exact_prefix_cache"] = exact.snapshot_stats()
++            stats["exact_prefix_completed"] = list(self.exact_prefix_completed)
+ 
+         if self.paged_ssd_cache_manager is not None:
+             stats["ssd_cache"] = self.paged_ssd_cache_manager.get_stats()
+diff --git a/tests/test_deepseek_v41_prefix_cache.py b/tests/test_deepseek_v41_prefix_cache.py
+index a7b8373f..01d3238a 100644
+--- a/tests/test_deepseek_v41_prefix_cache.py
++++ b/tests/test_deepseek_v41_prefix_cache.py
+@@ -126,3 +126,35 @@ def test_model_ownership_and_draft_mode_change(monkeypatch):
+     assert for_model(first) is None
+     monkeypatch.setenv("DS41_PREFIX_CACHE_GIB", "0")
+     assert for_model(second) is None
++
++
++def test_memory_guard_runs_before_snapshot_or_restore_and_tracks_skips(monkeypatch):
++    import omlx.patches.deepseek_v41.prefix_cache as module
++
++    manager = ExactPrefixCache(2**20)
++    tokens = list(range(9000))
++    _, _, plan = manager.prepare(tokens)
++    manager.ensure_headroom = lambda size: False
++    with monkeypatch.context() as patch:
++        patch.setattr(module, "clone_cache", lambda *a, **kw: (_ for _ in ()).throw(AssertionError("allocated")))
++        manager.record(plan, sample(), 0, 8192)
++    assert not manager.entries and manager.skipped_memory == 1
++    manager.ensure_headroom = None
++    _, _, plan = manager.prepare(tokens)
++    manager.record(plan, sample(), 0, 8192)
++    manager.ensure_headroom = lambda size: False
++    assert manager.prepare(tokens)[1] == 0
++    assert manager.snapshot_stats()["skipped_memory"] == 2
++    assert manager.snapshot_stats()["reused_tokens"] == 0
++
++
++def test_restore_pins_selected_snapshot_while_memory_guard_evicts():
++    manager = ExactPrefixCache(2**20)
++    tokens = list(range(17000))
++    _, _, plan = manager.prepare(tokens)
++    manager.record(plan, sample(), 0, 8192)
++    manager.record(plan, sample(16384), 8192, 8192)
++    manager.ensure_headroom = lambda size: bool(manager.evict_bytes(size))
++    assert manager.prepare(tokens)[1] == 16384
++    assert len(manager.entries) == 1
++    assert manager.snapshot_stats()["reused_tokens"] == 16384
+diff --git a/tests/test_deepseek_v41_prefix_cache_store.py b/tests/test_deepseek_v41_prefix_cache_store.py
+new file mode 100644
+index 00000000..ef6c4d8d
+--- /dev/null
++++ b/tests/test_deepseek_v41_prefix_cache_store.py
+@@ -0,0 +1,334 @@
++"""Restart cache persistence with real MLX arrays and filesystem transactions."""
++
++import hashlib
++import json
++from pathlib import Path
++import struct
++import time
++
++import mlx.core as mx
++import numpy as np
++import pytest
++from safetensors import safe_open
++
++from omlx.patches.deepseek_v41.prefix_cache import ExactPrefixCache, cache_arrays
++from omlx.patches.deepseek_v41 import prefix_cache_store as store
++from test_deepseek_v41_prefix_cache import sample
++
++FINGERPRINT = {"model": "test-model", "tokenizer": "test-tokens", "program": "CED8192+DSpark"}
++
++
++def manager(directory, max_bytes=2**20, fingerprint=None):
++    result = ExactPrefixCache(max_bytes)
++    result.configure_persistence(directory, fingerprint or FINGERPRINT, interval_seconds=300)
++    return result
++
++
++def add(result, end=8192):
++    tokens = list(range(end + 17))
++    cache = sample(end)
++    cache[0].left_padding = mx.array([0], mx.int32)
++    cache[0].lengths = mx.array([end], mx.int32)
++    # Include raw bfloat16 bit patterns including signed zero and NaN payloads.
++    cache[0].cache[1] = mx.arange(24).astype(mx.uint16).reshape(1, 8, 3).view(mx.bfloat16)
++    _, _, plan = result.prepare(tokens)
++    # Build every complete checkpoint as a real prefill would.
++    for start in range(plan.next_position, end, 8192):
++        cache[0].cache[0] = mx.array([start + 8192])
++        cache[0]._omlx_mtp_prime_ctx.expected_target_offset = start + 8192
++        cache[0]._omlx_mtp_prime_ctx.caches[0].offset = start + 8192
++        result.record(plan, cache, start, 8192)
++    return tokens
++
++
++def flush(result):
++    deadline = time.monotonic() + 10
++    while result.persistence_step(force=True):
++        assert time.monotonic() < deadline, "save did not finish"
++        time.sleep(0.001)
++    return result.snapshot_stats()["persistence"]
++
++
++def current(directory):
++    manifest = json.loads((directory / "current.json").read_text())
++    descriptor = manifest["entries"][-1]
++    path = directory / manifest["generation"] / (descriptor["key"] + ".safetensors")
++    return manifest, descriptor, path
++
++
++def test_disk_roundtrip_all_state_bits_lru_and_no_request_reads(tmp_path, monkeypatch):
++    first = manager(tmp_path)
++    tokens = add(first, 16384)
++    before = first.prepare(tokens)[0]
++    stats = flush(first)
++    assert not stats["dirty"] and stats["saves"] == 1
++    assert stats["saved_generation"]
++    _, _, file = current(tmp_path)
++    with safe_open(file, framework="numpy") as tensors:
++        assert "tokens" in tensors.keys() and "prime.0" in tensors.keys()
++    second = manager(tmp_path)
++    assert second.restore_persisted() == 2
++    assert list(second.entries) == list(first.entries)
++    with monkeypatch.context() as patch:
++        patch.setattr(Path, "open", lambda *a, **kw: (_ for _ in ()).throw(AssertionError("disk read")))
++        after, cached, _ = second.prepare(tokens)
++    assert cached == 16384
++    for left, right in zip(cache_arrays(before), cache_arrays(after)):
++        assert left.dtype == right.dtype and left.shape == right.shape
++        assert np.array_equal(np.asarray(left.view(mx.uint8)), np.asarray(right.view(mx.uint8)))
++    a, b = before[0]._omlx_mtp_prime_ctx, after[0]._omlx_mtp_prime_ctx
++    assert a.expected_target_offset == b.expected_target_offset == 16384
++    assert a.caches[0].max_size == b.caches[0].max_size
++    assert a.caches[0].offset == b.caches[0].offset
++    first.close_persistence()
++    second.close_persistence()
++
++
++def test_interval_and_incremental_one_checkpoint_staging(tmp_path):
++    result = manager(tmp_path)
++    add(result, 16384)
++    assert not result.persistence_step() and not tmp_path.joinpath("current.json").exists()
++    assert result.persistence_step(force=True)
++    assert result.persistence_pending
++    assert not tmp_path.joinpath("current.json").exists()
++    assert not flush(result)["dirty"]
++    # No changes means no unnecessary new generation on normal stop.
++    assert not result.persistence_step(force=True)
++    assert result.snapshot_stats()["persistence"]["saves"] == 1
++    result.close_persistence()
++
++
++def test_fingerprint_mismatch_and_memory_budget_skip_before_mlx_load(tmp_path, monkeypatch):
++    result = manager(tmp_path)
++    add(result)
++    flush(result)
++    wrong = manager(tmp_path, fingerprint={"model": "different"})
++    assert wrong.restore_persisted() == 0
++    limited = manager(tmp_path)
++    limited.ensure_headroom = lambda size: False
++    with monkeypatch.context() as patch:
++        patch.setattr(mx, "load", lambda *a, **kw: (_ for _ in ()).throw(AssertionError("allocated")))
++        assert limited.restore_persisted() == 0
++    assert limited.skipped_memory == 1
++    for item in (result, wrong, limited):
++        item.close_persistence()
++
++
++def test_restart_restores_most_recent_that_fit(tmp_path):
++    result = manager(tmp_path)
++    add(result, 16384)
++    largest = list(result.entries.values())[-1].size
++    flush(result)
++    loaded = manager(tmp_path, max_bytes=largest)
++    assert loaded.restore_persisted() == 1
++    assert loaded.prepare(list(range(17000)))[1] == 16384
++    result.close_persistence()
++    loaded.close_persistence()
++
++
++def test_failed_write_preserves_last_atomic_generation(tmp_path, monkeypatch):
++    result = manager(tmp_path)
++    tokens = add(result)
++    flush(result)
++    original = tmp_path.joinpath("current.json").read_bytes()
++    add(result, 16384)
++    with monkeypatch.context() as patch:
++        patch.setattr(store, "_write_checkpoint", lambda *a: (_ for _ in ()).throw(OSError("disk full")))
++        stats = flush(result)
++    assert stats["dirty"] and stats["failures"] == 1 and "disk full" in stats["last_error"]
++    assert tmp_path.joinpath("current.json").read_bytes() == original
++    loaded = manager(tmp_path)
++    assert loaded.restore_persisted() == 1 and loaded.prepare(tokens)[1] == 8192
++    result.close_persistence()
++    loaded.close_persistence()
++
++
++def test_corruption_rejected_before_loading_and_previous_generation_survives(tmp_path, monkeypatch):
++    result = manager(tmp_path)
++    add(result)
++    flush(result)
++    add(result, 16384)
++    flush(result)
++    manifest, descriptor, path = current(tmp_path)
++    data = bytearray(path.read_bytes())
++    data[-1] ^= 1
++    path.write_bytes(data)
++    loaded = manager(tmp_path)
++    # The intact 8K entry remains usable; corrupted 16K is skipped.
++    assert loaded.restore_persisted() == 1
++    assert loaded.prepare(list(range(17000)))[1] == 8192
++    assert loaded.snapshot_stats()["persistence"]["restore_skipped"] == 1
++    assert tmp_path.joinpath("previous.json").exists()
++    result.close_persistence()
++    loaded.close_persistence()
++
++
++def test_invalid_shape_rejected_before_mlx_allocates_even_with_correct_checksum(tmp_path, monkeypatch):
++    result = manager(tmp_path)
++    add(result)
++    flush(result)
++    manifest, descriptor, path = current(tmp_path)
++    data = path.read_bytes()
++    length = struct.unpack("<Q", data[:8])[0]
++    header = json.loads(data[8:8 + length])
++    header["layer.0.1"]["shape"] = [1, 999999999, 3]
++    encoded = json.dumps(header, separators=(",", ":")).encode()
++    encoded += b" " * (-len(encoded) % 8)
++    payload = struct.pack("<Q", len(encoded)) + encoded + data[8 + length:]
++    path.write_bytes(payload)
++    descriptor["sha256"] = hashlib.sha256(payload).hexdigest()
++    descriptor["file_bytes"] = len(payload)
++    tmp_path.joinpath("current.json").write_text(json.dumps(manifest))
++    loaded = manager(tmp_path)
++    with monkeypatch.context() as patch:
++        patch.setattr(mx, "load", lambda *a, **kw: pytest.fail("malformed checkpoint allocated"))
++        assert loaded.restore_persisted() == 0
++    assert loaded.snapshot_stats()["persistence"]["restore_skipped"] == 1
++    result.close_persistence()
++    loaded.close_persistence()
++
++
++def test_memory_save_deferral_retains_committed_data_and_dirty_state(tmp_path):
++    result = manager(tmp_path)
++    add(result)
++    flush(result)
++    previous = tmp_path.joinpath("current.json").read_bytes()
++    add(result, 16384)
++    result.ensure_headroom = lambda size: False
++    stats = flush(result)
++    assert stats["dirty"] and "insufficient memory" in stats["last_error"]
++    assert tmp_path.joinpath("current.json").read_bytes() == previous
++    result.close_persistence()
++
++
++def test_idle_save_reads_no_payload_and_worker_never_stages_mlx(tmp_path, monkeypatch):
++    import threading
++
++    initial = manager(tmp_path)
++    add(initial)
++    flush(initial)
++    restored = manager(tmp_path)
++    assert restored.restore_persisted() == 1
++    reads = restored.snapshot_stats()["persistence"]["disk_reads"]
++    assert reads == 2
++    add(restored, 16384)
++    main_thread = threading.get_ident()
++    stage, write = store._stage, store._write_checkpoint
++
++    def checked_stage(*args):
++        assert threading.get_ident() == main_thread
++        return stage(*args)
++
++    def checked_write(*args):
++        assert threading.get_ident() != main_thread
++        return write(*args)
++
++    with monkeypatch.context() as patch:
++        patch.setattr(store, "_stage", checked_stage)
++        patch.setattr(store, "_write_checkpoint", checked_write)
++        patch.setattr(store, "_validate_file", lambda *a: pytest.fail("save reread a payload"))
++        patch.setattr(mx, "load", lambda *a: pytest.fail("save loaded MLX state"))
++        assert not flush(restored)["dirty"]
++    assert restored.snapshot_stats()["persistence"]["disk_reads"] == reads
++    for item in (initial, restored):
++        item.close_persistence()
++
++
++def test_atomic_manifest_failure_keeps_previous_current_usable(tmp_path, monkeypatch):
++    result = manager(tmp_path)
++    add(result)
++    flush(result)
++    previous = tmp_path.joinpath("current.json").read_bytes()
++    add(result, 16384)
++    atomic = store._atomic_json
++
++    def fail_commit(path, value):
++        if path.name == "current.json":
++            raise OSError("interrupted manifest commit")
++        atomic(path, value)
++
++    with monkeypatch.context() as patch:
++        patch.setattr(store, "_atomic_json", fail_commit)
++        stats = flush(result)
++    assert stats["dirty"] and "interrupted manifest" in stats["last_error"]
++    assert tmp_path.joinpath("current.json").read_bytes() == previous
++    restarted = manager(tmp_path)
++    assert restarted.restore_persisted() == 1
++    for item in (result, restarted):
++        item.close_persistence()
++
++
++def test_malformed_layout_cannot_change_draft_state_without_checksum(tmp_path):
++    result = manager(tmp_path)
++    add(result)
++    flush(result)
++    manifest, descriptor, _ = current(tmp_path)
++    descriptor["layout"]["prime"]["stages"][0]["max_size"] = 999
++    tmp_path.joinpath("current.json").write_text(json.dumps(manifest))
++    restarted = manager(tmp_path)
++    assert restarted.restore_persisted() == 0
++    assert "layout metadata mismatch" in restarted.snapshot_stats()["persistence"]["last_error"]
++    for item in (result, restarted):
++        item.close_persistence()
++
++
++def test_generation_replacement_disk_peak_has_at_most_two_datasets(tmp_path):
++    result = manager(tmp_path)
++    for end in (8192, 16384, 24576):
++        add(result, end)
++        deadline = time.monotonic() + 10
++        while result.persistence_step(force=True):
++            assert len(list(tmp_path.glob("generation-*"))) <= 2
++            assert time.monotonic() < deadline
++            time.sleep(0.001)
++    assert len(list(tmp_path.glob("generation-*"))) == 2
++    result.close_persistence()
++
++
++def test_repeated_failed_initial_saves_reclaim_uncommitted_generations(tmp_path, monkeypatch):
++    result = manager(tmp_path)
++    add(result)
++    with monkeypatch.context() as patch:
++        patch.setattr(store, "_write_checkpoint", lambda *a: (_ for _ in ()).throw(OSError("disk full")))
++        for attempt in range(4):
++            stats = flush(result)
++            assert stats["dirty"] and stats["failures"] == attempt + 1
++            assert len(list(tmp_path.glob("generation-*"))) == 1
++            assert not tmp_path.joinpath("current.json").exists()
++    assert not flush(result)["dirty"]
++    assert len(list(tmp_path.glob("generation-*"))) == 1
++    restarted = manager(tmp_path)
++    assert restarted.restore_persisted() == 1
++    for item in (result, restarted):
++        item.close_persistence()
++
++
++@pytest.mark.parametrize("skip_reason", ["headroom", "capacity"])
++def test_all_skipped_restore_preserves_durable_generation_on_empty_save(tmp_path, skip_reason):
++    initial = manager(tmp_path)
++    tokens = add(initial)
++    flush(initial)
++    saved, _, _ = current(tmp_path)
++    initial.close_persistence()
++    restarted = manager(tmp_path, max_bytes=1 if skip_reason == "capacity" else 2**20)
++    if skip_reason == "headroom":
++        restarted.ensure_headroom = lambda size: False
++    assert restarted.restore_persisted() == 0
++    assert restarted._persistence._committed_manifest["generation"] == saved["generation"]
++    assert not restarted.snapshot_stats()["persistence"]["dirty"]
++    # A later administrative clear/new empty save must keep the prior durable
++    # generation as the recovery backup, even though it never fit in memory.
++    restarted.clear()
++    assert not flush(restarted)["dirty"]
++    backup = json.loads(tmp_path.joinpath("previous.json").read_text())
++    assert backup["generation"] == saved["generation"]
++    assert backup["entries"] == saved["entries"]
++    assert tmp_path.joinpath(saved["generation"]).is_dir()
++    restarted.close_persistence()
++    # Simulate an interrupted/corrupt newest manifest: the retained backup
++    # still restores the original cache when sufficient memory is available.
++    tmp_path.joinpath("current.json").write_text("interrupted")
++    recovered = manager(tmp_path)
++    assert recovered.restore_persisted() == 1
++    assert recovered.prepare(tokens)[1] == 8192
++    recovered.close_persistence()
+diff --git a/tests/test_scheduler_exact_prefix_cache.py b/tests/test_scheduler_exact_prefix_cache.py
+new file mode 100644
+index 00000000..d9eb8b34
+--- /dev/null
++++ b/tests/test_scheduler_exact_prefix_cache.py
+@@ -0,0 +1,222 @@
++"""Exact-prefix ownership, memory protection, and request usage integration."""
++
++import hashlib
++import struct
++from types import SimpleNamespace
++
++import mlx.core as mx
++import pytest
++
++from omlx.patches.deepseek_v41.prefix_cache import CHUNK, ExactPrefixCache
++from omlx.request import Request, SamplingParams
++from omlx.scheduler import Scheduler, SchedulerConfig, _AdmissionEstimate
++from test_deepseek_v41_prefix_cache import sample
++
++
++class _Model:
++    def __init__(self):
++        self.layers = [SimpleNamespace()]
++        self.args = SimpleNamespace(num_hidden_layers=1)
++        self._omlx_exact_prefix_cache = ExactPrefixCache(2**20)
++
++    def make_cache(self):
++        return sample(0)
++
++    def parameters(self):
++        return {}
++
++    def __call__(self, tokens, cache=None, **kwargs):
++        cache[0].cache[0] = cache[0].cache[0] + tokens.shape[1]
++        return mx.zeros((1, tokens.shape[1], 8))
++
++
++def _scheduler(mock_tokenizer, monkeypatch):
++    scheduler = Scheduler(
++        model=_Model(), tokenizer=mock_tokenizer,
++        config=SchedulerConfig(prefill_step_size=CHUNK, paged_cache_block_size=0),
++    )
++    scheduler._prefill_memory_guard = True
++    scheduler._memory_limit_bytes = 2**50
++    scheduler._memory_hard_limit_bytes = 2**50
++    scheduler._memory_abort_limit_bytes = 2**50
++    monkeypatch.setattr(scheduler, "_current_usage_bytes", lambda: 0)
++    return scheduler
++
++
++def _request(name="r", count=CHUNK * 2 + 1):
++    tokens = list(range(count))
++    request = Request(request_id=name, prompt=tokens, sampling_params=SamplingParams())
++    request.prompt_token_ids = tokens
++    request.num_prompt_tokens = count
++    request.benchmark_trace = True
++    return request
++
++
++def _prefill(scheduler, request, chunked):
++    if chunked:
++        state = scheduler._begin_prefill(
++            request, request.remaining_tokens, request.prompt_cache
++        )
++        while not scheduler._step_prefill_chunk(state):
++            pass
++    else:
++        scheduler._do_external_prefill(
++            request, request.remaining_tokens, request.prompt_cache
++        )
++
++
++@pytest.mark.parametrize("chunked", [False, True])
++def test_exact_cold_warm_with_memory_guard_enabled(mock_tokenizer, monkeypatch, chunked):
++    scheduler = _scheduler(mock_tokenizer, monkeypatch)
++    cold = _request()
++    cold.benchmark_trace = False
++    scheduler._prepare_prefix_cache_for_request(cold)
++    assert cold.benchmark_trace
++    assert cold.cached_tokens == cold.api_cached_tokens == 0
++    _prefill(scheduler, cold, chunked)
++    exact = scheduler.model._omlx_exact_prefix_cache
++    assert exact.stores == 2
++    assert cold.benchmark_prefill_chunks == [CHUNK, CHUNK]
++    warm = _request("warm")
++    scheduler._prepare_prefix_cache_for_request(warm)
++    assert warm.cached_tokens == warm.api_cached_tokens == CHUNK * 2
++    assert warm.remaining_tokens == [CHUNK * 2]
++    assert scheduler._prefill_memory_guard
++
++
++@pytest.mark.parametrize("chunked", [False, True])
++def test_resized_chunk_invalidates_only_later_checkpoints(mock_tokenizer, monkeypatch, chunked):
++    scheduler = _scheduler(mock_tokenizer, monkeypatch)
++    request = _request(count=CHUNK * 3 + 1)
++    scheduler._prepare_prefix_cache_for_request(request)
++    calls = 0
++
++    def shrink_after_first(n, **kwargs):
++        nonlocal calls
++        calls += 1
++        return n if calls == 1 else min(n, CHUNK // 2)
++
++    monkeypatch.setattr(scheduler, "_guard_prefill_chunk", shrink_after_first)
++    _prefill(scheduler, request, chunked)
++    exact = scheduler.model._omlx_exact_prefix_cache
++    assert exact.stores == 1
++    assert not request._ds41_prefix_plan.valid
++    assert exact.prepare(request.prompt_token_ids)[1] == CHUNK
++
++
++def test_snapshot_budget_evicts_real_bytes_without_double_counting(mock_tokenizer, monkeypatch):
++    scheduler = _scheduler(mock_tokenizer, monkeypatch)
++    exact = scheduler._configure_exact_prefix_cache()
++    tokens = _request().prompt_token_ids
++    _, _, plan = exact.prepare(tokens)
++    exact.record(plan, sample(), 0, CHUNK)
++    exact.record(plan, sample(CHUNK * 2), CHUNK, CHUNK)
++    retained = exact.bytes
++    oldest_size = next(iter(exact.entries.values())).size
++    baseline = 1000
++    scheduler._memory_hard_limit_bytes = baseline + retained + 100
++    scheduler._memory_abort_limit_bytes = 0
++    scheduler._prefill_abort_margin = 1.0
++    monkeypatch.setattr(scheduler, "_current_usage_bytes", lambda: baseline + exact.bytes)
++    monkeypatch.setattr(Scheduler, "_clear_cache", lambda self: None)
++    # Already-resident bytes are measured once, so a fitting copy keeps both entries.
++    assert exact.ensure_headroom(100)
++    assert len(exact.entries) == 2
++    assert exact.ensure_headroom(oldest_size)
++    assert len(exact.entries) == 1
++    assert exact.evictions == 1
++    # Even evicting everything cannot fit a copy larger than the process cap.
++    assert not exact.ensure_headroom(scheduler._memory_hard_limit_bytes + 1)
++    assert exact.bytes == 0
++    assert scheduler._prefill_memory_guard
++
++
++def test_restore_rejected_by_guard_is_cold_and_reports_zero(mock_tokenizer, monkeypatch):
++    scheduler = _scheduler(mock_tokenizer, monkeypatch)
++    exact = scheduler._configure_exact_prefix_cache()
++    request = _request()
++    _, _, plan = exact.prepare(request.prompt_token_ids)
++    exact.record(plan, sample(), 0, CHUNK)
++    scheduler._memory_hard_limit_bytes = exact.bytes
++    scheduler._memory_abort_limit_bytes = 0
++    scheduler._prefill_abort_margin = 1
++    monkeypatch.setattr(scheduler, "_current_usage_bytes", lambda: exact.bytes)
++    monkeypatch.setattr(Scheduler, "_clear_cache", lambda self: None)
++    scheduler._prepare_prefix_cache_for_request(request)
++    assert request.prompt_cache is None
++    assert request.cached_tokens == request.api_cached_tokens == 0
++    assert request.remaining_tokens == request.prompt_token_ids
++    assert exact.skipped_memory == 1
++
++
++def test_unknown_guard_limit_refuses_snapshot_allocations(mock_tokenizer, monkeypatch):
++    scheduler = _scheduler(mock_tokenizer, monkeypatch)
++    scheduler._memory_hard_limit_bytes = 0
++    scheduler._memory_abort_limit_bytes = 0
++    exact = scheduler._configure_exact_prefix_cache()
++    assert not exact.ensure_headroom(1)
++
++
++def test_admission_evicts_idle_snapshots_before_rejecting(mock_tokenizer, monkeypatch):
++    scheduler = _scheduler(mock_tokenizer, monkeypatch)
++    exact = scheduler._configure_exact_prefix_cache()
++    request = _request()
++    _, _, plan = exact.prepare(request.prompt_token_ids)
++    exact.record(plan, sample(), 0, CHUNK)
++    scheduler._memory_hard_limit_bytes = 2000
++    scheduler._memory_abort_limit_bytes = 0
++    scheduler._prefill_abort_margin = 1.0
++    monkeypatch.setattr(scheduler, "_current_usage_bytes", lambda: 1000 + exact.bytes)
++    monkeypatch.setattr(Scheduler, "_clear_cache", lambda self: None)
++    monkeypatch.setattr(
++        scheduler, "_admission_estimate",
++        lambda **kw: _AdmissionEstimate(100, 200, CHUNK, CHUNK, kw["current"] + 300),
++    )
++    assert scheduler._preflight_memory_check(request) is None
++    assert exact.bytes == 0
++    assert request.prefill_eviction_retries == 0
++
++
++@pytest.mark.parametrize("reclaim", ["_reclaim_prefill_headroom", "_consume_pressure_clear", "reset", "_recover_from_cache_error"])
++def test_pressure_or_explicit_reset_releases_checkpoints(mock_tokenizer, monkeypatch, reclaim):
++    scheduler = _scheduler(mock_tokenizer, monkeypatch)
++    exact = scheduler._configure_exact_prefix_cache()
++    _, _, plan = exact.prepare(_request().prompt_token_ids)
++    exact.record(plan, sample(), 0, CHUNK)
++    assert exact.bytes > 0
++    scheduler._pending_pressure_clear = True
++    getattr(scheduler, reclaim)()
++    assert exact.bytes == 0
++
++
++def test_reprefill_discards_actual_reuse_count(mock_tokenizer, monkeypatch):
++    scheduler = _scheduler(mock_tokenizer, monkeypatch)
++    request = _request()
++    request.cached_tokens = CHUNK * 2
++    request.cache_reused_tokens = CHUNK
++    scheduler._reset_request_for_reprefill(request)
++    assert request.cached_tokens == request.api_cached_tokens == 0
++    assert request.remaining_tokens == request.prompt_token_ids
++
++
++def test_api_output_and_completed_hash_use_full_request_and_actual_reuse(mock_tokenizer, monkeypatch):
++    scheduler = _scheduler(mock_tokenizer, monkeypatch)
++    request = _request()
++    request.cached_tokens = CHUNK * 2  # Includes local resume progress.
++    request.cache_reused_tokens = CHUNK
++    request.output_token_ids = [50, 51]
++    scheduler.requests[request.request_id] = request
++    scheduler.running[request.request_id] = request
++    scheduler.uid_to_request_id[1] = request.request_id
++    response = SimpleNamespace(uid=1, token=52, finish_reason="length", logprobs=None)
++    outputs, finished = scheduler._process_batch_responses([response])
++    assert request.request_id in finished
++    assert outputs[-1].cached_tokens == CHUNK
++    assert outputs[-1].completion_tokens == 3
++    row = scheduler.exact_prefix_completed[-1]
++    assert row["output_tokens"] == 3
++    assert row["reused_tokens"] == CHUNK
++    assert row["output_token_ids_sha256"] == hashlib.sha256(struct.pack("<3I", 50, 51, 52)).hexdigest()
++    for _ in range(20):
++        scheduler._record_exact_prefix_completion(request)
++    assert len(scheduler.exact_prefix_completed) == 16
+diff --git a/tests/test_scheduler_prefill_eviction_progress.py b/tests/test_scheduler_prefill_eviction_progress.py
+index a8c6c8ba..c1fde837 100644
+--- a/tests/test_scheduler_prefill_eviction_progress.py
++++ b/tests/test_scheduler_prefill_eviction_progress.py
+@@ -88,6 +88,7 @@ def test_external_prefill_resumes_without_replaying_tokens(
+         )
+         assert exc.value.request.reason == expected_reason
+         assert request.cached_tokens == pause_at
++        assert request.api_cached_tokens == cached_tokens
+         assert request.remaining_tokens == prompt[pause_at:]
+         if pause_at:
+             assert request.prompt_cache[0].offset == pause_at
+@@ -102,6 +103,7 @@ def test_external_prefill_resumes_without_replaying_tokens(
+         request, request.remaining_tokens, request.prompt_cache
+     )
+     assert last_token == prompt[-1:]
++    assert request.api_cached_tokens == cached_tokens
+     assert cache[0].offset == len(prompt) - 1
+     model(mx.array(last_token)[None], cache=cache)
+     assert model.seen == prompt

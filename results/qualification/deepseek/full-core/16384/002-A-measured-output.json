@@ -1,0 +1,84 @@
+{
+  "content": "# SQLite Campaign Draft Store\n\nBelow is a complete, runnable implementation using only the Python standard library (`sqlite3`, `unittest`, `dataclasses`, `typing`, `uuid`, `json`).\n\n## `campaign_store.py`\n\n```python\n\"\"\"Campaign draft store backed by SQLite (stdlib only).\"\"\"\nfrom __future__ import annotations\n\nimport json\nimport sqlite3\nimport uuid\nfrom dataclasses import dataclass, field\nfrom typing import Any, Dict, List, Optional, Tuple\n\n\nclass StoreError(Exception):\n    \"\"\"Base error for the store.\"\"\"\n\n\nclass ValidationError(StoreError):\n    \"\"\"Raised when input fails validation.\"\"\"\n\n\nclass NotFoundError(StoreError):\n    \"\"\"Raised when a record does not exist.\"\"\"\n\n\nclass ConflictError(StoreError):\n    \"\"\"Raised on optimistic version mismatch or duplicate idempotency key.\"\"\"\n\n\n@dataclass\nclass Draft:\n    draft_id: str\n    workspace: str\n    owner_team: int\n    budget: int\n    status: str\n    version: int\n    payload: Dict[str, Any] = field(default_factory=dict)\n\n\n_SCHEMA = \"\"\"\nCREATE TABLE IF NOT EXISTS drafts (\n    draft_id      TEXT PRIMARY KEY,\n    workspace     TEXT NOT NULL,\n    owner_team    INTEGER NOT NULL,\n    budget        INTEGER NOT NULL,\n    status        TEXT NOT NULL,\n    version       INTEGER NOT NULL,\n    payload       TEXT NOT NULL\n);\nCREATE TABLE IF NOT EXISTS idempotency (\n    key           TEXT PRIMARY KEY,\n    draft_id      TEXT NOT NULL,\n    request_hash  TEXT NOT NULL,\n    created_at    TEXT NOT NULL DEFAULT (datetime('now'))\n);\nCREATE INDEX IF NOT EXISTS idx_drafts_workspace ON drafts(workspace);\n\"\"\"\n\n\ndef _validate_workspace(ws: str) -> None:\n    if not isinstance(ws, str) or not ws.strip():\n        raise ValidationError(\"workspace must be a non-empty string\")\n    if len(ws) > 64:\n        raise ValidationError(\"workspace too long (max 64)\")\n\n\ndef _validate_team(team: int) -> None:\n    if not isinstance(team, int) or isinstance(team, bool):\n        raise ValidationError(\"owner_team must be an int\")\n    if team < 0 or team > 999:\n        raise ValidationError(\"owner_team out of range [0,999]\"",
+  "reasoning": "",
+  "usage": {
+    "prompt_tokens": 16384,
+    "completion_tokens": 512,
+    "total_tokens": 16896,
+    "input_tokens": 16384,
+    "output_tokens": 512,
+    "prompt_tokens_details": {
+      "cached_tokens": 0
+    },
+    "time_to_first_token": 8.08,
+    "time_to_first_visible_token": 8.08,
+    "total_time": 13.58,
+    "prompt_eval_duration": 8.08,
+    "generation_duration": 5.5,
+    "prompt_tokens_per_second": 2027.39,
+    "generation_tokens_per_second": 93.05
+  },
+  "finish_reason": "length",
+  "done": true,
+  "elapsed_seconds": 13.663636290992144,
+  "ttft_seconds": 8.162993457983248,
+  "server_decode_tps": 93.05,
+  "server_prefill_tps": 2027.39,
+  "reported_cached_tokens": 0,
+  "log_start_offset": 38328,
+  "artifacts": {
+    "raw_sse": "002-A-measured-sse.txt",
+    "events": "002-A-measured-events.json",
+    "output": "002-A-measured-output.json"
+  },
+  "whole_output_sha256": "f42e275d5cf77248f0c2be62fceaa04c89809ef1f4429feda729f07439231259",
+  "scenario": 0,
+  "arm": "A",
+  "warmup": false,
+  "round": 0,
+  "position": 0,
+  "serial": 2,
+  "case": "campaign-store-implementation",
+  "module_stats": {
+    "metadata_prefill_dense_calls": 40,
+    "metadata_dense_expert_calls": 40,
+    "dspark_single_calls": 132
+  },
+  "speculative": {
+    "finish": "length",
+    "tokens": 512,
+    "cycles": 135,
+    "tokens_per_cycle": 3.79,
+    "accepted": 375,
+    "drafted": 412,
+    "acceptance_rate": 0.9101941747572816,
+    "timing_ms": {
+      "backbone": 5197.9,
+      "mtp_head": 231.7,
+      "sampling": 3.6,
+      "cache": 18.8
+    },
+    "prompt_copy": {
+      "cycles": 4,
+      "accepted": 8,
+      "drafted": 16
+    }
+  },
+  "speculative_counter_identity": {
+    "finish": "length",
+    "tokens": 512,
+    "cycles": 135,
+    "tokens_per_cycle": 3.79,
+    "accepted": 375,
+    "drafted": 412,
+    "acceptance_rate": 0.9101941747572816,
+    "prompt_copy": {
+      "cycles": 4,
+      "accepted": 8,
+      "drafted": 16
+    }
+  },
+  "server_prompt_eval_seconds": 8.08,
+  "server_model_ttft_seconds": 8.08,
+  "server_model_load_seconds": null
+}

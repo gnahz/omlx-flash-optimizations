@@ -1,0 +1,24 @@
+{
+  "python": "3.13",
+  "deployment_target": "27.0",
+  "mode": "safe-math Metal JIT",
+  "helper_wheel": {
+    "package": "mlx-metal",
+    "version": "0.32.2",
+    "filename": "mlx_metal-0.32.2-py3-none-macosx_26_0_arm64.whl",
+    "sha256": "e6abeac9ac5265830c9c1541b6f96e9be37a85c2446763a46ad466c63a3837ab",
+    "url": "https://files.pythonhosted.org/packages/dd/cd/4e50bf325100e7165e13d025f264362bf0009196269f9eaf87f2c6e738a2/mlx_metal-0.32.2-py3-none-macosx_26_0_arm64.whl",
+    "metallib_sha256": "dc59d1cceb1a5c7e578232e6e41e28e2c73c9463ac6dbc3886c3ee17ffc270ed"
+  },
+  "build_packages": {
+    "cmake": "4.1.0",
+    "setuptools": "84.0.0",
+    "wheel": "0.48.0",
+    "nanobind": "3.0.1"
+  },
+  "mlx_fetch_dependencies": {
+    "nanobind": "v3.0.1",
+    "fmt": "12.1.0",
+    "json": "v3.11.3"
+  }
+}

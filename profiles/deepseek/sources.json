@@ -1,0 +1,39 @@
+{
+  "version": 1,
+  "omlx": {
+    "url": "https://github.com/jundot/omlx.git",
+    "revision": "d4298ad1811bdd1b565660263380b52fc4ff71f0",
+    "patches": [
+      "patches/deepseek/omlx/0001-tacos8me-qualified-baseline.patch",
+      "patches/deepseek/omlx/0002-exact-metadata-and-direct-prefill.patch",
+      "patches/deepseek/omlx/0003-exact-prefix-cache-persistence.patch",
+      "patches/deepseek/omlx/0004-portable-release-identities.patch"
+    ]
+  },
+  "mlx": {
+    "url": "https://github.com/ml-explore/mlx.git",
+    "revision": "59d600b5e64c238427d0f8d897ab7c682ef4d3d2",
+    "patches": [
+      "patches/deepseek/mlx/0001-tacos8me-mlx-and-portable-jit.patch"
+    ]
+  },
+  "tacos8me": {
+    "url": "https://github.com/tacos8me/m5-ultra",
+    "revision": "4e4d5a81f8135249815a3f284c0ed5bbd1faee58"
+  },
+  "qualified_user_commits": [
+    "1c06c468d1cad8ffd290b0c9cfa7d5554d978ca0",
+    "c4f6345de1b420f91adda9edbb2008282b0d8fff",
+    "78a5a474c85d67e62b6d3d4575ed3a68f751de2e"
+  ],
+  "nanobind": "3.0.1",
+  "python": "3.13",
+  "deployment_target": "27.0",
+  "patch_sha256": {
+    "patches/deepseek/omlx/0001-tacos8me-qualified-baseline.patch": "fdc353777d03da0637437f53960046f190f80a1607428cb4804d26e526a2c84e",
+    "patches/deepseek/omlx/0002-exact-metadata-and-direct-prefill.patch": "a3bf5923598725a818f0660e4c7a64eaccb4db2271714d7d051edf5d54ed569e",
+    "patches/deepseek/omlx/0003-exact-prefix-cache-persistence.patch": "bb8f09c401d352382e712c92394571dacc4d6911dc8182f68e99cf97e6477135",
+    "patches/deepseek/omlx/0004-portable-release-identities.patch": "12afd95f236e3f38bcec483527f593b247ffef15aed18ae71ff16fa87ff03d84",
+    "patches/deepseek/mlx/0001-tacos8me-mlx-and-portable-jit.patch": "d5e947abe8eecaebd2f0301c2ff75cb2ffe306e25e2ed8bb9b286623d601e4a6"
+  }
+}

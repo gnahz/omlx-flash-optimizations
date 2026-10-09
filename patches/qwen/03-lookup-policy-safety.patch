@@ -1,0 +1,25 @@
+--- a/omlx/patches/mlx_lm_mtp/batch_generator.py
++++ b/omlx/patches/mlx_lm_mtp/batch_generator.py
+@@ -3336,6 +3336,12 @@
+     if policy is not None and policy.uids != tuple(gen_batch.uids):
+         policy = None
+     saved = [(state.controller, state.depth) for state in states]
++    # Snapshot the current draft source before advance installs the next drafts.
++    # Lookup drafts have no MTP draft_lps; stale pending on an ordinary
++    # batched-head chain must not suppress that chain's policy sample.
++    lookup_pending = [
++        _p2_lookup.was_pending(state) and not state.draft_lps for state in states
++    ]
+     depths = [int(state.drafts.shape[0]) if state.chain else 1 for state in states]
+     previous = [(state.stats.cycles, state.stats.accepts) for state in states]
+     requested = policy.cur if policy is not None else None
+@@ -3364,7 +3370,8 @@
+         policy is not None
+         and tuple(gen_batch.uids) == policy.uids
+         and len(set(depths)) == 1
+-        and depths[0] > 0
++        and 1 <= depths[0] <= policy.max_depth
++        and not any(lookup_pending)
+         and all(
+             state.stats.cycles == cycles + 1
+             for state, (cycles, _) in zip(states, previous)

@@ -1,0 +1,38 @@
+{
+  "adaptation": "Only path bindings changed in scratch. Arithmetic, shapes, input generation, comparisons and case/control selection remain identical to the original validators.",
+  "path_roots": {
+    "source/": "freshly prepared pinned source checkout",
+    "model/": "portable staged Hugging Face release layout",
+    "validators/": "scratch adaptations of original bounded validators"
+  },
+  "validators": {
+    "validate_omlx_native_gate_up.py": {
+      "original_sha256": "8db99947db928ef785f8cf3a31c3c431fc563a63b96d1c89c06fc91714a89eb3",
+      "adapted_sha256": "c17dfa832eb241ccbd276bc2a92f2ac12488cf57e1e82a5cd9a578892753b0b7",
+      "changes": "Only runtime/model/source/lock path bindings; validation arithmetic and fixtures unchanged"
+    },
+    "validate_omlx_native_metadata_gpu.py": {
+      "original_sha256": "c39e5620bd866d3176b84b80ae243e122f9b9ca17f497e06e6a38e9682be1411",
+      "adapted_sha256": "1d589c63d733689112aaf0c4e7b275012acff2edd9f6a9895af25c84594b5221",
+      "changes": "Only runtime/model/source/lock path bindings; validation arithmetic and fixtures unchanged"
+    },
+    "validate_omlx_metadata_prefill_gpu.py": {
+      "original_sha256": "459a6963cfb2d4314a717d8ceb9a158fbf8f2c17a8b39bc9c170df2a18ff221b",
+      "adapted_sha256": "ff311d9a7ae62954203e4983898fea58708549ad23fac07db70c36894c21a0f8",
+      "changes": "Only runtime/model/source/lock path bindings; validation arithmetic and fixtures unchanged"
+    }
+  },
+  "raw_report_sha256": "b8c322b3f46ceed86c4bc99dd9548e970f689faf9e4df5ca7bd5d6fa527abcbc",
+  "source_revisions": {
+    "mlx": "59d600b5e64c238427d0f8d897ab7c682ef4d3d2",
+    "omlx": "d4298ad1811bdd1b565660263380b52fc4ff71f0"
+  },
+  "patch_sha256": {
+    "patches/deepseek/omlx/0001-tacos8me-qualified-baseline.patch": "fdc353777d03da0637437f53960046f190f80a1607428cb4804d26e526a2c84e",
+    "patches/deepseek/omlx/0002-exact-metadata-and-direct-prefill.patch": "a3bf5923598725a818f0660e4c7a64eaccb4db2271714d7d051edf5d54ed569e",
+    "patches/deepseek/omlx/0003-exact-prefix-cache-persistence.patch": "bb8f09c401d352382e712c92394571dacc4d6911dc8182f68e99cf97e6477135",
+    "patches/deepseek/omlx/0004-portable-release-identities.patch": "12afd95f236e3f38bcec483527f593b247ffef15aed18ae71ff16fa87ff03d84",
+    "patches/deepseek/mlx/0001-tacos8me-mlx-and-portable-jit.patch": "d5e947abe8eecaebd2f0301c2ff75cb2ffe306e25e2ed8bb9b286623d601e4a6"
+  },
+  "compiled_inputs_unchanged": true
+}

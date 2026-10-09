@@ -1,0 +1,1152 @@
+[
+  {
+    "elapsed_seconds": 0.06528220797190443,
+    "event": {
+      "id": "chatcmpl-da025ba3",
+      "object": "chat.completion.chunk",
+      "created": 0,
+      "model": "keepalive",
+      "choices": [
+        {
+          "index": 0,
+          "delta": {
+            "role": "assistant",
+            "content": ""
+          },
+          "finish_reason": null
+        }
+      ]
+    }
+  },
+  {
+    "elapsed_seconds": 0.07246574998134747,
+    "event": {
+      "id": "chatcmpl-da025ba3",
+      "object": "chat.completion.chunk",
+      "created": 1791564831,
+      "model": "deepseek-v41-lsq",
+      "choices": [
+        {
+          "index": 0,
+          "delta": {
+            "role": "assistant"
+          }
+        }
+      ]
+    }
+  },
+  {
+    "elapsed_seconds": 4.108758291986305,
+    "event": {
+      "id": "chatcmpl-da025ba3",
+      "object": "chat.completion.chunk",
+      "created": 1791564835,
+      "model": "deepseek-v41-lsq",
+      "choices": [
+        {
+          "index": 0,
+          "delta": {
+            "content": "#"
+          }
+        }
+      ]
+    }
+  },
+  {
+    "elapsed_seconds": 4.237065332999919,
+    "event": {
+      "id": "chatcmpl-da025ba3",
+      "object": "chat.completion.chunk",
+      "created": 1791564835,
+      "model": "deepseek-v41-lsq",
+      "choices": [
+        {
+          "index": 0,
+          "delta": {
+            "content": " LumaDesk Pro —"
+          }
+        }
+      ]
+    }
+  },
+  {
+    "elapsed_seconds": 4.3465986250084825,
+    "event": {
+      "id": "chatcmpl-da025ba3",
+      "object": "chat.completion.chunk",
+      "created": 1791564835,
+      "model": "deepseek-v41-lsq",
+      "choices": [
+        {
+          "index": 0,
+          "delta": {
+            "content": " 45-Second Launch Video Plan + Computer"
+          }
+        }
+      ]
+    }
+  },
+  {
+    "elapsed_seconds": 4.44772091699997,
+    "event": {
+      "id": "chatcmpl-da025ba3",
+      "object": "chat.completion.chunk",
+      "created": 1791564835,
+      "model": "deepseek-v41-lsq",
+      "choices": [
+        {
+          "index": 0,
+          "delta": {
+            "content": "-Use Workflow\n\nAll deliverables"
+          }
+        }
+      ]
+    }
+  },
+  {
+    "elapsed_seconds": 4.618132166971918,
+    "event": {
+      "id": "chatcmpl-da025ba3",
+      "object": "chat.completion.chunk",
+      "created": 1791564835,
+      "model": "deepseek-v41-lsq",
+      "choices": [
+        {
+          "index": 0,
+          "delta": {
+            "content": " below are **plans and specifications"
+          }
+        }
+      ]
+    }
+  },
+  {
+    "elapsed_seconds": 4.718696416995954,
+    "event": {
+      "id": "chatcmpl-da025ba3",
+      "object": "chat.completion.chunk",
+      "created": 1791564835,
+      "model": "deepseek-v41-lsq",
+      "choices": [
+        {
+          "index": 0,
+          "delta": {
+            "content": " only**. No tools were"
+          }
+        }
+      ]
+    }
+  },
+  {
+    "elapsed_seconds": 4.880756291968282,
+    "event": {
+      "id": "chatcmpl-da025ba3",
+      "object": "chat.completion.chunk",
+      "created": 1791564835,
+      "model": "deepseek-v41-lsq",
+      "choices": [
+        {
+          "index": 0,
+          "delta": {
+            "content": " run, no files were created, and no"
+          }
+        }
+      ]
+    }
+  },
+  {
+    "elapsed_seconds": 4.993742958002258,
+    "event": {
+      "id": "chatcmpl-da025ba3",
+      "object": "chat.completion.chunk",
+      "created": 1791564836,
+      "model": "deepseek-v41-lsq",
+      "choices": [
+        {
+          "index": 0,
+          "delta": {
+            "content": " browser actions were performed. Product facts"
+          }
+        }
+      ]
+    }
+  },
+  {
+    "elapsed_seconds": 5.106372667010874,
+    "event": {
+      "id": "chatcmpl-da025ba3",
+      "object": "chat.completion.chunk",
+      "created": 1791564836,
+      "model": "deepseek-v41-lsq",
+      "choices": [
+        {
+          "index": 0,
+          "delta": {
+            "content": " are treated as fixed: local document organizer"
+          }
+        }
+      ]
+    }
+  },
+  {
+    "elapsed_seconds": 5.222773000015877,
+    "event": {
+      "id": "chatcmpl-da025ba3",
+      "object": "chat.completion.chunk",
+      "created": 1791564836,
+      "model": "deepseek-v41-lsq",
+      "choices": [
+        {
+          "index": 0,
+          "delta": {
+            "content": ", CNY 299, launch 2026-10-"
+          }
+        }
+      ]
+    }
+  },
+  {
+    "elapsed_seconds": 5.351978332968429,
+    "event": {
+      "id": "chatcmpl-da025ba3",
+      "object": "chat.completion.chunk",
+      "created": 1791564836,
+      "model": "deepseek-v41-lsq",
+      "choices": [
+        {
+          "index": 0,
+          "delta": {
+            "content": "18, **no video export**, **no offline sync**.\n\n---\n\n"
+          }
+        }
+      ]
+    }
+  },
+  {
+    "elapsed_seconds": 5.481755000015255,
+    "event": {
+      "id": "chatcmpl-da025ba3",
+      "object": "chat.completion.chunk",
+      "created": 1791564836,
+      "model": "deepseek-v41-lsq",
+      "choices": [
+        {
+          "index": 0,
+          "delta": {
+            "content": "## 1. Timed Shot List (exactly 45"
+          }
+        }
+      ]
+    }
+  },
+  {
+    "elapsed_seconds": 5.5956452079699375,
+    "event": {
+      "id": "chatcmpl-da025ba3",
+      "object": "chat.completion.chunk",
+      "created": 1791564836,
+      "model": "deepseek-v41-lsq",
+      "choices": [
+        {
+          "index": 0,
+          "delta": {
+            "content": ".0 s)\n\n| # |"
+          }
+        }
+      ]
+    }
+  },
+  {
+    "elapsed_seconds": 5.703241207986139,
+    "event": {
+      "id": "chatcmpl-da025ba3",
+      "object": "chat.completion.chunk",
+      "created": 1791564836,
+      "model": "deepseek-v41-lsq",
+      "choices": [
+        {
+          "index": 0,
+          "delta": {
+            "content": " Time | Duration | Shot | Visual direction"
+          }
+        }
+      ]
+    }
+  },
+  {
+    "elapsed_seconds": 5.85675999999512,
+    "event": {
+      "id": "chatcmpl-da025ba3",
+      "object": "chat.completion.chunk",
+      "created": 1791564836,
+      "model": "deepseek-v41-lsq",
+      "choices": [
+        {
+          "index": 0,
+          "delta": {
+            "content": " | Narration | Caption |\n|---|------|----------"
+          }
+        }
+      ]
+    }
+  },
+  {
+    "elapsed_seconds": 5.9777585419942625,
+    "event": {
+      "id": "chatcmpl-da025ba3",
+      "object": "chat.completion.chunk",
+      "created": 1791564837,
+      "model": "deepseek-v41-lsq",
+      "choices": [
+        {
+          "index": 0,
+          "delta": {
+            "content": "|------|------------------|-----------|---------|\n"
+          }
+        }
+      ]
+    }
+  },
+  {
+    "elapsed_seconds": 6.1075351249892265,
+    "event": {
+      "id": "chatcmpl-da025ba3",
+      "object": "chat.completion.chunk",
+      "created": 1791564837,
+      "model": "deepseek-v41-lsq",
+      "choices": [
+        {
+          "index": 0,
+          "delta": {
+            "content": "| 1 | 0.0–4."
+          }
+        }
+      ]
+    }
+  },
+  {
+    "elapsed_seconds": 6.225446416996419,
+    "event": {
+      "id": "chatcmpl-da025ba3",
+      "object": "chat.completion.chunk",
+      "created": 1791564837,
+      "model": "deepseek-v41-lsq",
+      "choices": [
+        {
+          "index": 0,
+          "delta": {
+            "content": "0 | 4.0 s | Cold open:"
+          }
+        }
+      ]
+    }
+  },
+  {
+    "elapsed_seconds": 6.3924408329767175,
+    "event": {
+      "id": "chatcmpl-da025ba3",
+      "object": "chat.completion.chunk",
+      "created": 1791564837,
+      "model": "deepseek-v41-lsq",
+      "choices": [
+        {
+          "index": 0,
+          "delta": {
+            "content": " chaotic desktop | Screen recording of"
+          }
+        }
+      ]
+    }
+  },
+  {
+    "elapsed_seconds": 6.5251083329785615,
+    "event": {
+      "id": "chatcmpl-da025ba3",
+      "object": "chat.completion.chunk",
+      "created": 1791564837,
+      "model": "deepseek-v41-lsq",
+      "choices": [
+        {
+          "index": 0,
+          "delta": {
+            "content": " a cluttered desktop;"
+          }
+        }
+      ]
+    }
+  },
+  {
+    "elapsed_seconds": 6.6259505419875495,
+    "event": {
+      "id": "chatcmpl-da025ba3",
+      "object": "chat.completion.chunk",
+      "created": 1791564837,
+      "model": "deepseek-v41-lsq",
+      "choices": [
+        {
+          "index": 0,
+          "delta": {
+            "content": " 40+ loose files, overlapping"
+          }
+        }
+      ]
+    }
+  },
+  {
+    "elapsed_seconds": 6.789021666976623,
+    "event": {
+      "id": "chatcmpl-da025ba3",
+      "object": "chat.completion.chunk",
+      "created": 1791564837,
+      "model": "deepseek-v41-lsq",
+      "choices": [
+        {
+          "index": 0,
+          "delta": {
+            "content": " windows. Slow 5%"
+          }
+        }
+      ]
+    }
+  },
+  {
+    "elapsed_seconds": 6.890032916970085,
+    "event": {
+      "id": "chatcmpl-da025ba3",
+      "object": "chat.completion.chunk",
+      "created": 1791564837,
+      "model": "deepseek-v41-lsq",
+      "choices": [
+        {
+          "index": 0,
+          "delta": {
+            "content": " push-in. Cool des"
+          }
+        }
+      ]
+    }
+  },
+  {
+    "elapsed_seconds": 7.021996124996804,
+    "event": {
+      "id": "chatcmpl-da025ba3",
+      "object": "chat.completion.chunk",
+      "created": 1791564838,
+      "model": "deepseek-v41-lsq",
+      "choices": [
+        {
+          "index": 0,
+          "delta": {
+            "content": "aturated grade. | \"Your desktop"
+          }
+        }
+      ]
+    }
+  },
+  {
+    "elapsed_seconds": 7.185493791999761,
+    "event": {
+      "id": "chatcmpl-da025ba3",
+      "object": "chat.completion.chunk",
+      "created": 1791564838,
+      "model": "deepseek-v41-lsq",
+      "choices": [
+        {
+          "index": 0,
+          "delta": {
+            "content": " isn't a filing system. It's"
+          }
+        }
+      ]
+    }
+  },
+  {
+    "elapsed_seconds": 7.30368075001752,
+    "event": {
+      "id": "chatcmpl-da025ba3",
+      "object": "chat.completion.chunk",
+      "created": 1791564838,
+      "model": "deepseek-v41-lsq",
+      "choices": [
+        {
+          "index": 0,
+          "delta": {
+            "content": " a pile.\" | Your desktop is a pile"
+          }
+        }
+      ]
+    }
+  },
+  {
+    "elapsed_seconds": 7.429362582974136,
+    "event": {
+      "id": "chatcmpl-da025ba3",
+      "object": "chat.completion.chunk",
+      "created": 1791564838,
+      "model": "deepseek-v41-lsq",
+      "choices": [
+        {
+          "index": 0,
+          "delta": {
+            "content": ". |\n| 2 | 4.0–9.0"
+          }
+        }
+      ]
+    }
+  },
+  {
+    "elapsed_seconds": 7.559588167001493,
+    "event": {
+      "id": "chatcmpl-da025ba3",
+      "object": "chat.completion.chunk",
+      "created": 1791564838,
+      "model": "deepseek-v41-lsq",
+      "choices": [
+        {
+          "index": 0,
+          "delta": {
+            "content": " | 5.0 s | Problem montage"
+          }
+        }
+      ]
+    }
+  },
+  {
+    "elapsed_seconds": 7.663836000021547,
+    "event": {
+      "id": "chatcmpl-da025ba3",
+      "object": "chat.completion.chunk",
+      "created": 1791564838,
+      "model": "deepseek-v41-lsq",
+      "choices": [
+        {
+          "index": 0,
+          "delta": {
+            "content": " | Three quick cuts: misfiled"
+          }
+        }
+      ]
+    }
+  },
+  {
+    "elapsed_seconds": 7.773172124987468,
+    "event": {
+      "id": "chatcmpl-da025ba3",
+      "object": "chat.completion.chunk",
+      "created": 1791564838,
+      "model": "deepseek-v41-lsq",
+      "choices": [
+        {
+          "index": 0,
+          "delta": {
+            "content": " invoice, duplicate scan, lost contract"
+          }
+        }
+      ]
+    }
+  },
+  {
+    "elapsed_seconds": 7.912187916983385,
+    "event": {
+      "id": "chatcmpl-da025ba3",
+      "object": "chat.completion.chunk",
+      "created": 1791564838,
+      "model": "deepseek-v41-lsq",
+      "choices": [
+        {
+          "index": 0,
+          "delta": {
+            "content": ". Each 1.6 s, hard"
+          }
+        }
+      ]
+    }
+  },
+  {
+    "elapsed_seconds": 8.01994204201037,
+    "event": {
+      "id": "chatcmpl-da025ba3",
+      "object": "chat.completion.chunk",
+      "created": 1791564839,
+      "model": "deepseek-v41-lsq",
+      "choices": [
+        {
+          "index": 0,
+          "delta": {
+            "content": " cuts on beat."
+          }
+        }
+      ]
+    }
+  },
+  {
+    "elapsed_seconds": 8.147801458020695,
+    "event": {
+      "id": "chatcmpl-da025ba3",
+      "object": "chat.completion.chunk",
+      "created": 1791564839,
+      "model": "deepseek-v41-lsq",
+      "choices": [
+        {
+          "index": 0,
+          "delta": {
+            "content": " Red highlight boxes. |"
+          }
+        }
+      ]
+    }
+  },
+  {
+    "elapsed_seconds": 8.281027207965963,
+    "event": {
+      "id": "chatcmpl-da025ba3",
+      "object": "chat.completion.chunk",
+      "created": 1791564839,
+      "model": "deepseek-v41-lsq",
+      "choices": [
+        {
+          "index": 0,
+          "delta": {
+            "content": " \"Invoices in Downloads."
+          }
+        }
+      ]
+    }
+  },
+  {
+    "elapsed_seconds": 8.381960875005461,
+    "event": {
+      "id": "chatcmpl-da025ba3",
+      "object": "chat.completion.chunk",
+      "created": 1791564839,
+      "model": "deepseek-v41-lsq",
+      "choices": [
+        {
+          "index": 0,
+          "delta": {
+            "content": " Contracts in Screenshots. Nothing"
+          }
+        }
+      ]
+    }
+  },
+  {
+    "elapsed_seconds": 8.491341374989133,
+    "event": {
+      "id": "chatcmpl-da025ba3",
+      "object": "chat.completion.chunk",
+      "created": 1791564839,
+      "model": "deepseek-v41-lsq",
+      "choices": [
+        {
+          "index": 0,
+          "delta": {
+            "content": " where you left it.\" | In"
+          }
+        }
+      ]
+    }
+  },
+  {
+    "elapsed_seconds": 8.63702841696795,
+    "event": {
+      "id": "chatcmpl-da025ba3",
+      "object": "chat.completion.chunk",
+      "created": 1791564839,
+      "model": "deepseek-v41-lsq",
+      "choices": [
+        {
+          "index": 0,
+          "delta": {
+            "content": "voices in Downloads. Contracts in Screens"
+          }
+        }
+      ]
+    }
+  },
+  {
+    "elapsed_seconds": 8.762365666974802,
+    "event": {
+      "id": "chatcmpl-da025ba3",
+      "object": "chat.completion.chunk",
+      "created": 1791564839,
+      "model": "deepseek-v41-lsq",
+      "choices": [
+        {
+          "index": 0,
+          "delta": {
+            "content": "hots. |\n| 3 | 9.0–14"
+          }
+        }
+      ]
+    }
+  },
+  {
+    "elapsed_seconds": 8.890248708019499,
+    "event": {
+      "id": "chatcmpl-da025ba3",
+      "object": "chat.completion.chunk",
+      "created": 1791564839,
+      "model": "deepseek-v41-lsq",
+      "choices": [
+        {
+          "index": 0,
+          "delta": {
+            "content": ".0 | 5.0 s | Product reveal"
+          }
+        }
+      ]
+    }
+  },
+  {
+    "elapsed_seconds": 8.99410887499107,
+    "event": {
+      "id": "chatcmpl-da025ba3",
+      "object": "chat.completion.chunk",
+      "created": 1791564840,
+      "model": "deepseek-v41-lsq",
+      "choices": [
+        {
+          "index": 0,
+          "delta": {
+            "content": " | LumaDesk Pro logo animates"
+          }
+        }
+      ]
+    }
+  },
+  {
+    "elapsed_seconds": 9.107465457986109,
+    "event": {
+      "id": "chatcmpl-da025ba3",
+      "object": "chat.completion.chunk",
+      "created": 1791564840,
+      "model": "deepseek-v41-lsq",
+      "choices": [
+        {
+          "index": 0,
+          "delta": {
+            "content": " in over clean UI."
+          }
+        }
+      ]
+    }
+  },
+  {
+    "elapsed_seconds": 9.241831332969014,
+    "event": {
+      "id": "chatcmpl-da025ba3",
+      "object": "chat.completion.chunk",
+      "created": 1791564840,
+      "model": "deepseek-v41-lsq",
+      "choices": [
+        {
+          "index": 0,
+          "delta": {
+            "content": " Warm key light, soft shadow. Logo"
+          }
+        }
+      ]
+    }
+  },
+  {
+    "elapsed_seconds": 9.409188582969364,
+    "event": {
+      "id": "chatcmpl-da025ba3",
+      "object": "chat.completion.chunk",
+      "created": 1791564840,
+      "model": "deepseek-v41-lsq",
+      "choices": [
+        {
+          "index": 0,
+          "delta": {
+            "content": " holds 1.5 s. | \""
+          }
+        }
+      ]
+    }
+  },
+  {
+    "elapsed_seconds": 9.526359457988292,
+    "event": {
+      "id": "chatcmpl-da025ba3",
+      "object": "chat.completion.chunk",
+      "created": 1791564840,
+      "model": "deepseek-v41-lsq",
+      "choices": [
+        {
+          "index": 0,
+          "delta": {
+            "content": "Meet LumaDesk Pro — the local"
+          }
+        }
+      ]
+    }
+  },
+  {
+    "elapsed_seconds": 9.643771999981254,
+    "event": {
+      "id": "chatcmpl-da025ba3",
+      "object": "chat.completion.chunk",
+      "created": 1791564840,
+      "model": "deepseek-v41-lsq",
+      "choices": [
+        {
+          "index": 0,
+          "delta": {
+            "content": " document organizer.\" | LumaDesk Pro — local"
+          }
+        }
+      ]
+    }
+  },
+  {
+    "elapsed_seconds": 9.795685958000831,
+    "event": {
+      "id": "chatcmpl-da025ba3",
+      "object": "chat.completion.chunk",
+      "created": 1791564840,
+      "model": "deepseek-v41-lsq",
+      "choices": [
+        {
+          "index": 0,
+          "delta": {
+            "content": " document organizer |\n| 4 | 14.0–21"
+          }
+        }
+      ]
+    }
+  },
+  {
+    "elapsed_seconds": 9.921293874969706,
+    "event": {
+      "id": "chatcmpl-da025ba3",
+      "object": "chat.completion.chunk",
+      "created": 1791564840,
+      "model": "deepseek-v41-lsq",
+      "choices": [
+        {
+          "index": 0,
+          "delta": {
+            "content": ".0 | 7.0 s | Core action"
+          }
+        }
+      ]
+    }
+  },
+  {
+    "elapsed_seconds": 10.096916291979142,
+    "event": {
+      "id": "chatcmpl-da025ba3",
+      "object": "chat.completion.chunk",
+      "created": 1791564841,
+      "model": "deepseek-v41-lsq",
+      "choices": [
+        {
+          "index": 0,
+          "delta": {
+            "content": ": auto-sort | Screen capture: drag"
+          }
+        }
+      ]
+    }
+  },
+  {
+    "elapsed_seconds": 10.260071208002046,
+    "event": {
+      "id": "chatcmpl-da025ba3",
+      "object": "chat.completion.chunk",
+      "created": 1791564841,
+      "model": "deepseek-v41-lsq",
+      "choices": [
+        {
+          "index": 0,
+          "delta": {
+            "content": " 12 files into Luma"
+          }
+        }
+      ]
+    }
+  },
+  {
+    "elapsed_seconds": 10.360686249972787,
+    "event": {
+      "id": "chatcmpl-da025ba3",
+      "object": "chat.completion.chunk",
+      "created": 1791564841,
+      "model": "deepseek-v41-lsq",
+      "choices": [
+        {
+          "index": 0,
+          "delta": {
+            "content": "Desk; they snap"
+          }
+        }
+      ]
+    }
+  },
+  {
+    "elapsed_seconds": 10.493586166994646,
+    "event": {
+      "id": "chatcmpl-da025ba3",
+      "object": "chat.completion.chunk",
+      "created": 1791564841,
+      "model": "deepseek-v41-lsq",
+      "choices": [
+        {
+          "index": 0,
+          "delta": {
+            "content": " into labeled folders (Finance,"
+          }
+        }
+      ]
+    }
+  },
+  {
+    "elapsed_seconds": 10.594708999968134,
+    "event": {
+      "id": "chatcmpl-da025ba3",
+      "object": "chat.completion.chunk",
+      "created": 1791564841,
+      "model": "deepseek-v41-lsq",
+      "choices": [
+        {
+          "index": 0,
+          "delta": {
+            "content": " Contracts, Receipts). 1"
+          }
+        }
+      ]
+    }
+  },
+  {
+    "elapsed_seconds": 10.738167041970883,
+    "event": {
+      "id": "chatcmpl-da025ba3",
+      "object": "chat.completion.chunk",
+      "created": 1791564841,
+      "model": "deepseek-v41-lsq",
+      "choices": [
+        {
+          "index": 0,
+          "delta": {
+            "content": ".2× speed. Cursor"
+          }
+        }
+      ]
+    }
+  },
+  {
+    "elapsed_seconds": 10.83956179197412,
+    "event": {
+      "id": "chatcmpl-da025ba3",
+      "object": "chat.completion.chunk",
+      "created": 1791564841,
+      "model": "deepseek-v41-lsq",
+      "choices": [
+        {
+          "index": 0,
+          "delta": {
+            "content": " visible. | \"Drop files"
+          }
+        }
+      ]
+    }
+  },
+  {
+    "elapsed_seconds": 10.987927458016202,
+    "event": {
+      "id": "chatcmpl-da025ba3",
+      "object": "chat.completion.chunk",
+      "created": 1791564842,
+      "model": "deepseek-v41-lsq",
+      "choices": [
+        {
+          "index": 0,
+          "delta": {
+            "content": " in. LumaDesk sorts them locally —"
+          }
+        }
+      ]
+    }
+  },
+  {
+    "elapsed_seconds": 11.100582666986156,
+    "event": {
+      "id": "chatcmpl-da025ba3",
+      "object": "chat.completion.chunk",
+      "created": 1791564842,
+      "model": "deepseek-v41-lsq",
+      "choices": [
+        {
+          "index": 0,
+          "delta": {
+            "content": " by type, date, and project.\" |"
+          }
+        }
+      ]
+    }
+  },
+  {
+    "elapsed_seconds": 11.209746374981478,
+    "event": {
+      "id": "chatcmpl-da025ba3",
+      "object": "chat.completion.chunk",
+      "created": 1791564842,
+      "model": "deepseek-v41-lsq",
+      "choices": [
+        {
+          "index": 0,
+          "delta": {
+            "content": " Drop in. Sorted locally"
+          }
+        }
+      ]
+    }
+  },
+  {
+    "elapsed_seconds": 11.327752874989528,
+    "event": {
+      "id": "chatcmpl-da025ba3",
+      "object": "chat.completion.chunk",
+      "created": 1791564842,
+      "model": "deepseek-v41-lsq",
+      "choices": [
+        {
+          "index": 0,
+          "delta": {
+            "content": ". |\n| 5 | 21."
+          }
+        }
+      ]
+    }
+  },
+  {
+    "elapsed_seconds": 11.453483624965884,
+    "event": {
+      "id": "chatcmpl-da025ba3",
+      "object": "chat.completion.chunk",
+      "created": 1791564842,
+      "model": "deepseek-v41-lsq",
+      "choices": [
+        {
+          "index": 0,
+          "delta": {
+            "content": "0–27.0 | 6.0 s | Search"
+          }
+        }
+      ]
+    }
+  },
+  {
+    "elapsed_seconds": 11.563130499969702,
+    "event": {
+      "id": "chatcmpl-da025ba3",
+      "object": "chat.completion.chunk",
+      "created": 1791564842,
+      "model": "deepseek-v41-lsq",
+      "choices": [
+        {
+          "index": 0,
+          "delta": {
+            "content": " + preview | Type \""
+          }
+        }
+      ]
+    }
+  },
+  {
+    "elapsed_seconds": 11.668802917003632,
+    "event": {
+      "id": "chatcmpl-da025ba3",
+      "object": "chat.completion.chunk",
+      "created": 1791564842,
+      "model": "deepseek-v41-lsq",
+      "choices": [
+        {
+          "index": 0,
+          "delta": {
+            "content": "Q3 lease\" in search bar"
+          }
+        }
+      ]
+    }
+  },
+  {
+    "elapsed_seconds": 11.789086833014153,
+    "event": {
+      "id": "chatcmpl-da025ba3",
+      "object": "chat.completion.chunk",
+      "created": 1791564842,
+      "model": "deepseek-v41-lsq",
+      "choices": [
+        {
+          "index": 0,
+          "delta": {
+            "content": "; result appears in 0.4 s; preview"
+          }
+        }
+      ]
+    }
+  },
+  {
+    "elapsed_seconds": 11.835169208003208,
+    "event": {
+      "id": "chatcmpl-da025ba3",
+      "object": "chat.completion.chunk",
+      "created": 1791564842,
+      "model": "deepseek-v41-lsq",
+      "choices": [
+        {
+          "index": 0,
+          "delta": {
+            "content": " pane opens."
+          }
+        }
+      ]
+    }
+  },
+  {
+    "elapsed_seconds": 11.835262458014768,
+    "event": {
+      "id": "chatcmpl-da025ba3",
+      "object": "chat.completion.chunk",
+      "created": 1791564842,
+      "model": "deepseek-v41-lsq",
+      "choices": [
+        {
+          "index": 0,
+          "delta": {},
+          "finish_reason": "length"
+        }
+      ]
+    }
+  },
+  {
+    "elapsed_seconds": 11.835467999975663,
+    "event": {
+      "id": "chatcmpl-da025ba3",
+      "object": "chat.completion.chunk",
+      "created": 1791564842,
+      "model": "deepseek-v41-lsq",
+      "choices": [],
+      "usage": {
+        "prompt_tokens": 8192,
+        "completion_tokens": 512,
+        "total_tokens": 8704,
+        "input_tokens": 8192,
+        "output_tokens": 512,
+        "prompt_tokens_details": {
+          "cached_tokens": 0
+        },
+        "time_to_first_token": 4.04,
+        "time_to_first_visible_token": 4.04,
+        "total_time": 11.77,
+        "prompt_eval_duration": 4.04,
+        "generation_duration": 7.73,
+        "prompt_tokens_per_second": 2026.37,
+        "generation_tokens_per_second": 66.26
+      }
+    }
+  }
+]

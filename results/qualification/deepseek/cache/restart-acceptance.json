@@ -1,0 +1,19 @@
+{
+  "status": "passed",
+  "first_probe_status": "passed",
+  "after_restart_probe_status": "passed",
+  "orderly_shutdown_saved": true,
+  "different_process": true,
+  "same_saved_generation": true,
+  "restored_checkpoints": 1,
+  "restore_failures": 0,
+  "startup_only_disk_reads": 2,
+  "restored_first_request_cached_tokens": 8192,
+  "observed_max_running_before_restart": 8,
+  "observed_max_running_after_restart": 8,
+  "provenance": {
+    "original_filename": "restart-acceptance.json",
+    "original_sha256": "f0147e927b2fb0376affa19d2f020285b82d7dbdab0c1a2f6b7c913346a8a28c",
+    "local_paths_sanitized": true
+  }
+}

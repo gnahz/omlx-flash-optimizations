@@ -1,0 +1,38 @@
+diff --git a/omlx/server.py b/omlx/server.py
+index 728579a2..ed5f61b6 100644
+--- a/omlx/server.py
++++ b/omlx/server.py
+@@ -434,6 +434,13 @@ async def lifespan(app: FastAPI):
+     """FastAPI lifespan for startup/shutdown events."""
+     from .cluster.discovery import BonjourPublisher
+ 
++    # Keep startup cluster maintenance inside the explicitly selected runtime.
++    cluster_base = (
++        Path(_server_state.global_settings.base_path)
++        if _server_state.global_settings is not None
++        else Path.home() / ".omlx"
++    )
++
+     bonjour_publisher = None
+     bonjour_task = None
+     # Startup: Auto-populate server aliases for the admin dashboard
+@@ -473,7 +480,9 @@ async def lifespan(app: FastAPI):
+     try:
+         from .cluster.launch import reap_orphaned_launches
+ 
+-        orphan_report = await asyncio.to_thread(reap_orphaned_launches)
++        orphan_report = await asyncio.to_thread(
++            reap_orphaned_launches, cluster_base / "cluster" / "runtime"
++        )
+         if orphan_report["reaped"] or orphan_report["failures"]:
+             logger.warning(
+                 "Reaped orphaned distributed launches from a previous "
+@@ -490,7 +499,7 @@ async def lifespan(app: FastAPI):
+     try:
+         from .cluster.worker_shim import ensure_cluster_python_shim
+ 
+-        ensure_cluster_python_shim()
++        ensure_cluster_python_shim(home=cluster_base / "home")
+     except (ImportError, OSError, RuntimeError) as exc:
+         # RuntimeError: Path.home() cannot resolve a home directory.
+         # Anything outside this set is a real bug and should surface loudly

@@ -1,0 +1,1084 @@
+[
+  {
+    "elapsed_seconds": 0.06616804096847773,
+    "event": {
+      "id": "chatcmpl-92b0136b",
+      "object": "chat.completion.chunk",
+      "created": 0,
+      "model": "keepalive",
+      "choices": [
+        {
+          "index": 0,
+          "delta": {
+            "role": "assistant",
+            "content": ""
+          },
+          "finish_reason": null
+        }
+      ]
+    }
+  },
+  {
+    "elapsed_seconds": 0.07315499999094754,
+    "event": {
+      "id": "chatcmpl-92b0136b",
+      "object": "chat.completion.chunk",
+      "created": 1791564652,
+      "model": "deepseek-v41-lsq",
+      "choices": [
+        {
+          "index": 0,
+          "delta": {
+            "role": "assistant"
+          }
+        }
+      ]
+    }
+  },
+  {
+    "elapsed_seconds": 3.932082332961727,
+    "event": {
+      "id": "chatcmpl-92b0136b",
+      "object": "chat.completion.chunk",
+      "created": 1791564656,
+      "model": "deepseek-v41-lsq",
+      "choices": [
+        {
+          "index": 0,
+          "delta": {
+            "content": "Here"
+          }
+        }
+      ]
+    }
+  },
+  {
+    "elapsed_seconds": 4.055065249965992,
+    "event": {
+      "id": "chatcmpl-92b0136b",
+      "object": "chat.completion.chunk",
+      "created": 1791564656,
+      "model": "deepseek-v41-lsq",
+      "choices": [
+        {
+          "index": 0,
+          "delta": {
+            "content": " is the complete launch campaign for L"
+          }
+        }
+      ]
+    }
+  },
+  {
+    "elapsed_seconds": 4.17678708297899,
+    "event": {
+      "id": "chatcmpl-92b0136b",
+      "object": "chat.completion.chunk",
+      "created": 1791564656,
+      "model": "deepseek-v41-lsq",
+      "choices": [
+        {
+          "index": 0,
+          "delta": {
+            "content": "umaDesk Pro, prepared as drafts only"
+          }
+        }
+      ]
+    }
+  },
+  {
+    "elapsed_seconds": 4.29000866599381,
+    "event": {
+      "id": "chatcmpl-92b0136b",
+      "object": "chat.completion.chunk",
+      "created": 1791564656,
+      "model": "deepseek-v41-lsq",
+      "choices": [
+        {
+          "index": 0,
+          "delta": {
+            "content": ".\n\n---\n\n## LumaDesk Pro Launch Campaign"
+          }
+        }
+      ]
+    }
+  },
+  {
+    "elapsed_seconds": 4.408051375008654,
+    "event": {
+      "id": "chatcmpl-92b0136b",
+      "object": "chat.completion.chunk",
+      "created": 1791564656,
+      "model": "deepseek-v41-lsq",
+      "choices": [
+        {
+          "index": 0,
+          "delta": {
+            "content": " — Draft Deliverables\n\n**Product:** LumaDesk"
+          }
+        }
+      ]
+    }
+  },
+  {
+    "elapsed_seconds": 4.525750541011803,
+    "event": {
+      "id": "chatcmpl-92b0136b",
+      "object": "chat.completion.chunk",
+      "created": 1791564657,
+      "model": "deepseek-v41-lsq",
+      "choices": [
+        {
+          "index": 0,
+          "delta": {
+            "content": " Pro desktop organizer\n**Price:** CNY"
+          }
+        }
+      ]
+    }
+  },
+  {
+    "elapsed_seconds": 4.651268040994182,
+    "event": {
+      "id": "chatcmpl-92b0136b",
+      "object": "chat.completion.chunk",
+      "created": 1791564657,
+      "model": "deepseek-v41-lsq",
+      "choices": [
+        {
+          "index": 0,
+          "delta": {
+            "content": " 299\n**Launch date:** 2026-10-"
+          }
+        }
+      ]
+    }
+  },
+  {
+    "elapsed_seconds": 4.7816462079645135,
+    "event": {
+      "id": "chatcmpl-92b0136b",
+      "object": "chat.completion.chunk",
+      "created": 1791564657,
+      "model": "deepseek-v41-lsq",
+      "choices": [
+        {
+          "index": 0,
+          "delta": {
+            "content": "18\n**Approved discount:** Maximum 17% using code"
+          }
+        }
+      ]
+    }
+  },
+  {
+    "elapsed_seconds": 4.908260540978517,
+    "event": {
+      "id": "chatcmpl-92b0136b",
+      "object": "chat.completion.chunk",
+      "created": 1791564657,
+      "model": "deepseek-v41-lsq",
+      "choices": [
+        {
+          "index": 0,
+          "delta": {
+            "content": " AUTUMN17\n**Core function:**"
+          }
+        }
+      ]
+    }
+  },
+  {
+    "elapsed_seconds": 5.00905229098862,
+    "event": {
+      "id": "chatcmpl-92b0136b",
+      "object": "chat.completion.chunk",
+      "created": 1791564657,
+      "model": "deepseek-v41-lsq",
+      "choices": [
+        {
+          "index": 0,
+          "delta": {
+            "content": " Organizes local documents\n**"
+          }
+        }
+      ]
+    }
+  },
+  {
+    "elapsed_seconds": 5.118289040983655,
+    "event": {
+      "id": "chatcmpl-92b0136b",
+      "object": "chat.completion.chunk",
+      "created": 1791564657,
+      "model": "deepseek-v41-lsq",
+      "choices": [
+        {
+          "index": 0,
+          "delta": {
+            "content": "Explicit limitations:** No video export."
+          }
+        }
+      ]
+    }
+  },
+  {
+    "elapsed_seconds": 5.258043207984883,
+    "event": {
+      "id": "chatcmpl-92b0136b",
+      "object": "chat.completion.chunk",
+      "created": 1791564657,
+      "model": "deepseek-v41-lsq",
+      "choices": [
+        {
+          "index": 0,
+          "delta": {
+            "content": " No offline sync.\n**Compliance"
+          }
+        }
+      ]
+    }
+  },
+  {
+    "elapsed_seconds": 5.3676366659929045,
+    "event": {
+      "id": "chatcmpl-92b0136b",
+      "object": "chat.completion.chunk",
+      "created": 1791564657,
+      "model": "deepseek-v41-lsq",
+      "choices": [
+        {
+          "index": 0,
+          "delta": {
+            "content": " note:** Orchid Forum prohibits external"
+          }
+        }
+      ]
+    }
+  },
+  {
+    "elapsed_seconds": 5.4715118749882095,
+    "event": {
+      "id": "chatcmpl-92b0136b",
+      "object": "chat.completion.chunk",
+      "created": 1791564658,
+      "model": "deepseek-v41-lsq",
+      "choices": [
+        {
+          "index": 0,
+          "delta": {
+            "content": " links. All Orchid Forum posts must"
+          }
+        }
+      ]
+    }
+  },
+  {
+    "elapsed_seconds": 5.589533582970034,
+    "event": {
+      "id": "chatcmpl-92b0136b",
+      "object": "chat.completion.chunk",
+      "created": 1791564658,
+      "model": "deepseek-v41-lsq",
+      "choices": [
+        {
+          "index": 0,
+          "delta": {
+            "content": " end with #LumaDesk. All"
+          }
+        }
+      ]
+    }
+  },
+  {
+    "elapsed_seconds": 5.755875375005417,
+    "event": {
+      "id": "chatcmpl-92b0136b",
+      "object": "chat.completion.chunk",
+      "created": 1791564658,
+      "model": "deepseek-v41-lsq",
+      "choices": [
+        {
+          "index": 0,
+          "delta": {
+            "content": " targets below are goals, not observed"
+          }
+        }
+      ]
+    }
+  },
+  {
+    "elapsed_seconds": 5.8683360000140965,
+    "event": {
+      "id": "chatcmpl-92b0136b",
+      "object": "chat.completion.chunk",
+      "created": 1791564658,
+      "model": "deepseek-v41-lsq",
+      "choices": [
+        {
+          "index": 0,
+          "delta": {
+            "content": " results. No customer numbers, endorsements, or"
+          }
+        }
+      ]
+    }
+  },
+  {
+    "elapsed_seconds": 5.9972837080131285,
+    "event": {
+      "id": "chatcmpl-92b0136b",
+      "object": "chat.completion.chunk",
+      "created": 1791564658,
+      "model": "deepseek-v41-lsq",
+      "choices": [
+        {
+          "index": 0,
+          "delta": {
+            "content": " unsupported capabilities are claimed.\n\n---\n\n## 1. Seven-Day Content"
+          }
+        }
+      ]
+    }
+  },
+  {
+    "elapsed_seconds": 6.125454249966424,
+    "event": {
+      "id": "chatcmpl-92b0136b",
+      "object": "chat.completion.chunk",
+      "created": 1791564658,
+      "model": "deepseek-v41-lsq",
+      "choices": [
+        {
+          "index": 0,
+          "delta": {
+            "content": " Calendar\n\n| Day | Date | Channel | Content Type"
+          }
+        }
+      ]
+    }
+  },
+  {
+    "elapsed_seconds": 6.229221249988768,
+    "event": {
+      "id": "chatcmpl-92b0136b",
+      "object": "chat.completion.chunk",
+      "created": 1791564658,
+      "model": "deepseek-v41-lsq",
+      "choices": [
+        {
+          "index": 0,
+          "delta": {
+            "content": " | Draft Title / Hook | Key Message"
+          }
+        }
+      ]
+    }
+  },
+  {
+    "elapsed_seconds": 6.350372624990996,
+    "event": {
+      "id": "chatcmpl-92b0136b",
+      "object": "chat.completion.chunk",
+      "created": 1791564658,
+      "model": "deepseek-v41-lsq",
+      "choices": [
+        {
+          "index": 0,
+          "delta": {
+            "content": " | CTA |\n|---|---|---|---|---|---|---|\n"
+          }
+        }
+      ]
+    }
+  },
+  {
+    "elapsed_seconds": 6.471111624967307,
+    "event": {
+      "id": "chatcmpl-92b0136b",
+      "object": "chat.completion.chunk",
+      "created": 1791564659,
+      "model": "deepseek-v41-lsq",
+      "choices": [
+        {
+          "index": 0,
+          "delta": {
+            "content": "| 1 | 2026-10-12 | Orch"
+          }
+        }
+      ]
+    }
+  },
+  {
+    "elapsed_seconds": 6.623961540986784,
+    "event": {
+      "id": "chatcmpl-92b0136b",
+      "object": "chat.completion.chunk",
+      "created": 1791564659,
+      "model": "deepseek-v41-lsq",
+      "choices": [
+        {
+          "index": 0,
+          "delta": {
+            "content": "id Forum | Teaser post | \"Your desktop"
+          }
+        }
+      ]
+    }
+  },
+  {
+    "elapsed_seconds": 6.786308041017037,
+    "event": {
+      "id": "chatcmpl-92b0136b",
+      "object": "chat.completion.chunk",
+      "created": 1791564659,
+      "model": "deepseek-v41-lsq",
+      "choices": [
+        {
+          "index": 0,
+          "delta": {
+            "content": ", before and after\" |"
+          }
+        }
+      ]
+    }
+  },
+  {
+    "elapsed_seconds": 6.887918833002914,
+    "event": {
+      "id": "chatcmpl-92b0136b",
+      "object": "chat.completion.chunk",
+      "created": 1791564659,
+      "model": "deepseek-v41-lsq",
+      "choices": [
+        {
+          "index": 0,
+          "delta": {
+            "content": " Local document organization without cloud"
+          }
+        }
+      ]
+    }
+  },
+  {
+    "elapsed_seconds": 7.05140279099578,
+    "event": {
+      "id": "chatcmpl-92b0136b",
+      "object": "chat.completion.chunk",
+      "created": 1791564659,
+      "model": "deepseek-v41-lsq",
+      "choices": [
+        {
+          "index": 0,
+          "delta": {
+            "content": " dependency | Comment with your biggest clutter"
+          }
+        }
+      ]
+    }
+  },
+  {
+    "elapsed_seconds": 7.218499707989395,
+    "event": {
+      "id": "chatcmpl-92b0136b",
+      "object": "chat.completion.chunk",
+      "created": 1791564659,
+      "model": "deepseek-v41-lsq",
+      "choices": [
+        {
+          "index": 0,
+          "delta": {
+            "content": " pain point. End with #LumaDes"
+          }
+        }
+      ]
+    }
+  },
+  {
+    "elapsed_seconds": 7.338932499988005,
+    "event": {
+      "id": "chatcmpl-92b0136b",
+      "object": "chat.completion.chunk",
+      "created": 1791564659,
+      "model": "deepseek-v41-lsq",
+      "choices": [
+        {
+          "index": 0,
+          "delta": {
+            "content": "k |\n| 2 | 2026-10"
+          }
+        }
+      ]
+    }
+  },
+  {
+    "elapsed_seconds": 7.460354540962726,
+    "event": {
+      "id": "chatcmpl-92b0136b",
+      "object": "chat.completion.chunk",
+      "created": 1791564660,
+      "model": "deepseek-v41-lsq",
+      "choices": [
+        {
+          "index": 0,
+          "delta": {
+            "content": "-13 | Email | Pre-launch email | \"L"
+          }
+        }
+      ]
+    }
+  },
+  {
+    "elapsed_seconds": 7.5812680830131285,
+    "event": {
+      "id": "chatcmpl-92b0136b",
+      "object": "chat.completion.chunk",
+      "created": 1791564660,
+      "model": "deepseek-v41-lsq",
+      "choices": [
+        {
+          "index": 0,
+          "delta": {
+            "content": "umaDesk Pro arrives 202"
+          }
+        }
+      ]
+    }
+  },
+  {
+    "elapsed_seconds": 7.691435457963962,
+    "event": {
+      "id": "chatcmpl-92b0136b",
+      "object": "chat.completion.chunk",
+      "created": 1791564660,
+      "model": "deepseek-v41-lsq",
+      "choices": [
+        {
+          "index": 0,
+          "delta": {
+            "content": "6-10-18\" | CNY"
+          }
+        }
+      ]
+    }
+  },
+  {
+    "elapsed_seconds": 7.805257999978494,
+    "event": {
+      "id": "chatcmpl-92b0136b",
+      "object": "chat.completion.chunk",
+      "created": 1791564660,
+      "model": "deepseek-v41-lsq",
+      "choices": [
+        {
+          "index": 0,
+          "delta": {
+            "content": " 299, AUTUMN17 saves up to"
+          }
+        }
+      ]
+    }
+  },
+  {
+    "elapsed_seconds": 7.922436082968488,
+    "event": {
+      "id": "chatcmpl-92b0136b",
+      "object": "chat.completion.chunk",
+      "created": 1791564660,
+      "model": "deepseek-v41-lsq",
+      "choices": [
+        {
+          "index": 0,
+          "delta": {
+            "content": " 17% | Add launch date"
+          }
+        }
+      ]
+    }
+  },
+  {
+    "elapsed_seconds": 8.023554832965601,
+    "event": {
+      "id": "chatcmpl-92b0136b",
+      "object": "chat.completion.chunk",
+      "created": 1791564660,
+      "model": "deepseek-v41-lsq",
+      "choices": [
+        {
+          "index": 0,
+          "delta": {
+            "content": " to calendar |\n| 3 |"
+          }
+        }
+      ]
+    }
+  },
+  {
+    "elapsed_seconds": 8.146189166000113,
+    "event": {
+      "id": "chatcmpl-92b0136b",
+      "object": "chat.completion.chunk",
+      "created": 1791564660,
+      "model": "deepseek-v41-lsq",
+      "choices": [
+        {
+          "index": 0,
+          "delta": {
+            "content": " 2026-10-14 | Orchid Forum"
+          }
+        }
+      ]
+    }
+  },
+  {
+    "elapsed_seconds": 8.256541082984768,
+    "event": {
+      "id": "chatcmpl-92b0136b",
+      "object": "chat.completion.chunk",
+      "created": 1791564660,
+      "model": "deepseek-v41-lsq",
+      "choices": [
+        {
+          "index": 0,
+          "delta": {
+            "content": " | Feature explainer | \"What L"
+          }
+        }
+      ]
+    }
+  },
+  {
+    "elapsed_seconds": 8.405515582999215,
+    "event": {
+      "id": "chatcmpl-92b0136b",
+      "object": "chat.completion.chunk",
+      "created": 1791564660,
+      "model": "deepseek-v41-lsq",
+      "choices": [
+        {
+          "index": 0,
+          "delta": {
+            "content": "umaDesk Pro does — and what it does not do"
+          }
+        }
+      ]
+    }
+  },
+  {
+    "elapsed_seconds": 8.519836332998239,
+    "event": {
+      "id": "chatcmpl-92b0136b",
+      "object": "chat.completion.chunk",
+      "created": 1791564661,
+      "model": "deepseek-v41-lsq",
+      "choices": [
+        {
+          "index": 0,
+          "delta": {
+            "content": "\" | Organizes local documents;"
+          }
+        }
+      ]
+    }
+  },
+  {
+    "elapsed_seconds": 8.640689124993514,
+    "event": {
+      "id": "chatcmpl-92b0136b",
+      "object": "chat.completion.chunk",
+      "created": 1791564661,
+      "model": "deepseek-v41-lsq",
+      "choices": [
+        {
+          "index": 0,
+          "delta": {
+            "content": " no video export; no offline sync | Ask questions"
+          }
+        }
+      ]
+    }
+  },
+  {
+    "elapsed_seconds": 8.780144249962177,
+    "event": {
+      "id": "chatcmpl-92b0136b",
+      "object": "chat.completion.chunk",
+      "created": 1791564661,
+      "model": "deepseek-v41-lsq",
+      "choices": [
+        {
+          "index": 0,
+          "delta": {
+            "content": " in thread. End with #Luma"
+          }
+        }
+      ]
+    }
+  },
+  {
+    "elapsed_seconds": 8.900944916007575,
+    "event": {
+      "id": "chatcmpl-92b0136b",
+      "object": "chat.completion.chunk",
+      "created": 1791564661,
+      "model": "deepseek-v41-lsq",
+      "choices": [
+        {
+          "index": 0,
+          "delta": {
+            "content": "Desk |\n| 4 | 2026-"
+          }
+        }
+      ]
+    }
+  },
+  {
+    "elapsed_seconds": 9.01740474998951,
+    "event": {
+      "id": "chatcmpl-92b0136b",
+      "object": "chat.completion.chunk",
+      "created": 1791564661,
+      "model": "deepseek-v41-lsq",
+      "choices": [
+        {
+          "index": 0,
+          "delta": {
+            "content": "10-15 | Social / Community"
+          }
+        }
+      ]
+    }
+  },
+  {
+    "elapsed_seconds": 9.18408187496243,
+    "event": {
+      "id": "chatcmpl-92b0136b",
+      "object": "chat.completion.chunk",
+      "created": 1791564661,
+      "model": "deepseek-v41-lsq",
+      "choices": [
+        {
+          "index": 0,
+          "delta": {
+            "content": " | Poll post | \"Which file type clut"
+          }
+        }
+      ]
+    }
+  },
+  {
+    "elapsed_seconds": 9.322754708002321,
+    "event": {
+      "id": "chatcmpl-92b0136b",
+      "object": "chat.completion.chunk",
+      "created": 1791564661,
+      "model": "deepseek-v41-lsq",
+      "choices": [
+        {
+          "index": 0,
+          "delta": {
+            "content": "ters your desktop most?\" | Local organization"
+          }
+        }
+      ]
+    }
+  },
+  {
+    "elapsed_seconds": 9.486562374979258,
+    "event": {
+      "id": "chatcmpl-92b0136b",
+      "object": "chat.completion.chunk",
+      "created": 1791564662,
+      "model": "deepseek-v41-lsq",
+      "choices": [
+        {
+          "index": 0,
+          "delta": {
+            "content": " matters | Vote and reply."
+          }
+        }
+      ]
+    }
+  },
+  {
+    "elapsed_seconds": 9.596783499990124,
+    "event": {
+      "id": "chatcmpl-92b0136b",
+      "object": "chat.completion.chunk",
+      "created": 1791564662,
+      "model": "deepseek-v41-lsq",
+      "choices": [
+        {
+          "index": 0,
+          "delta": {
+            "content": " End with #LumaDesk |\n"
+          }
+        }
+      ]
+    }
+  },
+  {
+    "elapsed_seconds": 9.72371537500294,
+    "event": {
+      "id": "chatcmpl-92b0136b",
+      "object": "chat.completion.chunk",
+      "created": 1791564662,
+      "model": "deepseek-v41-lsq",
+      "choices": [
+        {
+          "index": 0,
+          "delta": {
+            "content": "| 5 | 2026-10-16 | Email"
+          }
+        }
+      ]
+    }
+  },
+  {
+    "elapsed_seconds": 9.873321165970992,
+    "event": {
+      "id": "chatcmpl-92b0136b",
+      "object": "chat.completion.chunk",
+      "created": 1791564662,
+      "model": "deepseek-v41-lsq",
+      "choices": [
+        {
+          "index": 0,
+          "delta": {
+            "content": " | Launch reminder | \"Two days until L"
+          }
+        }
+      ]
+    }
+  },
+  {
+    "elapsed_seconds": 9.994304749998264,
+    "event": {
+      "id": "chatcmpl-92b0136b",
+      "object": "chat.completion.chunk",
+      "created": 1791564662,
+      "model": "deepseek-v41-lsq",
+      "choices": [
+        {
+          "index": 0,
+          "delta": {
+            "content": "umaDesk Pro\" | AUTUMN"
+          }
+        }
+      ]
+    }
+  },
+  {
+    "elapsed_seconds": 10.127087583008688,
+    "event": {
+      "id": "chatcmpl-92b0136b",
+      "object": "chat.completion.chunk",
+      "created": 1791564662,
+      "model": "deepseek-v41-lsq",
+      "choices": [
+        {
+          "index": 0,
+          "delta": {
+            "content": "17 maximum 17% discount | Confirm"
+          }
+        }
+      ]
+    }
+  },
+  {
+    "elapsed_seconds": 10.295548749971204,
+    "event": {
+      "id": "chatcmpl-92b0136b",
+      "object": "chat.completion.chunk",
+      "created": 1791564662,
+      "model": "deepseek-v41-lsq",
+      "choices": [
+        {
+          "index": 0,
+          "delta": {
+            "content": " interest |\n| 6 |"
+          }
+        }
+      ]
+    }
+  },
+  {
+    "elapsed_seconds": 10.409102124976926,
+    "event": {
+      "id": "chatcmpl-92b0136b",
+      "object": "chat.completion.chunk",
+      "created": 1791564662,
+      "model": "deepseek-v41-lsq",
+      "choices": [
+        {
+          "index": 0,
+          "delta": {
+            "content": " 2026-10-17 | Orchid"
+          }
+        }
+      ]
+    }
+  },
+  {
+    "elapsed_seconds": 10.523347415961325,
+    "event": {
+      "id": "chatcmpl-92b0136b",
+      "object": "chat.completion.chunk",
+      "created": 1791564663,
+      "model": "deepseek-v41-lsq",
+      "choices": [
+        {
+          "index": 0,
+          "delta": {
+            "content": " Forum | Launch eve post | \"Tomorrow:"
+          }
+        }
+      ]
+    }
+  },
+  {
+    "elapsed_seconds": 10.673095208010636,
+    "event": {
+      "id": "chatcmpl-92b0136b",
+      "object": "chat.completion.chunk",
+      "created": 1791564663,
+      "model": "deepseek-v41-lsq",
+      "choices": [
+        {
+          "index": 0,
+          "delta": {
+            "content": " LumaDesk Pro\" | CNY"
+          }
+        }
+      ]
+    }
+  },
+  {
+    "elapsed_seconds": 10.779772665991914,
+    "event": {
+      "id": "chatcmpl-92b0136b",
+      "object": "chat.completion.chunk",
+      "created": 1791564663,
+      "model": "deepseek-v41-lsq",
+      "choices": [
+        {
+          "index": 0,
+          "delta": {
+            "content": " 299, local document organizer |"
+          }
+        }
+      ]
+    }
+  },
+  {
+    "elapsed_seconds": 10.881338166014757,
+    "event": {
+      "id": "chatcmpl-92b0136b",
+      "object": "chat.completion.chunk",
+      "created": 1791564663,
+      "model": "deepseek-v41-lsq",
+      "choices": [
+        {
+          "index": 0,
+          "delta": {
+            "content": " Prepare your desktop."
+          }
+        }
+      ]
+    }
+  },
+  {
+    "elapsed_seconds": 11.014168415975291,
+    "event": {
+      "id": "chatcmpl-92b0136b",
+      "object": "chat.completion.chunk",
+      "created": 1791564663,
+      "model": "deepseek-v41-lsq",
+      "choices": [
+        {
+          "index": 0,
+          "delta": {
+            "content": " End with #LumaDesk |\n"
+          }
+        }
+      ]
+    }
+  },
+  {
+    "elapsed_seconds": 11.1353238329757,
+    "event": {
+      "id": "chatcmpl-92b0136b",
+      "object": "chat.completion.chunk",
+      "created": 1791564663,
+      "model": "deepseek-v41-lsq",
+      "choices": [
+        {
+          "index": 0,
+          "delta": {
+            "content": "| 7 | 2026-10-18"
+          }
+        }
+      ]
+    }
+  },
+  {
+    "elapsed_seconds": 11.221836999990046,
+    "event": {
+      "id": "chatcmpl-92b0136b",
+      "object": "chat.completion.chunk",
+      "created": 1791564663,
+      "model": "deepseek-v41-lsq",
+      "choices": [
+        {
+          "index": 0,
+          "delta": {
+            "content": " | Orchid Forum + Email | Launch day post"
+          }
+        }
+      ]
+    }
+  },
+  {
+    "elapsed_seconds": 11.22191754099913,
+    "event": {
+      "id": "chatcmpl-92b0136b",
+      "object": "chat.completion.chunk",
+      "created": 1791564663,
+      "model": "deepseek-v41-lsq",
+      "choices": [
+        {
+          "index": 0,
+          "delta": {},
+          "finish_reason": "length"
+        }
+      ]
+    }
+  },
+  {
+    "elapsed_seconds": 11.22211812500609,
+    "event": {
+      "id": "chatcmpl-92b0136b",
+      "object": "chat.completion.chunk",
+      "created": 1791564663,
+      "model": "deepseek-v41-lsq",
+      "choices": [],
+      "usage": {
+        "prompt_tokens": 8192,
+        "completion_tokens": 512,
+        "total_tokens": 8704,
+        "input_tokens": 8192,
+        "output_tokens": 512,
+        "prompt_tokens_details": {
+          "cached_tokens": 0
+        },
+        "time_to_first_token": 3.87,
+        "time_to_first_visible_token": 3.87,
+        "total_time": 11.16,
+        "prompt_eval_duration": 3.87,
+        "generation_duration": 7.29,
+        "prompt_tokens_per_second": 2119.48,
+        "generation_tokens_per_second": 70.22
+      }
+    }
+  }
+]

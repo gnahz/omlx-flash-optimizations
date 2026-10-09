@@ -1,0 +1,36 @@
+{
+  "status": "passed",
+  "original_cache_cpu_tests": 62,
+  "original_lookup_policy_cpu_tests": 14,
+  "release_cpu_tests": 40,
+  "release_subtests": 24,
+  "clean_native_builds": [
+    "baseline",
+    "optimized"
+  ],
+  "pip_check": "passed for each clean independent environment",
+  "native_kernel_groups": {
+    "bonsai": true,
+    "decode_fast": true,
+    "glm_moe_dsa": true,
+    "minimax_m3": true,
+    "qwen35_prefill": true
+  },
+  "patch_application": "All six ordered patches and the four-patch baseline apply to exact clean v0.7.0; source files byte-match both prepared builds",
+  "source_overlay_relocation": "Durable cohort function byte-equal to qualified runtime overlay result; geometry and callback CPU behavior match former launcher hooks",
+  "model_runs": "none during this component validation",
+  "original_services_modified": false,
+  "logs_sha256": {
+    "cpu62.log": "7a33e4d0f1b21765a5701c062146b2b39e150d314fe4a94d2c958a34bc909a66",
+    "cpu14.log": "588de8d9e145f4bb805f1e5ff2dc1bc91cffa401ae78a2cfa46fb6e1fa3be166",
+    "release-tests.log": "abc9f326c08729150249111d583afa9befe93245c1acf761b6a9193dde453a06",
+    "clean-build.log": "7260b660e8ffe93a529f8f5fb93563f2f468aeb4648d1947be350c4235f3fe35",
+    "clean-baseline-build.log": "c2663bc963d7f716cf77ec54845dab2ae46a47cb1179adf7c96cd88cfd4f6891",
+    "task-archive-validation.json": "8f9ab3caa696dbc14fb4bda2e717d97ec8c6b3fe717a7f09d35178974f734ec8"
+  },
+  "post_build_source_only_patch": "00-isolated-server-runtime.patch added to both built editable trees; native binaries and dependencies unchanged",
+  "startup_isolation_cpu_tests": 2,
+  "task_schedule_and_contract_cpu_tests": 4,
+  "archived_task_requests_revalidated": 24,
+  "benchmark_source_identity": "Entire Python/Metal/native package, including untracked patch modules, checked before and after each job outside request timing"
+}

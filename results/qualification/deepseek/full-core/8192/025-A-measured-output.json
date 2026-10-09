@@ -1,0 +1,84 @@
+{
+  "content": "# LumaDesk Pro — 45-Second Launch Video Plan + Computer-Use Workflow\n\nAll deliverables below are **plans and specifications only**. No tools were run, no files were created, and no browser actions were performed. Product facts are treated as fixed: local document organizer, CNY 299, launch 2026-10-18, **no video export**, **no offline sync**.\n\n---\n\n## 1. Timed Shot List (exactly 45.0 s)\n\n| # | Time | Duration | Shot | Visual direction | Narration | Caption |\n|---|------|----------|------|------------------|-----------|---------|\n| 1 | 0.0–4.0 | 4.0 s | Cold open: chaotic desktop | Screen recording of a cluttered desktop; 40+ loose files, overlapping windows. Slow 5% push-in. Cool desaturated grade. | \"Your desktop isn't a filing system. It's a pile.\" | Your desktop is a pile. |\n| 2 | 4.0–9.0 | 5.0 s | Problem montage | Three quick cuts: misfiled invoice, duplicate scan, lost contract. Each 1.6 s, hard cuts on beat. Red highlight boxes. | \"Invoices in Downloads. Contracts in Screenshots. Nothing where you left it.\" | Invoices in Downloads. Contracts in Screenshots. |\n| 3 | 9.0–14.0 | 5.0 s | Product reveal | LumaDesk Pro logo animates in over clean UI. Warm key light, soft shadow. Logo holds 1.5 s. | \"Meet LumaDesk Pro — the local document organizer.\" | LumaDesk Pro — local document organizer |\n| 4 | 14.0–21.0 | 7.0 s | Core action: auto-sort | Screen capture: drag 12 files into LumaDesk; they snap into labeled folders (Finance, Contracts, Receipts). 1.2× speed. Cursor visible. | \"Drop files in. LumaDesk sorts them locally — by type, date, and project.\" | Drop in. Sorted locally. |\n| 5 | 21.0–27.0 | 6.0 s | Search + preview | Type \"Q3 lease\" in search bar; result appears in 0.4 s; preview pane opens.",
+  "reasoning": "",
+  "usage": {
+    "prompt_tokens": 8192,
+    "completion_tokens": 512,
+    "total_tokens": 8704,
+    "input_tokens": 8192,
+    "output_tokens": 512,
+    "prompt_tokens_details": {
+      "cached_tokens": 0
+    },
+    "time_to_first_token": 4.05,
+    "time_to_first_visible_token": 4.05,
+    "total_time": 11.77,
+    "prompt_eval_duration": 4.05,
+    "generation_duration": 7.72,
+    "prompt_tokens_per_second": 2020.74,
+    "generation_tokens_per_second": 66.32
+  },
+  "finish_reason": "length",
+  "done": true,
+  "elapsed_seconds": 11.840495000011288,
+  "ttft_seconds": 4.120556125009898,
+  "server_decode_tps": 66.32,
+  "server_prefill_tps": 2020.74,
+  "reported_cached_tokens": 0,
+  "log_start_offset": 32175,
+  "artifacts": {
+    "raw_sse": "025-A-measured-sse.txt",
+    "events": "025-A-measured-events.json",
+    "output": "025-A-measured-output.json"
+  },
+  "whole_output_sha256": "0967fa70a249a93c3de1a871571f3da2de11b5754dab48a3dfa148ac3418bab1",
+  "scenario": 2,
+  "arm": "A",
+  "warmup": false,
+  "round": 0,
+  "position": 3,
+  "serial": 25,
+  "case": "video-and-computer-use-plan",
+  "module_stats": {
+    "metadata_prefill_dense_calls": 20,
+    "metadata_dense_expert_calls": 20,
+    "dspark_single_calls": 208
+  },
+  "speculative": {
+    "finish": "length",
+    "tokens": 512,
+    "cycles": 212,
+    "tokens_per_cycle": 2.42,
+    "accepted": 298,
+    "drafted": 406,
+    "acceptance_rate": 0.7339901477832512,
+    "timing_ms": {
+      "backbone": 7252.1,
+      "mtp_head": 354.1,
+      "sampling": 5.8,
+      "cache": 45.6
+    },
+    "prompt_copy": {
+      "cycles": 5,
+      "accepted": 10,
+      "drafted": 20
+    }
+  },
+  "speculative_counter_identity": {
+    "finish": "length",
+    "tokens": 512,
+    "cycles": 212,
+    "tokens_per_cycle": 2.42,
+    "accepted": 298,
+    "drafted": 406,
+    "acceptance_rate": 0.7339901477832512,
+    "prompt_copy": {
+      "cycles": 5,
+      "accepted": 10,
+      "drafted": 20
+    }
+  },
+  "server_prompt_eval_seconds": 4.05,
+  "server_model_ttft_seconds": 4.05,
+  "server_model_load_seconds": null
+}

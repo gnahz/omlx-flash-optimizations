@@ -1,0 +1,838 @@
+{
+  "schema_version": 1,
+  "origin": "Archived local 2026-10-07 v0.7.0 upgrade validation; do not substitute community author measurements.",
+  "source_filename": "report.json",
+  "source_sha256": "12976e4aab5374cca575347122d3c52a30bc3a4a5283591e2f4fd0c8ba64ecb4",
+  "hardware": {
+    "chip": "Apple M5 Ultra",
+    "cpu_cores": 30,
+    "gpu_cores": 64,
+    "memory_gib": 256,
+    "macos": "27.0.1"
+  },
+  "checkpoint": {
+    "repo": "mlx-community/Qwen3.8-Flash-Next-oQ6e-mtp",
+    "revision": "e171af86f499f1855b0fb71d781105e8dd609610"
+  },
+  "report_status": "complete_with_limitations",
+  "groups": [
+    {
+      "profile": "fixed3",
+      "stage": "core",
+      "label": "2048",
+      "category": "full512",
+      "attempts": 5,
+      "n": 5,
+      "actual_prompt_lengths": [
+        2048
+      ],
+      "actual_output_lengths": [
+        512
+      ],
+      "metrics": {
+        "server_generation_tps": {
+          "n": 5,
+          "median": 151.37,
+          "min": 150.72,
+          "max": 152.91
+        },
+        "client_n_over_wall_minus_ttft_tps": {
+          "n": 5,
+          "median": 151.39537300848184,
+          "min": 150.7413967109457,
+          "max": 152.92826073370958
+        },
+        "server_prompt_tps": {
+          "n": 5,
+          "median": 2819.29,
+          "min": 2814.72,
+          "max": 2828.92
+        },
+        "client_ttft_s": {
+          "n": 5,
+          "median": 0.734946584,
+          "min": 0.731836167,
+          "max": 0.735498583
+        },
+        "client_wall_s": {
+          "n": 5,
+          "median": 4.116849459,
+          "min": 4.079811208,
+          "max": 4.131492
+        }
+      },
+      "mtp_acceptance": {
+        "numerator": 1825,
+        "denominator": 2010,
+        "ratio": 0.9079601990049752,
+        "denominator_scope": "Attempted/reached logged depth positions; can include lookup rounds"
+      },
+      "lookup_acceptance": {
+        "numerator": 0,
+        "denominator": 0,
+        "ratio": null,
+        "denominator_scope": "All proposed lookup draft tokens"
+      }
+    },
+    {
+      "profile": "fixed3",
+      "stage": "core",
+      "label": "32768",
+      "category": "full512",
+      "attempts": 5,
+      "n": 5,
+      "actual_prompt_lengths": [
+        32768
+      ],
+      "actual_output_lengths": [
+        512
+      ],
+      "metrics": {
+        "server_generation_tps": {
+          "n": 5,
+          "median": 126.32,
+          "min": 126.08,
+          "max": 131.46
+        },
+        "client_n_over_wall_minus_ttft_tps": {
+          "n": 5,
+          "median": 126.42073766985371,
+          "min": 126.14101128927015,
+          "max": 131.59269158792583
+        },
+        "server_prompt_tps": {
+          "n": 5,
+          "median": 3912.49,
+          "min": 3891.11,
+          "max": 3919.77
+        },
+        "client_ttft_s": {
+          "n": 5,
+          "median": 8.4396675,
+          "min": 8.432195833,
+          "max": 8.486446334
+        },
+        "client_wall_s": {
+          "n": 5,
+          "median": 12.490144333,
+          "min": 12.327953208,
+          "max": 12.536414792
+        }
+      },
+      "mtp_acceptance": {
+        "numerator": 1815,
+        "denominator": 1995,
+        "ratio": 0.9097744360902256,
+        "denominator_scope": "Attempted/reached logged depth positions; can include lookup rounds"
+      },
+      "lookup_acceptance": {
+        "numerator": 0,
+        "denominator": 0,
+        "ratio": null,
+        "denominator_scope": "All proposed lookup draft tokens"
+      }
+    },
+    {
+      "profile": "fixed3",
+      "stage": "core",
+      "label": "8192",
+      "category": "full512",
+      "attempts": 5,
+      "n": 5,
+      "actual_prompt_lengths": [
+        8192
+      ],
+      "actual_output_lengths": [
+        512
+      ],
+      "metrics": {
+        "server_generation_tps": {
+          "n": 5,
+          "median": 136.29,
+          "min": 135.31,
+          "max": 138.21
+        },
+        "client_n_over_wall_minus_ttft_tps": {
+          "n": 5,
+          "median": 136.30076032919348,
+          "min": 135.3203652069044,
+          "max": 138.22759665252738
+        },
+        "server_prompt_tps": {
+          "n": 5,
+          "median": 3885.47,
+          "min": 3882.53,
+          "max": 3889.03
+        },
+        "client_ttft_s": {
+          "n": 5,
+          "median": 2.127968041,
+          "min": 2.12574375,
+          "max": 2.128619584
+        },
+        "client_wall_s": {
+          "n": 5,
+          "median": 5.883892333,
+          "min": 5.832004083,
+          "max": 5.912233375
+        }
+      },
+      "mtp_acceptance": {
+        "numerator": 1760,
+        "denominator": 2050,
+        "ratio": 0.8585365853658536,
+        "denominator_scope": "Attempted/reached logged depth positions; can include lookup rounds"
+      },
+      "lookup_acceptance": {
+        "numerator": 0,
+        "denominator": 0,
+        "ratio": null,
+        "denominator_scope": "All proposed lookup draft tokens"
+      }
+    },
+    {
+      "profile": "fixed3",
+      "stage": "tasks",
+      "label": "edit_file",
+      "category": "validated_task",
+      "attempts": 5,
+      "n": 5,
+      "actual_prompt_lengths": [
+        1344
+      ],
+      "actual_output_lengths": [
+        1278
+      ],
+      "metrics": {
+        "server_generation_tps": {
+          "n": 5,
+          "median": 176.38,
+          "min": 176.16,
+          "max": 176.54
+        },
+        "client_n_over_wall_minus_ttft_tps": {
+          "n": 5,
+          "median": 176.39419420422408,
+          "min": 176.17199652721987,
+          "max": 176.5764794578947
+        },
+        "server_prompt_tps": {
+          "n": 5,
+          "median": 2362.26,
+          "min": 2307.74,
+          "max": 2382.16
+        },
+        "client_ttft_s": {
+          "n": 5,
+          "median": 0.576360791,
+          "min": 0.570617792,
+          "max": 0.588620083
+        },
+        "client_wall_s": {
+          "n": 5,
+          "median": 7.820765792,
+          "min": 7.814017833,
+          "max": 7.842894458
+        }
+      },
+      "mtp_acceptance": {
+        "numerator": 4785,
+        "denominator": 4800,
+        "ratio": 0.996875,
+        "denominator_scope": "Attempted/reached logged depth positions; can include lookup rounds"
+      },
+      "lookup_acceptance": {
+        "numerator": 0,
+        "denominator": 0,
+        "ratio": null,
+        "denominator_scope": "All proposed lookup draft tokens"
+      }
+    },
+    {
+      "profile": "fixed3",
+      "stage": "tasks",
+      "label": "json_change",
+      "category": "validated_task",
+      "attempts": 5,
+      "n": 5,
+      "actual_prompt_lengths": [
+        880
+      ],
+      "actual_output_lengths": [
+        822
+      ],
+      "metrics": {
+        "server_generation_tps": {
+          "n": 5,
+          "median": 184.1,
+          "min": 183.65,
+          "max": 184.53
+        },
+        "client_n_over_wall_minus_ttft_tps": {
+          "n": 5,
+          "median": 184.12445839992156,
+          "min": 183.66877369979346,
+          "max": 184.55251481683234
+        },
+        "server_prompt_tps": {
+          "n": 5,
+          "median": 1936.02,
+          "min": 1830.93,
+          "max": 1939.76
+        },
+        "client_ttft_s": {
+          "n": 5,
+          "median": 0.460082291,
+          "min": 0.458764875,
+          "max": 0.486650291
+        },
+        "client_wall_s": {
+          "n": 5,
+          "median": 4.923136459,
+          "min": 4.914099083,
+          "max": 4.952957375
+        }
+      },
+      "mtp_acceptance": {
+        "numerator": 3075,
+        "denominator": 3085,
+        "ratio": 0.9967585089141004,
+        "denominator_scope": "Attempted/reached logged depth positions; can include lookup rounds"
+      },
+      "lookup_acceptance": {
+        "numerator": 0,
+        "denominator": 0,
+        "ratio": null,
+        "denominator_scope": "All proposed lookup draft tokens"
+      }
+    },
+    {
+      "profile": "fixed3",
+      "stage": "warm",
+      "label": "32768",
+      "category": "full512",
+      "attempts": 5,
+      "n": 5,
+      "actual_prompt_lengths": [
+        32768
+      ],
+      "actual_output_lengths": [
+        512
+      ],
+      "metrics": {
+        "server_generation_tps": {
+          "n": 5,
+          "median": 140.93,
+          "min": 140.88,
+          "max": 140.98
+        },
+        "client_n_over_wall_minus_ttft_tps": {
+          "n": 5,
+          "median": 140.94833962474647,
+          "min": 140.89979448100044,
+          "max": 141.00383161388524
+        },
+        "server_prompt_tps": {
+          "n": 5,
+          "median": 40.12,
+          "min": 28.17,
+          "max": 40.37
+        },
+        "client_ttft_s": {
+          "n": 5,
+          "median": 0.228544791,
+          "min": 0.226594167,
+          "max": 0.308915625
+        },
+        "client_wall_s": {
+          "n": 5,
+          "median": 3.862205208,
+          "min": 3.85913075,
+          "max": 3.94270375
+        }
+      },
+      "mtp_acceptance": {
+        "numerator": 1805,
+        "denominator": 2000,
+        "ratio": 0.9025,
+        "denominator_scope": "Attempted/reached logged depth positions; can include lookup rounds"
+      },
+      "lookup_acceptance": {
+        "numerator": 0,
+        "denominator": 0,
+        "ratio": null,
+        "denominator_scope": "All proposed lookup draft tokens"
+      }
+    },
+    {
+      "profile": "fixed3",
+      "stage": "warm",
+      "label": "8192",
+      "category": "full512",
+      "attempts": 5,
+      "n": 5,
+      "actual_prompt_lengths": [
+        8192
+      ],
+      "actual_output_lengths": [
+        512
+      ],
+      "metrics": {
+        "server_generation_tps": {
+          "n": 5,
+          "median": 143.48,
+          "min": 143.41,
+          "max": 143.66
+        },
+        "client_n_over_wall_minus_ttft_tps": {
+          "n": 5,
+          "median": 143.49372108120698,
+          "min": 143.4320114756815,
+          "max": 143.67876570960334
+        },
+        "server_prompt_tps": {
+          "n": 5,
+          "median": 73.94,
+          "min": 32.28,
+          "max": 74.54
+        },
+        "client_ttft_s": {
+          "n": 5,
+          "median": 0.110537959,
+          "min": 0.109693458,
+          "max": 0.2362835
+        },
+        "client_wall_s": {
+          "n": 5,
+          "median": 3.678347541,
+          "min": 3.674042959,
+          "max": 3.805321792
+        }
+      },
+      "mtp_acceptance": {
+        "numerator": 1765,
+        "denominator": 2035,
+        "ratio": 0.8673218673218673,
+        "denominator_scope": "Attempted/reached logged depth positions; can include lookup rounds"
+      },
+      "lookup_acceptance": {
+        "numerator": 0,
+        "denominator": 0,
+        "ratio": null,
+        "denominator_scope": "All proposed lookup draft tokens"
+      }
+    },
+    {
+      "profile": "fixed3lookup",
+      "stage": "core",
+      "label": "2048",
+      "category": "full512",
+      "attempts": 5,
+      "n": 5,
+      "actual_prompt_lengths": [
+        2048
+      ],
+      "actual_output_lengths": [
+        512
+      ],
+      "metrics": {
+        "server_generation_tps": {
+          "n": 5,
+          "median": 143.45,
+          "min": 143.31,
+          "max": 144.67
+        },
+        "client_n_over_wall_minus_ttft_tps": {
+          "n": 5,
+          "median": 143.46452876065013,
+          "min": 143.31442074596467,
+          "max": 144.69549357192435
+        },
+        "server_prompt_tps": {
+          "n": 5,
+          "median": 2812.28,
+          "min": 2803.65,
+          "max": 2820.04
+        },
+        "client_ttft_s": {
+          "n": 5,
+          "median": 0.73645675,
+          "min": 0.733962792,
+          "max": 0.73837525
+        },
+        "client_wall_s": {
+          "n": 5,
+          "median": 4.305785209,
+          "min": 4.272445583,
+          "max": 4.309021167
+        }
+      },
+      "mtp_acceptance": {
+        "numerator": 1800,
+        "denominator": 2020,
+        "ratio": 0.8910891089108911,
+        "denominator_scope": "Attempted/reached logged depth positions; can include lookup rounds"
+      },
+      "lookup_acceptance": {
+        "numerator": 25,
+        "denominator": 140,
+        "ratio": 0.17857142857142858,
+        "denominator_scope": "All proposed lookup draft tokens"
+      }
+    },
+    {
+      "profile": "fixed3lookup",
+      "stage": "core",
+      "label": "32768",
+      "category": "full512",
+      "attempts": 5,
+      "n": 5,
+      "actual_prompt_lengths": [
+        32768
+      ],
+      "actual_output_lengths": [
+        512
+      ],
+      "metrics": {
+        "server_generation_tps": {
+          "n": 5,
+          "median": 124.63,
+          "min": 124.56,
+          "max": 130.08
+        },
+        "client_n_over_wall_minus_ttft_tps": {
+          "n": 5,
+          "median": 124.62846253231025,
+          "min": 124.56402087867575,
+          "max": 130.1773614860682
+        },
+        "server_prompt_tps": {
+          "n": 5,
+          "median": 3910.28,
+          "min": 3899.66,
+          "max": 3914.77
+        },
+        "client_ttft_s": {
+          "n": 5,
+          "median": 8.4425485,
+          "min": 8.433279666,
+          "max": 8.469033292
+        },
+        "client_wall_s": {
+          "n": 5,
+          "median": 12.5414905,
+          "min": 12.397766167,
+          "max": 12.551551208
+        }
+      },
+      "mtp_acceptance": {
+        "numerator": 1810,
+        "denominator": 2005,
+        "ratio": 0.9027431421446384,
+        "denominator_scope": "Attempted/reached logged depth positions; can include lookup rounds"
+      },
+      "lookup_acceptance": {
+        "numerator": 0,
+        "denominator": 35,
+        "ratio": 0.0,
+        "denominator_scope": "All proposed lookup draft tokens"
+      }
+    },
+    {
+      "profile": "fixed3lookup",
+      "stage": "core",
+      "label": "8192",
+      "category": "full512",
+      "attempts": 5,
+      "n": 5,
+      "actual_prompt_lengths": [
+        8192
+      ],
+      "actual_output_lengths": [
+        512
+      ],
+      "metrics": {
+        "server_generation_tps": {
+          "n": 5,
+          "median": 134.54,
+          "min": 133.89,
+          "max": 136.57
+        },
+        "client_n_over_wall_minus_ttft_tps": {
+          "n": 5,
+          "median": 134.54883811140533,
+          "min": 133.90062537052685,
+          "max": 136.5907925267229
+        },
+        "server_prompt_tps": {
+          "n": 5,
+          "median": 3884.35,
+          "min": 3817.75,
+          "max": 3885.71
+        },
+        "client_ttft_s": {
+          "n": 5,
+          "median": 2.128135917,
+          "min": 2.127791791,
+          "max": 2.164728541
+        },
+        "client_wall_s": {
+          "n": 5,
+          "median": 5.9331015,
+          "min": 5.901130917,
+          "max": 5.951825291
+        }
+      },
+      "mtp_acceptance": {
+        "numerator": 1755,
+        "denominator": 2065,
+        "ratio": 0.8498789346246973,
+        "denominator_scope": "Attempted/reached logged depth positions; can include lookup rounds"
+      },
+      "lookup_acceptance": {
+        "numerator": 10,
+        "denominator": 35,
+        "ratio": 0.2857142857142857,
+        "denominator_scope": "All proposed lookup draft tokens"
+      }
+    },
+    {
+      "profile": "fixed3lookup",
+      "stage": "tasks",
+      "label": "edit_file",
+      "category": "validated_task",
+      "attempts": 5,
+      "n": 5,
+      "actual_prompt_lengths": [
+        1344
+      ],
+      "actual_output_lengths": [
+        1278
+      ],
+      "metrics": {
+        "server_generation_tps": {
+          "n": 5,
+          "median": 245.63,
+          "min": 245.29,
+          "max": 245.94
+        },
+        "client_n_over_wall_minus_ttft_tps": {
+          "n": 5,
+          "median": 245.6504583474555,
+          "min": 245.30482825404923,
+          "max": 245.9529544572011
+        },
+        "server_prompt_tps": {
+          "n": 5,
+          "median": 2372.39,
+          "min": 2350.3,
+          "max": 2375.18
+        },
+        "client_ttft_s": {
+          "n": 5,
+          "median": 0.572946583,
+          "min": 0.572107458,
+          "max": 0.57991125
+        },
+        "client_wall_s": {
+          "n": 5,
+          "median": 5.775992667,
+          "min": 5.76906225,
+          "max": 5.784799333
+        }
+      },
+      "mtp_acceptance": {
+        "numerator": 5870,
+        "denominator": 5910,
+        "ratio": 0.9932318104906938,
+        "denominator_scope": "Attempted/reached logged depth positions; can include lookup rounds"
+      },
+      "lookup_acceptance": {
+        "numerator": 5750,
+        "denominator": 5985,
+        "ratio": 0.960735171261487,
+        "denominator_scope": "All proposed lookup draft tokens"
+      }
+    },
+    {
+      "profile": "fixed3lookup",
+      "stage": "tasks",
+      "label": "json_change",
+      "category": "validated_task",
+      "attempts": 5,
+      "n": 5,
+      "actual_prompt_lengths": [
+        880
+      ],
+      "actual_output_lengths": [
+        822
+      ],
+      "metrics": {
+        "server_generation_tps": {
+          "n": 5,
+          "median": 214.51,
+          "min": 213.41,
+          "max": 219.47
+        },
+        "client_n_over_wall_minus_ttft_tps": {
+          "n": 5,
+          "median": 214.52853855688616,
+          "min": 213.43788387100395,
+          "max": 219.50321682685257
+        },
+        "server_prompt_tps": {
+          "n": 5,
+          "median": 1915.08,
+          "min": 1863.9,
+          "max": 1927.54
+        },
+        "client_ttft_s": {
+          "n": 5,
+          "median": 0.465218,
+          "min": 0.46171325,
+          "max": 0.477287208
+        },
+        "client_wall_s": {
+          "n": 5,
+          "median": 4.294099292,
+          "min": 4.210652209,
+          "max": 4.312950833
+        }
+      },
+      "mtp_acceptance": {
+        "numerator": 3463,
+        "denominator": 3488,
+        "ratio": 0.9928325688073395,
+        "denominator_scope": "Attempted/reached logged depth positions; can include lookup rounds"
+      },
+      "lookup_acceptance": {
+        "numerator": 2089,
+        "denominator": 2261,
+        "ratio": 0.9239274657231313,
+        "denominator_scope": "All proposed lookup draft tokens"
+      }
+    },
+    {
+      "profile": "fixed3lookup",
+      "stage": "warm",
+      "label": "32768",
+      "category": "full512",
+      "attempts": 5,
+      "n": 5,
+      "actual_prompt_lengths": [
+        32768
+      ],
+      "actual_output_lengths": [
+        512
+      ],
+      "metrics": {
+        "server_generation_tps": {
+          "n": 5,
+          "median": 138.89,
+          "min": 138.79,
+          "max": 138.99
+        },
+        "client_n_over_wall_minus_ttft_tps": {
+          "n": 5,
+          "median": 138.90845804748352,
+          "min": 138.80468696255966,
+          "max": 139.00790260279246
+        },
+        "server_prompt_tps": {
+          "n": 5,
+          "median": 39.72,
+          "min": 28.06,
+          "max": 40.17
+        },
+        "client_ttft_s": {
+          "n": 5,
+          "median": 0.229200417,
+          "min": 0.226718833,
+          "max": 0.311590167
+        },
+        "client_wall_s": {
+          "n": 5,
+          "median": 3.914040875,
+          "min": 3.9125995,
+          "max": 4.000226417
+        }
+      },
+      "mtp_acceptance": {
+        "numerator": 1800,
+        "denominator": 2010,
+        "ratio": 0.8955223880597015,
+        "denominator_scope": "Attempted/reached logged depth positions; can include lookup rounds"
+      },
+      "lookup_acceptance": {
+        "numerator": 15,
+        "denominator": 70,
+        "ratio": 0.21428571428571427,
+        "denominator_scope": "All proposed lookup draft tokens"
+      }
+    },
+    {
+      "profile": "fixed3lookup",
+      "stage": "warm",
+      "label": "8192",
+      "category": "full512",
+      "attempts": 5,
+      "n": 5,
+      "actual_prompt_lengths": [
+        8192
+      ],
+      "actual_output_lengths": [
+        512
+      ],
+      "metrics": {
+        "server_generation_tps": {
+          "n": 5,
+          "median": 141.21,
+          "min": 140.71,
+          "max": 141.3
+        },
+        "client_n_over_wall_minus_ttft_tps": {
+          "n": 5,
+          "median": 141.22219257107827,
+          "min": 140.72239674160062,
+          "max": 141.31427311074012
+        },
+        "server_prompt_tps": {
+          "n": 5,
+          "median": 71.98,
+          "min": 46.49,
+          "max": 73.48
+        },
+        "client_ttft_s": {
+          "n": 5,
+          "median": 0.112956583,
+          "min": 0.110600625,
+          "max": 0.169051167
+        },
+        "client_wall_s": {
+          "n": 5,
+          "median": 3.73832025,
+          "min": 3.73373075,
+          "max": 3.807420125
+        }
+      },
+      "mtp_acceptance": {
+        "numerator": 1755,
+        "denominator": 2035,
+        "ratio": 0.8624078624078624,
+        "denominator_scope": "Attempted/reached logged depth positions; can include lookup rounds"
+      },
+      "lookup_acceptance": {
+        "numerator": 0,
+        "denominator": 35,
+        "ratio": 0.0,
+        "denominator_scope": "All proposed lookup draft tokens"
+      }
+    }
+  ],
+  "scope": [
+    "Five valid formal measurements per reported group; core512 uses chat-wrapped synthetic code, temperature0, thinkingoff.",
+    "Edit-file and JSON-change function/contract checks passed, greedy bodies identical for corresponding fixed3 and fixed3lookup repetitions.",
+    "v0.7.0 upgrade versus older same-day historical run is not interleaved; no causal sub1percent speedup claim.",
+    "Cold prefix means zero reused tokens; filesystem/Engram/PLE caches were not purged."
+  ]
+}

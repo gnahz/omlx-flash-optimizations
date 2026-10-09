@@ -1,0 +1,53 @@
+{
+  "schema_version": 1,
+  "model_revision": "e171af86f499f1855b0fb71d781105e8dd609610",
+  "source": "Frozen payloads from qualified 2026-10-07 core and 2026-10-08 final prefix retention confirmation; no model outputs bundled.",
+  "files_sha256": {
+    "core2048.json": "455fea0a15d0f45ea6e62c421376fcdcc11586d3b2797304abf46635fd47c422",
+    "core8192.json": "9eca817ba5a276f93b9bfaa238b9038905eb9ce4ac0b110631b7b5e905726099",
+    "core32768.json": "edc8858d51af03e4d445d37269a243bd58c160764f94cec1f4d24caeffd09e6b",
+    "core7792.json": "253a9148f818d45ef8c2db8437857fa5f1e51b903ae3e68f168c3022f3b10f03",
+    "core32k.json": "08f945860e2afa921f89ab6b2e392ab81c40653f072f1b066419bc168804810c",
+    "functional.json": "e8446502a146c3895a42019bd4dbbc35f35e5cb263ae5924a0afa8963d2a824f",
+    "public.json": "5bc6ce59390a8e3e10e0f9ae83fe8ace912e5437dc07a6642d80bf561c2b3755",
+    "semantic.json": "b0011d29d7508b97cd2742acdadd406577049713868696f64ac53deb78864764",
+    "tasks.json": "190242d566166a2f4de019c78311742caa76ac55e276ecb7ca3acf544dde912a"
+  },
+  "core_schedule": {
+    "contexts": [
+      2048,
+      8192,
+      32768
+    ],
+    "warmup": 1,
+    "measured": 5,
+    "output_tokens": 512
+  },
+  "prefix_schedule": {
+    "requests_per_profile": 22,
+    "timed_per_profile": 18,
+    "same_prompt_warm": 5,
+    "continuation": 3,
+    "distinct_public_warmup": 2,
+    "distinct_public_measured": 3,
+    "context32k_cold": 3,
+    "context32k_warm": 3,
+    "semantic_requests": 7
+  },
+  "tasks_schedule": {
+    "task_ids": [
+      "edit_file",
+      "json_change"
+    ],
+    "profiles": [
+      "fixed3",
+      "fixed3lookup"
+    ],
+    "warmup_per_task": 1,
+    "measured_per_task": 5,
+    "requests": 24,
+    "measured_requests": 20,
+    "cache": "cold before every request",
+    "validation": "Exact historical whole output/length plus Python rename AST or complete JSON object contract"
+  }
+}

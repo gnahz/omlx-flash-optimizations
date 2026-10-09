@@ -1,0 +1,51 @@
+{
+  "schema_version": 1,
+  "origin": "Archived accepted local cache smoke; not a portable release rebenchmark.",
+  "source_filename": "omlx-v41-prefix-cache-concurrency8-acceptance-r1.json",
+  "source_sha256": "7e8eb34eea560bb15496b1aad353f785c8d6f10047aa3f815561831614ec8324",
+  "status": "passed",
+  "profile": {
+    "capacity_gib": 3,
+    "read_policy": "startup_only",
+    "save_interval_seconds": 300,
+    "memory_limit_gib": 240,
+    "checkpoint_tokens": 8192,
+    "eviction": "LRU",
+    "cache_allocation": "on_demand",
+    "generic_omlx_memory_and_ssd_cache": false,
+    "shutdown_flush": true,
+    "startup_timeout_seconds": 900,
+    "shutdown_timeout_seconds": 120,
+    "persistence_format": "atomic_checksummed_full_state_with_previous_generation",
+    "max_concurrent_requests": 8
+  },
+  "validation": {
+    "live_request_count": 10,
+    "prompt_tokens": 8242,
+    "output_tokens_per_request": 64,
+    "maximum_observed_running": 8,
+    "all_eight_streams_generation_overlap_s": 5.63671875,
+    "all_parallel_requests_cached_tokens": 8192,
+    "api_and_generated_token_id_parity": true,
+    "inference_prefix_cache_disk_reads_unchanged": true,
+    "peak_sampled_inference_gib": 222.4458512812853,
+    "shutdown_save_passed": true,
+    "startup_restored_checkpoints": 1,
+    "restored_request_cached_tokens": 8192,
+    "runtime_script_tests_passed": 16,
+    "test_scope": "One cold serial reference, eight simultaneous cached streams, one replay after a clean process restart; all10 requests use the same8242-token fixture.",
+    "final_normal_start_passed": true,
+    "final_health": "healthy",
+    "final_scheduler_max_num_seqs": 8,
+    "final_start_restored_checkpoints": 1,
+    "lan_authenticated_models_passed": true,
+    "unauthenticated_models_http_status": 401
+  },
+  "limitations": [
+    "Eight active requests is a configured maximum. Memory-pressure admission control remains enabled.",
+    "Concurrency8 smoke does not qualify eight simultaneous maximum-length contexts or sustained production throughput.",
+    "Physical memory sampled every0.5seconds; between-sample peaks unverified.",
+    "Dedicated cache contains one10MiB checkpoint in this smoke. Full3GiB cache saturation not exercised.",
+    "Existing independent Hermes/DSH wrappers still serialize entire client processes; direct API concurrency is8."
+  ]
+}

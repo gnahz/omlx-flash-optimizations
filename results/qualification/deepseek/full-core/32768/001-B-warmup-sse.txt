@@ -1,0 +1,100 @@
+data: {"id":"chatcmpl-f5afe27c","object":"chat.completion.chunk","created":0,"model":"keepalive","choices":[{"index":0,"delta":{"role":"assistant","content":""},"finish_reason":null}]}
+
+data: {"id":"chatcmpl-f5afe27c","object":"chat.completion.chunk","created":1791564991,"model":"deepseek-v41-lsq","choices":[{"index":0,"delta":{"role":"assistant"}}]}
+
+data: {"id":"chatcmpl-f5afe27c","object":"chat.completion.chunk","created":0,"model":"keepalive","choices":[{"index":0,"delta":{"role":"assistant","content":""},"finish_reason":null}]}
+
+data: {"id":"chatcmpl-f5afe27c","object":"chat.completion.chunk","created":1791565006,"model":"deepseek-v41-lsq","choices":[{"index":0,"delta":{"content":"#"}}]}
+
+data: {"id":"chatcmpl-f5afe27c","object":"chat.completion.chunk","created":1791565007,"model":"deepseek-v41-lsq","choices":[{"index":0,"delta":{"content":" SQLite Campaign Draft Store\n\nBelow is"}}]}
+
+data: {"id":"chatcmpl-f5afe27c","object":"chat.completion.chunk","created":1791565007,"model":"deepseek-v41-lsq","choices":[{"index":0,"delta":{"content":" a complete, runnable implementation using only the Python standard"}}]}
+
+data: {"id":"chatcmpl-f5afe27c","object":"chat.completion.chunk","created":1791565007,"model":"deepseek-v41-lsq","choices":[{"index":0,"delta":{"content":" library. It provides a `CampaignDraftStore` with"}}]}
+
+data: {"id":"chatcmpl-f5afe27c","object":"chat.completion.chunk","created":1791565007,"model":"deepseek-v41-lsq","choices":[{"index":0,"delta":{"content":" create/get/list/update, idempotency keys"}}]}
+
+data: {"id":"chatcmpl-f5afe27c","object":"chat.completion.chunk","created":1791565007,"model":"deepseek-v41-lsq","choices":[{"index":0,"delta":{"content":", explicit transactions, validation, optimistic version checks"}}]}
+
+data: {"id":"chatcmpl-f5afe27c","object":"chat.completion.chunk","created":1791565007,"model":"deepseek-v41-lsq","choices":[{"index":0,"delta":{"content":", and rollback. Tests cover duplicate requests"}}]}
+
+data: {"id":"chatcmpl-f5afe27c","object":"chat.completion.chunk","created":1791565007,"model":"deepseek-v41-lsq","choices":[{"index":0,"delta":{"content":", conflicting updates, pagination, and transaction failure.\n\n## `camp"}}]}
+
+data: {"id":"chatcmpl-f5afe27c","object":"chat.completion.chunk","created":1791565007,"model":"deepseek-v41-lsq","choices":[{"index":0,"delta":{"content":"aign_store.py`\n\n```python\nimport sqlite3\nimport json"}}]}
+
+data: {"id":"chatcmpl-f5afe27c","object":"chat.completion.chunk","created":1791565008,"model":"deepseek-v41-lsq","choices":[{"index":0,"delta":{"content":"\nimport uuid\nfrom datetime import datetime, timezone\n"}}]}
+
+data: {"id":"chatcmpl-f5afe27c","object":"chat.completion.chunk","created":1791565008,"model":"deepseek-v41-lsq","choices":[{"index":0,"delta":{"content":"from typing import Optional, List, Dict, Any\n\nSC"}}]}
+
+data: {"id":"chatcmpl-f5afe27c","object":"chat.completion.chunk","created":1791565008,"model":"deepseek-v41-lsq","choices":[{"index":0,"delta":{"content":"HEMA = \"\"\"\nCREATE TABLE IF NOT EXISTS campaign_d"}}]}
+
+data: {"id":"chatcmpl-f5afe27c","object":"chat.completion.chunk","created":1791565008,"model":"deepseek-v41-lsq","choices":[{"index":0,"delta":{"content":"rafts (\n    id TEXT PRIMARY KEY,\n    name TEXT"}}]}
+
+data: {"id":"chatcmpl-f5afe27c","object":"chat.completion.chunk","created":1791565008,"model":"deepseek-v41-lsq","choices":[{"index":0,"delta":{"content":" NOT NULL,\n    status TEXT NOT NULL,\n"}}]}
+
+data: {"id":"chatcmpl-f5afe27c","object":"chat.completion.chunk","created":1791565008,"model":"deepseek-v41-lsq","choices":[{"index":0,"delta":{"content":"    budget INTEGER NOT NULL,\n    version INTEGER NOT NULL DEFAULT"}}]}
+
+data: {"id":"chatcmpl-f5afe27c","object":"chat.completion.chunk","created":1791565008,"model":"deepseek-v41-lsq","choices":[{"index":0,"delta":{"content":" 1,\n    created_at TEXT NOT NULL,\n    updated_at TEXT NOT NULL"}}]}
+
+data: {"id":"chatcmpl-f5afe27c","object":"chat.completion.chunk","created":1791565008,"model":"deepseek-v41-lsq","choices":[{"index":0,"delta":{"content":"\n);\nCREATE TABLE IF NOT EXISTS idempotency_keys (\n    key"}}]}
+
+data: {"id":"chatcmpl-f5afe27c","object":"chat.completion.chunk","created":1791565009,"model":"deepseek-v41-lsq","choices":[{"index":0,"delta":{"content":" TEXT PRIMARY KEY,\n    operation TEXT NOT NULL,\n    resource"}}]}
+
+data: {"id":"chatcmpl-f5afe27c","object":"chat.completion.chunk","created":1791565009,"model":"deepseek-v41-lsq","choices":[{"index":0,"delta":{"content":"_id TEXT NOT NULL,\n    response TEXT NOT"}}]}
+
+data: {"id":"chatcmpl-f5afe27c","object":"chat.completion.chunk","created":1791565009,"model":"deepseek-v41-lsq","choices":[{"index":0,"delta":{"content":" NULL,\n    created_at TEXT NOT NULL\n"}}]}
+
+data: {"id":"chatcmpl-f5afe27c","object":"chat.completion.chunk","created":1791565009,"model":"deepseek-v41-lsq","choices":[{"index":0,"delta":{"content":");\nCREATE INDEX IF NOT EXISTS idx_drafts_created"}}]}
+
+data: {"id":"chatcmpl-f5afe27c","object":"chat.completion.chunk","created":1791565009,"model":"deepseek-v41-lsq","choices":[{"index":0,"delta":{"content":" ON campaign_drafts(created_at, id);\n\"\"\"\n\nVALID_STATUSES"}}]}
+
+data: {"id":"chatcmpl-f5afe27c","object":"chat.completion.chunk","created":1791565009,"model":"deepseek-v41-lsq","choices":[{"index":0,"delta":{"content":" = {\"draft\", \"active\", \"paused"}}]}
+
+data: {"id":"chatcmpl-f5afe27c","object":"chat.completion.chunk","created":1791565009,"model":"deepseek-v41-lsq","choices":[{"index":0,"delta":{"content":"\", \"archived\"}\n\n\nclass ValidationError(Value"}}]}
+
+data: {"id":"chatcmpl-f5afe27c","object":"chat.completion.chunk","created":1791565009,"model":"deepseek-v41-lsq","choices":[{"index":0,"delta":{"content":"Error):\n    pass\n\n\nclass ConflictError(Runtime"}}]}
+
+data: {"id":"chatcmpl-f5afe27c","object":"chat.completion.chunk","created":1791565010,"model":"deepseek-v41-lsq","choices":[{"index":0,"delta":{"content":"Error):\n    pass\n\n\nclass NotFoundError"}}]}
+
+data: {"id":"chatcmpl-f5afe27c","object":"chat.completion.chunk","created":1791565010,"model":"deepseek-v41-lsq","choices":[{"index":0,"delta":{"content":"(LookupError):\n    pass\n\n\n"}}]}
+
+data: {"id":"chatcmpl-f5afe27c","object":"chat.completion.chunk","created":1791565010,"model":"deepseek-v41-lsq","choices":[{"index":0,"delta":{"content":"def _now() -> str:\n    return datetime.now"}}]}
+
+data: {"id":"chatcmpl-f5afe27c","object":"chat.completion.chunk","created":1791565010,"model":"deepseek-v41-lsq","choices":[{"index":0,"delta":{"content":"(timezone.utc).isoformat()\n\n\ndef _"}}]}
+
+data: {"id":"chatcmpl-f5afe27c","object":"chat.completion.chunk","created":1791565010,"model":"deepseek-v41-lsq","choices":[{"index":0,"delta":{"content":"validate_name(name: Any) -> str:\n    if"}}]}
+
+data: {"id":"chatcmpl-f5afe27c","object":"chat.completion.chunk","created":1791565010,"model":"deepseek-v41-lsq","choices":[{"index":0,"delta":{"content":" not isinstance(name, str) or not name.strip():\n       "}}]}
+
+data: {"id":"chatcmpl-f5afe27c","object":"chat.completion.chunk","created":1791565010,"model":"deepseek-v41-lsq","choices":[{"index":0,"delta":{"content":" raise ValidationError(\"name must be a non-empty string\")\n    if len"}}]}
+
+data: {"id":"chatcmpl-f5afe27c","object":"chat.completion.chunk","created":1791565010,"model":"deepseek-v41-lsq","choices":[{"index":0,"delta":{"content":"(name) > 200:\n        raise ValidationError"}}]}
+
+data: {"id":"chatcmpl-f5afe27c","object":"chat.completion.chunk","created":1791565011,"model":"deepseek-v41-lsq","choices":[{"index":0,"delta":{"content":"(\"name must be <= 200 chars\")\n    return name.strip()\n\n\n"}}]}
+
+data: {"id":"chatcmpl-f5afe27c","object":"chat.completion.chunk","created":1791565011,"model":"deepseek-v41-lsq","choices":[{"index":0,"delta":{"content":"def _validate_status(status: Any) -> str:\n    if status not"}}]}
+
+data: {"id":"chatcmpl-f5afe27c","object":"chat.completion.chunk","created":1791565011,"model":"deepseek-v41-lsq","choices":[{"index":0,"delta":{"content":" in VALID_STATUSES:\n        raise ValidationError(f\"status must be"}}]}
+
+data: {"id":"chatcmpl-f5afe27c","object":"chat.completion.chunk","created":1791565011,"model":"deepseek-v41-lsq","choices":[{"index":0,"delta":{"content":" one of {sorted(VALID_STATUSES)}\")\n    return status\n\n\n"}}]}
+
+data: {"id":"chatcmpl-f5afe27c","object":"chat.completion.chunk","created":1791565011,"model":"deepseek-v41-lsq","choices":[{"index":0,"delta":{"content":"def _validate_budget(budget: Any) -> int:\n    if"}}]}
+
+data: {"id":"chatcmpl-f5afe27c","object":"chat.completion.chunk","created":1791565011,"model":"deepseek-v41-lsq","choices":[{"index":0,"delta":{"content":" isinstance(budget, bool) or not isinstance(budget, int):\n       "}}]}
+
+data: {"id":"chatcmpl-f5afe27c","object":"chat.completion.chunk","created":1791565011,"model":"deepseek-v41-lsq","choices":[{"index":0,"delta":{"content":" raise ValidationError(\"budget must be an integer\")\n    if budget "}}]}
+
+data: {"id":"chatcmpl-f5afe27c","object":"chat.completion.chunk","created":1791565011,"model":"deepseek-v41-lsq","choices":[{"index":0,"delta":{"content":"< 0 or budget > 10_000_000:\n       "}}]}
+
+data: {"id":"chatcmpl-f5afe27c","object":"chat.completion.chunk","created":1791565012,"model":"deepseek-v41-lsq","choices":[{"index":0,"delta":{"content":" raise ValidationError(\"budget must be between 0 and 10,"}}]}
+
+data: {"id":"chatcmpl-f5afe27c","object":"chat.completion.chunk","created":1791565012,"model":"deepseek-v41-lsq","choices":[{"index":0,"delta":{"content":"000,000\")\n    return budget\n\n\nclass CampaignDraft"}}]}
+
+data: {"id":"chatcmpl-f5afe27c","object":"chat.completion.chunk","created":1791565012,"model":"deepseek-v41-lsq","choices":[{"index":0,"delta":{"content":"Store:\n    def __init__("}}]}
+
+data: {"id":"chatcmpl-f5afe27c","object":"chat.completion.chunk","created":1791565012,"model":"deepseek-v41-lsq","choices":[{"index":0,"delta":{},"finish_reason":"length"}]}
+
+data: {"id":"chatcmpl-f5afe27c","object":"chat.completion.chunk","created":1791565012,"model":"deepseek-v41-lsq","choices":[],"usage":{"prompt_tokens":32768,"completion_tokens":512,"total_tokens":33280,"input_tokens":32768,"output_tokens":512,"prompt_tokens_details":{"cached_tokens":0},"time_to_first_token":15.58,"time_to_first_visible_token":15.58,"total_time":20.94,"prompt_eval_duration":15.58,"generation_duration":5.36,"prompt_tokens_per_second":2102.61,"generation_tokens_per_second":95.57}}
+
+data: [DONE]
+

@@ -1,0 +1,754 @@
+{
+  "status": "passed",
+  "context_target": 16384,
+  "max_output_tokens": 512,
+  "repeat": 1,
+  "order": "ABBA",
+  "plan": [
+    {
+      "scenario": 0,
+      "arm": "A",
+      "warmup": true,
+      "round": null,
+      "position": null
+    },
+    {
+      "scenario": 0,
+      "arm": "B",
+      "warmup": true,
+      "round": null,
+      "position": null
+    },
+    {
+      "scenario": 0,
+      "arm": "A",
+      "warmup": false,
+      "round": 0,
+      "position": 0
+    },
+    {
+      "scenario": 0,
+      "arm": "B",
+      "warmup": false,
+      "round": 0,
+      "position": 1
+    },
+    {
+      "scenario": 0,
+      "arm": "B",
+      "warmup": false,
+      "round": 0,
+      "position": 2
+    },
+    {
+      "scenario": 0,
+      "arm": "A",
+      "warmup": false,
+      "round": 0,
+      "position": 3
+    }
+  ],
+  "payload_manifest": {
+    "0": {
+      "context_target": 16384,
+      "cpu_prompt_tokens": 16384,
+      "prompt_sha256": "096c4af4926609f6b4c966c503ca44583fb52184dae9165c269202415fac634b",
+      "archive_character_count": 56001,
+      "exact_token_padding": "",
+      "task_suffix_sha256": "f336a202369e68eb986520269b42010c7058748720a1501c64811fed4342952f",
+      "historical_payload_sha256": "2338d121ff5f995a558830422443606812bad76085f35266f31f231aa5318c01",
+      "original_task_preserved": true,
+      "historical_output_golden_applicable": false,
+      "prepared_payload_sha256": "2d1df7c7f8605d1466c6641ee2856f9280e82bb7192c6cf21be412f642c212a6"
+    }
+  },
+  "source_sha256": {
+    "tokenizer": "c90dfa01249db1be4245780a052ede752e1361c612ac6d08e2bdada7d599476b",
+    "encoder": "13f678b10c73da6fb8e4c231fae1ed29542538e5a62fe75176a202cd82dd327a",
+    "fixture_manifest": "22ca0c75452e9eef77ef1ae0dd3d840844afa9f657b92f2e132bd6ee2acd1080",
+    "script": "96531081a1d49c0652c658b8ffdbe83a3a2db8847a011619fb6ed622e8e2aa7f"
+  },
+  "rows": [
+    {
+      "content": "# SQLite Campaign Draft Store\n\nBelow is a complete, runnable implementation using only the Python standard library (`sqlite3`, `unittest`, `dataclasses`, `typing`, `uuid`, `json`).\n\n## `campaign_store.py`\n\n```python\n\"\"\"Campaign draft store backed by SQLite (stdlib only).\"\"\"\nfrom __future__ import annotations\n\nimport json\nimport sqlite3\nimport uuid\nfrom dataclasses import dataclass, field\nfrom typing import Any, Dict, List, Optional, Tuple\n\n\nclass StoreError(Exception):\n    \"\"\"Base error for the store.\"\"\"\n\n\nclass ValidationError(StoreError):\n    \"\"\"Raised when input fails validation.\"\"\"\n\n\nclass NotFoundError(StoreError):\n    \"\"\"Raised when a record does not exist.\"\"\"\n\n\nclass ConflictError(StoreError):\n    \"\"\"Raised on optimistic version mismatch or duplicate idempotency key.\"\"\"\n\n\n@dataclass\nclass Draft:\n    draft_id: str\n    workspace: str\n    owner_team: int\n    budget: int\n    status: str\n    version: int\n    payload: Dict[str, Any] = field(default_factory=dict)\n\n\n_SCHEMA = \"\"\"\nCREATE TABLE IF NOT EXISTS drafts (\n    draft_id      TEXT PRIMARY KEY,\n    workspace     TEXT NOT NULL,\n    owner_team    INTEGER NOT NULL,\n    budget        INTEGER NOT NULL,\n    status        TEXT NOT NULL,\n    version       INTEGER NOT NULL,\n    payload       TEXT NOT NULL\n);\nCREATE TABLE IF NOT EXISTS idempotency (\n    key           TEXT PRIMARY KEY,\n    draft_id      TEXT NOT NULL,\n    request_hash  TEXT NOT NULL,\n    created_at    TEXT NOT NULL DEFAULT (datetime('now'))\n);\nCREATE INDEX IF NOT EXISTS idx_drafts_workspace ON drafts(workspace);\n\"\"\"\n\n\ndef _validate_workspace(ws: str) -> None:\n    if not isinstance(ws, str) or not ws.strip():\n        raise ValidationError(\"workspace must be a non-empty string\")\n    if len(ws) > 64:\n        raise ValidationError(\"workspace too long (max 64)\")\n\n\ndef _validate_team(team: int) -> None:\n    if not isinstance(team, int) or isinstance(team, bool):\n        raise ValidationError(\"owner_team must be an int\")\n    if team < 0 or team > 999:\n        raise ValidationError(\"owner_team out of range [0,999]\"",
+      "reasoning": "",
+      "usage": {
+        "prompt_tokens": 16384,
+        "completion_tokens": 512,
+        "total_tokens": 16896,
+        "input_tokens": 16384,
+        "output_tokens": 512,
+        "prompt_tokens_details": {
+          "cached_tokens": 0
+        },
+        "time_to_first_token": 9.18,
+        "time_to_first_visible_token": 9.18,
+        "total_time": 14.78,
+        "prompt_eval_duration": 9.18,
+        "generation_duration": 5.6,
+        "prompt_tokens_per_second": 1784.03,
+        "generation_tokens_per_second": 91.48
+      },
+      "finish_reason": "length",
+      "done": true,
+      "elapsed_seconds": 14.841083833016455,
+      "ttft_seconds": 9.244662375014741,
+      "server_decode_tps": 91.48,
+      "server_prefill_tps": 1784.03,
+      "reported_cached_tokens": 0,
+      "log_start_offset": 36570,
+      "artifacts": {
+        "raw_sse": "000-A-warmup-sse.txt",
+        "events": "000-A-warmup-events.json",
+        "output": "000-A-warmup-output.json"
+      },
+      "whole_output_sha256": "f42e275d5cf77248f0c2be62fceaa04c89809ef1f4429feda729f07439231259",
+      "scenario": 0,
+      "arm": "A",
+      "warmup": true,
+      "round": null,
+      "position": null,
+      "serial": 0,
+      "case": "campaign-store-implementation",
+      "module_stats": {
+        "metadata_prefill_dense_calls": 40,
+        "metadata_dense_expert_calls": 40,
+        "dspark_single_calls": 132
+      },
+      "speculative": {
+        "finish": "length",
+        "tokens": 512,
+        "cycles": 135,
+        "tokens_per_cycle": 3.79,
+        "accepted": 375,
+        "drafted": 412,
+        "acceptance_rate": 0.9101941747572816,
+        "timing_ms": {
+          "backbone": 5290.0,
+          "mtp_head": 234.4,
+          "sampling": 3.5,
+          "cache": 19.1
+        },
+        "prompt_copy": {
+          "cycles": 4,
+          "accepted": 8,
+          "drafted": 16
+        }
+      },
+      "speculative_counter_identity": {
+        "finish": "length",
+        "tokens": 512,
+        "cycles": 135,
+        "tokens_per_cycle": 3.79,
+        "accepted": 375,
+        "drafted": 412,
+        "acceptance_rate": 0.9101941747572816,
+        "prompt_copy": {
+          "cycles": 4,
+          "accepted": 8,
+          "drafted": 16
+        }
+      },
+      "server_prompt_eval_seconds": 9.18,
+      "server_model_ttft_seconds": 9.18,
+      "server_model_load_seconds": null
+    },
+    {
+      "content": "# SQLite Campaign Draft Store\n\nBelow is a complete, runnable implementation using only the Python standard library (`sqlite3`, `unittest`, `dataclasses`, `typing`, `uuid`, `json`).\n\n## `campaign_store.py`\n\n```python\n\"\"\"Campaign draft store backed by SQLite (stdlib only).\"\"\"\nfrom __future__ import annotations\n\nimport json\nimport sqlite3\nimport uuid\nfrom dataclasses import dataclass, field\nfrom typing import Any, Dict, List, Optional, Tuple\n\n\nclass StoreError(Exception):\n    \"\"\"Base error for the store.\"\"\"\n\n\nclass ValidationError(StoreError):\n    \"\"\"Raised when input fails validation.\"\"\"\n\n\nclass NotFoundError(StoreError):\n    \"\"\"Raised when a record does not exist.\"\"\"\n\n\nclass ConflictError(StoreError):\n    \"\"\"Raised on optimistic version mismatch or duplicate idempotency key.\"\"\"\n\n\n@dataclass\nclass Draft:\n    draft_id: str\n    workspace: str\n    owner_team: int\n    budget: int\n    status: str\n    version: int\n    payload: Dict[str, Any] = field(default_factory=dict)\n\n\n_SCHEMA = \"\"\"\nCREATE TABLE IF NOT EXISTS drafts (\n    draft_id      TEXT PRIMARY KEY,\n    workspace     TEXT NOT NULL,\n    owner_team    INTEGER NOT NULL,\n    budget        INTEGER NOT NULL,\n    status        TEXT NOT NULL,\n    version       INTEGER NOT NULL,\n    payload       TEXT NOT NULL\n);\nCREATE TABLE IF NOT EXISTS idempotency (\n    key           TEXT PRIMARY KEY,\n    draft_id      TEXT NOT NULL,\n    request_hash  TEXT NOT NULL,\n    created_at    TEXT NOT NULL DEFAULT (datetime('now'))\n);\nCREATE INDEX IF NOT EXISTS idx_drafts_workspace ON drafts(workspace);\n\"\"\"\n\n\ndef _validate_workspace(ws: str) -> None:\n    if not isinstance(ws, str) or not ws.strip():\n        raise ValidationError(\"workspace must be a non-empty string\")\n    if len(ws) > 64:\n        raise ValidationError(\"workspace too long (max 64)\")\n\n\ndef _validate_team(team: int) -> None:\n    if not isinstance(team, int) or isinstance(team, bool):\n        raise ValidationError(\"owner_team must be an int\")\n    if team < 0 or team > 999:\n        raise ValidationError(\"owner_team out of range [0,999]\"",
+      "reasoning": "",
+      "usage": {
+        "prompt_tokens": 16384,
+        "completion_tokens": 512,
+        "total_tokens": 16896,
+        "input_tokens": 16384,
+        "output_tokens": 512,
+        "prompt_tokens_details": {
+          "cached_tokens": 0
+        },
+        "time_to_first_token": 7.76,
+        "time_to_first_visible_token": 7.76,
+        "total_time": 13.29,
+        "prompt_eval_duration": 7.76,
+        "generation_duration": 5.53,
+        "prompt_tokens_per_second": 2111.14,
+        "generation_tokens_per_second": 92.58
+      },
+      "finish_reason": "length",
+      "done": true,
+      "elapsed_seconds": 13.352470041951165,
+      "ttft_seconds": 7.822228457953315,
+      "server_decode_tps": 92.58,
+      "server_prefill_tps": 2111.14,
+      "reported_cached_tokens": 0,
+      "log_start_offset": 37449,
+      "artifacts": {
+        "raw_sse": "001-B-warmup-sse.txt",
+        "events": "001-B-warmup-events.json",
+        "output": "001-B-warmup-output.json"
+      },
+      "whole_output_sha256": "f42e275d5cf77248f0c2be62fceaa04c89809ef1f4429feda729f07439231259",
+      "scenario": 0,
+      "arm": "B",
+      "warmup": true,
+      "round": null,
+      "position": null,
+      "serial": 1,
+      "case": "campaign-store-implementation",
+      "module_stats": {
+        "metadata_prefill_direct_calls": 40,
+        "metadata_dense_expert_calls": 40,
+        "dspark_single_calls": 132
+      },
+      "speculative": {
+        "finish": "length",
+        "tokens": 512,
+        "cycles": 135,
+        "tokens_per_cycle": 3.79,
+        "accepted": 375,
+        "drafted": 412,
+        "acceptance_rate": 0.9101941747572816,
+        "timing_ms": {
+          "backbone": 5213.4,
+          "mtp_head": 242.0,
+          "sampling": 3.7,
+          "cache": 19.5
+        },
+        "prompt_copy": {
+          "cycles": 4,
+          "accepted": 8,
+          "drafted": 16
+        }
+      },
+      "speculative_counter_identity": {
+        "finish": "length",
+        "tokens": 512,
+        "cycles": 135,
+        "tokens_per_cycle": 3.79,
+        "accepted": 375,
+        "drafted": 412,
+        "acceptance_rate": 0.9101941747572816,
+        "prompt_copy": {
+          "cycles": 4,
+          "accepted": 8,
+          "drafted": 16
+        }
+      },
+      "server_prompt_eval_seconds": 7.76,
+      "server_model_ttft_seconds": 7.76,
+      "server_model_load_seconds": null
+    },
+    {
+      "content": "# SQLite Campaign Draft Store\n\nBelow is a complete, runnable implementation using only the Python standard library (`sqlite3`, `unittest`, `dataclasses`, `typing`, `uuid`, `json`).\n\n## `campaign_store.py`\n\n```python\n\"\"\"Campaign draft store backed by SQLite (stdlib only).\"\"\"\nfrom __future__ import annotations\n\nimport json\nimport sqlite3\nimport uuid\nfrom dataclasses import dataclass, field\nfrom typing import Any, Dict, List, Optional, Tuple\n\n\nclass StoreError(Exception):\n    \"\"\"Base error for the store.\"\"\"\n\n\nclass ValidationError(StoreError):\n    \"\"\"Raised when input fails validation.\"\"\"\n\n\nclass NotFoundError(StoreError):\n    \"\"\"Raised when a record does not exist.\"\"\"\n\n\nclass ConflictError(StoreError):\n    \"\"\"Raised on optimistic version mismatch or duplicate idempotency key.\"\"\"\n\n\n@dataclass\nclass Draft:\n    draft_id: str\n    workspace: str\n    owner_team: int\n    budget: int\n    status: str\n    version: int\n    payload: Dict[str, Any] = field(default_factory=dict)\n\n\n_SCHEMA = \"\"\"\nCREATE TABLE IF NOT EXISTS drafts (\n    draft_id      TEXT PRIMARY KEY,\n    workspace     TEXT NOT NULL,\n    owner_team    INTEGER NOT NULL,\n    budget        INTEGER NOT NULL,\n    status        TEXT NOT NULL,\n    version       INTEGER NOT NULL,\n    payload       TEXT NOT NULL\n);\nCREATE TABLE IF NOT EXISTS idempotency (\n    key           TEXT PRIMARY KEY,\n    draft_id      TEXT NOT NULL,\n    request_hash  TEXT NOT NULL,\n    created_at    TEXT NOT NULL DEFAULT (datetime('now'))\n);\nCREATE INDEX IF NOT EXISTS idx_drafts_workspace ON drafts(workspace);\n\"\"\"\n\n\ndef _validate_workspace(ws: str) -> None:\n    if not isinstance(ws, str) or not ws.strip():\n        raise ValidationError(\"workspace must be a non-empty string\")\n    if len(ws) > 64:\n        raise ValidationError(\"workspace too long (max 64)\")\n\n\ndef _validate_team(team: int) -> None:\n    if not isinstance(team, int) or isinstance(team, bool):\n        raise ValidationError(\"owner_team must be an int\")\n    if team < 0 or team > 999:\n        raise ValidationError(\"owner_team out of range [0,999]\"",
+      "reasoning": "",
+      "usage": {
+        "prompt_tokens": 16384,
+        "completion_tokens": 512,
+        "total_tokens": 16896,
+        "input_tokens": 16384,
+        "output_tokens": 512,
+        "prompt_tokens_details": {
+          "cached_tokens": 0
+        },
+        "time_to_first_token": 8.08,
+        "time_to_first_visible_token": 8.08,
+        "total_time": 13.58,
+        "prompt_eval_duration": 8.08,
+        "generation_duration": 5.5,
+        "prompt_tokens_per_second": 2027.39,
+        "generation_tokens_per_second": 93.05
+      },
+      "finish_reason": "length",
+      "done": true,
+      "elapsed_seconds": 13.663636290992144,
+      "ttft_seconds": 8.162993457983248,
+      "server_decode_tps": 93.05,
+      "server_prefill_tps": 2027.39,
+      "reported_cached_tokens": 0,
+      "log_start_offset": 38328,
+      "artifacts": {
+        "raw_sse": "002-A-measured-sse.txt",
+        "events": "002-A-measured-events.json",
+        "output": "002-A-measured-output.json"
+      },
+      "whole_output_sha256": "f42e275d5cf77248f0c2be62fceaa04c89809ef1f4429feda729f07439231259",
+      "scenario": 0,
+      "arm": "A",
+      "warmup": false,
+      "round": 0,
+      "position": 0,
+      "serial": 2,
+      "case": "campaign-store-implementation",
+      "module_stats": {
+        "metadata_prefill_dense_calls": 40,
+        "metadata_dense_expert_calls": 40,
+        "dspark_single_calls": 132
+      },
+      "speculative": {
+        "finish": "length",
+        "tokens": 512,
+        "cycles": 135,
+        "tokens_per_cycle": 3.79,
+        "accepted": 375,
+        "drafted": 412,
+        "acceptance_rate": 0.9101941747572816,
+        "timing_ms": {
+          "backbone": 5197.9,
+          "mtp_head": 231.7,
+          "sampling": 3.6,
+          "cache": 18.8
+        },
+        "prompt_copy": {
+          "cycles": 4,
+          "accepted": 8,
+          "drafted": 16
+        }
+      },
+      "speculative_counter_identity": {
+        "finish": "length",
+        "tokens": 512,
+        "cycles": 135,
+        "tokens_per_cycle": 3.79,
+        "accepted": 375,
+        "drafted": 412,
+        "acceptance_rate": 0.9101941747572816,
+        "prompt_copy": {
+          "cycles": 4,
+          "accepted": 8,
+          "drafted": 16
+        }
+      },
+      "server_prompt_eval_seconds": 8.08,
+      "server_model_ttft_seconds": 8.08,
+      "server_model_load_seconds": null
+    },
+    {
+      "content": "# SQLite Campaign Draft Store\n\nBelow is a complete, runnable implementation using only the Python standard library (`sqlite3`, `unittest`, `dataclasses`, `typing`, `uuid`, `json`).\n\n## `campaign_store.py`\n\n```python\n\"\"\"Campaign draft store backed by SQLite (stdlib only).\"\"\"\nfrom __future__ import annotations\n\nimport json\nimport sqlite3\nimport uuid\nfrom dataclasses import dataclass, field\nfrom typing import Any, Dict, List, Optional, Tuple\n\n\nclass StoreError(Exception):\n    \"\"\"Base error for the store.\"\"\"\n\n\nclass ValidationError(StoreError):\n    \"\"\"Raised when input fails validation.\"\"\"\n\n\nclass NotFoundError(StoreError):\n    \"\"\"Raised when a record does not exist.\"\"\"\n\n\nclass ConflictError(StoreError):\n    \"\"\"Raised on optimistic version mismatch or duplicate idempotency key.\"\"\"\n\n\n@dataclass\nclass Draft:\n    draft_id: str\n    workspace: str\n    owner_team: int\n    budget: int\n    status: str\n    version: int\n    payload: Dict[str, Any] = field(default_factory=dict)\n\n\n_SCHEMA = \"\"\"\nCREATE TABLE IF NOT EXISTS drafts (\n    draft_id      TEXT PRIMARY KEY,\n    workspace     TEXT NOT NULL,\n    owner_team    INTEGER NOT NULL,\n    budget        INTEGER NOT NULL,\n    status        TEXT NOT NULL,\n    version       INTEGER NOT NULL,\n    payload       TEXT NOT NULL\n);\nCREATE TABLE IF NOT EXISTS idempotency (\n    key           TEXT PRIMARY KEY,\n    draft_id      TEXT NOT NULL,\n    request_hash  TEXT NOT NULL,\n    created_at    TEXT NOT NULL DEFAULT (datetime('now'))\n);\nCREATE INDEX IF NOT EXISTS idx_drafts_workspace ON drafts(workspace);\n\"\"\"\n\n\ndef _validate_workspace(ws: str) -> None:\n    if not isinstance(ws, str) or not ws.strip():\n        raise ValidationError(\"workspace must be a non-empty string\")\n    if len(ws) > 64:\n        raise ValidationError(\"workspace too long (max 64)\")\n\n\ndef _validate_team(team: int) -> None:\n    if not isinstance(team, int) or isinstance(team, bool):\n        raise ValidationError(\"owner_team must be an int\")\n    if team < 0 or team > 999:\n        raise ValidationError(\"owner_team out of range [0,999]\"",
+      "reasoning": "",
+      "usage": {
+        "prompt_tokens": 16384,
+        "completion_tokens": 512,
+        "total_tokens": 16896,
+        "input_tokens": 16384,
+        "output_tokens": 512,
+        "prompt_tokens_details": {
+          "cached_tokens": 0
+        },
+        "time_to_first_token": 7.85,
+        "time_to_first_visible_token": 7.85,
+        "total_time": 13.37,
+        "prompt_eval_duration": 7.85,
+        "generation_duration": 5.52,
+        "prompt_tokens_per_second": 2086.08,
+        "generation_tokens_per_second": 92.74
+      },
+      "finish_reason": "length",
+      "done": true,
+      "elapsed_seconds": 13.457544917007908,
+      "ttft_seconds": 7.936896083992906,
+      "server_decode_tps": 92.74,
+      "server_prefill_tps": 2086.08,
+      "reported_cached_tokens": 0,
+      "log_start_offset": 39207,
+      "artifacts": {
+        "raw_sse": "003-B-measured-sse.txt",
+        "events": "003-B-measured-events.json",
+        "output": "003-B-measured-output.json"
+      },
+      "whole_output_sha256": "f42e275d5cf77248f0c2be62fceaa04c89809ef1f4429feda729f07439231259",
+      "scenario": 0,
+      "arm": "B",
+      "warmup": false,
+      "round": 0,
+      "position": 1,
+      "serial": 3,
+      "case": "campaign-store-implementation",
+      "module_stats": {
+        "metadata_prefill_direct_calls": 40,
+        "metadata_dense_expert_calls": 40,
+        "dspark_single_calls": 132
+      },
+      "speculative": {
+        "finish": "length",
+        "tokens": 512,
+        "cycles": 135,
+        "tokens_per_cycle": 3.79,
+        "accepted": 375,
+        "drafted": 412,
+        "acceptance_rate": 0.9101941747572816,
+        "timing_ms": {
+          "backbone": 5205.0,
+          "mtp_head": 241.2,
+          "sampling": 3.9,
+          "cache": 19.9
+        },
+        "prompt_copy": {
+          "cycles": 4,
+          "accepted": 8,
+          "drafted": 16
+        }
+      },
+      "speculative_counter_identity": {
+        "finish": "length",
+        "tokens": 512,
+        "cycles": 135,
+        "tokens_per_cycle": 3.79,
+        "accepted": 375,
+        "drafted": 412,
+        "acceptance_rate": 0.9101941747572816,
+        "prompt_copy": {
+          "cycles": 4,
+          "accepted": 8,
+          "drafted": 16
+        }
+      },
+      "server_prompt_eval_seconds": 7.85,
+      "server_model_ttft_seconds": 7.85,
+      "server_model_load_seconds": null
+    },
+    {
+      "content": "# SQLite Campaign Draft Store\n\nBelow is a complete, runnable implementation using only the Python standard library (`sqlite3`, `unittest`, `dataclasses`, `typing`, `uuid`, `json`).\n\n## `campaign_store.py`\n\n```python\n\"\"\"Campaign draft store backed by SQLite (stdlib only).\"\"\"\nfrom __future__ import annotations\n\nimport json\nimport sqlite3\nimport uuid\nfrom dataclasses import dataclass, field\nfrom typing import Any, Dict, List, Optional, Tuple\n\n\nclass StoreError(Exception):\n    \"\"\"Base error for the store.\"\"\"\n\n\nclass ValidationError(StoreError):\n    \"\"\"Raised when input fails validation.\"\"\"\n\n\nclass NotFoundError(StoreError):\n    \"\"\"Raised when a record does not exist.\"\"\"\n\n\nclass ConflictError(StoreError):\n    \"\"\"Raised on optimistic version mismatch or duplicate idempotency key.\"\"\"\n\n\n@dataclass\nclass Draft:\n    draft_id: str\n    workspace: str\n    owner_team: int\n    budget: int\n    status: str\n    version: int\n    payload: Dict[str, Any] = field(default_factory=dict)\n\n\n_SCHEMA = \"\"\"\nCREATE TABLE IF NOT EXISTS drafts (\n    draft_id      TEXT PRIMARY KEY,\n    workspace     TEXT NOT NULL,\n    owner_team    INTEGER NOT NULL,\n    budget        INTEGER NOT NULL,\n    status        TEXT NOT NULL,\n    version       INTEGER NOT NULL,\n    payload       TEXT NOT NULL\n);\nCREATE TABLE IF NOT EXISTS idempotency (\n    key           TEXT PRIMARY KEY,\n    draft_id      TEXT NOT NULL,\n    request_hash  TEXT NOT NULL,\n    created_at    TEXT NOT NULL DEFAULT (datetime('now'))\n);\nCREATE INDEX IF NOT EXISTS idx_drafts_workspace ON drafts(workspace);\n\"\"\"\n\n\ndef _validate_workspace(ws: str) -> None:\n    if not isinstance(ws, str) or not ws.strip():\n        raise ValidationError(\"workspace must be a non-empty string\")\n    if len(ws) > 64:\n        raise ValidationError(\"workspace too long (max 64)\")\n\n\ndef _validate_team(team: int) -> None:\n    if not isinstance(team, int) or isinstance(team, bool):\n        raise ValidationError(\"owner_team must be an int\")\n    if team < 0 or team > 999:\n        raise ValidationError(\"owner_team out of range [0,999]\"",
+      "reasoning": "",
+      "usage": {
+        "prompt_tokens": 16384,
+        "completion_tokens": 512,
+        "total_tokens": 16896,
+        "input_tokens": 16384,
+        "output_tokens": 512,
+        "prompt_tokens_details": {
+          "cached_tokens": 0
+        },
+        "time_to_first_token": 7.77,
+        "time_to_first_visible_token": 7.77,
+        "total_time": 13.28,
+        "prompt_eval_duration": 7.77,
+        "generation_duration": 5.51,
+        "prompt_tokens_per_second": 2109.59,
+        "generation_tokens_per_second": 92.86
+      },
+      "finish_reason": "length",
+      "done": true,
+      "elapsed_seconds": 13.360410207998939,
+      "ttft_seconds": 7.8472900410415605,
+      "server_decode_tps": 92.86,
+      "server_prefill_tps": 2109.59,
+      "reported_cached_tokens": 0,
+      "log_start_offset": 40086,
+      "artifacts": {
+        "raw_sse": "004-B-measured-sse.txt",
+        "events": "004-B-measured-events.json",
+        "output": "004-B-measured-output.json"
+      },
+      "whole_output_sha256": "f42e275d5cf77248f0c2be62fceaa04c89809ef1f4429feda729f07439231259",
+      "scenario": 0,
+      "arm": "B",
+      "warmup": false,
+      "round": 0,
+      "position": 2,
+      "serial": 4,
+      "case": "campaign-store-implementation",
+      "module_stats": {
+        "metadata_prefill_direct_calls": 40,
+        "metadata_dense_expert_calls": 40,
+        "dspark_single_calls": 132
+      },
+      "speculative": {
+        "finish": "length",
+        "tokens": 512,
+        "cycles": 135,
+        "tokens_per_cycle": 3.79,
+        "accepted": 375,
+        "drafted": 412,
+        "acceptance_rate": 0.9101941747572816,
+        "timing_ms": {
+          "backbone": 5202.6,
+          "mtp_head": 237.7,
+          "sampling": 3.5,
+          "cache": 19.4
+        },
+        "prompt_copy": {
+          "cycles": 4,
+          "accepted": 8,
+          "drafted": 16
+        }
+      },
+      "speculative_counter_identity": {
+        "finish": "length",
+        "tokens": 512,
+        "cycles": 135,
+        "tokens_per_cycle": 3.79,
+        "accepted": 375,
+        "drafted": 412,
+        "acceptance_rate": 0.9101941747572816,
+        "prompt_copy": {
+          "cycles": 4,
+          "accepted": 8,
+          "drafted": 16
+        }
+      },
+      "server_prompt_eval_seconds": 7.77,
+      "server_model_ttft_seconds": 7.77,
+      "server_model_load_seconds": null
+    },
+    {
+      "content": "# SQLite Campaign Draft Store\n\nBelow is a complete, runnable implementation using only the Python standard library (`sqlite3`, `unittest`, `dataclasses`, `typing`, `uuid`, `json`).\n\n## `campaign_store.py`\n\n```python\n\"\"\"Campaign draft store backed by SQLite (stdlib only).\"\"\"\nfrom __future__ import annotations\n\nimport json\nimport sqlite3\nimport uuid\nfrom dataclasses import dataclass, field\nfrom typing import Any, Dict, List, Optional, Tuple\n\n\nclass StoreError(Exception):\n    \"\"\"Base error for the store.\"\"\"\n\n\nclass ValidationError(StoreError):\n    \"\"\"Raised when input fails validation.\"\"\"\n\n\nclass NotFoundError(StoreError):\n    \"\"\"Raised when a record does not exist.\"\"\"\n\n\nclass ConflictError(StoreError):\n    \"\"\"Raised on optimistic version mismatch or duplicate idempotency key.\"\"\"\n\n\n@dataclass\nclass Draft:\n    draft_id: str\n    workspace: str\n    owner_team: int\n    budget: int\n    status: str\n    version: int\n    payload: Dict[str, Any] = field(default_factory=dict)\n\n\n_SCHEMA = \"\"\"\nCREATE TABLE IF NOT EXISTS drafts (\n    draft_id      TEXT PRIMARY KEY,\n    workspace     TEXT NOT NULL,\n    owner_team    INTEGER NOT NULL,\n    budget        INTEGER NOT NULL,\n    status        TEXT NOT NULL,\n    version       INTEGER NOT NULL,\n    payload       TEXT NOT NULL\n);\nCREATE TABLE IF NOT EXISTS idempotency (\n    key           TEXT PRIMARY KEY,\n    draft_id      TEXT NOT NULL,\n    request_hash  TEXT NOT NULL,\n    created_at    TEXT NOT NULL DEFAULT (datetime('now'))\n);\nCREATE INDEX IF NOT EXISTS idx_drafts_workspace ON drafts(workspace);\n\"\"\"\n\n\ndef _validate_workspace(ws: str) -> None:\n    if not isinstance(ws, str) or not ws.strip():\n        raise ValidationError(\"workspace must be a non-empty string\")\n    if len(ws) > 64:\n        raise ValidationError(\"workspace too long (max 64)\")\n\n\ndef _validate_team(team: int) -> None:\n    if not isinstance(team, int) or isinstance(team, bool):\n        raise ValidationError(\"owner_team must be an int\")\n    if team < 0 or team > 999:\n        raise ValidationError(\"owner_team out of range [0,999]\"",
+      "reasoning": "",
+      "usage": {
+        "prompt_tokens": 16384,
+        "completion_tokens": 512,
+        "total_tokens": 16896,
+        "input_tokens": 16384,
+        "output_tokens": 512,
+        "prompt_tokens_details": {
+          "cached_tokens": 0
+        },
+        "time_to_first_token": 8.04,
+        "time_to_first_visible_token": 8.04,
+        "total_time": 13.55,
+        "prompt_eval_duration": 8.04,
+        "generation_duration": 5.51,
+        "prompt_tokens_per_second": 2038.28,
+        "generation_tokens_per_second": 92.97
+      },
+      "finish_reason": "length",
+      "done": true,
+      "elapsed_seconds": 13.625095417024568,
+      "ttft_seconds": 8.11915795900859,
+      "server_decode_tps": 92.97,
+      "server_prefill_tps": 2038.28,
+      "reported_cached_tokens": 0,
+      "log_start_offset": 40965,
+      "artifacts": {
+        "raw_sse": "005-A-measured-sse.txt",
+        "events": "005-A-measured-events.json",
+        "output": "005-A-measured-output.json"
+      },
+      "whole_output_sha256": "f42e275d5cf77248f0c2be62fceaa04c89809ef1f4429feda729f07439231259",
+      "scenario": 0,
+      "arm": "A",
+      "warmup": false,
+      "round": 0,
+      "position": 3,
+      "serial": 5,
+      "case": "campaign-store-implementation",
+      "module_stats": {
+        "metadata_prefill_dense_calls": 40,
+        "metadata_dense_expert_calls": 40,
+        "dspark_single_calls": 132
+      },
+      "speculative": {
+        "finish": "length",
+        "tokens": 512,
+        "cycles": 135,
+        "tokens_per_cycle": 3.79,
+        "accepted": 375,
+        "drafted": 412,
+        "acceptance_rate": 0.9101941747572816,
+        "timing_ms": {
+          "backbone": 5200.7,
+          "mtp_head": 233.7,
+          "sampling": 3.5,
+          "cache": 18.9
+        },
+        "prompt_copy": {
+          "cycles": 4,
+          "accepted": 8,
+          "drafted": 16
+        }
+      },
+      "speculative_counter_identity": {
+        "finish": "length",
+        "tokens": 512,
+        "cycles": 135,
+        "tokens_per_cycle": 3.79,
+        "accepted": 375,
+        "drafted": 412,
+        "acceptance_rate": 0.9101941747572816,
+        "prompt_copy": {
+          "cycles": 4,
+          "accepted": 8,
+          "drafted": 16
+        }
+      },
+      "server_prompt_eval_seconds": 8.04,
+      "server_model_ttft_seconds": 8.04,
+      "server_model_load_seconds": null
+    }
+  ],
+  "prefix_cache_enabled": false,
+  "compressed_resident_weights_identical": true,
+  "sampled_memory_assessed": false,
+  "model_already_loaded_by_service": true,
+  "server_initial": {
+    "pid": 19612,
+    "ready": true,
+    "error": null,
+    "profile": {
+      "profile": "benchmark",
+      "max_concurrent_requests": 1,
+      "prefix_cache_enabled": false,
+      "process_limit_gib": 240,
+      "wired_limit_mib": 245760,
+      "prefill_step_size": 8192,
+      "gate_up": false,
+      "dspark_async": true,
+      "metadata_prefill": true
+    },
+    "controls": {
+      "metadata_prefill": true
+    },
+    "runtime_flags": {
+      "gate_up": false,
+      "dspark_async": true
+    },
+    "idle": {
+      "inflight_http": 0,
+      "models_loading": 0,
+      "leases": 0,
+      "scheduler_work": 0
+    },
+    "stats": {},
+    "fingerprint": {
+      "runtime": "5b4d49fb49b1608b61e39614d1992f4beaab712f1e67b075e79bdf0c677a6947",
+      "metadata_proof": "380103ef39a0785dbedbb65a95c3c9ad9e8492c8e67248f49e5ffa3d84c14fea",
+      "chunk_tokens": 8192,
+      "dspark_async": true,
+      "model_settings": "79ff0d22c0cbc034f92576d19e86c93be373975254910052a8751534ee9b3561",
+      "model_files": {
+        "config.json": "4b83ef14c5aff58f1a60b9c6fe872dabc4c0f484e68800ffb71db711a0f14209",
+        "tokenizer.json": "c90dfa01249db1be4245780a052ede752e1361c612ac6d08e2bdada7d599476b",
+        "tokenizer_config.json": "6ac8c8dc065ed118161d02dd532749ae3f52c243deac27872134fae2f50d8547",
+        "model.safetensors.index.json": "ac23b22906e97f9864e48f811e8eeba39dc82ae3bac6bb31f537ca966d4ae89b"
+      }
+    },
+    "cache": {
+      "ready": true,
+      "pid": 19612,
+      "error": null,
+      "read_policy": "startup_only",
+      "models": {}
+    },
+    "source_unchanged": true
+  },
+  "server_final": {
+    "pid": 19612,
+    "ready": true,
+    "error": null,
+    "profile": {
+      "profile": "benchmark",
+      "max_concurrent_requests": 1,
+      "prefix_cache_enabled": false,
+      "process_limit_gib": 240,
+      "wired_limit_mib": 245760,
+      "prefill_step_size": 8192,
+      "gate_up": false,
+      "dspark_async": true,
+      "metadata_prefill": true
+    },
+    "controls": {
+      "metadata_prefill": false
+    },
+    "runtime_flags": {
+      "gate_up": false,
+      "dspark_async": true
+    },
+    "idle": {
+      "inflight_http": 0,
+      "models_loading": 0,
+      "leases": 0,
+      "scheduler_work": 0
+    },
+    "stats": {
+      "metadata_prefill_dense_calls": 40,
+      "metadata_dense_expert_calls": 40,
+      "dspark_single_calls": 132
+    },
+    "fingerprint": {
+      "runtime": "5b4d49fb49b1608b61e39614d1992f4beaab712f1e67b075e79bdf0c677a6947",
+      "metadata_proof": "380103ef39a0785dbedbb65a95c3c9ad9e8492c8e67248f49e5ffa3d84c14fea",
+      "chunk_tokens": 8192,
+      "dspark_async": true,
+      "model_settings": "79ff0d22c0cbc034f92576d19e86c93be373975254910052a8751534ee9b3561",
+      "model_files": {
+        "config.json": "4b83ef14c5aff58f1a60b9c6fe872dabc4c0f484e68800ffb71db711a0f14209",
+        "tokenizer.json": "c90dfa01249db1be4245780a052ede752e1361c612ac6d08e2bdada7d599476b",
+        "tokenizer_config.json": "6ac8c8dc065ed118161d02dd532749ae3f52c243deac27872134fae2f50d8547",
+        "model.safetensors.index.json": "ac23b22906e97f9864e48f811e8eeba39dc82ae3bac6bb31f537ca966d4ae89b"
+      }
+    },
+    "cache": {
+      "ready": true,
+      "pid": 19612,
+      "error": null,
+      "read_policy": "startup_only",
+      "models": {}
+    },
+    "source_unchanged": true
+  },
+  "summary": {
+    "scenarios": {
+      "campaign-store-implementation": {
+        "A": {
+          "requests": 2,
+          "actual_generated_tokens": 1024,
+          "prefill_geomean_tps": 2032.8277077017628,
+          "prompt_eval_geomean_seconds": 8.059975186066021,
+          "client_ttft_geomean_seconds": 8.141046204494833,
+          "server_ttft_geomean_seconds": 8.059975186066021,
+          "decode_geomean_tps": 93.00999139877392,
+          "end_to_end_geomean_seconds": 13.644352245830055,
+          "accepted": 750,
+          "drafted": 824,
+          "whole_output_hashes": [
+            "f42e275d5cf77248f0c2be62fceaa04c89809ef1f4429feda729f07439231259"
+          ]
+        },
+        "B": {
+          "requests": 2,
+          "actual_generated_tokens": 1024,
+          "prefill_geomean_tps": 2097.8020657821853,
+          "prompt_eval_geomean_seconds": 7.809897566549767,
+          "client_ttft_geomean_seconds": 7.8919658892255296,
+          "server_ttft_geomean_seconds": 7.809897566549767,
+          "decode_geomean_tps": 92.79998060344629,
+          "end_to_end_geomean_seconds": 13.408889606667538,
+          "accepted": 750,
+          "drafted": 824,
+          "whole_output_hashes": [
+            "f42e275d5cf77248f0c2be62fceaa04c89809ef1f4429feda729f07439231259"
+          ]
+        },
+        "prefill_change_percent": 3.1962550409095014,
+        "ttft_change_percent": -3.0595614987638964,
+        "decode_change_percent": -0.22579380147152994
+      }
+    },
+    "geometric_prefill_change_percent": 3.1962550409095014,
+    "geometric_ttft_change_percent": -3.0595614987638964,
+    "geometric_decode_change_percent": -0.22579380147152994,
+    "measured_requests": 4,
+    "measured_actual_generated_tokens": 2048,
+    "complete_speculative_counters_equal": true,
+    "warmup_requests_discarded": 2,
+    "first_driver_request_separate": {
+      "arm": "A",
+      "client_ttft_seconds": 9.244662375014741,
+      "server_model_load_seconds": null,
+      "decode_tps": 91.48,
+      "elapsed_seconds": 14.841083833016455
+    },
+    "timing_note": "SSE prompt_eval_duration and prompt_tokens_per_second include the server first-token boundary; this is not a pure GPU prefill kernel timer. Model load is reported separately. Client TTFT includes loopback request overhead.",
+    "cold_start_note": "The first driver request is a discarded warmup. Only claim process-cold loading if initial loaded_weight_inventory is empty and model_load_duration is reported; candidate warmup JIT costs are also retained separately in rows.",
+    "full_logits_assessed": false,
+    "concurrency_assessed": false,
+    "agent_task_completion_assessed": false,
+    "comparison_note": "Same compressed checkpoint, same process, same fresh payloads, same decode and DSpark settings; no historical speed is added to the measured gain."
+  },
+  "controls_restored_to_initial": true,
+  "provenance": {
+    "original_report_sha256": "b28a129c021b3b381077cfdaeb5f4d6d687a5aa6be6ba59053b52600ff32133c",
+    "original_report_filename": "16384/report.json",
+    "local_paths_sanitized": true,
+    "full_server_logs_released": false,
+    "timing_scope": "Portable release qualification; background Hub upload and other host workload were active. Timings are retained as run evidence, not headline benchmark replacements."
+  }
+}

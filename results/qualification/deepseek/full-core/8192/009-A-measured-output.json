@@ -1,0 +1,84 @@
+{
+  "content": "# SQLite Campaign Draft Store (stdlib only)\n\nBelow is a complete, runnable implementation using only the Python standard library. It provides a small \"campaign draft\" store with create/get/list/update, idempotency keys, explicit transactions, validation, optimistic version checks, and rollback.\n\n## `campaign_store.py`\n\n```python\n\"\"\"SQLite-backed campaign draft store (stdlib only).\"\"\"\nfrom __future__ import annotations\n\nimport json\nimport re\nimport sqlite3\nimport uuid\nfrom dataclasses import dataclass\nfrom typing import Any, Iterable, Optional\n\nNAME_RE = re.compile(r\"^[A-Za-z0-9 _\\-\\.]{1,80}$\")\nMAX_BUDGET = 10_000_000\nMAX_PAGE = 200\n\n\nclass ValidationError(ValueError):\n    \"\"\"Raised when input fails validation.\"\"\"\n\n\nclass ConflictError(RuntimeError):\n    \"\"\"Raised on optimistic version mismatch.\"\"\"\n\n\nclass NotFoundError(LookupError):\n    \"\"\"Raised when a draft does not exist.\"\"\"\n\n\n@dataclass(frozen=True)\nclass Draft:\n    id: str\n    name: str\n    budget: int\n    owner_team: int\n    status: str\n    version: int\n    idempotency_key: Optional[str]\n    created_at: str\n    updated_at: str\n\n    def as_dict(self) -> dict[str, Any]:\n        return {\n            \"id\": self.id,\n            \"name\": self.name,\n            \"budget\": self.budget,\n            \"owner_team\": self.owner_team,\n            \"status\": self.status,\n            \"version\": self.version,\n            \"idempotency_key\": self.idempotency_key,\n            \"created_at\": self.created_at,\n            \"updated_at\": self.updated_at,\n        }\n\n\ndef _validate_name(name: Any) -> str:\n    if not isinstance(name, str) or not NAME_RE.match(name):\n        raise ValidationError(\"name must be 1-80 chars of letters, digits, space, _-.\")\n    return name\n\n\ndef _validate_budget(budget: Any) -> int:\n    if isinstance(budget, bool) or not isinstance(budget, int):\n        raise ValidationError(\"budget must be an integer\")\n    if budget < 0 or budget > MAX_BUDGET:\n        raise ValidationError(f\"budget must be between 0 and {MAX_BUD",
+  "reasoning": "",
+  "usage": {
+    "prompt_tokens": 8192,
+    "completion_tokens": 512,
+    "total_tokens": 8704,
+    "input_tokens": 8192,
+    "output_tokens": 512,
+    "prompt_tokens_details": {
+      "cached_tokens": 0
+    },
+    "time_to_first_token": 3.99,
+    "time_to_first_visible_token": 3.99,
+    "total_time": 9.67,
+    "prompt_eval_duration": 3.99,
+    "generation_duration": 5.69,
+    "prompt_tokens_per_second": 2055.35,
+    "generation_tokens_per_second": 90.06
+  },
+  "finish_reason": "length",
+  "done": true,
+  "elapsed_seconds": 9.737751542008482,
+  "ttft_seconds": 4.052892583014909,
+  "server_decode_tps": 90.06,
+  "server_prefill_tps": 2055.35,
+  "reported_cached_tokens": 0,
+  "log_start_offset": 18147,
+  "artifacts": {
+    "raw_sse": "009-A-measured-sse.txt",
+    "events": "009-A-measured-events.json",
+    "output": "009-A-measured-output.json"
+  },
+  "whole_output_sha256": "55354dfb641499f2954e99606da1e83717295a126cd03d4fb4c0d16b6217df7f",
+  "scenario": 0,
+  "arm": "A",
+  "warmup": false,
+  "round": 1,
+  "position": 3,
+  "serial": 9,
+  "case": "campaign-store-implementation",
+  "module_stats": {
+    "metadata_prefill_dense_calls": 20,
+    "metadata_dense_expert_calls": 20,
+    "dspark_single_calls": 141
+  },
+  "speculative": {
+    "finish": "length",
+    "tokens": 512,
+    "cycles": 142,
+    "tokens_per_cycle": 3.61,
+    "accepted": 368,
+    "drafted": 413,
+    "acceptance_rate": 0.8910411622276029,
+    "timing_ms": {
+      "backbone": 5363.9,
+      "mtp_head": 244.7,
+      "sampling": 3.9,
+      "cache": 21.3
+    },
+    "prompt_copy": {
+      "cycles": 2,
+      "accepted": 5,
+      "drafted": 8
+    }
+  },
+  "speculative_counter_identity": {
+    "finish": "length",
+    "tokens": 512,
+    "cycles": 142,
+    "tokens_per_cycle": 3.61,
+    "accepted": 368,
+    "drafted": 413,
+    "acceptance_rate": 0.8910411622276029,
+    "prompt_copy": {
+      "cycles": 2,
+      "accepted": 5,
+      "drafted": 8
+    }
+  },
+  "server_prompt_eval_seconds": 3.99,
+  "server_model_ttft_seconds": 3.99,
+  "server_model_load_seconds": null
+}

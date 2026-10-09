@@ -1,0 +1,285 @@
+[
+  {
+    "elapsed_seconds": 0.3620315000298433,
+    "event": {
+      "id": "chatcmpl-94b188a0",
+      "object": "chat.completion.chunk",
+      "created": 0,
+      "model": "keepalive",
+      "choices": [
+        {
+          "index": 0,
+          "delta": {
+            "role": "assistant",
+            "content": ""
+          },
+          "finish_reason": null
+        }
+      ]
+    }
+  },
+  {
+    "elapsed_seconds": 0.4183613749919459,
+    "event": {
+      "id": "chatcmpl-94b188a0",
+      "object": "chat.completion.chunk",
+      "created": 1791565357,
+      "model": "deepseek-v41-lsq",
+      "choices": [
+        {
+          "index": 0,
+          "delta": {
+            "role": "assistant"
+          }
+        }
+      ]
+    }
+  },
+  {
+    "elapsed_seconds": 4.960294749995228,
+    "event": {
+      "id": "chatcmpl-94b188a0",
+      "object": "chat.completion.chunk",
+      "created": 1791565362,
+      "model": "deepseek-v41-lsq",
+      "choices": [
+        {
+          "index": 0,
+          "delta": {
+            "content": "# SQL"
+          }
+        }
+      ]
+    }
+  },
+  {
+    "elapsed_seconds": 5.624618875037413,
+    "event": {
+      "id": "chatcmpl-94b188a0",
+      "object": "chat.completion.chunk",
+      "created": 1791565362,
+      "model": "deepseek-v41-lsq",
+      "choices": [
+        {
+          "index": 0,
+          "delta": {
+            "content": "ite Campaign Draft Store (stdlib"
+          }
+        }
+      ]
+    }
+  },
+  {
+    "elapsed_seconds": 6.2409434170112945,
+    "event": {
+      "id": "chatcmpl-94b188a0",
+      "object": "chat.completion.chunk",
+      "created": 1791565363,
+      "model": "deepseek-v41-lsq",
+      "choices": [
+        {
+          "index": 0,
+          "delta": {
+            "content": " only)\n\nBelow is a"
+          }
+        }
+      ]
+    }
+  },
+  {
+    "elapsed_seconds": 6.872984791989438,
+    "event": {
+      "id": "chatcmpl-94b188a0",
+      "object": "chat.completion.chunk",
+      "created": 1791565364,
+      "model": "deepseek-v41-lsq",
+      "choices": [
+        {
+          "index": 0,
+          "delta": {
+            "content": " complete, runnable implementation using"
+          }
+        }
+      ]
+    }
+  },
+  {
+    "elapsed_seconds": 7.5000337500241585,
+    "event": {
+      "id": "chatcmpl-94b188a0",
+      "object": "chat.completion.chunk",
+      "created": 1791565364,
+      "model": "deepseek-v41-lsq",
+      "choices": [
+        {
+          "index": 0,
+          "delta": {
+            "content": " only the Python standard library."
+          }
+        }
+      ]
+    }
+  },
+  {
+    "elapsed_seconds": 8.138709624996409,
+    "event": {
+      "id": "chatcmpl-94b188a0",
+      "object": "chat.completion.chunk",
+      "created": 1791565365,
+      "model": "deepseek-v41-lsq",
+      "choices": [
+        {
+          "index": 0,
+          "delta": {
+            "content": " It provides a `Camp"
+          }
+        }
+      ]
+    }
+  },
+  {
+    "elapsed_seconds": 8.744515250029508,
+    "event": {
+      "id": "chatcmpl-94b188a0",
+      "object": "chat.completion.chunk",
+      "created": 1791565366,
+      "model": "deepseek-v41-lsq",
+      "choices": [
+        {
+          "index": 0,
+          "delta": {
+            "content": "aignDraftStore` with"
+          }
+        }
+      ]
+    }
+  },
+  {
+    "elapsed_seconds": 9.398453792033251,
+    "event": {
+      "id": "chatcmpl-94b188a0",
+      "object": "chat.completion.chunk",
+      "created": 1791565366,
+      "model": "deepseek-v41-lsq",
+      "choices": [
+        {
+          "index": 0,
+          "delta": {
+            "content": " create/get/list/"
+          }
+        }
+      ]
+    }
+  },
+  {
+    "elapsed_seconds": 9.909706917009316,
+    "event": {
+      "id": "chatcmpl-94b188a0",
+      "object": "chat.completion.chunk",
+      "created": 1791565367,
+      "model": "deepseek-v41-lsq",
+      "choices": [
+        {
+          "index": 0,
+          "delta": {
+            "content": "update, idempot"
+          }
+        }
+      ]
+    }
+  },
+  {
+    "elapsed_seconds": 10.411643584026024,
+    "event": {
+      "id": "chatcmpl-94b188a0",
+      "object": "chat.completion.chunk",
+      "created": 1791565367,
+      "model": "deepseek-v41-lsq",
+      "choices": [
+        {
+          "index": 0,
+          "delta": {
+            "content": "ency keys, explicit transactions, validation"
+          }
+        }
+      ]
+    }
+  },
+  {
+    "elapsed_seconds": 10.753216416982468,
+    "event": {
+      "id": "chatcmpl-94b188a0",
+      "object": "chat.completion.chunk",
+      "created": 1791565368,
+      "model": "deepseek-v41-lsq",
+      "choices": [
+        {
+          "index": 0,
+          "delta": {
+            "content": ", optimistic version checks, and"
+          }
+        }
+      ]
+    }
+  },
+  {
+    "elapsed_seconds": 10.868401166982949,
+    "event": {
+      "id": "chatcmpl-94b188a0",
+      "object": "chat.completion.chunk",
+      "created": 1791565368,
+      "model": "deepseek-v41-lsq",
+      "choices": [
+        {
+          "index": 0,
+          "delta": {
+            "content": " rollback. Tests cover"
+          }
+        }
+      ]
+    }
+  },
+  {
+    "elapsed_seconds": 10.868634708982427,
+    "event": {
+      "id": "chatcmpl-94b188a0",
+      "object": "chat.completion.chunk",
+      "created": 1791565368,
+      "model": "deepseek-v41-lsq",
+      "choices": [
+        {
+          "index": 0,
+          "delta": {},
+          "finish_reason": "length"
+        }
+      ]
+    }
+  },
+  {
+    "elapsed_seconds": 10.86884208401898,
+    "event": {
+      "id": "chatcmpl-94b188a0",
+      "object": "chat.completion.chunk",
+      "created": 1791565368,
+      "model": "deepseek-v41-lsq",
+      "choices": [],
+      "usage": {
+        "prompt_tokens": 8242,
+        "completion_tokens": 64,
+        "total_tokens": 8306,
+        "input_tokens": 8242,
+        "output_tokens": 64,
+        "prompt_tokens_details": {
+          "cached_tokens": 8192
+        },
+        "time_to_first_token": 4.56,
+        "time_to_first_visible_token": 4.56,
+        "total_time": 10.47,
+        "prompt_eval_duration": 4.56,
+        "generation_duration": 5.91,
+        "prompt_tokens_per_second": 1808.05,
+        "generation_tokens_per_second": 10.83
+      }
+    }
+  }
+]

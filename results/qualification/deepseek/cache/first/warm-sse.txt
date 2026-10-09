@@ -1,0 +1,26 @@
+data: {"id":"chatcmpl-25ca408b","object":"chat.completion.chunk","created":0,"model":"keepalive","choices":[{"index":0,"delta":{"role":"assistant","content":""},"finish_reason":null}]}
+
+data: {"id":"chatcmpl-25ca408b","object":"chat.completion.chunk","created":1791565256,"model":"deepseek-v41-lsq","choices":[{"index":0,"delta":{"role":"assistant"}}]}
+
+data: {"id":"chatcmpl-25ca408b","object":"chat.completion.chunk","created":1791565256,"model":"deepseek-v41-lsq","choices":[{"index":0,"delta":{"content":"#"}}]}
+
+data: {"id":"chatcmpl-25ca408b","object":"chat.completion.chunk","created":1791565256,"model":"deepseek-v41-lsq","choices":[{"index":0,"delta":{"content":" SQLite Campaign Draft Store (stdlib only"}}]}
+
+data: {"id":"chatcmpl-25ca408b","object":"chat.completion.chunk","created":1791565257,"model":"deepseek-v41-lsq","choices":[{"index":0,"delta":{"content":")\n\nBelow is a complete, runnable"}}]}
+
+data: {"id":"chatcmpl-25ca408b","object":"chat.completion.chunk","created":1791565257,"model":"deepseek-v41-lsq","choices":[{"index":0,"delta":{"content":" implementation using only the Python standard library. It"}}]}
+
+data: {"id":"chatcmpl-25ca408b","object":"chat.completion.chunk","created":1791565257,"model":"deepseek-v41-lsq","choices":[{"index":0,"delta":{"content":" provides a `CampaignDraftStore` with"}}]}
+
+data: {"id":"chatcmpl-25ca408b","object":"chat.completion.chunk","created":1791565257,"model":"deepseek-v41-lsq","choices":[{"index":0,"delta":{"content":" create/get/list/update, idempotency"}}]}
+
+data: {"id":"chatcmpl-25ca408b","object":"chat.completion.chunk","created":1791565257,"model":"deepseek-v41-lsq","choices":[{"index":0,"delta":{"content":" keys, explicit transactions, validation, optimistic version checks"}}]}
+
+data: {"id":"chatcmpl-25ca408b","object":"chat.completion.chunk","created":1791565257,"model":"deepseek-v41-lsq","choices":[{"index":0,"delta":{"content":", and rollback. Tests cover"}}]}
+
+data: {"id":"chatcmpl-25ca408b","object":"chat.completion.chunk","created":1791565257,"model":"deepseek-v41-lsq","choices":[{"index":0,"delta":{},"finish_reason":"length"}]}
+
+data: {"id":"chatcmpl-25ca408b","object":"chat.completion.chunk","created":1791565257,"model":"deepseek-v41-lsq","choices":[],"usage":{"prompt_tokens":8242,"completion_tokens":64,"total_tokens":8306,"input_tokens":8242,"output_tokens":64,"prompt_tokens_details":{"cached_tokens":8192},"time_to_first_token":0.4,"time_to_first_visible_token":0.4,"total_time":1.26,"prompt_eval_duration":0.4,"generation_duration":0.85,"prompt_tokens_per_second":20465.7,"generation_tokens_per_second":74.96}}
+
+data: [DONE]
+

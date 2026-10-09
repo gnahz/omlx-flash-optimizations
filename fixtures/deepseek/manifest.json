@@ -1,0 +1,34 @@
+{
+  "schema_version": 1,
+  "scope": "Three synthetic archived exact-8K prompts; 16K and 32K preserve case0 task suffix and regenerate synthetic archive using the pinned encoder/tokenizer.",
+  "files": [
+    {
+      "path": "case0-8k.json",
+      "sha256": "2338d121ff5f995a558830422443606812bad76085f35266f31f231aa5318c01",
+      "prompt_sha256": "f92897f934bc812465b9ecaf90ad48a3a6c3d4db84823d7a14676455e3b3fbbc",
+      "case": "campaign-store-implementation",
+      "context_tokens": 8192,
+      "output_tokens": 512
+    },
+    {
+      "path": "case1-8k.json",
+      "sha256": "b569fea2d995338b467deced2d657dafe1b7eedac7ec4cfa5a6853c7196621a1",
+      "prompt_sha256": "695aa4e904be3d5b64b2ea8a9f7fbf2367e683233ce103592bf6f5e7a953e3d9",
+      "case": "community-launch-campaign",
+      "context_tokens": 8192,
+      "output_tokens": 512
+    },
+    {
+      "path": "case2-8k.json",
+      "sha256": "90e79a442ea6923427b39d6f3c3215f6ec35e954b71d12bf04f3ee9f8e17f532",
+      "prompt_sha256": "68b0b21cfeacb1ffef309495373497635c483880147de8fb810fb6359f7f1359",
+      "case": "video-and-computer-use-plan",
+      "context_tokens": 8192,
+      "output_tokens": 512
+    },
+    {
+      "path": "reference.json",
+      "sha256": "af4bd2de5712ee290ec5c95d591e8fb046579bc3e8dd0947475c42841ccd63b7"
+    }
+  ]
+}

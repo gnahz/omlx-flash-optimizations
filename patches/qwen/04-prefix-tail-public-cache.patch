@@ -1,0 +1,1590 @@
+diff --git a/omlx/cache/paged_cache.py b/omlx/cache/paged_cache.py
+index ea9c8baf..addd520f 100644
+--- a/omlx/cache/paged_cache.py
++++ b/omlx/cache/paged_cache.py
+@@ -77,7 +77,7 @@ def resolve_block_extra_keys(
+ 
+ 
+ # Tail index bounds. Entries are advisory and verified on every lookup.
+-_TAIL_INDEX_PER_PARENT = 8
++_TAIL_INDEX_PER_PARENT = 32
+ _TAIL_INDEX_MAX_PARENTS = 4096
+ 
+ 
+@@ -579,6 +579,11 @@ class PagedCacheManager(CacheManager):
+         # Tail blocks by chain parent (None for a root). A tail is shorter
+         # than a block, so the grid walk cannot derive its hash.
+         self._tail_index: Dict[Optional[BlockHash], "OrderedDict[BlockHash, int]"] = {}
++        # Registrations and verified matches refresh bounded LRU metadata.
++        # Public-prefix admission/byte retention has its own policy; historical
++        # tail hits must not pin old endpoints against a new concurrent cohort.
++        # These indexes never own blocks, tensor payloads, or SSD sidecars.
++        self._tail_parent_recency: "OrderedDict[Optional[BlockHash], None]" = OrderedDict()
+ 
+         logger.info(
+             f"PagedCacheManager initialized: block_size={block_size}, "
+@@ -1181,7 +1186,12 @@ class PagedCacheManager(CacheManager):
+         tail_hash: BlockHash,
+         token_count: int,
+     ) -> None:
+-        """Index a tail block under its chain parent for later lookup."""
++        """Index a tail with per-parent and parent-level LRU metadata limits.
++
++        Eviction removes only advisory lookup metadata. Block reference counts,
++        the hash map, and durable KV/GDN data remain under their usual owners.
++        Registration and a verified lookup both refresh recency.
++        """
+         if token_count <= 0:
+             return
+         with self._lock:
+@@ -1189,12 +1199,34 @@ class PagedCacheManager(CacheManager):
+                 parent_hash not in self._tail_index
+                 and len(self._tail_index) >= _TAIL_INDEX_MAX_PARENTS
+             ):
+-                self._tail_index.clear()
++                cold_parent, _ = self._tail_parent_recency.popitem(last=False)
++                self._tail_index.pop(cold_parent, None)
+             tails = self._tail_index.setdefault(parent_hash, OrderedDict())
++            if tail_hash not in tails and len(tails) >= _TAIL_INDEX_PER_PARENT:
++                tails.popitem(last=False)
+             tails.pop(tail_hash, None)
+             tails[tail_hash] = token_count
+-            while len(tails) > _TAIL_INDEX_PER_PARENT:
+-                tails.popitem(last=False)
++            self._tail_parent_recency[parent_hash] = None
++            self._tail_parent_recency.move_to_end(parent_hash)
++
++    def forget_tail_block(self, tail_hash: BlockHash) -> int:
++        """Remove all advisory entries for a tail; leave storage intact.
++
++        Cache owners may call this after separately evicting a durable branch.
++        It never releases a referenced block or deletes main KV/GDN payloads.
++        Returns the number of parent entries removed.
++        """
++        removed = 0
++        with self._lock:
++            for parent_hash, tails in list(self._tail_index.items()):
++                if tail_hash not in tails:
++                    continue
++                tails.pop(tail_hash)
++                removed += 1
++                if not tails:
++                    self._tail_index.pop(parent_hash, None)
++                    self._tail_parent_recency.pop(parent_hash, None)
++        return removed
+ 
+     def seed_tail_blocks(
+         self, entries: Iterable[Tuple[Optional[BlockHash], BlockHash, int]]
+@@ -1247,6 +1279,7 @@ class PagedCacheManager(CacheManager):
+                     tails.pop(tail_hash, None)
+                     if not tails:
+                         self._tail_index.pop(parent_hash, None)
++                        self._tail_parent_recency.pop(parent_hash, None)
+                     continue
+                 block = self.allocate_block()
+                 if block is None:
+@@ -1256,6 +1289,7 @@ class PagedCacheManager(CacheManager):
+                 block.ref_count = 0
+                 self.cached_block_hash_to_block.insert(tail_hash, block)
+             tails.move_to_end(tail_hash)
++            self._tail_parent_recency.move_to_end(parent_hash)
+             return block
+         return None
+ 
+@@ -1507,6 +1541,7 @@ class PagedCacheManager(CacheManager):
+ 
+             self.cached_block_hash_to_block.clear()
+             self._tail_index.clear()
++            self._tail_parent_recency.clear()
+             if self.on_hash_map_cleared is not None:
+                 self.on_hash_map_cleared()
+             self.request_tables.clear()
+diff --git a/omlx/scheduler.py b/omlx/scheduler.py
+index acadc082..4b19e882 100644
+--- a/omlx/scheduler.py
++++ b/omlx/scheduler.py
+@@ -13,6 +13,7 @@ The scheduler follows vLLM's design with:
+ 
+ import concurrent.futures
+ import copy
++from .cache import public_prefix_runtime as _public_prefix
+ import gc
+ import importlib
+ import inspect
+@@ -533,6 +534,9 @@ class _InflightStoreInfo:
+     extra_keys: tuple[Any, ...] | None = None
+     extra_key_token_start: int | None = None
+     extra_key_ranges: list[tuple[int, tuple[Any, ...]]] | None = None
++    # Only endpoints backed by prepared, real recurrent snapshots. A token
++    # overlap alone cannot create an off-grid GDN restore point.
++    tail_snapshot_token_counts: tuple[int, ...] = ()
+ 
+ 
+ @dataclass
+@@ -1794,6 +1798,7 @@ class _BoundarySnapshotProvider:
+         in_memory_snapshots: dict[int, Any],
+         paged_ssd_manager: Any | None = None,
+         tail_terminal_token_count: int | None = None,
++        auxiliary_tails: dict[int, list[dict[str, Any]]] | None = None,
+     ) -> None:
+         self._store = store
+         self._request_id = request_id
+@@ -1802,6 +1807,9 @@ class _BoundarySnapshotProvider:
+         self._paged_ssd_manager = paged_ssd_manager
+         # Set when the stored sequence ends on a tail snapshot, not a boundary.
+         self.tail_terminal_token_count = tail_terminal_token_count
++        # These are independent prefix branches, not intermediate blocks of the
++        # main chain. They have been extracted on the inference owner thread.
++        self.auxiliary_tails = auxiliary_tails or {}
+ 
+     def __contains__(self, tc: int) -> bool:
+         return tc in self._valid_tcs
+@@ -1829,6 +1837,28 @@ class _BoundarySnapshotProvider:
+             snap = self._in_memory.get(tc)
+             if snap is not None:
+                 yield snap
++        yield from self.auxiliary_tails.values()
++
++    def for_auxiliary_tail(self, token_count: int) -> "_BoundarySnapshotProvider":
++        """Share staged files for one tail without adding it to the main chain."""
++        return _BoundarySnapshotProvider(
++            store=self._store,
++            request_id=self._request_id,
++            valid_tcs=[tc for tc in self._valid_tcs if tc < token_count],
++            in_memory_snapshots={
++                tc: snapshot for tc, snapshot in self._in_memory.items()
++                if tc < token_count
++            },
++            paged_ssd_manager=self._paged_ssd_manager,
++            tail_terminal_token_count=token_count,
++        )
++
++    def pending_tail_snapshot_counts(self) -> tuple[int, ...]:
++        """Exact tail endpoints this worker will publish before its future ends."""
++        counts = set(self.auxiliary_tails)
++        if self.tail_terminal_token_count is not None:
++            counts.add(self.tail_terminal_token_count)
++        return tuple(sorted(counts))
+ 
+     def commit_gdn_checkpoint(
+         self,
+@@ -2689,6 +2719,72 @@ class Scheduler:
+                         hot_cache_write_back=False,
+                         _store_tail_terminal=store_tail_terminal,
+                     )
++                # A decode boundary can lie after the prompt tail. Persist both
++                # branches: the long chain serves continuation turns, while the
++                # earlier tail serves a new chat that repeats only the prompt.
++                # All branches stay inside this future and buffer-access lock,
++                # so request-local snapshot cleanup cannot race their sidecars.
++                auxiliary_tails = getattr(intermediate_snapshots, "auxiliary_tails", {})
++                for tail_tc, tail_cache in auxiliary_tails.items():
++                    if not 0 < tail_tc < len(token_sequence_to_store):
++                        continue
++                    tail_request_id = f"{request_id}:prefix-tail:{tail_tc}"
++                    try:
++                        tail_provider = intermediate_snapshots.for_auxiliary_tail(tail_tc)
++                        # Only sliceable KV placeholders are supplied by the
++                        # already-evaluated full cache. Recurrent state remains
++                        # the exact snapshot captured at tail_tc.
++                        tail_payload = Scheduler._merge_boundary_with_full_cache(
++                            tail_cache, cache_to_store
++                        )
++                        kwargs = {} if hot_cache_write_back else {"hot_cache_write_back": False}
++                        tail_table = self.block_aware_cache.store_cache(
++                            tail_request_id,
++                            token_sequence_to_store[:tail_tc],
++                            tail_payload,
++                            model_cache_config=model_cache_config,
++                            boundary_snapshots=tail_provider,
++                            extra_keys=extra_keys,
++                            extra_key_token_start=extra_key_token_start,
++                            extra_key_ranges=extra_key_ranges,
++                            _store_tail_terminal=True,
++                            **kwargs,
++                        )
++                        if tail_table is None or tail_table.num_tokens != tail_tc:
++                            logger.warning(
++                                "Incomplete auxiliary prefix tail for %s at %d tokens",
++                                request_id, tail_tc,
++                            )
++                        else:
++                            logger.info(
++                                "Stored auxiliary prefix tail for %s: %d tokens",
++                                request_id, tail_tc,
++                            )
++                            on_tail_stored = getattr(self, "_on_auxiliary_tail_stored", None)
++                            if callable(on_tail_stored):
++                                try:
++                                    on_tail_stored(token_sequence_to_store[:tail_tc], tail_table)
++                                except Exception:
++                                    logger.exception(
++                                        "Auxiliary prefix tail notification failed for %s at %d tokens",
++                                        request_id, tail_tc,
++                                    )
++                    except Exception:
++                        logger.exception(
++                            "Failed to store auxiliary prefix tail for %s at %d tokens",
++                            request_id, tail_tc,
++                        )
++                    finally:
++                        # Synthetic request tables have no later scheduler
++                        # cleanup. Release their refs exactly once while leaving
++                        # the durable blocks and tail index available for reuse.
++                        paged = self.paged_cache_manager
++                        if paged is not None:
++                            with paged._lock:
++                                tail_table = paged.request_tables.pop(tail_request_id, None)
++                                if tail_table is not None:
++                                    paged.release_for_eviction(tail_table.block_ids)
++                        self.block_aware_cache.clear_request_entry(tail_request_id)
+             if block_table is None and self.paged_cache_manager is not None:
+                 block_table = self.paged_cache_manager.get_block_table(request_id)
+             if block_table and self.paged_cache_manager is not None:
+@@ -3988,6 +4084,10 @@ class Scheduler:
+             # Stop once more at the tail position so its state is captured.
+             if tail_at is not None and base_size + processed_tokens < tail_at:
+                 n_to_process = min(n_to_process, tail_at - base_size - processed_tokens)
++            if boundary_enabled:
++                n_to_process = _public_prefix.clamp(
++                    request, base_size + processed_tokens, n_to_process
++                )
+ 
+             atomic_prefix = minimum_prefix if processed_tokens == 0 else 0
+             if atomic_prefix:
+@@ -4165,6 +4265,7 @@ class Scheduler:
+                     self._emit_prefill_tail_snapshot(
+                         request, prompt_cache, total_tokens
+                     )
++                _public_prefix.capture(self, request, prompt_cache, total_tokens)
+ 
+             # Memory monitoring — use max(active, phys_footprint) so MLX
+             # cache pool and IOAccelerator-backed allocations that don't
+@@ -6068,6 +6169,8 @@ class Scheduler:
+         cache_tokens = state.base_size + state.tokens_processed
+         if state.tail_at is not None and cache_tokens < state.tail_at:
+             n = min(n, state.tail_at - cache_tokens)
++        if state.boundary_enabled:
++            n = _public_prefix.clamp(state.request, cache_tokens, n)
+ 
+         # Adaptive throttle — see _adaptive_chunk_size docstring. Raises
+         # if even prefill_min_chunk_tokens would exceed the cap; #1405
+@@ -6191,6 +6294,7 @@ class Scheduler:
+                 self._emit_prefill_tail_snapshot(
+                     state.request, state.cache, total_tokens
+                 )
++            _public_prefix.capture(self, state.request, state.cache, total_tokens)
+ 
+         # Progress callback so the admin UI prefilling list advances during
+         # chunked prefill. _do_external_prefill calls _on_prompt_progress
+@@ -8077,6 +8181,49 @@ class Scheduler:
+                 extracted_in_memory[tc] = extracted_snapshot
+                 provider_tcs.append(tc)
+ 
++        # Keep up to three actual prefill tails, including the main terminal if
++        # it is itself a tail. A later decode boundary must not erase the prompt
++        # endpoint needed by a repeated new-chat request. These snapshots are
++        # extracted here, on the MLX owner thread, and pre-evaluated together
++        # with the main payload before the worker sees them. Never derive a
++        # recurrent endpoint by trimming the newer live state.
++        preferred_tail = marker if marker in tail_counts else latest_tail
++        selected_tails = [preferred_tail] if preferred_tail else []
++        public_boundaries = getattr(request, "_public_prefix_boundaries", ()) or ()
++        for tc in sorted(set(public_boundaries)) + sorted(tail_counts, reverse=True):
++            if tc in tail_counts and tc not in selected_tails and len(selected_tails) < 3:
++                selected_tails.append(tc)
++        auxiliary_tails: dict[int, list[dict[str, Any]]] = {}
++        for tc in selected_tails:
++            if tc == latest_tc:
++                continue
++            try:
++                raw_tail = snapshots[tc]
++                if raw_tail is None and self._boundary_snapshot_store is not None:
++                    tail_extracted = self._boundary_snapshot_store.load(request_id, tc)
++                elif (
++                    isinstance(raw_tail, tuple)
++                    and len(raw_tail) == 2
++                    and raw_tail[0] == self._PREFILL_SNAPSHOT_MARKER
++                ):
++                    tail_extracted = raw_tail[1]
++                elif raw_tail is not None:
++                    tail_extracted, _ = self._extract_snapshot_cache_states(raw_tail)
++                else:
++                    tail_extracted = None
++                if tail_extracted and len(tail_extracted) == len(extracted_cache):
++                    auxiliary_tails[tc] = tail_extracted
++                else:
++                    logger.warning(
++                        "Skipping unavailable auxiliary prefix tail for %s at %d tokens",
++                        request_id, tc,
++                    )
++            except Exception:
++                logger.exception(
++                    "Failed to prepare auxiliary prefix tail for %s at %d tokens",
++                    request_id, tc,
++                )
++
+         intermediate_snapshots = _BoundarySnapshotProvider(
+             store=self._boundary_snapshot_store,
+             request_id=request_id,
+@@ -8084,6 +8231,7 @@ class Scheduler:
+             in_memory_snapshots=extracted_in_memory,
+             paged_ssd_manager=self.paged_ssd_cache_manager,
+             tail_terminal_token_count=latest_tc if tail_terminal else None,
++            auxiliary_tails=auxiliary_tails,
+         )
+ 
+         token_sequence = (
+@@ -9146,11 +9294,14 @@ class Scheduler:
+             return None
+ 
+         prompt = request.prompt_token_ids or []
++        if not prompt:
++            return None
+         block = max(1, self.config.paged_cache_block_size)
+ 
+         best_rid: str | None = None
+         best_future: concurrent.futures.Future | None = None
+         best_common = 0
++        best_restorable = 0
+         for rid, future in list(self._inflight_store_futures.items()):
+             if future.done():
+                 continue
+@@ -9170,26 +9321,40 @@ class Scheduler:
+                     restorable = max(0, restorable - block)
+                 elif self._detect_boundary_snapshot_need():
+                     restorable = 0
+-            if restorable < block:
++            # Short prompts and public prefixes can end before the first full
++            # block. Wait only if this pending store owns a real snapshot at a
++            # matching endpoint. Exact full-prompt GDN state cannot supply the
++            # next-token logits; an earlier endpoint must exist independently.
++            tail_restorable = max(
++                (
++                    tc for tc in info.tail_snapshot_token_counts
++                    if 0 < tc <= common and tc < len(prompt)
++                ),
++                default=0,
++            )
++            restorable = max(restorable, tail_restorable)
++            if restorable <= 0:
+                 continue
+             if (
+                 len(info.tokens)
+                 > self._CACHE_FRESHNESS_WAIT_MAX_STORE_TO_OVERLAP * restorable
+             ):
+                 continue
+-            if common > best_common:
++            # Measure relevance using the state that can actually be restored,
++            # not a longer token match that has no recurrent checkpoint.
++            if not (
++                restorable >= self._CACHE_FRESHNESS_WAIT_MIN_COMMON_TOKENS
++                or restorable / len(prompt) >= self._CACHE_FRESHNESS_WAIT_MIN_PROMPT_RATIO
++            ):
++                continue
++            if (restorable, common) > (best_restorable, best_common):
+                 best_rid = rid
+                 best_future = future
+                 best_common = common
++                best_restorable = restorable
+ 
+         if best_future is None or best_rid is None:
+             return None
+-        if not (
+-            best_common >= self._CACHE_FRESHNESS_WAIT_MIN_COMMON_TOKENS
+-            or best_common / len(prompt) >= self._CACHE_FRESHNESS_WAIT_MIN_PROMPT_RATIO
+-        ):
+-            return None
+-
+         return best_rid, best_future, best_common
+ 
+     def _should_defer_for_cache_freshness(self, request: Request) -> bool:
+@@ -9579,6 +9744,7 @@ class Scheduler:
+         # SpecPrefill: score remaining tokens with draft model if applicable.
+         # Must run AFTER prefix cache check (scoring applies only to uncached suffix).
+         self._try_specprefill_scoring(request)
++        _public_prefix.admit(self, request)
+         self._prefix_cache_prepared.add(request.request_id)
+ 
+     def add_request(self, request: Request) -> None:
+@@ -12739,6 +12905,11 @@ class Scheduler:
+                                         extra_key_ranges=(
+                                             request.vlm_extra_key_ranges_for_cache
+                                         ),
++                                        tail_snapshot_token_counts=(
++                                            intermediate_snapshots.pending_tail_snapshot_counts()
++                                            if isinstance(intermediate_snapshots, _BoundarySnapshotProvider)
++                                            else ()
++                                        ),
+                                     )
+                                 )
+                             else:
+diff --git a/omlx/cache/public_prefix.py b/omlx/cache/public_prefix.py
+new file mode 100644
+index 00000000..1629a5c1
+--- /dev/null
++++ b/omlx/cache/public_prefix.py
+@@ -0,0 +1,165 @@
++"""Bounded admission for exact, tokenized initial system-message snapshots.
++
++This module never constructs or truncates recurrent state. Its positions are
++only requests to stop a real prefill and capture the state at that position.
++"""
++from __future__ import annotations
++
++from array import array
++from dataclasses import dataclass
++import hashlib
++import threading
++import time
++
++
++def initial_message_boundaries(tokens, tokenizer, *, minimum=256, maximum=32768):
++    """Find at most two complete initial system/developer token messages.
++
++    Match exact encoded headers and existing special-token IDs. No rendering a
++    different chat template, decoding/re-encoding content, or subtracting lengths.
++    A system turn containing tool definitions is captured as one common prefix.
++    """
++    encode = lambda text: list(tokenizer.encode(text, add_special_tokens=False))
++    try:
++        start = encode("<|im_start|>")
++        end = encode("<|im_end|>")
++        headers = [encode("<|im_start|>" + role + "\n")
++                   for role in ("system", "developer")]
++    except (AttributeError, TypeError, ValueError):
++        return []
++    if len(start) != 1 or len(end) != 1:
++        return []
++    result, position = [], 0
++    for _ in range(2):
++        header = next((h for h in headers if tokens[position:position+len(h)] == h), None)
++        if header is None:
++            break
++        try:
++            following = tokens.index(start[0], position + len(header))
++        except ValueError:
++            break
++        if end[0] not in tokens[position + len(header):following]:
++            break
++        if minimum <= following <= maximum:
++            result.append(following)
++        position = following
++    return result
++
++
++def prefix_key(tokens, length):
++    # Local process identifier only; the persisted block keeps oMLX's full
++    # model/parent/token/extra-key hash and compatibility signature.
++    return hashlib.sha256(array("I", tokens[:length]).tobytes()).hexdigest()
++
++
++@dataclass
++class Candidate:
++    length: int
++    opportunities: int = 0
++    covered: int = 0
++    direct_hits: int = 0
++    last_used: int = 0
++    reserved_bytes: int = 0
++    block_hash: bytes | None = None
++    admitted_at: float = 0
++
++    @property
++    def value(self):
++        return (self.direct_hits + 0.25 * self.covered) / max(1, self.opportunities)
++
++
++class PublicPrefixPolicy:
++    """Two-observation admission; hit-rate/LRU eviction under a byte budget.
++
++    Capacity reserves a conservative Qwen4 bound (128MiB recurrent state plus
++    32KiB per token in the partial KV block and 1MiB metadata). Reconciliation
++    raises reservations if observed durable bytes exceed that bound. The owner
++    supplies safe eviction: busy or pending-write branches cannot be evicted.
++    """
++    def __init__(self, block_size, *, max_bytes=2*1024**3, max_active=8,
++                 max_candidates=128, evict=lambda entry: True, size=lambda entry: 0):
++        self.block_size = block_size
++        self.max_bytes = max_bytes
++        self.max_active = max_active
++        self.max_candidates = max_candidates
++        self.evict = evict
++        self.size = size
++        self.entries = {}
++        self.serial = 0
++        self.admissions = self.evictions = self.deferred = 0
++        self.lock = threading.RLock()
++
++    def _cost(self, length):
++        return 129*1024**2 + (length % self.block_size)*32768
++
++    def _active(self):
++        return [e for e in self.entries.values() if e.reserved_bytes]
++
++    def _make_room(self, needed, *, protect):
++        active = self._active()
++        for entry in active:
++            entry.reserved_bytes = max(entry.reserved_bytes, self.size(entry))
++        victims = sorted((e for e in active if id(e) not in protect),
++                         key=lambda e: (e.value, e.last_used))
++        while (sum(e.reserved_bytes for e in self._active()) + needed > self.max_bytes
++               or (needed and len(self._active()) >= self.max_active)):
++            if not victims:
++                return False
++            victim = victims.pop(0)
++            if not self.evict(victim):
++                continue
++            victim.reserved_bytes = 0
++            victim.block_hash = None
++            self.evictions += 1
++        return True
++
++    def observe(self, tokens, boundaries, cached_tokens):
++        """Return admitted positions, including hits (caller skips cached ones)."""
++        with self.lock:
++            self.serial += 1
++            chosen, protected = [], set()
++            for position in boundaries[:2]:
++                if position <= 0 or position >= len(tokens) or position % self.block_size == 0:
++                    continue
++                key = prefix_key(tokens, position)
++                entry = self.entries.setdefault(key, Candidate(position))
++                entry.opportunities += 1
++                entry.last_used = self.serial
++                entry.covered += int(cached_tokens >= position)
++                entry.direct_hits += int(cached_tokens == position)
++                if entry.opportunities < 2:
++                    continue
++                cost = self._cost(position)
++                if not entry.reserved_bytes:
++                    if cost > self.max_bytes or not self._make_room(cost, protect=protected):
++                        self.deferred += 1
++                        continue
++                    entry.reserved_bytes = cost
++                    entry.admitted_at = time.monotonic()
++                    self.admissions += 1
++                protected.add(id(entry))
++                chosen.append(position)
++            self._make_room(0, protect=protected)
++            inactive = sorted(((k,e) for k,e in self.entries.items() if not e.reserved_bytes),
++                              key=lambda pair: (pair[1].value, pair[1].last_used))
++            while len(self.entries) > self.max_candidates and inactive:
++                self.entries.pop(inactive.pop(0)[0], None)
++            return chosen
++
++    def bind(self, tokens, block_hash):
++        with self.lock:
++            entry = self.entries.get(prefix_key(tokens, len(tokens)))
++            if entry is not None and entry.reserved_bytes:
++                entry.block_hash = block_hash
++                entry.reserved_bytes = max(entry.reserved_bytes, self.size(entry))
++
++    def stats(self):
++        with self.lock:
++            entries = list(self.entries.values())
++            return {"candidates": len(entries), "active": len(self._active()),
++                    "reserved_bytes": sum(e.reserved_bytes for e in entries),
++                    "max_bytes": self.max_bytes, "admissions": self.admissions,
++                    "evictions": self.evictions, "deferred": self.deferred,
++                    "opportunities": sum(e.opportunities for e in entries),
++                    "covered": sum(e.covered for e in entries),
++                    "direct_hits": sum(e.direct_hits for e in entries)}
+diff --git a/omlx/cache/public_prefix_runtime.py b/omlx/cache/public_prefix_runtime.py
+new file mode 100644
+index 00000000..67433fb7
+--- /dev/null
++++ b/omlx/cache/public_prefix_runtime.py
+@@ -0,0 +1,122 @@
++"""Qwen public-prefix admission and owner-thread integration helpers."""
++from __future__ import annotations
++import logging
++import os
++from .public_prefix import PublicPrefixPolicy, initial_message_boundaries
++from .paged_cache import compute_block_hash
++
++logger = logging.getLogger(__name__)
++
++
++def _sidecars(ssd, block_hash):
++    return [m for m in ssd._gdn_sidecar_index.get_all_metadata()
++            if m.source_block_hash == block_hash]
++
++
++def _stored_bytes(scheduler, entry):
++    ssd = scheduler.paged_ssd_cache_manager
++    if ssd is None or entry.block_hash is None:
++        return 0
++    meta = ssd.get_block_metadata(entry.block_hash)
++    return (meta.file_size if meta else 0) + sum(m.file_size for m in _sidecars(ssd, entry.block_hash))
++
++
++def _evict(scheduler, entry):
++    """Delete only a quiescent, unreferenced terminal public branch."""
++    paged, ssd = scheduler.paged_cache_manager, scheduler.paged_ssd_cache_manager
++    if entry.block_hash is None:
++        # A reservation may still be owned by a prefill/store in flight.
++        return False
++    bh = entry.block_hash
++    with paged._lock:
++        value = paged.cached_block_hash_to_block._cache.get(bh)
++        blocks = list(value.values()) if isinstance(value, dict) else ([value] if value else [])
++        if any(block.ref_count for block in blocks):
++            return False
++        # Match the writer's SSD lock -> pending-buffer lock order. A writer
++        # cannot replace a sidecar between its metadata read and unlink here.
++        with ssd._lock:
++            with ssd._pending_write_hashes_lock:
++                if bh in ssd._pending_write_hashes:
++                    return False
++            for meta in _sidecars(ssd, bh):
++                try:
++                    removed = ssd._unlink_gdn_sidecar_file(meta)
++                except OSError as exc:
++                    logger.warning("Public prefix sidecar eviction deferred: %s", exc)
++                    return False
++                if not removed:
++                    return False
++                ssd._gdn_sidecar_index.remove_key(meta.key)
++            meta = ssd.get_block_metadata(bh)
++            if meta is not None and not ssd.delete_block(bh):
++                # delete_block removes accounting before unlink. Preserve the
++                # reservation/index when that unlink failed, for a safe retry.
++                ssd._index.add(meta)
++                return False
++        for block in blocks:
++            paged.cached_block_hash_to_block.pop(bh, block.block_id)
++            block.reset_hash()
++        paged._notify_hash_dropped(bh)
++        paged.forget_tail_block(bh)
++        logger.info("Public prefix evicted: tokens=%d hits=%d/%d", entry.length,
++                    entry.direct_hits, entry.opportunities)
++        return True
++
++
++def _branch_hash(scheduler, tokens, end):
++    parent = None
++    block = scheduler.config.paged_cache_block_size
++    for start in range(0, end, block):
++        parent = compute_block_hash(parent, tokens[start:min(start+block,end)],
++                                    model_name=scheduler.paged_cache_manager.model_name)
++    return parent
++
++
++def admit(scheduler, request):
++    if os.getenv("OMLX_PREFIX_PUBLIC_BOUNDARIES", "0") != "1":
++        return
++    # Text-only Qwen ChatML. Multimodal/external extra-key domains continue to
++    # use ordinary cache paths; this policy's local identities omit those keys.
++    if (request.specprefill_indices is not None or request.vlm_extra_keys_for_cache
++            or request.vlm_extra_key_ranges_for_cache or scheduler.block_aware_cache is None):
++        return
++    if not str(getattr(scheduler.model,"model_type","")).startswith("qwen4_exp"):
++        return
++    policy = getattr(scheduler, "_public_prefix_policy", None)
++    if policy is None:
++        policy = PublicPrefixPolicy(scheduler.config.paged_cache_block_size,
++            evict=lambda e: _evict(scheduler,e), size=lambda e: _stored_bytes(scheduler,e))
++        scheduler._public_prefix_policy = policy
++    tokens = request.prompt_token_ids
++    boundaries = initial_message_boundaries(tokens, scheduler.tokenizer)
++    admitted = policy.observe(tokens,boundaries,request.cached_tokens)
++    request._public_prefix_boundaries = admitted
++    for end in admitted:
++        bh = _branch_hash(scheduler,tokens,end)
++        if scheduler.paged_ssd_cache_manager.has_block(bh):
++            policy.bind(tokens[:end],bh)
++    if boundaries:
++        logger.info("Public prefix policy: request=%s candidates=%s admitted=%s cached=%d stats=%s",
++                    request.request_id,boundaries,admitted,request.cached_tokens,policy.stats())
++
++
++def stored(scheduler, tokens, block_table):
++    policy = getattr(scheduler,"_public_prefix_policy",None)
++    if policy is None or not block_table.block_ids:
++        return
++    block = scheduler.paged_cache_manager.blocks[block_table.block_ids[-1]]
++    policy.bind(tokens,block.block_hash)
++
++
++def clamp(request, position, count):
++    for end in getattr(request,"_public_prefix_boundaries",[]):
++        if position < end < position+count:
++            count = end-position
++    return count
++
++
++def capture(scheduler, request, cache, position):
++    if position in getattr(request,"_public_prefix_boundaries",[]):
++        scheduler._emit_prefill_tail_snapshot(request,cache,position)
++        logger.info("Public prefix snapshot: request=%s tokens=%d",request.request_id,position)
+diff --git a/tests/test_prompt_tail_freshness.py b/tests/test_prompt_tail_freshness.py
+new file mode 100644
+index 00000000..2abd2061
+--- /dev/null
++++ b/tests/test_prompt_tail_freshness.py
+@@ -0,0 +1,190 @@
++"""Bounded, nonblocking admission waits for real pending prefix-tail snapshots."""
++
++import concurrent.futures
++from types import SimpleNamespace
++from unittest.mock import MagicMock
++
++import pytest
++
++import omlx.scheduler as scheduler_module
++from omlx.scheduler import Scheduler, _BoundarySnapshotProvider, _InflightStoreInfo
++from omlx.request import Request, SamplingParams
++
++
++class NonblockingFuture(concurrent.futures.Future):
++    def result(self, timeout=None):
++        raise AssertionError("freshness admission must never block on Future.result")
++
++
++def setup_pending(*, prompt_len=7792, store_len=8192, tails=(7785,), block=8192):
++    scheduler = object.__new__(Scheduler)
++    scheduler.config = SimpleNamespace(paged_cache_block_size=block)
++    scheduler.block_aware_cache = object()
++    scheduler._gdn_split_active = lambda: True
++    scheduler._detect_boundary_snapshot_need = lambda: True
++    scheduler._cache_freshness_waits = {}
++    scheduler.running = {}
++    scheduler.prefilling = []
++    future = NonblockingFuture()
++    scheduler._inflight_store_futures = {"previous": future}
++    scheduler._inflight_store_info = {"previous": _InflightStoreInfo(
++        tokens=list(range(store_len)), tail_snapshot_token_counts=tails,
++    )}
++    request = SimpleNamespace(
++        request_id="next", prompt_token_ids=list(range(prompt_len)),
++        vlm_extra_keys_for_cache=None, vlm_extra_key_token_start_for_cache=None,
++        vlm_extra_key_ranges_for_cache=None,
++    )
++    return scheduler, request, future
++
++
++def test_repeated_7792_prompt_waits_for_actual_7785_tail_without_blocking():
++    scheduler, request, future = setup_pending()
++    assert scheduler._should_defer_for_cache_freshness(request)
++    wait = scheduler._cache_freshness_waits[request.request_id]
++    assert wait.future is future and wait.store_request_id == "previous"
++    future.set_result(None)
++    assert not scheduler._should_defer_for_cache_freshness(request)
++    assert not scheduler._cache_freshness_waits
++
++
++@pytest.mark.parametrize("tails,expected", [
++    ((), False),                     # Equal text alone is not a checkpoint.
++    ((7792,), False),                # Cannot trim exact GDN state to N - 1.
++    ((7785, 7792), True),            # An earlier true endpoint permits kickoff.
++    ((100, 200), False),             # Insufficient useful overlap, despite equal text.
++    ((8000,), False),                # Snapshot is past the requested prefix.
++])
++def test_requires_real_reusable_gdn_endpoint(tails, expected):
++    scheduler, request, _ = setup_pending(tails=tails)
++    assert scheduler._should_defer_for_cache_freshness(request) is expected
++
++
++def test_changed_token_before_tail_does_not_wait_for_unrelated_snapshot():
++    scheduler, request, _ = setup_pending()
++    request.prompt_token_ids[2500] = -1
++    assert not scheduler._should_defer_for_cache_freshness(request)
++    assert not scheduler._cache_freshness_waits
++
++
++def test_only_matching_public_endpoint_of_multiple_tails_is_waited_for():
++    scheduler, request, _ = setup_pending(tails=(1000, 2572, 7785))
++    request.prompt_token_ids[2600] = -1
++    assert scheduler._should_defer_for_cache_freshness(request)
++    assert scheduler._cache_freshness_waits[request.request_id].common_prefix == 2600
++    scheduler._cache_freshness_waits.clear()
++    # There was no GDN checkpoint at 2572 in this alternate store. It is not
++    # valid to substitute the 7785 state or manufacture an endpoint at 2600.
++    scheduler._inflight_store_info["previous"].tail_snapshot_token_counts = (1000, 7785)
++    assert not scheduler._should_defer_for_cache_freshness(request)
++
++
++def test_cache_key_mismatch_and_finished_future_are_not_waited_for():
++    scheduler, request, future = setup_pending()
++    request.vlm_extra_keys_for_cache = ("different-image",)
++    assert not scheduler._should_defer_for_cache_freshness(request)
++    request.vlm_extra_keys_for_cache = None
++    future.set_result(None)
++    assert not scheduler._should_defer_for_cache_freshness(request)
++
++
++def test_timeout_uses_original_four_second_limit(monkeypatch):
++    scheduler, request, _ = setup_pending()
++    current = [10.0]
++    monkeypatch.setattr(scheduler_module.time, "monotonic", lambda: current[0])
++    assert scheduler._should_defer_for_cache_freshness(request)
++    assert scheduler._cache_freshness_waits[request.request_id].deadline_s == 14.0
++    current[0] = 13.999
++    assert scheduler._should_defer_for_cache_freshness(request)
++    current[0] = 14.0
++    assert not scheduler._should_defer_for_cache_freshness(request)
++    assert not scheduler._cache_freshness_waits
++
++
++@pytest.mark.parametrize("cancel", [False, True])
++def test_failed_or_cancelled_store_releases_wait(cancel):
++    scheduler, request, future = setup_pending()
++    assert scheduler._should_defer_for_cache_freshness(request)
++    if cancel:
++        future.cancel()
++    else:
++        future.set_exception(RuntimeError("storage failed"))
++    assert not scheduler._should_defer_for_cache_freshness(request)
++    assert not scheduler._cache_freshness_waits
++
++
++def test_store_size_limit_still_rejects_waiting_for_huge_unrelated_remainder():
++    scheduler, request, _ = setup_pending(store_len=16 * 7785 + 1)
++    assert not scheduler._should_defer_for_cache_freshness(request)
++
++
++def test_prompt_tail_metadata_includes_terminal_and_auxiliary_true_snapshots():
++    provider = _BoundarySnapshotProvider(
++        None, "previous", [8192], {}, tail_terminal_token_count=9000,
++        auxiliary_tails={7785: [{"state": ()}], 2500: [{"state": ()}]},
++    )
++    assert provider.pending_tail_snapshot_counts() == (2500, 7785, 9000)
++    # Ordinary full block endpoints are still handled by the original path.
++    assert 8192 not in provider.pending_tail_snapshot_counts()
++    info = _InflightStoreInfo(tokens=list(range(9000)), tail_snapshot_token_counts=provider.pending_tail_snapshot_counts())
++    assert info.tail_snapshot_token_counts == (2500, 7785, 9000)
++
++
++def test_existing_short_terminal_tail_uses_same_pending_future():
++    scheduler, request, future = setup_pending(prompt_len=193, store_len=186, tails=(186,))
++    assert scheduler._should_defer_for_cache_freshness(request)
++    assert scheduler._cache_freshness_waits[request.request_id].future is future
++
++
++def test_nonmatching_pending_request_does_not_inherit_another_request_wait():
++    scheduler, request, _ = setup_pending()
++    assert scheduler._should_defer_for_cache_freshness(request)
++    unrelated = SimpleNamespace(**vars(request))
++    unrelated.request_id = "unrelated"
++    unrelated.prompt_token_ids = [-1, -2, -3]
++    assert not scheduler._should_defer_for_cache_freshness(unrelated)
++    assert set(scheduler._cache_freshness_waits) == {"next"}
++
++
++def test_submission_registers_the_same_snapshot_future_and_materializes_tails(
++    mock_model, mock_tokenizer, monkeypatch,
++):
++    """The real cleanup handoff advertises only the tails owned by its worker."""
++    import mlx.core as mx
++
++    scheduler = Scheduler(model=mock_model, tokenizer=mock_tokenizer)
++    scheduler.block_aware_cache = MagicMock()
++    scheduler.paged_cache_manager = None
++    scheduler._store_cache_executor = MagicMock()
++    future = NonblockingFuture()
++    scheduler._store_cache_executor.submit.return_value = future
++    main_array = mx.zeros((1,), stream=mx.cpu)
++    tail_arrays = [mx.full((1,), float(tc), stream=mx.cpu) for tc in (3, 7, 11)]
++    main_cache = [{"state": (main_array,), "cache_type": "ArraysCache"}]
++    provider = _BoundarySnapshotProvider(
++        None, "previous", [], {}, auxiliary_tails={
++            tc: [{"state": (array,), "cache_type": "ArraysCache"}]
++            for tc, array in zip((3, 7, 11), tail_arrays)
++        },
++    )
++    request = Request(request_id="previous", prompt="text", sampling_params=SamplingParams())
++    request.prompt_token_ids = list(range(11))
++    request.num_prompt_tokens = 11
++    request.output_token_ids = list(range(11, 14))
++    request._extracted_cache = main_cache
++    request._model_cache_config = None
++    scheduler.requests[request.request_id] = request
++    scheduler.running[request.request_id] = request
++    monkeypatch.setattr(scheduler, "_get_boundary_store_override", lambda *_: (
++        list(range(12)), main_cache, None, provider,
++    ))
++    monkeypatch.setattr(scheduler_module, "_safe_sync_stream", lambda *_: None)
++    evaluated = MagicMock()
++    monkeypatch.setattr(scheduler_module.mx, "eval", evaluated)
++    scheduler._cleanup_finished({request.request_id})
++
++    assert scheduler._inflight_store_futures[request.request_id] is future
++    assert scheduler._inflight_store_info[request.request_id].tail_snapshot_token_counts == (3, 7, 11)
++    assert scheduler._store_cache_executor.submit.call_args.args[5] is provider
++    evaluated.assert_called_once()
++    assert evaluated.call_args.args == (main_array, *tail_arrays)
+diff --git a/tests/test_prompt_tail_persistence.py b/tests/test_prompt_tail_persistence.py
+new file mode 100644
+index 00000000..5fb4e129
+--- /dev/null
++++ b/tests/test_prompt_tail_persistence.py
+@@ -0,0 +1,223 @@
++"""CPU-only regressions for retaining prompt tails past a decode boundary.
++
++Tiny synthetic cache tensors exercise real block hashes, SSD persistence and
++recurrent-state restoration. No model is loaded or run.
++"""
++
++from contextlib import nullcontext
++from types import SimpleNamespace
++from unittest.mock import MagicMock
++
++import mlx.core as mx
++import pytest
++
++import omlx.scheduler as scheduler_module
++from omlx.cache.boundary_snapshot_store import BoundarySnapshotSSDStore
++from omlx.cache.paged_cache import PagedCacheManager
++from omlx.cache.paged_ssd_cache import PagedSSDCacheManager
++from omlx.cache.prefix_cache import BlockAwarePrefixCache
++from omlx.scheduler import Scheduler, _BoundarySnapshotProvider
++
++
++@pytest.fixture(autouse=True)
++def cpu_only(monkeypatch):
++    previous = mx.default_device()
++    mx.set_default_device(mx.cpu)
++    monkeypatch.setattr(scheduler_module, "_safe_sync_stream", lambda _stream: None)
++    yield
++    mx.set_default_device(previous)
++
++
++def extracted(tc, *, placeholder=False):
++    return [
++        {
++            "state": () if placeholder else (
++                mx.full((1, 2, tc, 8), 17.0), mx.full((1, 2, tc, 8), 18.0)
++            ),
++            "class_name": "KVCache", "cache_type": "KVCache", "meta_state": (tc,),
++        },
++        {
++            # A different value at every endpoint catches use of a newer GDN
++            # state disguised as a shorter prefix.
++            "state": (mx.full((1, 3, 8), float(tc)), mx.full((1, 2, 4, 8), float(tc))),
++            "class_name": "ArraysCache", "cache_type": "ArraysCache", "meta_state": (),
++        },
++    ]
++
++
++def scheduler_shell(*, marker=0, public=(), persists=True):
++    scheduler = object.__new__(Scheduler)
++    scheduler.config = SimpleNamespace(paged_cache_block_size=4)
++    scheduler.requests = {"request": SimpleNamespace(
++        generation_prompt_start=marker, generation_prompt_persists=persists,
++        _public_prefix_boundaries=list(public), _model_cache_config=None,
++    )}
++    scheduler._boundary_cache_snapshots = {}
++    scheduler._boundary_snapshot_diagnostics = MagicMock()
++    scheduler._boundary_snapshot_store = None
++    scheduler.paged_ssd_cache_manager = None
++    scheduler._phase_timer = lambda _phase: nullcontext()
++    scheduler._stream = mx.default_stream(mx.cpu)
++    return scheduler
++
++
++def test_main_decode_boundary_keeps_real_prompt_tail_and_pre_eval_ownership():
++    scheduler = scheduler_shell(marker=3)
++    tail, aligned = extracted(3, placeholder=True), extracted(4, placeholder=True)
++    scheduler._boundary_cache_snapshots["request"] = {
++        3: (Scheduler._PREFILL_SNAPSHOT_MARKER, tail),
++        4: (Scheduler._PREFILL_SNAPSHOT_MARKER, aligned),
++    }
++    tokens, cache, _, provider = scheduler._get_boundary_store_override("request", list(range(6)))
++    assert tokens == list(range(4)) and cache is aligned
++    assert provider.tail_terminal_token_count is None
++    assert provider.auxiliary_tails == {3: tail}
++    assert list(provider.iter_in_memory_extracted()) == [tail]
++    assert 3 not in provider  # A sibling tail is not a block of the main chain.
++    assert provider.for_auxiliary_tail(3).tail_terminal_token_count == 3
++
++
++def test_tail_limit_prioritizes_prompt_and_public_boundaries():
++    scheduler = scheduler_shell(marker=7, public=(1, 3))
++    scheduler._boundary_cache_snapshots["request"] = {
++        tc: (Scheduler._PREFILL_SNAPSHOT_MARKER, extracted(tc, placeholder=True))
++        for tc in (1, 3, 4, 5, 7, 8)
++    }
++    _, _, _, provider = scheduler._get_boundary_store_override("request", list(range(10)))
++    assert list(provider.auxiliary_tails) == [7, 1, 3]
++    assert len(provider.auxiliary_tails) == 3
++
++
++def test_existing_terminal_tail_is_not_saved_twice_or_replaced_by_decode():
++    scheduler = scheduler_shell(marker=7, public=(1, 3), persists=False)
++    scheduler._boundary_cache_snapshots["request"] = {
++        tc: (Scheduler._PREFILL_SNAPSHOT_MARKER, extracted(tc, placeholder=True))
++        for tc in (1, 3, 4, 7, 8)
++    }
++    tokens, _, _, provider = scheduler._get_boundary_store_override("request", list(range(10)))
++    assert len(tokens) == 7
++    assert provider.tail_terminal_token_count == 7
++    assert set(provider.auxiliary_tails) == {1, 3}
++    assert len(provider.auxiliary_tails) + 1 == 3
++
++
++def test_missing_tail_snapshot_cannot_be_fabricated_from_later_state():
++    scheduler = scheduler_shell(marker=3)
++    scheduler._boundary_cache_snapshots["request"] = {
++        3: None, 4: (Scheduler._PREFILL_SNAPSHOT_MARKER, extracted(4, placeholder=True)),
++    }
++    tokens, _, _, provider = scheduler._get_boundary_store_override("request", list(range(6)))
++    assert len(tokens) == 4
++    assert provider.auxiliary_tails == {}
++
++
++@pytest.fixture
++def real_cache(tmp_path):
++    paged = PagedCacheManager(block_size=4, max_blocks=100, initial_blocks=100, model_name="hybrid")
++    ssd = PagedSSDCacheManager(
++        cache_dir=tmp_path, max_size_bytes=100 * 1024**2,
++        expected_model_name="hybrid", expected_num_layers=2,
++        expected_block_size=4, expected_layer_cache_types=["KVCache", "ArraysCache"],
++        gdn_ssd_split_enabled=True, gdn_sidecar_state_dtype="fp32",
++    )
++    boundary = BoundarySnapshotSSDStore(tmp_path, pending_max_bytes=1024**2, gdn_sidecar_state_dtype="fp32")
++    prefix = BlockAwarePrefixCache(
++        model=MagicMock(), paged_cache_manager=paged, paged_ssd_cache_manager=ssd,
++        gdn_ssd_split_enabled=True,
++    )
++    prefix.set_gdn_checkpoint_loader(boundary.load_file)
++    scheduler = scheduler_shell(marker=11, public=(3, 7))
++    scheduler._boundary_snapshot_store = boundary
++    scheduler.paged_ssd_cache_manager = ssd
++    scheduler.paged_cache_manager = paged
++    scheduler.block_aware_cache = prefix
++    try:
++        yield scheduler, prefix, paged, boundary
++    finally:
++        boundary.shutdown()
++        ssd.close()
++
++
++def store_request(scheduler, request_id):
++    scheduler.requests[request_id] = scheduler.requests["request"]
++    snapshots = {}
++    for tc in (3, 4, 7, 8, 11, 12):
++        state = extracted(tc, placeholder=True)
++        assert scheduler._boundary_snapshot_store.save(
++            request_id, tc, state, lambda x: (x, None), block_size=4,
++        )
++        snapshots[tc] = None
++    scheduler._boundary_cache_snapshots[request_id] = snapshots
++    tokens, state, config, provider = scheduler._get_boundary_store_override(request_id, list(range(14)))
++    assert len(tokens) == 12 and set(provider.auxiliary_tails) == {3, 7, 11}
++    payload = Scheduler._merge_boundary_with_full_cache(state, extracted(14))
++    for values in [payload, *provider.iter_in_memory_extracted()]:
++        mx.eval(*Scheduler._collect_arrays_from_extracted_cache(values))
++    scheduler._async_store_cache_worker(request_id, tokens, payload, config, provider, None, None, None)
++    # Production runs this after the future finishes. Hits must now depend on
++    # durable sidecars, not the temporary snapshot staging files.
++    scheduler._boundary_snapshot_store.cleanup_request(request_id)
++
++
++def assert_restored(prefix, paged, tc):
++    rid = f"read-{tc}"
++    table, remaining = prefix.fetch_cache(rid, list(range(tc)) + [999])
++    assert table is not None and table.num_tokens == tc
++    assert remaining == [999]
++    restored = prefix.reconstruct_cache(table)
++    assert restored is not None
++    assert restored[0].keys_and_values()[0].shape[2] == tc
++    assert float(restored[1].cache[0][0, 0, 0]) == float(tc)
++    assert float(restored[1].cache[1][0, 0, 0, 0]) == float(tc)
++    with paged._lock:
++        paged.request_tables.pop(rid)
++        paged.release_for_eviction(table.block_ids)
++    prefix.clear_request_entry(rid)
++
++
++def test_real_ssd_keeps_main_and_three_tail_branches_after_cleanup_and_dedup(real_cache):
++    scheduler, prefix, paged, _ = real_cache
++    scheduler._on_auxiliary_tail_stored = MagicMock()
++    store_request(scheduler, "request")
++    assert scheduler._on_auxiliary_tail_stored.call_count == 3
++    assert sum(not block.is_null for block in paged.allocated_blocks.values()) == 6  # Three full blocks, three distinct tails.
++    assert all(block.ref_count == 0 for block in paged.allocated_blocks.values() if not block.is_null)
++    assert not any(":prefix-tail:" in rid for rid in paged.request_tables)
++    assert not prefix._request_tables
++    for tc in (3, 7, 11, 12):
++        assert_restored(prefix, paged, tc)
++
++    store_request(scheduler, "repeated")
++    assert sum(not block.is_null for block in paged.allocated_blocks.values()) == 6  # Repeat does not duplicate branches.
++    assert all(block.ref_count == 0 for block in paged.allocated_blocks.values() if not block.is_null)
++    for tc in (3, 7, 11, 12):
++        assert_restored(prefix, paged, tc)
++
++
++def test_partial_tail_failure_releases_refs_and_other_tails_survive(real_cache, monkeypatch):
++    scheduler, prefix, paged, _ = real_cache
++    original = prefix.store_cache
++
++    def failing(request_id, *args, **kwargs):
++        result = original(request_id, *args, **kwargs)
++        if request_id.endswith(":prefix-tail:3"):
++            raise RuntimeError("after table acquired refs")
++        return result
++
++    monkeypatch.setattr(prefix, "store_cache", failing)
++    store_request(scheduler, "request")
++    assert not any(":prefix-tail:" in rid for rid in paged.request_tables)
++    assert not prefix._request_tables
++    assert all(block.ref_count == 0 for block in paged.allocated_blocks.values() if not block.is_null)
++    for tc in (7, 11, 12):
++        assert_restored(prefix, paged, tc)
++
++
++def test_notification_failure_does_not_break_storage_or_cleanup(real_cache):
++    scheduler, prefix, paged, _ = real_cache
++    scheduler._on_auxiliary_tail_stored = MagicMock(side_effect=RuntimeError("observer failure"))
++    store_request(scheduler, "request")
++    assert scheduler._on_auxiliary_tail_stored.call_count == 3
++    assert all(block.ref_count == 0 for block in paged.allocated_blocks.values() if not block.is_null)
++    for tc in (3, 7, 11, 12):
++        assert_restored(prefix, paged, tc)
+diff --git a/tests/test_public_prefix_policy.py b/tests/test_public_prefix_policy.py
+new file mode 100644
+index 00000000..45e88e78
+--- /dev/null
++++ b/tests/test_public_prefix_policy.py
+@@ -0,0 +1,71 @@
++from omlx.cache.public_prefix import PublicPrefixPolicy, initial_message_boundaries
++
++
++class Tokenizer:
++    def encode(self, text, **kwargs):
++        return {"<|im_start|>": [1], "<|im_end|>": [2],
++                "<|im_start|>system\n": [1,3,4],
++                "<|im_start|>developer\n": [1,5,4]}[text]
++
++
++def test_initial_system_tools_boundary_uses_actual_tokens():
++    tokens = [1,3,4]+[42]*300+[2,4]+[1,7,4,99]
++    assert initial_message_boundaries(tokens, Tokenizer()) == [305]
++    assert initial_message_boundaries([1,7,4]+tokens, Tokenizer()) == []
++
++
++def test_two_initial_messages_and_fail_closed():
++    tokens = [1,3,4]+[42]*300+[2,4]+[1,5,4]+[17]*300+[2,4]+[1,7,4,99]
++    assert initial_message_boundaries(tokens, Tokenizer()) == [305,610]
++    assert initial_message_boundaries([1,3,4]+[42]*300+[1,7,4], Tokenizer()) == []
++
++
++def test_public_prefix_needs_repetition_and_counts_hits():
++    p=PublicPrefixPolicy(8192)
++    a=[9]*2048+[1]; b=[9]*2048+[2]
++    assert p.observe(a,[2048],0)==[]
++    assert p.observe(b,[2048],0)==[2048]
++    assert p.observe(a,[2048],2048)==[2048]
++    assert p.stats()['direct_hits']==1
++
++
++def test_capacity_evicts_low_hit_rate_and_keeps_hot_entry():
++    evicted=[]
++    p=PublicPrefixPolicy(8192,max_active=2,evict=lambda e: evicted.append(e.length) or True)
++    for a,n in [([1]*5000,2048),([2]*5000,3072)]:
++        p.observe(a,[n],0);p.observe(a,[n],0)
++    p.observe([1]*5000,[2048],2048)
++    p.observe([3]*5000,[4096],0);p.observe([3]*5000,[4096],0)
++    assert evicted==[3072]
++    assert p.stats()['active']==2
++
++
++def test_busy_victim_prevents_over_admission():
++    p=PublicPrefixPolicy(8192,max_active=1,evict=lambda e:False)
++    for _ in range(2):p.observe([1]*5000,[2048],0)
++    for _ in range(2):result=p.observe([2]*5000,[3072],0)
++    assert result==[]
++    assert p.stats()['active']==1
++
++
++def test_one_off_candidates_are_bounded_and_aligned_points_are_free():
++    p=PublicPrefixPolicy(4096,max_candidates=4)
++    for i in range(20):p.observe([i]*5000,[2048,4096],0)
++    assert p.stats()['candidates']==4
++    assert p.stats()['active']==0
++
++
++def test_oversize_candidate_is_not_admitted():
++    p=PublicPrefixPolicy(8192,max_bytes=1024)
++    for _ in range(2):assert p.observe([1]*5000,[2048],0)==[]
++    assert p.stats()['reserved_bytes']==0
++
++
++def test_public_clamp_never_rewinds_or_skips_an_endpoint():
++    from types import SimpleNamespace
++    from omlx.cache.public_prefix_runtime import clamp
++    request=SimpleNamespace(_public_prefix_boundaries=[2048,3072])
++    assert clamp(request,0,8192)==2048
++    assert clamp(request,2048,6144)==1024
++    assert clamp(request,3072,4096)==4096
++    assert clamp(request,0,512)==512
+diff --git a/tests/test_tail_index_admission.py b/tests/test_tail_index_admission.py
+new file mode 100644
+index 00000000..a798f458
+--- /dev/null
++++ b/tests/test_tail_index_admission.py
+@@ -0,0 +1,362 @@
++"""CPU-only regressions for tail LRU metadata and public hit-rate admission.
++
++Run directly with Python, or pytest --noconftest. Private package imports bypass
++omlx.cache's inference imports; these tests never materialize model/GPU data.
++"""
++import importlib.util
++from collections import OrderedDict
++from pathlib import Path
++import sys
++from types import ModuleType, SimpleNamespace
++import unittest
++from unittest.mock import patch
++
++
++def _load_cpu_module(filename):
++    directory = Path(__file__).resolve().parents[1] / "omlx" / "cache"
++    package_name = "_tail_admission_cpu"
++    if package_name not in sys.modules:
++        package = ModuleType(package_name)
++        package.__path__ = [str(directory)]
++        sys.modules[package_name] = package
++    name = package_name + "." + filename
++    spec = importlib.util.spec_from_file_location(name, directory / (filename + ".py"))
++    module = importlib.util.module_from_spec(spec)
++    sys.modules[name] = module
++    spec.loader.exec_module(module)
++    return module
++
++
++pc = _load_cpu_module("paged_cache")
++public = _load_cpu_module("public_prefix")
++
++
++class TailAdmissionTests(unittest.TestCase):
++    def manager(self, **kwargs):
++        options = dict(block_size=16, max_blocks=64, initial_blocks=64,
++                       model_name="tail-cpu")
++        options.update(kwargs)
++        return pc.PagedCacheManager(**options)
++
++    def tail(self, manager, tokens, parent=None, *, materialized=True, refs=0,
++             extra_keys=None):
++        digest = pc.compute_block_hash(parent, tokens, extra_keys=extra_keys,
++                                       model_name=manager.model_name)
++        block = None
++        if materialized:
++            block = manager.allocate_block()
++            self.assertIsNotNone(block)
++            block.block_hash = digest
++            block.token_count = len(tokens)
++            block.ref_count = refs
++            manager.cached_block_hash_to_block.insert(digest, block)
++        manager.register_tail_block(parent, digest, len(tokens))
++        return digest, block
++
++    def match(self, manager, tokens, parent=None, start=0, **kwargs):
++        with manager._lock:
++            return manager._match_tail_block(tokens, parent, start, **kwargs)
++
++    def recency(self, manager):
++        return ([*manager._tail_parent_recency],
++                {parent: [*tails] for parent, tails in manager._tail_index.items()})
++
++    def assert_bounded_metadata(self, manager):
++        self.assertEqual(set(manager._tail_index), set(manager._tail_parent_recency))
++        self.assertIsInstance(manager._tail_parent_recency, OrderedDict)
++        self.assertFalse(hasattr(manager, "_tail_hits"))
++        self.assertLessEqual(len(manager._tail_index), pc._TAIL_INDEX_MAX_PARENTS)
++        for tails in manager._tail_index.values():
++            self.assertIsInstance(tails, OrderedDict)
++            self.assertLessEqual(len(tails), pc._TAIL_INDEX_PER_PARENT)
++
++    def test_default_limits_and_frequency_metadata_removed(self):
++        self.assertEqual(pc._TAIL_INDEX_PER_PARENT, 32)
++        self.assertEqual(pc._TAIL_INDEX_MAX_PARENTS, 4096)
++        self.assertFalse(hasattr(pc, "_TAIL_INDEX_HIT_MAX"))
++        self.assert_bounded_metadata(self.manager())
++
++    def test_eight_often_matched_old_and_eight_new_batch_tails_all_remain_matchable(self):
++        manager = self.manager()
++        old = []
++        for i in range(8):
++            digest, block = self.tail(manager, [i, 100])
++            old.append((digest, block))
++            for _ in range(40):
++                self.assertIs(self.match(manager, [i, 100, 999]), block)
++        new = [self.tail(manager, [i, 200]) for i in range(8)]
++        self.assertEqual(len(manager._tail_index[None]), 16)
++        for i, (digest, block) in enumerate(new):
++            self.assertIn(digest, manager._tail_index[None])
++            self.assertIs(self.match(manager, [i, 200, 999]), block)
++        for i, (digest, block) in enumerate(old):
++            self.assertIn(digest, manager._tail_index[None])
++            self.assertIs(self.match(manager, [i, 100, 999]), block)
++        self.assert_bounded_metadata(manager)
++
++    def test_thirty_third_tail_evicts_oldest_even_after_many_previous_hits(self):
++        manager = self.manager()
++        oldest, old_block = self.tail(manager, [0])
++        for _ in range(70):
++            self.assertIs(self.match(manager, [0, 99]), old_block)
++        others = [self.tail(manager, [i])[0] for i in range(1, 32)]
++        newest, newest_block = self.tail(manager, [32])
++        self.assertEqual(list(manager._tail_index[None]), others + [newest])
++        self.assertNotIn(oldest, manager._tail_index[None])
++        self.assertIsNone(self.match(manager, [0, 99]))
++        self.assertIs(self.match(manager, [32, 99]), newest_block)
++        self.assert_bounded_metadata(manager)
++
++    def test_reregistering_tail_refreshes_tail_and_parent_without_duplicate(self):
++        manager = self.manager()
++        digests = [self.tail(manager, [i], b"a")[0] for i in range(32)]
++        self.tail(manager, [99], b"b")
++        manager.register_tail_block(b"a", digests[0], 1)
++        self.assertEqual(list(manager._tail_index[b"a"]), digests[1:] + digests[:1])
++        self.assertEqual(list(manager._tail_parent_recency), [b"b", b"a"])
++        manager.register_tail_block(b"a", b"incoming", 2)
++        self.assertNotIn(digests[1], manager._tail_index[b"a"])
++        self.assertIn(digests[0], manager._tail_index[b"a"])
++        self.assertEqual(len(manager._tail_index[b"a"]), 32)
++        self.assert_bounded_metadata(manager)
++
++    def test_successful_match_refreshes_tail_and_parent(self):
++        manager = self.manager()
++        with patch.object(pc, "_TAIL_INDEX_MAX_PARENTS", 2):
++            with patch.object(pc, "_TAIL_INDEX_PER_PARENT", 2):
++                first, block = self.tail(manager, [1], b"a")
++                second, _ = self.tail(manager, [2], b"a")
++                self.tail(manager, [3], b"b")
++                self.assertIs(self.match(manager, [1, 9], b"a"), block)
++                self.assertEqual(list(manager._tail_index[b"a"]), [second, first])
++                self.assertEqual(list(manager._tail_parent_recency), [b"b", b"a"])
++                self.tail(manager, [4], b"a")
++                self.assertNotIn(second, manager._tail_index[b"a"])
++                self.tail(manager, [5], b"c")
++                self.assertEqual(set(manager._tail_index), {b"a", b"c"})
++                self.assert_bounded_metadata(manager)
++
++    def test_new_tail_registration_refreshes_existing_parent(self):
++        manager = self.manager()
++        with patch.object(pc, "_TAIL_INDEX_MAX_PARENTS", 2):
++            self.tail(manager, [1], b"a")
++            self.tail(manager, [2], b"b")
++            self.tail(manager, [3], b"a")
++            self.assertEqual(list(manager._tail_parent_recency), [b"b", b"a"])
++            self.tail(manager, [4], b"c")
++            self.assertEqual(set(manager._tail_index), {b"a", b"c"})
++
++    def test_parent_lru_drops_old_frequently_matched_parent(self):
++        manager = self.manager()
++        with patch.object(pc, "_TAIL_INDEX_MAX_PARENTS", 3):
++            digest, block = self.tail(manager, [1], b"old-hot", refs=4)
++            for _ in range(60):
++                self.assertIs(self.match(manager, [1, 9], b"old-hot"), block)
++            self.tail(manager, [2], b"new-a")
++            self.tail(manager, [3], b"new-b")
++            self.tail(manager, [4], b"incoming")
++            self.assertEqual(list(manager._tail_parent_recency), [b"new-a", b"new-b", b"incoming"])
++            self.assertNotIn(b"old-hot", manager._tail_index)
++            self.assertEqual(block.ref_count, 4)
++            self.assertIs(manager.cached_block_hash_to_block.get_block(digest), block)
++            self.assert_bounded_metadata(manager)
++
++    def test_parent_registration_refreshes_without_frequency(self):
++        manager = self.manager()
++        with patch.object(pc, "_TAIL_INDEX_MAX_PARENTS", 2):
++            digest, _ = self.tail(manager, [1], b"a")
++            self.tail(manager, [2], b"b")
++            manager.register_tail_block(b"a", digest, 1)
++            self.tail(manager, [3], b"c")
++            self.assertEqual(list(manager._tail_parent_recency), [b"a", b"c"])
++
++    def test_nonmatch_short_input_and_wrong_extra_keys_do_not_refresh(self):
++        manager = self.manager()
++        self.tail(manager, [1, 2, 3], b"a")
++        self.tail(manager, [7], b"a")
++        self.tail(manager, [8], b"b")
++        before = self.recency(manager)
++        for tokens, kwargs in [([1, 2, 9], {}), ([1, 2], {}),
++                               ([1, 2, 3], {"extra_keys": ("wrong",)})]:
++            with self.subTest(tokens=tokens, kwargs=kwargs):
++                self.assertIsNone(self.match(manager, tokens, b"a", **kwargs))
++                self.assertEqual(self.recency(manager), before)
++
++    def test_invalid_registration_does_not_refresh_or_admit(self):
++        manager = self.manager()
++        digest, _ = self.tail(manager, [1], b"a")
++        self.tail(manager, [2], b"b")
++        before = self.recency(manager)
++        for count in (0, -1):
++            manager.register_tail_block(b"a", digest, count)
++            manager.register_tail_block(b"new", b"invalid", count)
++            self.assertEqual(self.recency(manager), before)
++
++    def test_allocation_failure_does_not_refresh_tail_or_parent(self):
++        manager = self.manager(max_blocks=1, initial_blocks=1)
++        digest, _ = self.tail(manager, [1, 2], b"a", materialized=False)
++        self.tail(manager, [7], b"a", materialized=False)
++        self.tail(manager, [8], b"b", materialized=False)
++        manager._paged_ssd_cache_manager = SimpleNamespace(has_block=lambda key: key == digest)
++        before = self.recency(manager)
++        self.assertIsNone(self.match(manager, [1, 2, 9], b"a"))
++        self.assertEqual(self.recency(manager), before)
++        self.assertIsNone(manager.cached_block_hash_to_block.get_block(digest))
++
++    def test_ssd_metadata_restore_refreshes_only_verified_match(self):
++        manager = self.manager()
++        digest, _ = self.tail(manager, [1, 2], b"a", materialized=False)
++        sibling, _ = self.tail(manager, [7], b"a")
++        self.tail(manager, [8], b"b")
++        manager._paged_ssd_cache_manager = SimpleNamespace(has_block=lambda key: key == digest)
++        block = self.match(manager, [1, 2, 9], b"a")
++        self.assertEqual(block.block_hash, digest)
++        self.assertEqual(block.token_count, 2)
++        self.assertEqual(block.ref_count, 0)
++        self.assertEqual(list(manager._tail_index[b"a"]), [sibling, digest])
++        self.assertEqual(list(manager._tail_parent_recency), [b"b", b"a"])
++
++    def test_metadata_eviction_never_releases_block_or_changes_hash_storage(self):
++        manager = self.manager()
++        digest, block = self.tail(manager, [1], refs=3)
++        before = (manager.free_block_queue.num_free_blocks, dict(manager.allocated_blocks),
++                  manager.stats.allocated_blocks)
++        for i in range(32):
++            manager.register_tail_block(None, (i + 100).to_bytes(32, "little"), 2)
++        self.assertNotIn(digest, manager._tail_index[None])
++        self.assertEqual(block.ref_count, 3)
++        self.assertEqual(block.block_hash, digest)
++        self.assertIs(manager.cached_block_hash_to_block.get_block(digest), block)
++        self.assertEqual((manager.free_block_queue.num_free_blocks, dict(manager.allocated_blocks),
++                          manager.stats.allocated_blocks), before)
++
++    def test_longest_prefix_wins_over_short_tail_recency(self):
++        manager = self.manager()
++        short, short_block = self.tail(manager, [1, 2])
++        long, long_block = self.tail(manager, [1, 2, 3])
++        for _ in range(30):
++            self.assertIs(self.match(manager, [1, 2, 9]), short_block)
++        self.assertEqual(list(manager._tail_index[None]), [long, short])
++        self.assertIs(self.match(manager, [1, 2, 3, 9]), long_block)
++        self.assertEqual(list(manager._tail_index[None]), [short, long])
++
++    def test_hash_layout_matches_existing_fixed_vectors(self):
++        self.assertEqual(pc.compute_block_hash(None, [1, 2, 3], model_name="tail-cpu").hex(),
++                         "7ba8ab6831fe8a675752019d8a9e9b147b45558a5c1c871eaec7e36bd4f52559")
++        self.assertEqual(pc.compute_block_hash(b"parent-a", [1, 2, 3],
++                         extra_keys=("image-1",), model_name="tail-cpu").hex(),
++                         "7e4fc871a91a64e455e6bec420c1026b4cbba480817a6d6511f1928c8aea0275")
++
++    def test_nonzero_start_parent_and_segmented_extra_key_domain_remain_exact(self):
++        manager = self.manager()
++        _, block = self.tail(manager, [1, 2, 3], b"parent-a", extra_keys=("image-1",))
++        tokens = [99] * 16 + [1, 2, 3, 8]
++        self.assertIs(self.match(manager, tokens, b"parent-a", 16,
++                      extra_keys=("image-1",), extra_key_token_start=17), block)
++        self.assertIs(self.match(manager, tokens, b"parent-a", 16,
++                      extra_keys=("ignored",), extra_key_ranges=[(17, ("image-1",))]), block)
++        for kwargs in ({"extra_keys": ("image-2",)},
++                       {"extra_keys": ("image-1",), "extra_key_token_start": 19},
++                       {"extra_key_ranges": [(17, ("image-2",))]}):
++            self.assertIsNone(self.match(manager, tokens, b"parent-a", 16, **kwargs))
++        self.assertIsNone(self.match(manager, tokens, b"other-parent", 16))
++
++    def test_stale_last_tail_removes_parent_metadata(self):
++        manager = self.manager()
++        self.tail(manager, [1, 2], b"stale", materialized=False)
++        self.assertIsNone(self.match(manager, [1, 2, 9], b"stale"))
++        self.assertEqual(manager._tail_index, {})
++        self.assertEqual(manager._tail_parent_recency, {})
++        self.assert_bounded_metadata(manager)
++
++    def test_stale_long_tail_removal_retains_and_matches_live_short_sibling(self):
++        manager = self.manager()
++        stale, _ = self.tail(manager, [1, 2, 3], materialized=False)
++        live, block = self.tail(manager, [1, 2])
++        self.assertIs(self.match(manager, [1, 2, 3, 9]), block)
++        self.assertNotIn(stale, manager._tail_index[None])
++        self.assertEqual(list(manager._tail_index[None]), [live])
++        self.assert_bounded_metadata(manager)
++
++    def test_forget_cleans_metadata_without_releasing_active_blocks(self):
++        manager = self.manager()
++        digest, block = self.tail(manager, [1], refs=5)
++        sibling, _ = self.tail(manager, [2])
++        before = (manager.free_block_queue.num_free_blocks, dict(manager.allocated_blocks))
++        self.assertEqual(manager.forget_tail_block(digest), 1)
++        self.assertEqual(manager.forget_tail_block(digest), 0)
++        self.assertNotIn(digest, manager._tail_index[None])
++        self.assertIn(sibling, manager._tail_index[None])
++        self.assertEqual(block.ref_count, 5)
++        self.assertIs(manager.cached_block_hash_to_block.get_block(digest), block)
++        self.assertEqual((manager.free_block_queue.num_free_blocks, dict(manager.allocated_blocks)), before)
++        self.assertEqual(manager.forget_tail_block(sibling), 1)
++        self.assertEqual(manager._tail_index, {})
++        self.assertEqual(manager._tail_parent_recency, {})
++
++    def test_forget_removes_duplicate_hint_from_all_parents(self):
++        manager = self.manager()
++        for parent in (None, b"parent-a", b"parent-b"):
++            manager.register_tail_block(parent, b"same-hint", 2)
++        self.assertEqual(manager.forget_tail_block(b"same-hint"), 3)
++        self.assertEqual(manager._tail_index, {})
++        self.assertEqual(manager._tail_parent_recency, {})
++
++    def test_seed_stress_bounds_both_lru_levels_and_clear_resets_them(self):
++        manager = self.manager()
++        with patch.object(pc, "_TAIL_INDEX_MAX_PARENTS", 3):
++            with patch.object(pc, "_TAIL_INDEX_PER_PARENT", 2):
++                records = [(i.to_bytes(32, "little"), j.to_bytes(32, "little"), 1)
++                           for i in range(20) for j in range(10)]
++                self.assertEqual(manager.seed_tail_blocks(records), 200)
++                self.assertEqual(list(manager._tail_parent_recency),
++                                 [i.to_bytes(32, "little") for i in range(17, 20)])
++                self.assert_bounded_metadata(manager)
++                for tails in manager._tail_index.values():
++                    self.assertEqual(list(tails), [i.to_bytes(32, "little") for i in (8, 9)])
++                manager.clear()
++                self.assertEqual(manager._tail_index, {})
++                self.assertEqual(manager._tail_parent_recency, {})
++                self.assert_bounded_metadata(manager)
++
++
++class PublicPolicyRegressionTests(unittest.TestCase):
++    def test_public_default_remains_two_gib_and_two_observation_admission(self):
++        policy = public.PublicPrefixPolicy(8192)
++        self.assertEqual(policy.max_bytes, 2 * 1024 ** 3)
++        self.assertEqual(policy.stats()["max_bytes"], 2 * 1024 ** 3)
++        tokens = [9] * 2048 + [1]
++        self.assertEqual(policy.observe(tokens, [2048], 0), [])
++        self.assertEqual(policy.observe(tokens, [2048], 0), [2048])
++        self.assertLessEqual(policy.stats()["reserved_bytes"], policy.max_bytes)
++
++    def test_public_eviction_still_uses_hit_rate_before_recency(self):
++        evicted = []
++        policy = public.PublicPrefixPolicy(8192, max_active=2,
++                                          evict=lambda entry: evicted.append(entry.length) or True)
++        hot, cold, incoming = [1] * 5000, [2] * 5000, [3] * 5000
++        for _ in range(2):
++            policy.observe(hot, [2048], 0)
++        for _ in range(30):
++            policy.observe(hot, [2048], 2048)
++        for _ in range(2):
++            policy.observe(cold, [3072], 0)
++        # The hot public entry is older than the cold entry, so a pure LRU would
++        # evict hot. Public policy must still evict the newer zero-hit entry.
++        hot_entry = policy.entries[public.prefix_key(hot, 2048)]
++        cold_entry = policy.entries[public.prefix_key(cold, 3072)]
++        self.assertLess(hot_entry.last_used, cold_entry.last_used)
++        self.assertGreater(hot_entry.value, cold_entry.value)
++        policy.observe(incoming, [4096], 0)
++        self.assertEqual(policy.observe(incoming, [4096], 0), [4096])
++        self.assertEqual(evicted, [3072])
++        self.assertTrue(hot_entry.reserved_bytes)
++        self.assertFalse(cold_entry.reserved_bytes)
++        self.assertEqual(policy.stats()["active"], 2)
++        self.assertEqual(policy.stats()["max_bytes"], 2 * 1024 ** 3)
++
++
++if __name__ == "__main__":
++    assert not any(name == "mlx" or name.startswith("mlx.") for name in sys.modules)
++    unittest.main()
++

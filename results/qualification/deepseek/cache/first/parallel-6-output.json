@@ -1,0 +1,35 @@
+{
+  "content": "# SQLite Campaign Draft Store (stdlib only)\n\nBelow is a complete, runnable implementation using only the Python standard library. It provides a `CampaignDraftStore` with create/get/list/update, idempotency keys, explicit transactions, validation, optimistic version checks, and rollback. Tests cover",
+  "reasoning": "",
+  "usage": {
+    "prompt_tokens": 8242,
+    "completion_tokens": 64,
+    "total_tokens": 8306,
+    "input_tokens": 8242,
+    "output_tokens": 64,
+    "prompt_tokens_details": {
+      "cached_tokens": 8192
+    },
+    "time_to_first_token": 2.91,
+    "time_to_first_visible_token": 2.91,
+    "total_time": 10.98,
+    "prompt_eval_duration": 2.91,
+    "generation_duration": 8.07,
+    "prompt_tokens_per_second": 2830.41,
+    "generation_tokens_per_second": 7.93
+  },
+  "finish_reason": "length",
+  "done": true,
+  "elapsed_seconds": 11.34828345803544,
+  "ttft_seconds": 3.2790890830219723,
+  "server_decode_tps": 7.93,
+  "server_prefill_tps": 2830.41,
+  "reported_cached_tokens": 8192,
+  "log_start_offset": 12842,
+  "artifacts": {
+    "raw_sse": "parallel-6-sse.txt",
+    "events": "parallel-6-events.json",
+    "output": "parallel-6-output.json"
+  },
+  "whole_output_sha256": "9b9c5392014a5b45e181399e33d277ca3387f24d2fc4282f854fab7f7ed6e684"
+}

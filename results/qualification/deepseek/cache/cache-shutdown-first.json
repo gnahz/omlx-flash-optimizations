@@ -1,0 +1,38 @@
+{
+  "pid": 20358,
+  "saved": true,
+  "at": 1791565302.8988538,
+  "cache": {
+    "enabled": true,
+    "max_bytes": 3221225472,
+    "bytes": 10420408,
+    "checkpoints": 1,
+    "hits": 9,
+    "reused_tokens": 73728,
+    "stores": 1,
+    "evictions": 0,
+    "skipped_memory": 0,
+    "restore_failures": 0,
+    "persistence": {
+      "enabled": true,
+      "directory": "<work-dir>/cache/exact-prefix-v1",
+      "pending": false,
+      "interval_seconds": 300.0,
+      "saved_at": 1791565303.021634,
+      "saved_generation": "generation-0dea73decd104d09897c0a0fa2a5a617",
+      "disk_reads": 0,
+      "restore_loads": 0,
+      "saves": 1,
+      "restored_checkpoints": 0,
+      "restore_skipped": 0,
+      "failures": 0,
+      "last_error": null,
+      "dirty": false
+    }
+  },
+  "provenance": {
+    "original_filename": "cache-shutdown-first.json",
+    "original_sha256": "c4c908962e321100d4417c14406ff82c3a9eed36ef27dfabd817c88534b2bd82",
+    "local_paths_sanitized": true
+  }
+}

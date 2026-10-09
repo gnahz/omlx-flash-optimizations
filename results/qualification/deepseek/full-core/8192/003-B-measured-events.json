@@ -1,0 +1,897 @@
+[
+  {
+    "elapsed_seconds": 0.06551987497368827,
+    "event": {
+      "id": "chatcmpl-64db6384",
+      "object": "chat.completion.chunk",
+      "created": 0,
+      "model": "keepalive",
+      "choices": [
+        {
+          "index": 0,
+          "delta": {
+            "role": "assistant",
+            "content": ""
+          },
+          "finish_reason": null
+        }
+      ]
+    }
+  },
+  {
+    "elapsed_seconds": 0.07302683300804347,
+    "event": {
+      "id": "chatcmpl-64db6384",
+      "object": "chat.completion.chunk",
+      "created": 1791564570,
+      "model": "deepseek-v41-lsq",
+      "choices": [
+        {
+          "index": 0,
+          "delta": {
+            "role": "assistant"
+          }
+        }
+      ]
+    }
+  },
+  {
+    "elapsed_seconds": 3.9407215410028584,
+    "event": {
+      "id": "chatcmpl-64db6384",
+      "object": "chat.completion.chunk",
+      "created": 1791564573,
+      "model": "deepseek-v41-lsq",
+      "choices": [
+        {
+          "index": 0,
+          "delta": {
+            "content": "#"
+          }
+        }
+      ]
+    }
+  },
+  {
+    "elapsed_seconds": 4.070291332958732,
+    "event": {
+      "id": "chatcmpl-64db6384",
+      "object": "chat.completion.chunk",
+      "created": 1791564574,
+      "model": "deepseek-v41-lsq",
+      "choices": [
+        {
+          "index": 0,
+          "delta": {
+            "content": " SQLite Campaign Draft Store (stdlib only"
+          }
+        }
+      ]
+    }
+  },
+  {
+    "elapsed_seconds": 4.174767082964536,
+    "event": {
+      "id": "chatcmpl-64db6384",
+      "object": "chat.completion.chunk",
+      "created": 1791564574,
+      "model": "deepseek-v41-lsq",
+      "choices": [
+        {
+          "index": 0,
+          "delta": {
+            "content": ")\n\nBelow is a complete, runnable"
+          }
+        }
+      ]
+    }
+  },
+  {
+    "elapsed_seconds": 4.295780915999785,
+    "event": {
+      "id": "chatcmpl-64db6384",
+      "object": "chat.completion.chunk",
+      "created": 1791564574,
+      "model": "deepseek-v41-lsq",
+      "choices": [
+        {
+          "index": 0,
+          "delta": {
+            "content": " implementation using only the Python standard library. It"
+          }
+        }
+      ]
+    }
+  },
+  {
+    "elapsed_seconds": 4.408378415973857,
+    "event": {
+      "id": "chatcmpl-64db6384",
+      "object": "chat.completion.chunk",
+      "created": 1791564574,
+      "model": "deepseek-v41-lsq",
+      "choices": [
+        {
+          "index": 0,
+          "delta": {
+            "content": " provides a small \"campaign"
+          }
+        }
+      ]
+    }
+  },
+  {
+    "elapsed_seconds": 4.544280125002842,
+    "event": {
+      "id": "chatcmpl-64db6384",
+      "object": "chat.completion.chunk",
+      "created": 1791564574,
+      "model": "deepseek-v41-lsq",
+      "choices": [
+        {
+          "index": 0,
+          "delta": {
+            "content": " draft\" store with create/get/list/"
+          }
+        }
+      ]
+    }
+  },
+  {
+    "elapsed_seconds": 4.658567333011888,
+    "event": {
+      "id": "chatcmpl-64db6384",
+      "object": "chat.completion.chunk",
+      "created": 1791564574,
+      "model": "deepseek-v41-lsq",
+      "choices": [
+        {
+          "index": 0,
+          "delta": {
+            "content": "update, idempotency keys, explicit transactions,"
+          }
+        }
+      ]
+    }
+  },
+  {
+    "elapsed_seconds": 4.775378707970958,
+    "event": {
+      "id": "chatcmpl-64db6384",
+      "object": "chat.completion.chunk",
+      "created": 1791564574,
+      "model": "deepseek-v41-lsq",
+      "choices": [
+        {
+          "index": 0,
+          "delta": {
+            "content": " validation, optimistic version checks, and roll"
+          }
+        }
+      ]
+    }
+  },
+  {
+    "elapsed_seconds": 4.887252249987796,
+    "event": {
+      "id": "chatcmpl-64db6384",
+      "object": "chat.completion.chunk",
+      "created": 1791564574,
+      "model": "deepseek-v41-lsq",
+      "choices": [
+        {
+          "index": 0,
+          "delta": {
+            "content": "back.\n\n## `campaign_store.py`\n\n"
+          }
+        }
+      ]
+    }
+  },
+  {
+    "elapsed_seconds": 5.01124445797177,
+    "event": {
+      "id": "chatcmpl-64db6384",
+      "object": "chat.completion.chunk",
+      "created": 1791564574,
+      "model": "deepseek-v41-lsq",
+      "choices": [
+        {
+          "index": 0,
+          "delta": {
+            "content": "```python\n\"\"\"SQLite-backed campaign draft store (stdlib"
+          }
+        }
+      ]
+    }
+  },
+  {
+    "elapsed_seconds": 5.139693750010338,
+    "event": {
+      "id": "chatcmpl-64db6384",
+      "object": "chat.completion.chunk",
+      "created": 1791564575,
+      "model": "deepseek-v41-lsq",
+      "choices": [
+        {
+          "index": 0,
+          "delta": {
+            "content": " only).\"\"\"\nfrom __future__ import annotations\n\nimport json\n"
+          }
+        }
+      ]
+    }
+  },
+  {
+    "elapsed_seconds": 5.25975429097889,
+    "event": {
+      "id": "chatcmpl-64db6384",
+      "object": "chat.completion.chunk",
+      "created": 1791564575,
+      "model": "deepseek-v41-lsq",
+      "choices": [
+        {
+          "index": 0,
+          "delta": {
+            "content": "import re\nimport sqlite3\nimport uuid\n"
+          }
+        }
+      ]
+    }
+  },
+  {
+    "elapsed_seconds": 5.3881609159871005,
+    "event": {
+      "id": "chatcmpl-64db6384",
+      "object": "chat.completion.chunk",
+      "created": 1791564575,
+      "model": "deepseek-v41-lsq",
+      "choices": [
+        {
+          "index": 0,
+          "delta": {
+            "content": "from dataclasses import dataclass\nfrom typing import Any, Iter"
+          }
+        }
+      ]
+    }
+  },
+  {
+    "elapsed_seconds": 5.504590165975969,
+    "event": {
+      "id": "chatcmpl-64db6384",
+      "object": "chat.completion.chunk",
+      "created": 1791564575,
+      "model": "deepseek-v41-lsq",
+      "choices": [
+        {
+          "index": 0,
+          "delta": {
+            "content": "able, Optional\n\nNAME_RE = re.compile(r\""
+          }
+        }
+      ]
+    }
+  },
+  {
+    "elapsed_seconds": 5.626374332990963,
+    "event": {
+      "id": "chatcmpl-64db6384",
+      "object": "chat.completion.chunk",
+      "created": 1791564575,
+      "model": "deepseek-v41-lsq",
+      "choices": [
+        {
+          "index": 0,
+          "delta": {
+            "content": "^[A-Za-z0-9 _"
+          }
+        }
+      ]
+    }
+  },
+  {
+    "elapsed_seconds": 5.791553540970199,
+    "event": {
+      "id": "chatcmpl-64db6384",
+      "object": "chat.completion.chunk",
+      "created": 1791564575,
+      "model": "deepseek-v41-lsq",
+      "choices": [
+        {
+          "index": 0,
+          "delta": {
+            "content": "\\-\\.]{1,80}$"
+          }
+        }
+      ]
+    }
+  },
+  {
+    "elapsed_seconds": 5.9004279999644496,
+    "event": {
+      "id": "chatcmpl-64db6384",
+      "object": "chat.completion.chunk",
+      "created": 1791564575,
+      "model": "deepseek-v41-lsq",
+      "choices": [
+        {
+          "index": 0,
+          "delta": {
+            "content": "\")\nMAX_BUDGET = 10_"
+          }
+        }
+      ]
+    }
+  },
+  {
+    "elapsed_seconds": 6.025340833002701,
+    "event": {
+      "id": "chatcmpl-64db6384",
+      "object": "chat.completion.chunk",
+      "created": 1791564575,
+      "model": "deepseek-v41-lsq",
+      "choices": [
+        {
+          "index": 0,
+          "delta": {
+            "content": "000_000\nMAX_PAGE = 200\n\n\n"
+          }
+        }
+      ]
+    }
+  },
+  {
+    "elapsed_seconds": 6.142072415968869,
+    "event": {
+      "id": "chatcmpl-64db6384",
+      "object": "chat.completion.chunk",
+      "created": 1791564576,
+      "model": "deepseek-v41-lsq",
+      "choices": [
+        {
+          "index": 0,
+          "delta": {
+            "content": "class ValidationError(ValueError):\n    \"\"\""
+          }
+        }
+      ]
+    }
+  },
+  {
+    "elapsed_seconds": 6.255811457987875,
+    "event": {
+      "id": "chatcmpl-64db6384",
+      "object": "chat.completion.chunk",
+      "created": 1791564576,
+      "model": "deepseek-v41-lsq",
+      "choices": [
+        {
+          "index": 0,
+          "delta": {
+            "content": "Raised when input fails validation"
+          }
+        }
+      ]
+    }
+  },
+  {
+    "elapsed_seconds": 6.364511166000739,
+    "event": {
+      "id": "chatcmpl-64db6384",
+      "object": "chat.completion.chunk",
+      "created": 1791564576,
+      "model": "deepseek-v41-lsq",
+      "choices": [
+        {
+          "index": 0,
+          "delta": {
+            "content": ".\"\"\"\n\n\nclass ConflictError(Runtime"
+          }
+        }
+      ]
+    }
+  },
+  {
+    "elapsed_seconds": 6.482860249991063,
+    "event": {
+      "id": "chatcmpl-64db6384",
+      "object": "chat.completion.chunk",
+      "created": 1791564576,
+      "model": "deepseek-v41-lsq",
+      "choices": [
+        {
+          "index": 0,
+          "delta": {
+            "content": "Error):\n    \"\"\"Raised on optimistic"
+          }
+        }
+      ]
+    }
+  },
+  {
+    "elapsed_seconds": 6.611758749990258,
+    "event": {
+      "id": "chatcmpl-64db6384",
+      "object": "chat.completion.chunk",
+      "created": 1791564576,
+      "model": "deepseek-v41-lsq",
+      "choices": [
+        {
+          "index": 0,
+          "delta": {
+            "content": " version mismatch.\"\"\"\n\n\nclass NotFound"
+          }
+        }
+      ]
+    }
+  },
+  {
+    "elapsed_seconds": 6.72141095797997,
+    "event": {
+      "id": "chatcmpl-64db6384",
+      "object": "chat.completion.chunk",
+      "created": 1791564576,
+      "model": "deepseek-v41-lsq",
+      "choices": [
+        {
+          "index": 0,
+          "delta": {
+            "content": "Error(LookupError):\n    \"\"\"Ra"
+          }
+        }
+      ]
+    }
+  },
+  {
+    "elapsed_seconds": 6.846886915969662,
+    "event": {
+      "id": "chatcmpl-64db6384",
+      "object": "chat.completion.chunk",
+      "created": 1791564576,
+      "model": "deepseek-v41-lsq",
+      "choices": [
+        {
+          "index": 0,
+          "delta": {
+            "content": "ised when a draft does not exist.\"\"\"\n\n\n@dataclass"
+          }
+        }
+      ]
+    }
+  },
+  {
+    "elapsed_seconds": 6.967872999957763,
+    "event": {
+      "id": "chatcmpl-64db6384",
+      "object": "chat.completion.chunk",
+      "created": 1791564576,
+      "model": "deepseek-v41-lsq",
+      "choices": [
+        {
+          "index": 0,
+          "delta": {
+            "content": "(frozen=True)\nclass Draft:\n    id:"
+          }
+        }
+      ]
+    }
+  },
+  {
+    "elapsed_seconds": 7.081235540972557,
+    "event": {
+      "id": "chatcmpl-64db6384",
+      "object": "chat.completion.chunk",
+      "created": 1791564577,
+      "model": "deepseek-v41-lsq",
+      "choices": [
+        {
+          "index": 0,
+          "delta": {
+            "content": " str\n    name: str\n   "
+          }
+        }
+      ]
+    }
+  },
+  {
+    "elapsed_seconds": 7.20641516597243,
+    "event": {
+      "id": "chatcmpl-64db6384",
+      "object": "chat.completion.chunk",
+      "created": 1791564577,
+      "model": "deepseek-v41-lsq",
+      "choices": [
+        {
+          "index": 0,
+          "delta": {
+            "content": " budget: int\n    owner_team: int\n"
+          }
+        }
+      ]
+    }
+  },
+  {
+    "elapsed_seconds": 7.331890332978219,
+    "event": {
+      "id": "chatcmpl-64db6384",
+      "object": "chat.completion.chunk",
+      "created": 1791564577,
+      "model": "deepseek-v41-lsq",
+      "choices": [
+        {
+          "index": 0,
+          "delta": {
+            "content": "    status: str\n    version: int\n    idemp"
+          }
+        }
+      ]
+    }
+  },
+  {
+    "elapsed_seconds": 7.4617413329542615,
+    "event": {
+      "id": "chatcmpl-64db6384",
+      "object": "chat.completion.chunk",
+      "created": 1791564577,
+      "model": "deepseek-v41-lsq",
+      "choices": [
+        {
+          "index": 0,
+          "delta": {
+            "content": "otency_key: Optional[str]\n    created_at: str\n    updated"
+          }
+        }
+      ]
+    }
+  },
+  {
+    "elapsed_seconds": 7.586397582956124,
+    "event": {
+      "id": "chatcmpl-64db6384",
+      "object": "chat.completion.chunk",
+      "created": 1791564577,
+      "model": "deepseek-v41-lsq",
+      "choices": [
+        {
+          "index": 0,
+          "delta": {
+            "content": "_at: str\n\n    def as_dict(self) -> dict[str"
+          }
+        }
+      ]
+    }
+  },
+  {
+    "elapsed_seconds": 7.716399832977913,
+    "event": {
+      "id": "chatcmpl-64db6384",
+      "object": "chat.completion.chunk",
+      "created": 1791564577,
+      "model": "deepseek-v41-lsq",
+      "choices": [
+        {
+          "index": 0,
+          "delta": {
+            "content": ", Any]:\n        return {\n            \"id\": self.id,\n           "
+          }
+        }
+      ]
+    }
+  },
+  {
+    "elapsed_seconds": 7.846831124974415,
+    "event": {
+      "id": "chatcmpl-64db6384",
+      "object": "chat.completion.chunk",
+      "created": 1791564577,
+      "model": "deepseek-v41-lsq",
+      "choices": [
+        {
+          "index": 0,
+          "delta": {
+            "content": " \"name\": self.name,\n            \"budget\": self.budget,\n"
+          }
+        }
+      ]
+    }
+  },
+  {
+    "elapsed_seconds": 7.976759915996809,
+    "event": {
+      "id": "chatcmpl-64db6384",
+      "object": "chat.completion.chunk",
+      "created": 1791564577,
+      "model": "deepseek-v41-lsq",
+      "choices": [
+        {
+          "index": 0,
+          "delta": {
+            "content": "            \"owner_team\": self.owner_team,\n            \"status"
+          }
+        }
+      ]
+    }
+  },
+  {
+    "elapsed_seconds": 8.105528999993112,
+    "event": {
+      "id": "chatcmpl-64db6384",
+      "object": "chat.completion.chunk",
+      "created": 1791564578,
+      "model": "deepseek-v41-lsq",
+      "choices": [
+        {
+          "index": 0,
+          "delta": {
+            "content": "\": self.status,\n            \"version\": self.version,\n            \"idemp"
+          }
+        }
+      ]
+    }
+  },
+  {
+    "elapsed_seconds": 8.23532441596035,
+    "event": {
+      "id": "chatcmpl-64db6384",
+      "object": "chat.completion.chunk",
+      "created": 1791564578,
+      "model": "deepseek-v41-lsq",
+      "choices": [
+        {
+          "index": 0,
+          "delta": {
+            "content": "otency_key\": self.idempotency_key,\n            \"created_at"
+          }
+        }
+      ]
+    }
+  },
+  {
+    "elapsed_seconds": 8.364866665971931,
+    "event": {
+      "id": "chatcmpl-64db6384",
+      "object": "chat.completion.chunk",
+      "created": 1791564578,
+      "model": "deepseek-v41-lsq",
+      "choices": [
+        {
+          "index": 0,
+          "delta": {
+            "content": "\": self.created_at,\n            \"updated_at\": self.updated_at,\n"
+          }
+        }
+      ]
+    }
+  },
+  {
+    "elapsed_seconds": 8.489714332972653,
+    "event": {
+      "id": "chatcmpl-64db6384",
+      "object": "chat.completion.chunk",
+      "created": 1791564578,
+      "model": "deepseek-v41-lsq",
+      "choices": [
+        {
+          "index": 0,
+          "delta": {
+            "content": "        }\n\n\ndef _validate_name(name: Any) -> str:\n"
+          }
+        }
+      ]
+    }
+  },
+  {
+    "elapsed_seconds": 8.618606499978341,
+    "event": {
+      "id": "chatcmpl-64db6384",
+      "object": "chat.completion.chunk",
+      "created": 1791564578,
+      "model": "deepseek-v41-lsq",
+      "choices": [
+        {
+          "index": 0,
+          "delta": {
+            "content": "    if not isinstance(name, str) or not NAME_RE.match(name"
+          }
+        }
+      ]
+    }
+  },
+  {
+    "elapsed_seconds": 8.739977916004136,
+    "event": {
+      "id": "chatcmpl-64db6384",
+      "object": "chat.completion.chunk",
+      "created": 1791564578,
+      "model": "deepseek-v41-lsq",
+      "choices": [
+        {
+          "index": 0,
+          "delta": {
+            "content": "):\n        raise ValidationError(\"name must be"
+          }
+        }
+      ]
+    }
+  },
+  {
+    "elapsed_seconds": 8.860224124975502,
+    "event": {
+      "id": "chatcmpl-64db6384",
+      "object": "chat.completion.chunk",
+      "created": 1791564578,
+      "model": "deepseek-v41-lsq",
+      "choices": [
+        {
+          "index": 0,
+          "delta": {
+            "content": " 1-80 chars of letters, digits, space,"
+          }
+        }
+      ]
+    }
+  },
+  {
+    "elapsed_seconds": 8.981086374958977,
+    "event": {
+      "id": "chatcmpl-64db6384",
+      "object": "chat.completion.chunk",
+      "created": 1791564578,
+      "model": "deepseek-v41-lsq",
+      "choices": [
+        {
+          "index": 0,
+          "delta": {
+            "content": " _-.\")\n    return name\n\n\ndef _validate"
+          }
+        }
+      ]
+    }
+  },
+  {
+    "elapsed_seconds": 9.109988540993072,
+    "event": {
+      "id": "chatcmpl-64db6384",
+      "object": "chat.completion.chunk",
+      "created": 1791564579,
+      "model": "deepseek-v41-lsq",
+      "choices": [
+        {
+          "index": 0,
+          "delta": {
+            "content": "_budget(budget: Any) -> int:\n    if isinstance(b"
+          }
+        }
+      ]
+    }
+  },
+  {
+    "elapsed_seconds": 9.239593208010774,
+    "event": {
+      "id": "chatcmpl-64db6384",
+      "object": "chat.completion.chunk",
+      "created": 1791564579,
+      "model": "deepseek-v41-lsq",
+      "choices": [
+        {
+          "index": 0,
+          "delta": {
+            "content": "udget, bool) or not isinstance(budget, int):\n        raise Validation"
+          }
+        }
+      ]
+    }
+  },
+  {
+    "elapsed_seconds": 9.368963082961272,
+    "event": {
+      "id": "chatcmpl-64db6384",
+      "object": "chat.completion.chunk",
+      "created": 1791564579,
+      "model": "deepseek-v41-lsq",
+      "choices": [
+        {
+          "index": 0,
+          "delta": {
+            "content": "Error(\"budget must be an integer\")\n    if budget "
+          }
+        }
+      ]
+    }
+  },
+  {
+    "elapsed_seconds": 9.495978624967393,
+    "event": {
+      "id": "chatcmpl-64db6384",
+      "object": "chat.completion.chunk",
+      "created": 1791564579,
+      "model": "deepseek-v41-lsq",
+      "choices": [
+        {
+          "index": 0,
+          "delta": {
+            "content": "< 0 or budget > MAX_BUDGET:\n        raise ValidationError"
+          }
+        }
+      ]
+    }
+  },
+  {
+    "elapsed_seconds": 9.622678332962096,
+    "event": {
+      "id": "chatcmpl-64db6384",
+      "object": "chat.completion.chunk",
+      "created": 1791564579,
+      "model": "deepseek-v41-lsq",
+      "choices": [
+        {
+          "index": 0,
+          "delta": {
+            "content": "(f\"budget must be between 0 and {MAX_B"
+          }
+        }
+      ]
+    }
+  },
+  {
+    "elapsed_seconds": 9.62647445796756,
+    "event": {
+      "id": "chatcmpl-64db6384",
+      "object": "chat.completion.chunk",
+      "created": 1791564579,
+      "model": "deepseek-v41-lsq",
+      "choices": [
+        {
+          "index": 0,
+          "delta": {
+            "content": "UD"
+          }
+        }
+      ]
+    }
+  },
+  {
+    "elapsed_seconds": 9.626600290997885,
+    "event": {
+      "id": "chatcmpl-64db6384",
+      "object": "chat.completion.chunk",
+      "created": 1791564579,
+      "model": "deepseek-v41-lsq",
+      "choices": [
+        {
+          "index": 0,
+          "delta": {},
+          "finish_reason": "length"
+        }
+      ]
+    }
+  },
+  {
+    "elapsed_seconds": 9.626808875007555,
+    "event": {
+      "id": "chatcmpl-64db6384",
+      "object": "chat.completion.chunk",
+      "created": 1791564579,
+      "model": "deepseek-v41-lsq",
+      "choices": [],
+      "usage": {
+        "prompt_tokens": 8192,
+        "completion_tokens": 512,
+        "total_tokens": 8704,
+        "input_tokens": 8192,
+        "output_tokens": 512,
+        "prompt_tokens_details": {
+          "cached_tokens": 0
+        },
+        "time_to_first_token": 3.87,
+        "time_to_first_visible_token": 3.87,
+        "total_time": 9.56,
+        "prompt_eval_duration": 3.87,
+        "generation_duration": 5.69,
+        "prompt_tokens_per_second": 2114.41,
+        "generation_tokens_per_second": 90.03
+      }
+    }
+  }
+]

@@ -1,0 +1,17 @@
+# Release validation
+
+[中文](VALIDATION.zh-CN.md)
+
+Historical performance figures are in `results/published/`; this file describes checks of the portable package and does not label an unrun workload as validated.
+
+Completed component checks:
+
+- DeepSeek driver/launcher: **17 CPU tests passed**, including complete SSE/error evidence, frozen payload checksums, exact geometry construction, full ABBA/warmup accounting, bulk-versus-tail counter checks, output/counter identity, localhost authorization and active-request control guards, separate cache profiles, fresh config keys, removal of ambient engine/auth flags, service-owned cluster shim/reaper state, and bounded startup connection retries that leave auth/HTTP failures immediate. Both `--help` paths require no MLX import.
+- The real pinned CPU tokenizer/formatter reproduces all three 8192-token frozen requests and deterministic case-0 requests at 16384, 32768 and 8242 tokens. No model or HTTP request was used for this check.
+- DeepSeek actual-weight GPU component check: **1,218 cases and 40 controls passed with zero BF16 mismatch**, covering selected actual expert banks at layers 0/19/39, metadata decoding and native dictionary prefill against the original NAX oracle. Peak MLX allocation was 301,542,446 bytes. This loads selected weight slices, not the full model, and measures no model throughput. See [`actual-metadata-prefill.json`](../results/qualification/deepseek/actual-metadata-prefill.json) and [`validator-provenance.json`](../results/qualification/deepseek/validator-provenance.json).
+- DeepSeek full-model replay: **all 42 requests passed**, covering exact 8K three-case and 16K/32K case-0 protocols. The 32 measured requests generated 16,384 tokens after ten discarded warmups, with zero prefix reuse, complete output/non-timing DSpark identity, A dense/B direct bulk-path checks, stable process/source/proof identity and restored prefill controls. Complete request/SSE/output evidence and original report hashes are in [`full-core`](../results/qualification/deepseek/full-core/manifest.json). Background Hub upload and host workload were active, so these new timings are qualification evidence rather than replacements for the archived headline results. Physical footprint was not independently sampled by this HTTP driver.
+- Qwen: independent baseline and optimized native builds, pip checks, the original **62 cache tests** and **14 policy tests**, and **40 release CPU tests with 24 subtests** passed. All six ordered patches and the four-patch baseline apply from the fixed base. The common startup-isolation patch was applied to both prepared editable source trees after their native builds; native binaries/dependencies were unchanged. Native kernel-group availability, source-policy relocation, full source/native identity checks and 24 archived task-contract outputs were checked. See `profiles/qwen/validation.json`.
+
+Additional model suites, cached/restart acceptance and Hub revision verification are recorded by the release owner after their actual runs. Archived timings continue to describe the original qualified runtime; new qualification evidence stays separate. The model download command requires a verified revision in `profiles/release.json` and rejects missing/unverified release metadata.
+
+The release benchmark protocols retain complete outputs and failures; they do not certify full-logit equivalence, original quantizer accuracy, between-sample memory peaks, or successful completion of the synthetic engineering requests as agent projects.

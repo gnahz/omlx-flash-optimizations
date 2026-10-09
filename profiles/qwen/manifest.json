@@ -1,0 +1,49 @@
+{
+  "schema_version": 1,
+  "omlx_url": "https://github.com/jundot/omlx",
+  "omlx_tag": "v0.7.0",
+  "omlx_commit": "4d4f5a280bc1739ba2cf39c1cee44fd5cc89cb40",
+  "community_recipe_url": "https://github.com/sethforprivacy/Qwen3.8-Flash-Next-M5-Ultra-oMLX",
+  "community_recipe_commit": "050233efcd0a765de9963ab21a01df0723a50530",
+  "python_tested": "3.12.14",
+  "mlx": "0.32.2",
+  "model_id": "mlx-community/Qwen3.8-Flash-Next-oQ6e-mtp",
+  "model_revision": "e171af86f499f1855b0fb71d781105e8dd609610",
+  "model_config_sha256": "2d0d832bd95275d89184091b1894cecb7e582cf51466a3363cced3e751d844e4",
+  "model_index_sha256": "15f10c3975d4f40e000b5ce927c4904fec5ea00517b13d8c46d5af08d02dfe4b",
+  "patches": [
+    {
+      "path": "patches/qwen/00-isolated-server-runtime.patch",
+      "sha256": "ecbd7d4e0083e5dd578ca8430d568625862c7c4ff7fe4726dbef4d57821a8563"
+    },
+    {
+      "path": "patches/qwen/01-community-qsa-capacity.patch",
+      "sha256": "c9aa893ac859685e45d9b557f47811cc08b4ce58dd4033243b678ca9d161448b"
+    },
+    {
+      "path": "patches/qwen/02-community-prompt-lookup.patch",
+      "sha256": "21d505593055de22f046f8dee0e3a186bb68cebd12afd22b051b061386f0e521"
+    },
+    {
+      "path": "patches/qwen/03-lookup-policy-safety.patch",
+      "sha256": "45ee287ec2ee87c42584379f6ee4e1a91795dfc18a73f0ad003c41296eb8d5db"
+    },
+    {
+      "path": "patches/qwen/04-prefix-tail-public-cache.patch",
+      "sha256": "220317b164cd6d4c295a72e0271213fd7e865732d06ccae6c0d75fa31e615688"
+    },
+    {
+      "path": "patches/qwen/05-durable-scheduler-integration.patch",
+      "sha256": "6626624fa9b19f7171dd97fc863b5255444e9f4e89653bee6f028fb1c67f526b"
+    }
+  ],
+  "baseline_patch_count": 4,
+  "requirements_lock_sha256": "cb7ed0fcdff6ef8caebf1a9e6de41057a59984585d820c039c7324f598efe1a7",
+  "sdk_nax_minimum": "26.2",
+  "tested_sdk": "27.2",
+  "cpu_components": 1976,
+  "original_prefix_cache_cpu_tests": 62,
+  "original_policy_cpu_tests": 14,
+  "source_relocation_inference_status": "not_rebenchmarked",
+  "source_relocation": "Same source policy guard and scheduler methods formerly installed by startup overlays; release tests validate behavior. Historical timings describe original qualified runtime."
+}

@@ -1,0 +1,302 @@
+[
+  {
+    "elapsed_seconds": 0.36187091702595353,
+    "event": {
+      "id": "chatcmpl-13eda9ca",
+      "object": "chat.completion.chunk",
+      "created": 0,
+      "model": "keepalive",
+      "choices": [
+        {
+          "index": 0,
+          "delta": {
+            "role": "assistant",
+            "content": ""
+          },
+          "finish_reason": null
+        }
+      ]
+    }
+  },
+  {
+    "elapsed_seconds": 0.4183820420294069,
+    "event": {
+      "id": "chatcmpl-13eda9ca",
+      "object": "chat.completion.chunk",
+      "created": 1791565357,
+      "model": "deepseek-v41-lsq",
+      "choices": [
+        {
+          "index": 0,
+          "delta": {
+            "role": "assistant"
+          }
+        }
+      ]
+    }
+  },
+  {
+    "elapsed_seconds": 3.9842823750223033,
+    "event": {
+      "id": "chatcmpl-13eda9ca",
+      "object": "chat.completion.chunk",
+      "created": 1791565361,
+      "model": "deepseek-v41-lsq",
+      "choices": [
+        {
+          "index": 0,
+          "delta": {
+            "content": "# SQL"
+          }
+        }
+      ]
+    }
+  },
+  {
+    "elapsed_seconds": 4.632376125024166,
+    "event": {
+      "id": "chatcmpl-13eda9ca",
+      "object": "chat.completion.chunk",
+      "created": 1791565361,
+      "model": "deepseek-v41-lsq",
+      "choices": [
+        {
+          "index": 0,
+          "delta": {
+            "content": "ite Campaign Draft Store ("
+          }
+        }
+      ]
+    }
+  },
+  {
+    "elapsed_seconds": 4.960437041998375,
+    "event": {
+      "id": "chatcmpl-13eda9ca",
+      "object": "chat.completion.chunk",
+      "created": 1791565362,
+      "model": "deepseek-v41-lsq",
+      "choices": [
+        {
+          "index": 0,
+          "delta": {
+            "content": "stdlib"
+          }
+        }
+      ]
+    }
+  },
+  {
+    "elapsed_seconds": 5.624571666994598,
+    "event": {
+      "id": "chatcmpl-13eda9ca",
+      "object": "chat.completion.chunk",
+      "created": 1791565362,
+      "model": "deepseek-v41-lsq",
+      "choices": [
+        {
+          "index": 0,
+          "delta": {
+            "content": " only)\n\nBelow is a"
+          }
+        }
+      ]
+    }
+  },
+  {
+    "elapsed_seconds": 6.240966208046302,
+    "event": {
+      "id": "chatcmpl-13eda9ca",
+      "object": "chat.completion.chunk",
+      "created": 1791565363,
+      "model": "deepseek-v41-lsq",
+      "choices": [
+        {
+          "index": 0,
+          "delta": {
+            "content": " complete, runnable implementation using"
+          }
+        }
+      ]
+    }
+  },
+  {
+    "elapsed_seconds": 6.873227125033736,
+    "event": {
+      "id": "chatcmpl-13eda9ca",
+      "object": "chat.completion.chunk",
+      "created": 1791565364,
+      "model": "deepseek-v41-lsq",
+      "choices": [
+        {
+          "index": 0,
+          "delta": {
+            "content": " only the Python standard library."
+          }
+        }
+      ]
+    }
+  },
+  {
+    "elapsed_seconds": 7.49997008300852,
+    "event": {
+      "id": "chatcmpl-13eda9ca",
+      "object": "chat.completion.chunk",
+      "created": 1791565364,
+      "model": "deepseek-v41-lsq",
+      "choices": [
+        {
+          "index": 0,
+          "delta": {
+            "content": " It provides a `Camp"
+          }
+        }
+      ]
+    }
+  },
+  {
+    "elapsed_seconds": 8.138834417040925,
+    "event": {
+      "id": "chatcmpl-13eda9ca",
+      "object": "chat.completion.chunk",
+      "created": 1791565365,
+      "model": "deepseek-v41-lsq",
+      "choices": [
+        {
+          "index": 0,
+          "delta": {
+            "content": "aignDraftStore` with"
+          }
+        }
+      ]
+    }
+  },
+  {
+    "elapsed_seconds": 8.744540332991164,
+    "event": {
+      "id": "chatcmpl-13eda9ca",
+      "object": "chat.completion.chunk",
+      "created": 1791565366,
+      "model": "deepseek-v41-lsq",
+      "choices": [
+        {
+          "index": 0,
+          "delta": {
+            "content": " create/get/list/"
+          }
+        }
+      ]
+    }
+  },
+  {
+    "elapsed_seconds": 9.398428667045664,
+    "event": {
+      "id": "chatcmpl-13eda9ca",
+      "object": "chat.completion.chunk",
+      "created": 1791565366,
+      "model": "deepseek-v41-lsq",
+      "choices": [
+        {
+          "index": 0,
+          "delta": {
+            "content": "update, idempot"
+          }
+        }
+      ]
+    }
+  },
+  {
+    "elapsed_seconds": 9.909899417019915,
+    "event": {
+      "id": "chatcmpl-13eda9ca",
+      "object": "chat.completion.chunk",
+      "created": 1791565367,
+      "model": "deepseek-v41-lsq",
+      "choices": [
+        {
+          "index": 0,
+          "delta": {
+            "content": "ency keys, explicit transactions, validation"
+          }
+        }
+      ]
+    }
+  },
+  {
+    "elapsed_seconds": 10.411870792042464,
+    "event": {
+      "id": "chatcmpl-13eda9ca",
+      "object": "chat.completion.chunk",
+      "created": 1791565367,
+      "model": "deepseek-v41-lsq",
+      "choices": [
+        {
+          "index": 0,
+          "delta": {
+            "content": ", optimistic version checks, and"
+          }
+        }
+      ]
+    }
+  },
+  {
+    "elapsed_seconds": 10.753230083035305,
+    "event": {
+      "id": "chatcmpl-13eda9ca",
+      "object": "chat.completion.chunk",
+      "created": 1791565368,
+      "model": "deepseek-v41-lsq",
+      "choices": [
+        {
+          "index": 0,
+          "delta": {
+            "content": " rollback. Tests cover"
+          }
+        }
+      ]
+    }
+  },
+  {
+    "elapsed_seconds": 10.753534583025612,
+    "event": {
+      "id": "chatcmpl-13eda9ca",
+      "object": "chat.completion.chunk",
+      "created": 1791565368,
+      "model": "deepseek-v41-lsq",
+      "choices": [
+        {
+          "index": 0,
+          "delta": {},
+          "finish_reason": "length"
+        }
+      ]
+    }
+  },
+  {
+    "elapsed_seconds": 10.754206792043988,
+    "event": {
+      "id": "chatcmpl-13eda9ca",
+      "object": "chat.completion.chunk",
+      "created": 1791565368,
+      "model": "deepseek-v41-lsq",
+      "choices": [],
+      "usage": {
+        "prompt_tokens": 8242,
+        "completion_tokens": 64,
+        "total_tokens": 8306,
+        "input_tokens": 8242,
+        "output_tokens": 64,
+        "prompt_tokens_details": {
+          "cached_tokens": 8192
+        },
+        "time_to_first_token": 3.6,
+        "time_to_first_visible_token": 3.6,
+        "total_time": 10.37,
+        "prompt_eval_duration": 3.6,
+        "generation_duration": 6.77,
+        "prompt_tokens_per_second": 2287.51,
+        "generation_tokens_per_second": 9.45
+      }
+    }
+  }
+]

@@ -1,0 +1,14 @@
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.DS_Store
+.venv/
+work/
+downloads/
+models/
+model-release/
+local-results/
+*.log
+*.so
+*.dylib
+*.metallib

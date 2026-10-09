@@ -1,0 +1,641 @@
+{
+  "status": "passed",
+  "context_target": 8242,
+  "max_output_tokens": 64,
+  "geometry": {
+    "context_target": 8242,
+    "cpu_prompt_tokens": 8242,
+    "prompt_sha256": "155345e8c7ded323eeb7089f5909d655c220ab50927243aa8042badb72b0302a",
+    "archive_character_count": 27838,
+    "exact_token_padding": "",
+    "task_suffix_sha256": "f336a202369e68eb986520269b42010c7058748720a1501c64811fed4342952f",
+    "historical_payload_sha256": "2338d121ff5f995a558830422443606812bad76085f35266f31f231aa5318c01",
+    "original_task_preserved": true,
+    "historical_output_golden_applicable": false
+  },
+  "source_sha256": {
+    "tokenizer": "c90dfa01249db1be4245780a052ede752e1361c612ac6d08e2bdada7d599476b",
+    "encoder": "13f678b10c73da6fb8e4c231fae1ed29542538e5a62fe75176a202cd82dd327a",
+    "fixture_manifest": "22ca0c75452e9eef77ef1ae0dd3d840844afa9f657b92f2e132bd6ee2acd1080",
+    "script": "e0dfa632d155c8c162f416b625267c4e78401e5332cc3f567416c9c427747880"
+  },
+  "rows": [
+    {
+      "content": "# SQLite Campaign Draft Store (stdlib only)\n\nBelow is a complete, runnable implementation using only the Python standard library. It provides a `CampaignDraftStore` with create/get/list/update, idempotency keys, explicit transactions, validation, optimistic version checks, and rollback. Tests cover",
+      "reasoning": "",
+      "usage": {
+        "prompt_tokens": 8242,
+        "completion_tokens": 64,
+        "total_tokens": 8306,
+        "input_tokens": 8242,
+        "output_tokens": 64,
+        "prompt_tokens_details": {
+          "cached_tokens": 0
+        },
+        "time_to_first_token": 8.86,
+        "time_to_first_visible_token": 8.92,
+        "total_time": 9.8,
+        "prompt_eval_duration": 8.86,
+        "generation_duration": 0.94,
+        "prompt_tokens_per_second": 929.9,
+        "generation_tokens_per_second": 68.15
+      },
+      "finish_reason": "length",
+      "done": true,
+      "elapsed_seconds": 9.875280458945781,
+      "ttft_seconds": 8.990509666968137,
+      "server_decode_tps": 68.15,
+      "server_prefill_tps": 929.9,
+      "reported_cached_tokens": 0,
+      "log_start_offset": 9842,
+      "artifacts": {
+        "raw_sse": "prime-sse.txt",
+        "events": "prime-events.json",
+        "output": "prime-output.json"
+      },
+      "whole_output_sha256": "9b9c5392014a5b45e181399e33d277ca3387f24d2fc4282f854fab7f7ed6e684"
+    },
+    {
+      "content": "# SQLite Campaign Draft Store (stdlib only)\n\nBelow is a complete, runnable implementation using only the Python standard library. It provides a `CampaignDraftStore` with create/get/list/update, idempotency keys, explicit transactions, validation, optimistic version checks, and rollback. Tests cover",
+      "reasoning": "",
+      "usage": {
+        "prompt_tokens": 8242,
+        "completion_tokens": 64,
+        "total_tokens": 8306,
+        "input_tokens": 8242,
+        "output_tokens": 64,
+        "prompt_tokens_details": {
+          "cached_tokens": 8192
+        },
+        "time_to_first_token": 0.4,
+        "time_to_first_visible_token": 0.4,
+        "total_time": 1.26,
+        "prompt_eval_duration": 0.4,
+        "generation_duration": 0.85,
+        "prompt_tokens_per_second": 20465.7,
+        "generation_tokens_per_second": 74.96
+      },
+      "finish_reason": "length",
+      "done": true,
+      "elapsed_seconds": 1.3024988749530166,
+      "ttft_seconds": 0.4488819159450941,
+      "server_decode_tps": 74.96,
+      "server_prefill_tps": 20465.7,
+      "reported_cached_tokens": 8192,
+      "log_start_offset": 11571,
+      "artifacts": {
+        "raw_sse": "warm-sse.txt",
+        "events": "warm-events.json",
+        "output": "warm-output.json"
+      },
+      "whole_output_sha256": "9b9c5392014a5b45e181399e33d277ca3387f24d2fc4282f854fab7f7ed6e684"
+    }
+  ],
+  "profile": "cached",
+  "concurrency": 8,
+  "scope": "Warm exact-prefix bounded concurrency smoke; not a cold throughput benchmark",
+  "sampled_memory_assessed": false,
+  "initial_cache_may_be_restored": true,
+  "server_initial": {
+    "pid": 20358,
+    "ready": true,
+    "error": null,
+    "profile": {
+      "profile": "cached",
+      "max_concurrent_requests": 8,
+      "prefix_cache_enabled": true,
+      "process_limit_gib": 240,
+      "wired_limit_mib": 245760,
+      "prefill_step_size": 8192,
+      "gate_up": false,
+      "dspark_async": true,
+      "metadata_prefill": true
+    },
+    "controls": {
+      "metadata_prefill": true
+    },
+    "runtime_flags": {
+      "gate_up": false,
+      "dspark_async": true
+    },
+    "idle": {
+      "inflight_http": 0,
+      "models_loading": 0,
+      "leases": 0,
+      "scheduler_work": 0
+    },
+    "stats": {},
+    "fingerprint": {
+      "runtime": "5b4d49fb49b1608b61e39614d1992f4beaab712f1e67b075e79bdf0c677a6947",
+      "metadata_proof": "380103ef39a0785dbedbb65a95c3c9ad9e8492c8e67248f49e5ffa3d84c14fea",
+      "chunk_tokens": 8192,
+      "dspark_async": true,
+      "model_settings": "79ff0d22c0cbc034f92576d19e86c93be373975254910052a8751534ee9b3561",
+      "model_files": {
+        "config.json": "4b83ef14c5aff58f1a60b9c6fe872dabc4c0f484e68800ffb71db711a0f14209",
+        "tokenizer.json": "c90dfa01249db1be4245780a052ede752e1361c612ac6d08e2bdada7d599476b",
+        "tokenizer_config.json": "6ac8c8dc065ed118161d02dd532749ae3f52c243deac27872134fae2f50d8547",
+        "model.safetensors.index.json": "ac23b22906e97f9864e48f811e8eeba39dc82ae3bac6bb31f537ca966d4ae89b"
+      }
+    },
+    "cache": {
+      "ready": true,
+      "pid": 20358,
+      "error": null,
+      "read_policy": "startup_only",
+      "models": {
+        "<work-dir>/config/cached/models/deepseek-v41-lsq": {
+          "state": "ready",
+          "cache": {
+            "enabled": true,
+            "max_bytes": 3221225472,
+            "bytes": 0,
+            "checkpoints": 0,
+            "hits": 0,
+            "reused_tokens": 0,
+            "stores": 0,
+            "evictions": 0,
+            "skipped_memory": 0,
+            "restore_failures": 0,
+            "persistence": {
+              "enabled": true,
+              "directory": "<work-dir>/cache/exact-prefix-v1",
+              "pending": false,
+              "interval_seconds": 300.0,
+              "saved_at": null,
+              "saved_generation": null,
+              "disk_reads": 0,
+              "restore_loads": 0,
+              "saves": 0,
+              "restored_checkpoints": 0,
+              "restore_skipped": 0,
+              "failures": 0,
+              "last_error": null,
+              "dirty": true
+            }
+          },
+          "completed": [],
+          "scheduler": {
+            "max_num_seqs": 8,
+            "running_requests": 0,
+            "waiting_requests": 0,
+            "prefilling_requests": 0,
+            "max_observed_running": 0
+          }
+        }
+      }
+    },
+    "source_unchanged": true
+  },
+  "parallel_rows": [
+    {
+      "content": "# SQLite Campaign Draft Store (stdlib only)\n\nBelow is a complete, runnable implementation using only the Python standard library. It provides a `CampaignDraftStore` with create/get/list/update, idempotency keys, explicit transactions, validation, optimistic version checks, and rollback. Tests cover",
+      "reasoning": "",
+      "usage": {
+        "prompt_tokens": 8242,
+        "completion_tokens": 64,
+        "total_tokens": 8306,
+        "input_tokens": 8242,
+        "output_tokens": 64,
+        "prompt_tokens_details": {
+          "cached_tokens": 8192
+        },
+        "time_to_first_token": 3.47,
+        "time_to_first_visible_token": 3.47,
+        "total_time": 11.32,
+        "prompt_eval_duration": 3.47,
+        "generation_duration": 7.85,
+        "prompt_tokens_per_second": 2376.0,
+        "generation_tokens_per_second": 8.16
+      },
+      "finish_reason": "length",
+      "done": true,
+      "elapsed_seconds": 11.690366791037377,
+      "ttft_seconds": 3.842782416031696,
+      "server_decode_tps": 8.16,
+      "server_prefill_tps": 2376.0,
+      "reported_cached_tokens": 8192,
+      "log_start_offset": 12842,
+      "artifacts": {
+        "raw_sse": "parallel-0-sse.txt",
+        "events": "parallel-0-events.json",
+        "output": "parallel-0-output.json"
+      },
+      "whole_output_sha256": "9b9c5392014a5b45e181399e33d277ca3387f24d2fc4282f854fab7f7ed6e684"
+    },
+    {
+      "content": "# SQLite Campaign Draft Store (stdlib only)\n\nBelow is a complete, runnable implementation using only the Python standard library. It provides a `CampaignDraftStore` with create/get/list/update, idempotency keys, explicit transactions, validation, optimistic version checks, and rollback. Tests cover",
+      "reasoning": "",
+      "usage": {
+        "prompt_tokens": 8242,
+        "completion_tokens": 64,
+        "total_tokens": 8306,
+        "input_tokens": 8242,
+        "output_tokens": 64,
+        "prompt_tokens_details": {
+          "cached_tokens": 8192
+        },
+        "time_to_first_token": 4.79,
+        "time_to_first_visible_token": 4.8,
+        "total_time": 11.47,
+        "prompt_eval_duration": 4.79,
+        "generation_duration": 6.68,
+        "prompt_tokens_per_second": 1719.01,
+        "generation_tokens_per_second": 9.59
+      },
+      "finish_reason": "length",
+      "done": true,
+      "elapsed_seconds": 11.855482542014215,
+      "ttft_seconds": 5.180932416988071,
+      "server_decode_tps": 9.59,
+      "server_prefill_tps": 1719.01,
+      "reported_cached_tokens": 8192,
+      "log_start_offset": 12842,
+      "artifacts": {
+        "raw_sse": "parallel-1-sse.txt",
+        "events": "parallel-1-events.json",
+        "output": "parallel-1-output.json"
+      },
+      "whole_output_sha256": "9b9c5392014a5b45e181399e33d277ca3387f24d2fc4282f854fab7f7ed6e684"
+    },
+    {
+      "content": "# SQLite Campaign Draft Store (stdlib only)\n\nBelow is a complete, runnable implementation using only the Python standard library. It provides a `CampaignDraftStore` with create/get/list/update, idempotency keys, explicit transactions, validation, optimistic version checks, and rollback. Tests cover",
+      "reasoning": "",
+      "usage": {
+        "prompt_tokens": 8242,
+        "completion_tokens": 64,
+        "total_tokens": 8306,
+        "input_tokens": 8242,
+        "output_tokens": 64,
+        "prompt_tokens_details": {
+          "cached_tokens": 8192
+        },
+        "time_to_first_token": 1.09,
+        "time_to_first_visible_token": 1.09,
+        "total_time": 10.26,
+        "prompt_eval_duration": 1.09,
+        "generation_duration": 9.17,
+        "prompt_tokens_per_second": 7577.12,
+        "generation_tokens_per_second": 6.98
+      },
+      "finish_reason": "length",
+      "done": true,
+      "elapsed_seconds": 10.30366758297896,
+      "ttft_seconds": 1.1334149580216035,
+      "server_decode_tps": 6.98,
+      "server_prefill_tps": 7577.12,
+      "reported_cached_tokens": 8192,
+      "log_start_offset": 12842,
+      "artifacts": {
+        "raw_sse": "parallel-2-sse.txt",
+        "events": "parallel-2-events.json",
+        "output": "parallel-2-output.json"
+      },
+      "whole_output_sha256": "9b9c5392014a5b45e181399e33d277ca3387f24d2fc4282f854fab7f7ed6e684"
+    },
+    {
+      "content": "# SQLite Campaign Draft Store (stdlib only)\n\nBelow is a complete, runnable implementation using only the Python standard library. It provides a `CampaignDraftStore` with create/get/list/update, idempotency keys, explicit transactions, validation, optimistic version checks, and rollback. Tests cover",
+      "reasoning": "",
+      "usage": {
+        "prompt_tokens": 8242,
+        "completion_tokens": 64,
+        "total_tokens": 8306,
+        "input_tokens": 8242,
+        "output_tokens": 64,
+        "prompt_tokens_details": {
+          "cached_tokens": 8192
+        },
+        "time_to_first_token": 2.25,
+        "time_to_first_visible_token": 2.25,
+        "total_time": 10.99,
+        "prompt_eval_duration": 2.25,
+        "generation_duration": 8.74,
+        "prompt_tokens_per_second": 3665.84,
+        "generation_tokens_per_second": 7.32
+      },
+      "finish_reason": "length",
+      "done": true,
+      "elapsed_seconds": 11.348636709037237,
+      "ttft_seconds": 2.6092849590349942,
+      "server_decode_tps": 7.32,
+      "server_prefill_tps": 3665.84,
+      "reported_cached_tokens": 8192,
+      "log_start_offset": 12842,
+      "artifacts": {
+        "raw_sse": "parallel-3-sse.txt",
+        "events": "parallel-3-events.json",
+        "output": "parallel-3-output.json"
+      },
+      "whole_output_sha256": "9b9c5392014a5b45e181399e33d277ca3387f24d2fc4282f854fab7f7ed6e684"
+    },
+    {
+      "content": "# SQLite Campaign Draft Store (stdlib only)\n\nBelow is a complete, runnable implementation using only the Python standard library. It provides a `CampaignDraftStore` with create/get/list/update, idempotency keys, explicit transactions, validation, optimistic version checks, and rollback. Tests cover",
+      "reasoning": "",
+      "usage": {
+        "prompt_tokens": 8242,
+        "completion_tokens": 64,
+        "total_tokens": 8306,
+        "input_tokens": 8242,
+        "output_tokens": 64,
+        "prompt_tokens_details": {
+          "cached_tokens": 8192
+        },
+        "time_to_first_token": 4.16,
+        "time_to_first_visible_token": 4.16,
+        "total_time": 11.31,
+        "prompt_eval_duration": 4.16,
+        "generation_duration": 7.15,
+        "prompt_tokens_per_second": 1982.89,
+        "generation_tokens_per_second": 8.95
+      },
+      "finish_reason": "length",
+      "done": true,
+      "elapsed_seconds": 11.690407291986048,
+      "ttft_seconds": 4.5368466670042835,
+      "server_decode_tps": 8.95,
+      "server_prefill_tps": 1982.89,
+      "reported_cached_tokens": 8192,
+      "log_start_offset": 12842,
+      "artifacts": {
+        "raw_sse": "parallel-4-sse.txt",
+        "events": "parallel-4-events.json",
+        "output": "parallel-4-output.json"
+      },
+      "whole_output_sha256": "9b9c5392014a5b45e181399e33d277ca3387f24d2fc4282f854fab7f7ed6e684"
+    },
+    {
+      "content": "# SQLite Campaign Draft Store (stdlib only)\n\nBelow is a complete, runnable implementation using only the Python standard library. It provides a `CampaignDraftStore` with create/get/list/update, idempotency keys, explicit transactions, validation, optimistic version checks, and rollback. Tests cover",
+      "reasoning": "",
+      "usage": {
+        "prompt_tokens": 8242,
+        "completion_tokens": 64,
+        "total_tokens": 8306,
+        "input_tokens": 8242,
+        "output_tokens": 64,
+        "prompt_tokens_details": {
+          "cached_tokens": 8192
+        },
+        "time_to_first_token": 5.12,
+        "time_to_first_visible_token": 5.12,
+        "total_time": 11.46,
+        "prompt_eval_duration": 5.12,
+        "generation_duration": 6.35,
+        "prompt_tokens_per_second": 1611.17,
+        "generation_tokens_per_second": 10.08
+      },
+      "finish_reason": "length",
+      "done": true,
+      "elapsed_seconds": 11.856064250052441,
+      "ttft_seconds": 5.507843875035178,
+      "server_decode_tps": 10.08,
+      "server_prefill_tps": 1611.17,
+      "reported_cached_tokens": 8192,
+      "log_start_offset": 12842,
+      "artifacts": {
+        "raw_sse": "parallel-5-sse.txt",
+        "events": "parallel-5-events.json",
+        "output": "parallel-5-output.json"
+      },
+      "whole_output_sha256": "9b9c5392014a5b45e181399e33d277ca3387f24d2fc4282f854fab7f7ed6e684"
+    },
+    {
+      "content": "# SQLite Campaign Draft Store (stdlib only)\n\nBelow is a complete, runnable implementation using only the Python standard library. It provides a `CampaignDraftStore` with create/get/list/update, idempotency keys, explicit transactions, validation, optimistic version checks, and rollback. Tests cover",
+      "reasoning": "",
+      "usage": {
+        "prompt_tokens": 8242,
+        "completion_tokens": 64,
+        "total_tokens": 8306,
+        "input_tokens": 8242,
+        "output_tokens": 64,
+        "prompt_tokens_details": {
+          "cached_tokens": 8192
+        },
+        "time_to_first_token": 2.91,
+        "time_to_first_visible_token": 2.91,
+        "total_time": 10.98,
+        "prompt_eval_duration": 2.91,
+        "generation_duration": 8.07,
+        "prompt_tokens_per_second": 2830.41,
+        "generation_tokens_per_second": 7.93
+      },
+      "finish_reason": "length",
+      "done": true,
+      "elapsed_seconds": 11.34828345803544,
+      "ttft_seconds": 3.2790890830219723,
+      "server_decode_tps": 7.93,
+      "server_prefill_tps": 2830.41,
+      "reported_cached_tokens": 8192,
+      "log_start_offset": 12842,
+      "artifacts": {
+        "raw_sse": "parallel-6-sse.txt",
+        "events": "parallel-6-events.json",
+        "output": "parallel-6-output.json"
+      },
+      "whole_output_sha256": "9b9c5392014a5b45e181399e33d277ca3387f24d2fc4282f854fab7f7ed6e684"
+    },
+    {
+      "content": "# SQLite Campaign Draft Store (stdlib only)\n\nBelow is a complete, runnable implementation using only the Python standard library. It provides a `CampaignDraftStore` with create/get/list/update, idempotency keys, explicit transactions, validation, optimistic version checks, and rollback. Tests cover",
+      "reasoning": "",
+      "usage": {
+        "prompt_tokens": 8242,
+        "completion_tokens": 64,
+        "total_tokens": 8306,
+        "input_tokens": 8242,
+        "output_tokens": 64,
+        "prompt_tokens_details": {
+          "cached_tokens": 8192
+        },
+        "time_to_first_token": 0.82,
+        "time_to_first_visible_token": 0.82,
+        "total_time": 9.96,
+        "prompt_eval_duration": 0.82,
+        "generation_duration": 9.14,
+        "prompt_tokens_per_second": 10051.12,
+        "generation_tokens_per_second": 7.0
+      },
+      "finish_reason": "length",
+      "done": true,
+      "elapsed_seconds": 10.303559083957225,
+      "ttft_seconds": 1.1643941669608466,
+      "server_decode_tps": 7.0,
+      "server_prefill_tps": 10051.12,
+      "reported_cached_tokens": 8192,
+      "log_start_offset": 12842,
+      "artifacts": {
+        "raw_sse": "parallel-7-sse.txt",
+        "events": "parallel-7-events.json",
+        "output": "parallel-7-output.json"
+      },
+      "whole_output_sha256": "9b9c5392014a5b45e181399e33d277ca3387f24d2fc4282f854fab7f7ed6e684"
+    }
+  ],
+  "server_final": {
+    "pid": 20358,
+    "ready": true,
+    "error": null,
+    "profile": {
+      "profile": "cached",
+      "max_concurrent_requests": 8,
+      "prefix_cache_enabled": true,
+      "process_limit_gib": 240,
+      "wired_limit_mib": 245760,
+      "prefill_step_size": 8192,
+      "gate_up": false,
+      "dspark_async": true,
+      "metadata_prefill": true
+    },
+    "controls": {
+      "metadata_prefill": true
+    },
+    "runtime_flags": {
+      "gate_up": false,
+      "dspark_async": true
+    },
+    "idle": {
+      "inflight_http": 0,
+      "models_loading": 0,
+      "leases": 0,
+      "scheduler_work": 0
+    },
+    "stats": {
+      "metadata_prefill_direct_calls": 20,
+      "metadata_dense_expert_calls": 1460,
+      "dspark_single_calls": 210
+    },
+    "fingerprint": {
+      "runtime": "5b4d49fb49b1608b61e39614d1992f4beaab712f1e67b075e79bdf0c677a6947",
+      "metadata_proof": "380103ef39a0785dbedbb65a95c3c9ad9e8492c8e67248f49e5ffa3d84c14fea",
+      "chunk_tokens": 8192,
+      "dspark_async": true,
+      "model_settings": "79ff0d22c0cbc034f92576d19e86c93be373975254910052a8751534ee9b3561",
+      "model_files": {
+        "config.json": "4b83ef14c5aff58f1a60b9c6fe872dabc4c0f484e68800ffb71db711a0f14209",
+        "tokenizer.json": "c90dfa01249db1be4245780a052ede752e1361c612ac6d08e2bdada7d599476b",
+        "tokenizer_config.json": "6ac8c8dc065ed118161d02dd532749ae3f52c243deac27872134fae2f50d8547",
+        "model.safetensors.index.json": "ac23b22906e97f9864e48f811e8eeba39dc82ae3bac6bb31f537ca966d4ae89b"
+      }
+    },
+    "cache": {
+      "ready": true,
+      "pid": 20358,
+      "error": null,
+      "read_policy": "startup_only",
+      "models": {
+        "<work-dir>/config/cached/models/deepseek-v41-lsq": {
+          "state": "ready",
+          "cache": {
+            "enabled": true,
+            "max_bytes": 3221225472,
+            "bytes": 10420408,
+            "checkpoints": 1,
+            "hits": 9,
+            "reused_tokens": 73728,
+            "stores": 1,
+            "evictions": 0,
+            "skipped_memory": 0,
+            "restore_failures": 0,
+            "persistence": {
+              "enabled": true,
+              "directory": "<work-dir>/cache/exact-prefix-v1",
+              "pending": false,
+              "interval_seconds": 300.0,
+              "saved_at": null,
+              "saved_generation": null,
+              "disk_reads": 0,
+              "restore_loads": 0,
+              "saves": 0,
+              "restored_checkpoints": 0,
+              "restore_skipped": 0,
+              "failures": 0,
+              "last_error": null,
+              "dirty": true
+            }
+          },
+          "completed": [
+            {
+              "request_id": "d88c8193-5ead-454e-b578-0c296fd622dd",
+              "prompt_tokens": 8242,
+              "reused_tokens": 0,
+              "output_tokens": 64,
+              "output_token_ids_sha256": "4ea67426524eb418dbe57c8692a0457dacab1d40eca19b996ee5442d8e0834bd",
+              "prefill_chunks": [
+                8192,
+                49
+              ]
+            },
+            {
+              "request_id": "7821bb47-8ca8-4d3a-b5c2-99b982a7a9c8",
+              "prompt_tokens": 8242,
+              "reused_tokens": 8192,
+              "output_tokens": 64,
+              "output_token_ids_sha256": "4ea67426524eb418dbe57c8692a0457dacab1d40eca19b996ee5442d8e0834bd",
+              "prefill_chunks": [
+                49
+              ]
+            },
+            {
+              "request_id": "75d9f182-dacc-4dfe-a080-46f8432093da",
+              "prompt_tokens": 8242,
+              "reused_tokens": 8192,
+              "output_tokens": 64,
+              "output_token_ids_sha256": "4ea67426524eb418dbe57c8692a0457dacab1d40eca19b996ee5442d8e0834bd",
+              "prefill_chunks": [
+                49
+              ]
+            },
+            {
+              "request_id": "99c027e1-d09c-4a27-9942-d665b7905fbe",
+              "prompt_tokens": 8242,
+              "reused_tokens": 8192,
+              "output_tokens": 64,
+              "output_token_ids_sha256": "4ea67426524eb418dbe57c8692a0457dacab1d40eca19b996ee5442d8e0834bd",
+              "prefill_chunks": [
+                49
+              ]
+            },
+            {
+              "request_id": "cb9f3a96-acbb-4796-8fdb-1b03b254ac2a",
+              "prompt_tokens": 8242,
+              "reused_tokens": 8192,
+              "output_tokens": 64,
+              "output_token_ids_sha256": "4ea67426524eb418dbe57c8692a0457dacab1d40eca19b996ee5442d8e0834bd",
+              "prefill_chunks": [
+                49
+              ]
+            },
+            {
+              "request_id": "156bf695-ee58-4de7-8af2-cd26456a6b9a",
+              "prompt_tokens": 8242,
+              "reused_tokens": 8192,
+              "output_tokens": 64,
+              "output_token_ids_sha256": "4ea67426524eb418dbe57c8692a0457dacab1d40eca19b996ee5442d8e0834bd",
+              "prefill_chunks": [
+                49
+              ]
+            }
+          ],
+          "scheduler": {
+            "max_num_seqs": 8,
+            "running_requests": 4,
+            "waiting_requests": 0,
+            "prefilling_requests": 0,
+            "max_observed_running": 8
+          }
+        }
+      }
+    },
+    "source_unchanged": true
+  },
+  "observed_max_running": 8,
+  "warm_ttft_seconds": 0.4488819159450941,
+  "all_eight_outputs_equal": true,
+  "long_context_concurrency_capacity_assessed": false,
+  "restart_assessed": false,
+  "provenance": {
+    "original_report_sha256": "09021a1a37a097ec22b179fa4347e10bb7c9036868e039ffc73fcfd4b6e607cc",
+    "original_report_filename": "prefix-first-r2/prefix/report.json",
+    "local_paths_sanitized": true,
+    "full_server_logs_released": false,
+    "timing_scope": "Bounded prefix acceptance under concurrent Hub upload and host workload; not headline throughput."
+  }
+}

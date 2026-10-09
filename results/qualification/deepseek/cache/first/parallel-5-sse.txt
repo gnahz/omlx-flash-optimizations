@@ -1,0 +1,34 @@
+data: {"id":"chatcmpl-b5cdf5f8","object":"chat.completion.chunk","created":0,"model":"keepalive","choices":[{"index":0,"delta":{"role":"assistant","content":""},"finish_reason":null}]}
+
+data: {"id":"chatcmpl-b5cdf5f8","object":"chat.completion.chunk","created":1791565258,"model":"deepseek-v41-lsq","choices":[{"index":0,"delta":{"role":"assistant"}}]}
+
+data: {"id":"chatcmpl-b5cdf5f8","object":"chat.completion.chunk","created":1791565263,"model":"deepseek-v41-lsq","choices":[{"index":0,"delta":{"content":"# SQL"}}]}
+
+data: {"id":"chatcmpl-b5cdf5f8","object":"chat.completion.chunk","created":1791565263,"model":"deepseek-v41-lsq","choices":[{"index":0,"delta":{"content":"ite Campaign Draft Store (stdlib"}}]}
+
+data: {"id":"chatcmpl-b5cdf5f8","object":"chat.completion.chunk","created":1791565264,"model":"deepseek-v41-lsq","choices":[{"index":0,"delta":{"content":" only)\n\nBelow is a"}}]}
+
+data: {"id":"chatcmpl-b5cdf5f8","object":"chat.completion.chunk","created":1791565265,"model":"deepseek-v41-lsq","choices":[{"index":0,"delta":{"content":" complete, runnable implementation using"}}]}
+
+data: {"id":"chatcmpl-b5cdf5f8","object":"chat.completion.chunk","created":1791565265,"model":"deepseek-v41-lsq","choices":[{"index":0,"delta":{"content":" only the Python standard library."}}]}
+
+data: {"id":"chatcmpl-b5cdf5f8","object":"chat.completion.chunk","created":1791565266,"model":"deepseek-v41-lsq","choices":[{"index":0,"delta":{"content":" It provides a `Camp"}}]}
+
+data: {"id":"chatcmpl-b5cdf5f8","object":"chat.completion.chunk","created":1791565267,"model":"deepseek-v41-lsq","choices":[{"index":0,"delta":{"content":"aignDraftStore` with"}}]}
+
+data: {"id":"chatcmpl-b5cdf5f8","object":"chat.completion.chunk","created":1791565268,"model":"deepseek-v41-lsq","choices":[{"index":0,"delta":{"content":" create/get/list/"}}]}
+
+data: {"id":"chatcmpl-b5cdf5f8","object":"chat.completion.chunk","created":1791565268,"model":"deepseek-v41-lsq","choices":[{"index":0,"delta":{"content":"update, idempot"}}]}
+
+data: {"id":"chatcmpl-b5cdf5f8","object":"chat.completion.chunk","created":1791565269,"model":"deepseek-v41-lsq","choices":[{"index":0,"delta":{"content":"ency keys, explicit transactions, validation"}}]}
+
+data: {"id":"chatcmpl-b5cdf5f8","object":"chat.completion.chunk","created":1791565269,"model":"deepseek-v41-lsq","choices":[{"index":0,"delta":{"content":", optimistic version checks, and"}}]}
+
+data: {"id":"chatcmpl-b5cdf5f8","object":"chat.completion.chunk","created":1791565269,"model":"deepseek-v41-lsq","choices":[{"index":0,"delta":{"content":" rollback. Tests cover"}}]}
+
+data: {"id":"chatcmpl-b5cdf5f8","object":"chat.completion.chunk","created":1791565269,"model":"deepseek-v41-lsq","choices":[{"index":0,"delta":{},"finish_reason":"length"}]}
+
+data: {"id":"chatcmpl-b5cdf5f8","object":"chat.completion.chunk","created":1791565269,"model":"deepseek-v41-lsq","choices":[],"usage":{"prompt_tokens":8242,"completion_tokens":64,"total_tokens":8306,"input_tokens":8242,"output_tokens":64,"prompt_tokens_details":{"cached_tokens":8192},"time_to_first_token":5.12,"time_to_first_visible_token":5.12,"total_time":11.46,"prompt_eval_duration":5.12,"generation_duration":6.35,"prompt_tokens_per_second":1611.17,"generation_tokens_per_second":10.08}}
+
+data: [DONE]
+

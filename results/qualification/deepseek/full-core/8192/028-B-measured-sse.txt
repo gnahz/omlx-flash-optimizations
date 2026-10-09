@@ -1,0 +1,136 @@
+data: {"id":"chatcmpl-d6ef6184","object":"chat.completion.chunk","created":0,"model":"keepalive","choices":[{"index":0,"delta":{"role":"assistant","content":""},"finish_reason":null}]}
+
+data: {"id":"chatcmpl-d6ef6184","object":"chat.completion.chunk","created":1791564855,"model":"deepseek-v41-lsq","choices":[{"index":0,"delta":{"role":"assistant"}}]}
+
+data: {"id":"chatcmpl-d6ef6184","object":"chat.completion.chunk","created":1791564859,"model":"deepseek-v41-lsq","choices":[{"index":0,"delta":{"content":"#"}}]}
+
+data: {"id":"chatcmpl-d6ef6184","object":"chat.completion.chunk","created":1791564859,"model":"deepseek-v41-lsq","choices":[{"index":0,"delta":{"content":" LumaDesk Pro —"}}]}
+
+data: {"id":"chatcmpl-d6ef6184","object":"chat.completion.chunk","created":1791564859,"model":"deepseek-v41-lsq","choices":[{"index":0,"delta":{"content":" 45-Second Launch Video Plan + Computer"}}]}
+
+data: {"id":"chatcmpl-d6ef6184","object":"chat.completion.chunk","created":1791564859,"model":"deepseek-v41-lsq","choices":[{"index":0,"delta":{"content":"-Use Workflow\n\nAll deliverables"}}]}
+
+data: {"id":"chatcmpl-d6ef6184","object":"chat.completion.chunk","created":1791564859,"model":"deepseek-v41-lsq","choices":[{"index":0,"delta":{"content":" below are **plans and specifications"}}]}
+
+data: {"id":"chatcmpl-d6ef6184","object":"chat.completion.chunk","created":1791564860,"model":"deepseek-v41-lsq","choices":[{"index":0,"delta":{"content":" only**. No tools were"}}]}
+
+data: {"id":"chatcmpl-d6ef6184","object":"chat.completion.chunk","created":1791564860,"model":"deepseek-v41-lsq","choices":[{"index":0,"delta":{"content":" run, no files were created, and no"}}]}
+
+data: {"id":"chatcmpl-d6ef6184","object":"chat.completion.chunk","created":1791564860,"model":"deepseek-v41-lsq","choices":[{"index":0,"delta":{"content":" browser actions were performed. Product facts"}}]}
+
+data: {"id":"chatcmpl-d6ef6184","object":"chat.completion.chunk","created":1791564860,"model":"deepseek-v41-lsq","choices":[{"index":0,"delta":{"content":" are treated as fixed: local document organizer"}}]}
+
+data: {"id":"chatcmpl-d6ef6184","object":"chat.completion.chunk","created":1791564860,"model":"deepseek-v41-lsq","choices":[{"index":0,"delta":{"content":", CNY 299, launch 2026-10-"}}]}
+
+data: {"id":"chatcmpl-d6ef6184","object":"chat.completion.chunk","created":1791564860,"model":"deepseek-v41-lsq","choices":[{"index":0,"delta":{"content":"18, **no video export**, **no offline sync**.\n\n---\n\n"}}]}
+
+data: {"id":"chatcmpl-d6ef6184","object":"chat.completion.chunk","created":1791564860,"model":"deepseek-v41-lsq","choices":[{"index":0,"delta":{"content":"## 1. Timed Shot List (exactly 45"}}]}
+
+data: {"id":"chatcmpl-d6ef6184","object":"chat.completion.chunk","created":1791564860,"model":"deepseek-v41-lsq","choices":[{"index":0,"delta":{"content":".0 s)\n\n| # |"}}]}
+
+data: {"id":"chatcmpl-d6ef6184","object":"chat.completion.chunk","created":1791564860,"model":"deepseek-v41-lsq","choices":[{"index":0,"delta":{"content":" Time | Duration | Shot | Visual direction"}}]}
+
+data: {"id":"chatcmpl-d6ef6184","object":"chat.completion.chunk","created":1791564861,"model":"deepseek-v41-lsq","choices":[{"index":0,"delta":{"content":" | Narration | Caption |\n|---|------|----------"}}]}
+
+data: {"id":"chatcmpl-d6ef6184","object":"chat.completion.chunk","created":1791564861,"model":"deepseek-v41-lsq","choices":[{"index":0,"delta":{"content":"|------|------------------|-----------|---------|\n"}}]}
+
+data: {"id":"chatcmpl-d6ef6184","object":"chat.completion.chunk","created":1791564861,"model":"deepseek-v41-lsq","choices":[{"index":0,"delta":{"content":"| 1 | 0.0–4."}}]}
+
+data: {"id":"chatcmpl-d6ef6184","object":"chat.completion.chunk","created":1791564861,"model":"deepseek-v41-lsq","choices":[{"index":0,"delta":{"content":"0 | 4.0 s | Cold open:"}}]}
+
+data: {"id":"chatcmpl-d6ef6184","object":"chat.completion.chunk","created":1791564861,"model":"deepseek-v41-lsq","choices":[{"index":0,"delta":{"content":" chaotic desktop | Screen recording of"}}]}
+
+data: {"id":"chatcmpl-d6ef6184","object":"chat.completion.chunk","created":1791564861,"model":"deepseek-v41-lsq","choices":[{"index":0,"delta":{"content":" a cluttered desktop;"}}]}
+
+data: {"id":"chatcmpl-d6ef6184","object":"chat.completion.chunk","created":1791564861,"model":"deepseek-v41-lsq","choices":[{"index":0,"delta":{"content":" 40+ loose files, overlapping"}}]}
+
+data: {"id":"chatcmpl-d6ef6184","object":"chat.completion.chunk","created":1791564862,"model":"deepseek-v41-lsq","choices":[{"index":0,"delta":{"content":" windows. Slow 5%"}}]}
+
+data: {"id":"chatcmpl-d6ef6184","object":"chat.completion.chunk","created":1791564862,"model":"deepseek-v41-lsq","choices":[{"index":0,"delta":{"content":" push-in. Cool des"}}]}
+
+data: {"id":"chatcmpl-d6ef6184","object":"chat.completion.chunk","created":1791564862,"model":"deepseek-v41-lsq","choices":[{"index":0,"delta":{"content":"aturated grade. | \"Your desktop"}}]}
+
+data: {"id":"chatcmpl-d6ef6184","object":"chat.completion.chunk","created":1791564862,"model":"deepseek-v41-lsq","choices":[{"index":0,"delta":{"content":" isn't a filing system. It's"}}]}
+
+data: {"id":"chatcmpl-d6ef6184","object":"chat.completion.chunk","created":1791564862,"model":"deepseek-v41-lsq","choices":[{"index":0,"delta":{"content":" a pile.\" | Your desktop is a pile"}}]}
+
+data: {"id":"chatcmpl-d6ef6184","object":"chat.completion.chunk","created":1791564862,"model":"deepseek-v41-lsq","choices":[{"index":0,"delta":{"content":". |\n| 2 | 4.0–9.0"}}]}
+
+data: {"id":"chatcmpl-d6ef6184","object":"chat.completion.chunk","created":1791564862,"model":"deepseek-v41-lsq","choices":[{"index":0,"delta":{"content":" | 5.0 s | Problem montage"}}]}
+
+data: {"id":"chatcmpl-d6ef6184","object":"chat.completion.chunk","created":1791564862,"model":"deepseek-v41-lsq","choices":[{"index":0,"delta":{"content":" | Three quick cuts: misfiled"}}]}
+
+data: {"id":"chatcmpl-d6ef6184","object":"chat.completion.chunk","created":1791564863,"model":"deepseek-v41-lsq","choices":[{"index":0,"delta":{"content":" invoice, duplicate scan, lost contract"}}]}
+
+data: {"id":"chatcmpl-d6ef6184","object":"chat.completion.chunk","created":1791564863,"model":"deepseek-v41-lsq","choices":[{"index":0,"delta":{"content":". Each 1.6 s, hard"}}]}
+
+data: {"id":"chatcmpl-d6ef6184","object":"chat.completion.chunk","created":1791564863,"model":"deepseek-v41-lsq","choices":[{"index":0,"delta":{"content":" cuts on beat."}}]}
+
+data: {"id":"chatcmpl-d6ef6184","object":"chat.completion.chunk","created":1791564863,"model":"deepseek-v41-lsq","choices":[{"index":0,"delta":{"content":" Red highlight boxes. |"}}]}
+
+data: {"id":"chatcmpl-d6ef6184","object":"chat.completion.chunk","created":1791564863,"model":"deepseek-v41-lsq","choices":[{"index":0,"delta":{"content":" \"Invoices in Downloads."}}]}
+
+data: {"id":"chatcmpl-d6ef6184","object":"chat.completion.chunk","created":1791564863,"model":"deepseek-v41-lsq","choices":[{"index":0,"delta":{"content":" Contracts in Screenshots. Nothing"}}]}
+
+data: {"id":"chatcmpl-d6ef6184","object":"chat.completion.chunk","created":1791564863,"model":"deepseek-v41-lsq","choices":[{"index":0,"delta":{"content":" where you left it.\" | In"}}]}
+
+data: {"id":"chatcmpl-d6ef6184","object":"chat.completion.chunk","created":1791564863,"model":"deepseek-v41-lsq","choices":[{"index":0,"delta":{"content":"voices in Downloads. Contracts in Screens"}}]}
+
+data: {"id":"chatcmpl-d6ef6184","object":"chat.completion.chunk","created":1791564864,"model":"deepseek-v41-lsq","choices":[{"index":0,"delta":{"content":"hots. |\n| 3 | 9.0–14"}}]}
+
+data: {"id":"chatcmpl-d6ef6184","object":"chat.completion.chunk","created":1791564864,"model":"deepseek-v41-lsq","choices":[{"index":0,"delta":{"content":".0 | 5.0 s | Product reveal"}}]}
+
+data: {"id":"chatcmpl-d6ef6184","object":"chat.completion.chunk","created":1791564864,"model":"deepseek-v41-lsq","choices":[{"index":0,"delta":{"content":" | LumaDesk Pro logo animates"}}]}
+
+data: {"id":"chatcmpl-d6ef6184","object":"chat.completion.chunk","created":1791564864,"model":"deepseek-v41-lsq","choices":[{"index":0,"delta":{"content":" in over clean UI."}}]}
+
+data: {"id":"chatcmpl-d6ef6184","object":"chat.completion.chunk","created":1791564864,"model":"deepseek-v41-lsq","choices":[{"index":0,"delta":{"content":" Warm key light, soft shadow. Logo"}}]}
+
+data: {"id":"chatcmpl-d6ef6184","object":"chat.completion.chunk","created":1791564864,"model":"deepseek-v41-lsq","choices":[{"index":0,"delta":{"content":" holds 1.5 s. | \""}}]}
+
+data: {"id":"chatcmpl-d6ef6184","object":"chat.completion.chunk","created":1791564864,"model":"deepseek-v41-lsq","choices":[{"index":0,"delta":{"content":"Meet LumaDesk Pro — the local"}}]}
+
+data: {"id":"chatcmpl-d6ef6184","object":"chat.completion.chunk","created":1791564864,"model":"deepseek-v41-lsq","choices":[{"index":0,"delta":{"content":" document organizer.\" | LumaDesk Pro — local"}}]}
+
+data: {"id":"chatcmpl-d6ef6184","object":"chat.completion.chunk","created":1791564865,"model":"deepseek-v41-lsq","choices":[{"index":0,"delta":{"content":" document organizer |\n| 4 | 14.0–21"}}]}
+
+data: {"id":"chatcmpl-d6ef6184","object":"chat.completion.chunk","created":1791564865,"model":"deepseek-v41-lsq","choices":[{"index":0,"delta":{"content":".0 | 7.0 s | Core action"}}]}
+
+data: {"id":"chatcmpl-d6ef6184","object":"chat.completion.chunk","created":1791564865,"model":"deepseek-v41-lsq","choices":[{"index":0,"delta":{"content":": auto-sort | Screen capture: drag"}}]}
+
+data: {"id":"chatcmpl-d6ef6184","object":"chat.completion.chunk","created":1791564865,"model":"deepseek-v41-lsq","choices":[{"index":0,"delta":{"content":" 12 files into Luma"}}]}
+
+data: {"id":"chatcmpl-d6ef6184","object":"chat.completion.chunk","created":1791564865,"model":"deepseek-v41-lsq","choices":[{"index":0,"delta":{"content":"Desk; they snap"}}]}
+
+data: {"id":"chatcmpl-d6ef6184","object":"chat.completion.chunk","created":1791564865,"model":"deepseek-v41-lsq","choices":[{"index":0,"delta":{"content":" into labeled folders (Finance,"}}]}
+
+data: {"id":"chatcmpl-d6ef6184","object":"chat.completion.chunk","created":1791564865,"model":"deepseek-v41-lsq","choices":[{"index":0,"delta":{"content":" Contracts, Receipts). 1"}}]}
+
+data: {"id":"chatcmpl-d6ef6184","object":"chat.completion.chunk","created":1791564866,"model":"deepseek-v41-lsq","choices":[{"index":0,"delta":{"content":".2× speed. Cursor"}}]}
+
+data: {"id":"chatcmpl-d6ef6184","object":"chat.completion.chunk","created":1791564866,"model":"deepseek-v41-lsq","choices":[{"index":0,"delta":{"content":" visible. | \"Drop files"}}]}
+
+data: {"id":"chatcmpl-d6ef6184","object":"chat.completion.chunk","created":1791564866,"model":"deepseek-v41-lsq","choices":[{"index":0,"delta":{"content":" in. LumaDesk sorts them locally —"}}]}
+
+data: {"id":"chatcmpl-d6ef6184","object":"chat.completion.chunk","created":1791564866,"model":"deepseek-v41-lsq","choices":[{"index":0,"delta":{"content":" by type, date, and project.\" |"}}]}
+
+data: {"id":"chatcmpl-d6ef6184","object":"chat.completion.chunk","created":1791564866,"model":"deepseek-v41-lsq","choices":[{"index":0,"delta":{"content":" Drop in. Sorted locally"}}]}
+
+data: {"id":"chatcmpl-d6ef6184","object":"chat.completion.chunk","created":1791564866,"model":"deepseek-v41-lsq","choices":[{"index":0,"delta":{"content":". |\n| 5 | 21."}}]}
+
+data: {"id":"chatcmpl-d6ef6184","object":"chat.completion.chunk","created":1791564866,"model":"deepseek-v41-lsq","choices":[{"index":0,"delta":{"content":"0–27.0 | 6.0 s | Search"}}]}
+
+data: {"id":"chatcmpl-d6ef6184","object":"chat.completion.chunk","created":1791564866,"model":"deepseek-v41-lsq","choices":[{"index":0,"delta":{"content":" + preview | Type \""}}]}
+
+data: {"id":"chatcmpl-d6ef6184","object":"chat.completion.chunk","created":1791564866,"model":"deepseek-v41-lsq","choices":[{"index":0,"delta":{"content":"Q3 lease\" in search bar"}}]}
+
+data: {"id":"chatcmpl-d6ef6184","object":"chat.completion.chunk","created":1791564867,"model":"deepseek-v41-lsq","choices":[{"index":0,"delta":{"content":"; result appears in 0.4 s; preview"}}]}
+
+data: {"id":"chatcmpl-d6ef6184","object":"chat.completion.chunk","created":1791564867,"model":"deepseek-v41-lsq","choices":[{"index":0,"delta":{"content":" pane opens."}}]}
+
+data: {"id":"chatcmpl-d6ef6184","object":"chat.completion.chunk","created":1791564867,"model":"deepseek-v41-lsq","choices":[{"index":0,"delta":{},"finish_reason":"length"}]}
+
+data: {"id":"chatcmpl-d6ef6184","object":"chat.completion.chunk","created":1791564867,"model":"deepseek-v41-lsq","choices":[],"usage":{"prompt_tokens":8192,"completion_tokens":512,"total_tokens":8704,"input_tokens":8192,"output_tokens":512,"prompt_tokens_details":{"cached_tokens":0},"time_to_first_token":3.89,"time_to_first_visible_token":3.89,"total_time":11.62,"prompt_eval_duration":3.89,"generation_duration":7.74,"prompt_tokens_per_second":2108.17,"generation_tokens_per_second":66.16}}
+
+data: [DONE]
+
