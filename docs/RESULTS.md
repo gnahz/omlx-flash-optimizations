@@ -20,13 +20,13 @@ The direct prefill kernel performs dictionary lookup while dequantizing qualifie
 
 ## Same-process direct-prefill A/B
 
-A and B use the same compressed resident weights, decode kernels and async DSpark settings. A expands metadata for existing dense bulk prefill; B directly consumes dictionaries. Gate/up pairing stays off, prefill chunk is 8192, prefix reuse is disabled, temperature is zero and thinking is off. Each complete request emits 512 tokens.
+A and B use the same compressed resident weights, decode kernels and async DSpark settings. A expands metadata for existing dense bulk prefill; B directly consumes dictionaries. Gate/up pairing stays off, prefill chunk is 8192, prefix reuse is disabled, temperature is zero and thinking is off. Each complete request emits 512 tokens. Prefill, decode and client TTFT are geometric means of measured requests.
 
-| Context | A prefill t/s | B prefill t/s | Change | A client TTFT | B client TTFT |
-|---|---:|---:|---:|---:|---:|
-| 8K, three-case geometric mean | 2,107.57 | 2,196.22 | **+4.21%** | 3.931 s | 3.774 s |
-| 16K, case 0 | 2,122.89 | 2,203.40 | **+3.79%** | 7.777 s | 7.495 s |
-| 32K, case 0 | 2,114.76 | 2,194.11 | **+3.75%** | 15.581 s | 15.022 s |
+| Context | A prefill t/s | B prefill t/s | Prefill change | A decode t/s | B decode t/s | A client TTFT | B client TTFT |
+|---|---:|---:|---:|---:|---:|---:|---:|
+| 8K, three-case geometric mean | 2,107.57 | 2,196.22 | **+4.21%** | 76.10 | **76.07** | 3.931 s | 3.774 s |
+| 16K, case 0 | 2,122.89 | 2,203.40 | **+3.79%** | 94.40 | **94.40** | 7.777 s | 7.495 s |
+| 32K, case 0 | 2,114.76 | 2,194.11 | **+3.75%** | 97.22 | **97.23** | 15.581 s | 15.022 s |
 
 The 8K decode geometric mean is **76.10 → 76.07 t/s (-0.045%)**. B's three case rates are 91.22 (code text), 71.59 (marketing text), and 67.40 (video/computer-use *plan* text) t/s. The 16K/32K decode rates, 94.40/97.23 t/s, cover only case 0 and should not be compared with the three-case 8K mean as a context-scaling result.
 
