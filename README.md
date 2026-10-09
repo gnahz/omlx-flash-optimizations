@@ -12,11 +12,13 @@ Pinned, ordered kernel and engine patches for **DeepSeek V4.1 Flash LSQ3-G128** 
 
 ## Published results
 
-My machine: **Apple M5 Ultra, 30 CPU / 64 GPU cores, 256 GiB, macOS 27.0.1**. Greedy, thinking disabled, concurrency 1, zero reused prefix tokens, 512 actual output tokens. DeepSeek is the three-scenario geometric mean; Qwen is the median of five full-length requests with fixed MTP depth 3 and lookup disabled.
+My machine: **Apple M5 Ultra, 30 CPU / 64 GPU cores, 256 GiB, macOS 27.0.1**. Greedy, thinking disabled, concurrency 1, zero reused prefix tokens, 512 actual output tokens. DeepSeek uses geometric means: three scenarios at 8K, case 0 only at 16K/32K. Qwen is the median of five full-length requests with fixed MTP depth 3 and lookup disabled.
 
 | Model / input | Prefill tokens/s | Decode tokens/s | Client TTFT |
 |---|---:|---:|---:|
 | DeepSeek, 8K | 2,196.22 | **76.07** | 3.774 s |
+| DeepSeek, 16K | 2,203.40 | **94.40** | 7.495 s |
+| DeepSeek, 32K | 2,194.11 | **97.23** | 15.022 s |
 | Qwen, 2K | 2,819.29 | **151.37** | 0.735 s |
 | Qwen, 8K | 3,885.47 | **136.29** | 2.128 s |
 | Qwen, 32K | 3,912.49 | **126.32** | 8.440 s |
