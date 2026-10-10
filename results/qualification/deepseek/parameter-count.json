@@ -1,0 +1,351 @@
+{
+  "model": "deepseek-ai/DeepSeek-V4.1-Flash",
+  "revision": "2cba9e42aa026125f3ed06c6d98c1db82f7ca027",
+  "official_card_url": "https://huggingface.co/deepseek-ai/DeepSeek-V4.1-Flash/blob/2cba9e42aa026125f3ed06c6d98c1db82f7ca027/README.md",
+  "official_card_claims": {
+    "backbone_parameters_rounded": 552000000000,
+    "engram_parameters_rounded": 196000000000,
+    "prefill_active_parameters_per_token_rounded": 8000000000,
+    "decode_active_parameters_per_token_rounded": 16000000000
+  },
+  "config_exactly_matches_official_text_and_vision": true,
+  "logical_checkpoint_parameters": 763205315794,
+  "categories": {
+    "vision_aligner_image_tokens": 485268480,
+    "text_backbone_without_engram_tables": 551880835184,
+    "mtp_dspark": 14225362530,
+    "engram_embedding_tables": 196613849600
+  },
+  "text_backbone_breakdown": {
+    "routed_expert_weights": 543581798400,
+    "shared_expert_weights": 1415577600,
+    "engram_projection_qk": 314654720,
+    "other_backbone": 6568804464
+  },
+  "mtp_routed_expert_weights": 13589544960,
+  "text_backbone_plus_engram": 748494684784,
+  "resident_logical_parameters_without_ssd_engram_tables": 566591466194,
+  "stored_element_counts": {
+    "resident_all_including_quantization_metadata": 65763551954,
+    "resident_weight_and_nonquant_scalar_tensor_elements": 56617839314,
+    "auxiliary_engram_original_including_scales_and_copied_projections": 203072994320,
+    "all_raw_header_elements_including_duplicate_tensors": 268836546274
+  },
+  "bytes_from_offsets_not_payload_read": {
+    "resident_tensors": 239960994632,
+    "auxiliary_engram_shards": 203073076240
+  },
+  "headers_read": {
+    "files": 130,
+    "bytes": 232581,
+    "resident_tensors": 1956,
+    "auxiliary_tensors": 12,
+    "logical_tensors_after_exclusions": 1393
+  },
+  "duplicate_engram_parameters_counted_once": [
+    {
+      "auxiliary": "layers.1.engram.q_weight",
+      "resident": "language_model.layers.1.engram.q_weight",
+      "logical_parameters": 20480
+    },
+    {
+      "auxiliary": "layers.1.engram.k_weight",
+      "resident": "language_model.layers.1.engram.k_weight",
+      "logical_parameters": 20480
+    },
+    {
+      "auxiliary": "layers.1.engram.wkv.weight",
+      "resident": "language_model.layers.1.engram.wkv.weight",
+      "logical_parameters": 157286400
+    },
+    {
+      "auxiliary": "layers.14.engram.q_weight",
+      "resident": "language_model.layers.14.engram.q_weight",
+      "logical_parameters": 20480
+    },
+    {
+      "auxiliary": "layers.14.engram.k_weight",
+      "resident": "language_model.layers.14.engram.k_weight",
+      "logical_parameters": 20480
+    },
+    {
+      "auxiliary": "layers.14.engram.wkv.weight",
+      "resident": "language_model.layers.14.engram.wkv.weight",
+      "logical_parameters": 157286400
+    }
+  ],
+  "count_definition": "Logical scalar checkpoint tensors, including router correction biases and mHC scales; excludes quantization scales/affine biases, copied auxiliary Engram projections, and derived compression overlay. Not a claim of current requires_grad flags.",
+  "caveats": [
+    "Active parameter claims are sourced from the official model card, not inferred by blindly multiplying top-k by all layers; CED uses different prefill/decode paths.",
+    "A packed UINT32 element is not one learned weight. U32 final-axis unpacking uses config bits:32/3 for affine experts,32/8 for affine/MXFP8,32/4 for MXFP4.",
+    "Engram embed.scale is quantization scale metadata, not additional parameters.",
+    "vision/projector/token markers and MTP/DSpark are counted separately from main text backbone."
+  ],
+  "sources_sha256": {
+    "official-README.md": "347c9db4e5506acb531cbc3b724407ab88e9af8781679152f0823d7bac16d251",
+    "official-config.json": "8be45ce0476004a3f529fd896115a4a2e800a129ad2d3ec05b16050f52e21879",
+    "official-model.safetensors.index.json": "74b0686a3d2891980d5e303251b075a3bccae2c2ff650747db2620a649b98fa8"
+  },
+  "status": "passed",
+  "method": "Header-only logical scalar count; U32 weights unpacked according to original per-module bits. Existing root tensors plus SSD Engram embedding weights, excluding quantization metadata, auxiliary projection copies and derived compression dictionaries.",
+  "release_metadata_changes": {
+    "quantization": "Copy the existing 443 per-module descriptors into the standard top-level MLX quantization field.",
+    "weight_map": "Preserve all original 1,956 entries and add the four existing Engram embedding weight/scale entries.",
+    "index_total_parameters": 763205315794,
+    "weight_payloads_changed": false,
+    "sidecar": "Pin the release config/index hashes; retain every original tensor header pin and historical proof."
+  },
+  "limits": [
+    "This checks packaging and header identities, without running model inference or replacing the archived throughput measurements.",
+    "Checkpoint parameter count includes MTP/DSpark and vision; it is distinct from the upstream rounded text-backbone and active-per-token counts."
+  ],
+  "official_hub_counter_validation": {
+    "upstream_commit": "8e2a9ae3bd8a5d8d68c3f36a14cfac217ddab14e",
+    "files": {
+      "lib/parse-safetensors-metadata.ts": {
+        "url": "https://raw.githubusercontent.com/huggingface/huggingface.js/8e2a9ae3bd8a5d8d68c3f36a14cfac217ddab14e/packages/hub/src/lib/parse-safetensors-metadata.ts",
+        "sha256": "aca2a910de592016bc071883a869eda8cac9a350a7bfde393fb0de9b1afdf2d9"
+      },
+      "lib/parse-safetensors-metadata.spec.ts": {
+        "url": "https://raw.githubusercontent.com/huggingface/huggingface.js/8e2a9ae3bd8a5d8d68c3f36a14cfac217ddab14e/packages/hub/src/lib/parse-safetensors-metadata.spec.ts",
+        "sha256": "2a0e0b2928124b610f81a96aacdbc1aeb30f6e33ec8edc71b9535f0a498b041b"
+      },
+      "utils/omit.ts": {
+        "url": "https://raw.githubusercontent.com/huggingface/huggingface.js/8e2a9ae3bd8a5d8d68c3f36a14cfac217ddab14e/packages/hub/src/utils/omit.ts",
+        "sha256": "21d99edd62e35e80f0697b9ccf6ff188dd8e22811f5e770130a0a2dba91e7241"
+      },
+      "utils/typedEntries.ts": {
+        "url": "https://raw.githubusercontent.com/huggingface/huggingface.js/8e2a9ae3bd8a5d8d68c3f36a14cfac217ddab14e/packages/hub/src/utils/typedEntries.ts",
+        "sha256": "9059805aa1a9cc0b73e8f63a8376ee0234057e1da3ca75fe6c7b2519c6a74151"
+      },
+      "utils/sum.ts": {
+        "url": "https://raw.githubusercontent.com/huggingface/huggingface.js/8e2a9ae3bd8a5d8d68c3f36a14cfac217ddab14e/packages/hub/src/utils/sum.ts",
+        "sha256": "d0aeadd7cf4b82a8782dc14f7f1271e0f5ea539517cc23b5a2d2afc1451b9fa4"
+      },
+      "utils/pick.ts": {
+        "url": "https://raw.githubusercontent.com/huggingface/huggingface.js/8e2a9ae3bd8a5d8d68c3f36a14cfac217ddab14e/packages/hub/src/utils/pick.ts",
+        "sha256": "4ddc12c3879e3e5feabc285aa2f5b0c00b95a6faed3f6f9f530fe86ff0d8f6c6"
+      },
+      "utils/typedInclude.ts": {
+        "url": "https://raw.githubusercontent.com/huggingface/huggingface.js/8e2a9ae3bd8a5d8d68c3f36a14cfac217ddab14e/packages/hub/src/utils/typedInclude.ts",
+        "sha256": "5edc8a01efda0388fd62d6f3d58c9154521019bdb6864e84971b9a44d3b0f1dd"
+      }
+    },
+    "input_config_sha256": "4b83ef14c5aff58f1a60b9c6fe872dabc4c0f484e68800ffb71db711a0f14209",
+    "input_index_sha256": "ac23b22906e97f9864e48f811e8eeba39dc82ae3bac6bb31f537ca966d4ae89b",
+    "node_version": "v22.23.3",
+    "algorithm": "Unmodified pinned official counting functions and utility functions; imports removed; TypeScript types stripped by node:module. Audited headers are read from original files; weight payloads were not read.",
+    "scenarios": {
+      "current": {
+        "parameterCount": {
+          "BF16": 10630290432,
+          "U32": 54480076800,
+          "F32": 42307282,
+          "U8": 610877440
+        },
+        "computedTotal": 65763551954,
+        "parameterTotal": 65763551954,
+        "mlxRecognized": false,
+        "indexedShards": 128
+      },
+      "metadata_only": {
+        "parameterCount": {
+          "BF16": 10630290432,
+          "U32": 54480076800,
+          "F32": 42307282,
+          "U8": 610877440
+        },
+        "computedTotal": 65763551954,
+        "parameterTotal": 65763551954,
+        "mlxRecognized": false,
+        "indexedShards": 128
+      },
+      "standard_quantization_only": {
+        "parameterCount": {
+          "BF16": 2095455232,
+          "U32": 564453703680,
+          "F32": 42307282
+        },
+        "computedTotal": 566591466194,
+        "parameterTotal": 566591466194,
+        "mlxRecognized": true,
+        "indexedShards": 128
+      },
+      "quantization_and_index_before_exact_total": {
+        "parameterCount": {
+          "BF16": 2095537152,
+          "U32": 564453703680,
+          "F32": 42307282,
+          "F8_E4M3": 196928422400
+        },
+        "computedTotal": 763519970514,
+        "parameterTotal": 763519970514,
+        "mlxRecognized": true,
+        "indexedShards": 130
+      },
+      "full_candidate": {
+        "parameterCount": {
+          "BF16": 2095537152,
+          "U32": 564453703680,
+          "F32": 42307282,
+          "F8_E4M3": 196928422400
+        },
+        "computedTotal": 763519970514,
+        "parameterTotal": 763205315794,
+        "mlxRecognized": true,
+        "indexedShards": 130
+      }
+    },
+    "original_weight_map_entries": 1956,
+    "candidate_weight_map_entries": 1960,
+    "original_custom_format_unchanged": true,
+    "original_weight_map_entries_unchanged": true
+  },
+  "runtime_equivalence": {
+    "actual_ModelConfig_from_dict_outputs_identical": true,
+    "normal_weight_mapping_identical_after_Engram_exclusion": true,
+    "added_keys": [
+      "layers.1.engram.embed.scale",
+      "layers.1.engram.embed.weight",
+      "layers.14.engram.embed.scale",
+      "layers.14.engram.embed.weight"
+    ],
+    "custom_format_unchanged": true,
+    "native_quantized_modules_unchanged": true,
+    "built_config_source_sha256": "89b7bae64c2d7ae84384e7c0230915dd839ce7fed2126b101053221080547bda",
+    "GPU_used": false,
+    "weight_payloads_read": false,
+    "supported_entry": "Pinned oMLX DeepSeek V4.1 dedicated loader; this is not a claim of generic unpatched mlx_lm support.",
+    "existing_prefix_cache_fingerprint": "Config/index identities change, so old persisted prefix snapshots are rejected by the existing fingerprint checks."
+  },
+  "loader_shape_only_validation": {
+    "status": "passed",
+    "scope": "Shape-only execution; fake native plan does not validate numeric tensors or native constructor identity",
+    "misplaced_checked_engram_rejected_before_bulk_read": true,
+    "model_config_equal": true,
+    "runs": [
+      {
+        "candidate": false,
+        "native": false,
+        "engram_in_index": false,
+        "resident_shards": 128,
+        "resident_parameters": 1956,
+        "engram_bulk_shards_read": 0,
+        "original_loader_shape_and_seen_assertions": "passed"
+      },
+      {
+        "candidate": false,
+        "native": true,
+        "engram_in_index": false,
+        "resident_shards": 128,
+        "resident_parameters": 1956,
+        "engram_bulk_shards_read": 0,
+        "original_loader_shape_and_seen_assertions": "passed"
+      },
+      {
+        "candidate": true,
+        "native": false,
+        "engram_in_index": false,
+        "resident_shards": 128,
+        "resident_parameters": 1956,
+        "engram_bulk_shards_read": 0,
+        "original_loader_shape_and_seen_assertions": "passed"
+      },
+      {
+        "candidate": true,
+        "native": true,
+        "engram_in_index": false,
+        "resident_shards": 128,
+        "resident_parameters": 1956,
+        "engram_bulk_shards_read": 0,
+        "original_loader_shape_and_seen_assertions": "passed"
+      },
+      {
+        "candidate": true,
+        "native": false,
+        "engram_in_index": true,
+        "resident_shards": 128,
+        "resident_parameters": 1956,
+        "engram_bulk_shards_read": 0,
+        "original_loader_shape_and_seen_assertions": "passed"
+      },
+      {
+        "candidate": true,
+        "native": true,
+        "engram_in_index": true,
+        "resident_shards": 128,
+        "resident_parameters": 1956,
+        "engram_bulk_shards_read": 0,
+        "original_loader_shape_and_seen_assertions": "passed"
+      }
+    ],
+    "loading_source_sha256": "477081b519b39b4f312012262a792df2ee98aebaff24d85befd2d45861963a66"
+  },
+  "native_constructor_cpu_validation": {
+    "status": "passed",
+    "stale_sidecar_rejected": true,
+    "refreshed_sidecar_accepted": true,
+    "native_summary_unchanged": {
+      "format": "fixed-u16-bf16-pair-g128",
+      "projections": 120,
+      "original_metadata_bytes": 16986931200,
+      "resident_metadata_bytes": 8503863760,
+      "saved_bytes": 8483067440,
+      "prefill_dense_bank_bytes": 424673280,
+      "draft_tensors_excluded": 0,
+      "requantized": false,
+      "proof_sha256": "f4601e6be63ad6907faf9473a6532209865d8f1656c2de5e64fc0eb4d400a37f"
+    },
+    "original_files_pinned": 130,
+    "encoded_files_pinned": 120,
+    "scope": "Actual native constructor/estimator, original files header-only; candidate metadata reads supplied in-memory; no MLX import, payload or GPU",
+    "native_source_sha256": "7e4205373fbb6fd777eea338629268ad0ad237f34c0260064852da9a0888b767",
+    "residency_estimator_output_unchanged": true
+  },
+  "release_metadata_validation": {
+    "status": "passed",
+    "logical_parameters": 763205315794,
+    "original_index_entries_preserved": 1956,
+    "indexed_engram_entries_added": 4,
+    "standard_quantized_modules": 443,
+    "native_metadata_header_admission": "passed",
+    "exact_projection_records": 120,
+    "original_tensor_files_pinned": 130,
+    "encoded_dictionary_files_pinned": 120,
+    "source_config_unchanged": true,
+    "source_index_unchanged": true,
+    "release_config_sha256": "ee15b8265db33d6770a395f5dea8f30d7a097d6a743cb30e8ac6644216501c7f",
+    "release_index_sha256": "c59e203c30f2c886fb4753ef40fa1f5dbb34182bd9dc051ee73e0c3e5b8bcc7d",
+    "numeric_and_historical_metadata_proof_unchanged": true,
+    "inference_rerun": false
+  },
+  "hub_readback": {
+    "status": "passed",
+    "repo_id": "junwzhang/DeepSeek-V4.1-Flash-LSQ3-G128-MLX",
+    "revision": "9162be9dcd8763395ee1e19977e30abd28b18951",
+    "verified_at_utc": "2026-10-09T23:59:23.492818+00:00",
+    "safetensors_total_parameters": 763205315794,
+    "method": "Authenticated model_info API readback of the Hub sidebar metadata after publication.",
+    "public_model_page": {
+      "url": "https://huggingface.co/junwzhang/DeepSeek-V4.1-Flash-LSQ3-G128-MLX",
+      "http_status": 200,
+      "model_size_badge": "763B params",
+      "16K_and_32K_measurements_present": true
+    }
+  },
+  "packaging_regression_tests": {
+    "python": "3.13.15",
+    "runner": "pytest",
+    "command": "QWEN_TEST_SOURCE=<prepared optimized source> python -m pytest -q tests",
+    "passed": 79,
+    "subtests_passed": 24,
+    "model_inference_run": false,
+    "production_service_operations": false
+  },
+  "package_generator": {
+    "path": "scripts/deepseek_helpers/model_package.py",
+    "sha256": "8e20aa7bc9f7de241cbfdc60dc7242b7d07705b3735410e4144c5dc35effdff6",
+    "weights_requantized": false,
+    "header_only": true
+  }
+}

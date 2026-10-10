@@ -18,7 +18,9 @@ import unittest
 
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / "scripts"))
-from deepseek_helpers.model_package import SIDECAR, header_pin, package_plan, sha256
+from deepseek_helpers.model_package import (
+    SIDECAR, header_pin, logical_parameter_count, package_plan, sha256,
+)
 
 
 def native_loader_namespace():
@@ -98,20 +100,54 @@ def fixture(root):
                 source_scales_sha256=hashlib.sha256(scales).hexdigest(),
                 source_biases_sha256=hashlib.sha256(biases).hexdigest(),
                 all_words_roundtrip_exact=True, full_encoded_readback_passed=True, file=filename))
-    pin = write_tensors(checkpoint / "engram/table.safetensors", {
-        "engram.weight": ("BF16", [2], b"\x00\x00\x80\x3f")})
-    pin["path"] = "../checkpoint/engram/table.safetensors"
+    mixed = {
+        "language_model.embed_tokens.weight": ("F32", [2, 3], bytes(24)),
+        "language_model.mhc_scale": ("F32", [3], bytes(12)),
+        "language_model.projection.bias": ("BF16", [4], bytes(8)),
+        "language_model.activation.scales": ("F32", [2], bytes(8)),
+        "language_model.shared_q4.weight": ("U32", [2, 1], bytes(8)),
+        "language_model.shared_q4.scales": ("U8", [2, 1], bytes(2)),
+        "language_model.shared_q8.weight": ("U32", [1, 2], bytes(8)),
+        "language_model.shared_q8.scales": ("BF16", [1, 1], bytes(2)),
+        "language_model.shared_q8.biases": ("BF16", [1, 1], bytes(2)),
+        "language_model.layers.1.engram.proj.weight": ("F32", [2, 3], bytes(24)),
+    }
+    pin = write_tensors(checkpoint / "root-mixed.safetensors", mixed)
+    pin["path"] = "../checkpoint/root-mixed.safetensors"
     pins.append(pin)
-    config = dict(omlx_deepseek_v41=dict(version=1, preserve_mtp=True,
-        quantized_modules=modules, engram_tables={"engram": dict(
-            weight_file="engram/table.safetensors", weight_key="engram.weight")}))
+    mapping.update({name: "root-mixed.safetensors" for name in mixed})
+    modules["language_model.shared_q4"] = dict(bits=4, mode="mxfp4")
+    modules["language_model.shared_q8"] = dict(
+        bits=8, group_size=64, mode="affine", quantize_input=False)
+    tables = {}
+    for layer, filename, dtype, shape, payload in (
+            (1, "engram/table.safetensors", "U8", [3, 4], bytes(12)),
+            (14, "engram/table14.safetensors", "BF16", [2, 3], bytes(12))):
+        prefix = f"layers.{layer}.engram.embed"
+        pin = write_tensors(checkpoint / filename, {
+            prefix + ".weight": (dtype, shape, payload),
+            prefix + ".scale": ("F32", [1], bytes(4)),
+            # This copy is already represented by the root projection.
+            "layers.1.engram.proj.weight": ("F32", [2, 3], bytes(24)),
+            "layers.1.engram.proj.scales": ("BF16", [8], bytes(16)),
+        })
+        pin["path"] = "../checkpoint/" + filename
+        pins.append(pin)
+        tables[f"language_model.layers.{layer}.engram.embed"] = dict(
+            weight_file=filename, weight_key=prefix + ".weight",
+            scale_file=filename, scale_key=prefix + ".scale", bits=None)
+    config = dict(quantization=dict(bits=7), omlx_deepseek_v41=dict(
+        version=1, preserve_mtp=True, quantized_modules=modules, engram_tables=tables))
     (checkpoint / "config.json").write_text(json.dumps(config))
-    (checkpoint / "model.safetensors.index.json").write_text(json.dumps(dict(weight_map=mapping)))
+    (checkpoint / "model.safetensors.index.json").write_text(json.dumps(dict(
+        weight_map=mapping, metadata=dict(producer="fixture", total_parameters=-1))))
     for name in ("LICENSE", "tokenizer.json", "tokenizer_config.json", "chat_template.jinja", "ds41-conversion.json"):
         (checkpoint / name).write_text("{}")
     proof = dict(status="passed", original_tensors_retained=True,
         quantization_codes_changed=False, projections=records, exact_dictionary_projections=120,
-        saved_resident_bytes=5760, original_index="/private/source.gguf", external_index="/private/output.gguf")
+        saved_resident_bytes=5760, original_index="/private/source.gguf", external_index="/private/output.gguf",
+        original_index_sha256="c" * 64, original_tensor_count=999,
+        model_inference_qualified=False)
     (metadata / "metadata-proof.json").write_text(json.dumps(proof))
     sidecar = dict(requantized=False, files=pins,
         source_index_sha256=sha256(checkpoint / "model.safetensors.index.json"),
@@ -179,6 +215,94 @@ class PortabilityTests(unittest.TestCase):
         os.utime(source, (2000, 2000))
         with self.assertRaisesRegex(ValueError, "changed during loading"):
             plan.validate_complete()
+
+    def test_independent_release_json_specs_engram_mapping_and_logical_count(self):
+        source_config = (self.checkpoint / "config.json").read_bytes()
+        source_index = (self.checkpoint / "model.safetensors.index.json").read_bytes()
+        config_before, index_before = json.loads(source_config), json.loads(source_index)
+        stage = self.stage()
+        config = json.loads((stage / "config.json").read_text())
+        index = json.loads((stage / "model.safetensors.index.json").read_text())
+        spec = config_before["omlx_deepseek_v41"]
+        self.assertEqual(config["quantization"], spec["quantized_modules"])
+        self.assertEqual(config["omlx_deepseek_v41"], spec)
+        self.assertEqual({key: index["weight_map"][key] for key in index_before["weight_map"]},
+                         index_before["weight_map"])
+        added = set()
+        for table in spec["engram_tables"].values():
+            for kind in ("weight", "scale"):
+                key = table[kind + "_key"]
+                self.assertEqual(index["weight_map"][key], table[kind + "_file"])
+                added.add(key)
+        self.assertEqual(set(index["weight_map"]) - set(index_before["weight_map"]), added)
+        self.assertEqual(len(added), 4)
+        # 120 routed weights: (2 * 8 * 24 U32) * 32 / 3 = 4096 each.
+        # Other root parameters: 6+3+4+2+16(q4)+8(q8)+6 = 45.
+        # Two original Engram tables: 12 FP8/U8 + 6 BF16 = 18.
+        self.assertEqual(index["metadata"], dict(producer="fixture", total_parameters=491583))
+        self.assertEqual((self.checkpoint / "config.json").read_bytes(), source_config)
+        self.assertEqual((self.checkpoint / "model.safetensors.index.json").read_bytes(), source_index)
+        for filename in ("config.json", "model.safetensors.index.json"):
+            self.assertNotEqual((stage / filename).stat().st_ino,
+                                (self.checkpoint / filename).stat().st_ino)
+        sidecar = json.loads((stage / "exact-metadata" / SIDECAR).read_text())
+        self.assertEqual(sidecar["source_config_sha256"], sha256(stage / "config.json"))
+        self.assertEqual(sidecar["source_index_sha256"], sha256(stage / "model.safetensors.index.json"))
+        self.assertNotEqual(sidecar["source_config_sha256"], hashlib.sha256(source_config).hexdigest())
+        self.assertNotEqual(sidecar["source_index_sha256"], hashlib.sha256(source_index).hexdigest())
+        proof = json.loads((stage / "exact-metadata/metadata-proof.json").read_text())
+        for name, value in self.proof.items():
+            if name not in ("original_index", "external_index"):
+                self.assertEqual(proof[name], value)
+        methods = {entry["path"]: entry["method"] for entry in
+                   json.loads((stage / "allowlist.json").read_text())["files"]}
+        self.assertEqual(methods["config.json"], "generated")
+        self.assertEqual(methods["model.safetensors.index.json"], "generated")
+
+    def test_repack_is_idempotent_and_deduplicates_indexed_engram_tables(self):
+        stage = self.stage()
+        plan = package_plan(stage, stage / "exact-metadata")
+        self.assertNotIn("config.json", plan["links"])
+        self.assertNotIn("model.safetensors.index.json", plan["links"])
+        for filename in ("config.json", "model.safetensors.index.json",
+                         "exact-metadata/metadata-proof.json", "exact-metadata/" + SIDECAR):
+            self.assertEqual(plan["generated"][filename], (stage / filename).read_bytes())
+        index = json.loads(plan["generated"]["model.safetensors.index.json"])
+        self.assertEqual(index["metadata"]["total_parameters"], 491583)
+        self.assertEqual(len(index["weight_map"]), 374)
+
+    def test_logical_parameter_count_expands_word_width_and_preserves_real_scales(self):
+        small = self.root / "small"
+        small.mkdir()
+        tensors = {
+            "q.weight": ("U32", [2, 3], bytes(24)),
+            "q.scales": ("BF16", [2, 1], bytes(4)),
+            "q.biases": ("BF16", [2, 1], bytes(4)),
+            "q.bias": ("BF16", [2], bytes(4)),
+            "q4.weight": ("U8", [2, 3], bytes(6)),
+            "q4.scales": ("U8", [2], bytes(2)),
+            "activation.scales": ("F32", [2], bytes(8)),
+            "fp8.weight": ("U8", [7], bytes(7)),
+        }
+        write_tensors(small / "small.safetensors", tensors)
+        modules = dict(q=dict(bits=3), q4=dict(bits=4))
+        config = dict(omlx_deepseek_v41=dict(quantized_modules=modules, engram_tables={}))
+        index = dict(weight_map={key: "small.safetensors" for key in tensors})
+        # 64 logical q weights + 12 q4 + 2 real bias + 2 real scales + 7 FP8.
+        self.assertEqual(logical_parameter_count(small, config, index), 87)
+        modules["q"]["bits"] = 5
+        with self.assertRaisesRegex(ValueError, "Invalid packed quantized tensor"):
+            logical_parameter_count(small, config, index)
+
+    def test_engram_index_collision_refused_without_overwriting_root_mapping(self):
+        path = self.checkpoint / "model.safetensors.index.json"
+        index = json.loads(path.read_text())
+        index["weight_map"]["layers.1.engram.embed.weight"] = "root-mixed.safetensors"
+        path.write_text(json.dumps(index))
+        original = path.read_bytes()
+        with self.assertRaisesRegex(ValueError, "Engram key conflicts"):
+            package_plan(self.checkpoint, self.metadata)
+        self.assertEqual(path.read_bytes(), original)
 
     def test_corrupt_header_and_missing_engram_refused(self):
         stage = self.stage()

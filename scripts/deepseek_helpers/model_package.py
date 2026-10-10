@@ -1,9 +1,10 @@
 # SPDX-License-Identifier: Apache-2.0
-"""Assemble unchanged model files and existing exact dictionaries."""
+"""Assemble unchanged tensors and exact dictionaries with release metadata."""
 from __future__ import annotations
 
 import hashlib
 import json
+import math
 from pathlib import Path
 import struct
 
@@ -31,7 +32,8 @@ def contained(root: Path, name: str) -> Path:
     return path
 
 
-def header_pin(path: Path) -> dict:
+def tensor_header(path: Path) -> tuple[dict, dict]:
+    """Read only the bounded JSON header; never load tensor payload bytes."""
     with path.open("rb") as stream:
         size = path.stat().st_size
         prefix = stream.read(8)
@@ -41,9 +43,81 @@ def header_pin(path: Path) -> dict:
         if not 2 <= length <= min(1024**2, size - 8):
             raise ValueError(f"Invalid tensor header: {path.name}")
         raw = prefix + stream.read(length)
-        if len(raw) != length + 8 or not isinstance(json.loads(raw[8:]), dict):
+        if len(raw) != length + 8:
             raise ValueError(f"Invalid tensor header: {path.name}")
-    return dict(size=size, header_bytes=len(raw), header_sha256=hashlib.sha256(raw).hexdigest())
+        header = json.loads(raw[8:])
+        if not isinstance(header, dict):
+            raise ValueError(f"Invalid tensor header: {path.name}")
+    return header, dict(size=size, header_bytes=len(raw), header_sha256=hashlib.sha256(raw).hexdigest())
+
+
+def header_pin(path: Path) -> dict:
+    return tensor_header(path)[1]
+
+
+def logical_parameter_count(checkpoint: Path, config: dict, index: dict) -> int:
+    """Count root logical scalars and each configured Engram table once.
+
+    Packed quantized weights are expanded using their stored word width and
+    unchanged per-module bitwidth. Their scale/bias arrays and copied auxiliary
+    Engram projections do not represent additional logical parameters.
+    """
+    spec = config["omlx_deepseek_v41"]
+    modules = spec["quantized_modules"]
+    tables = spec["engram_tables"]
+    if not isinstance(modules, dict) or not isinstance(tables, dict):
+        raise ValueError("Require per-module quantization and Engram table specifications")
+    auxiliary_files = {table[field] for table in tables.values()
+                       for field in ("weight_file", "scale_file") if table.get(field)}
+    headers, counted = {}, set()
+
+    def entry(filename, name):
+        if filename not in headers:
+            headers[filename] = tensor_header(contained(checkpoint, filename))[0]
+        value = headers[filename].get(name)
+        if not isinstance(value, dict):
+            raise ValueError(f"Indexed tensor missing from header: {name}")
+        shape = value.get("shape")
+        if (not isinstance(shape, list)
+                or any(not isinstance(n, int) or isinstance(n, bool) or n < 0 for n in shape)):
+            raise ValueError(f"Invalid tensor shape: {name}")
+        return value
+
+    def count(filename, name, quantization=None):
+        identity = (filename, name)
+        if identity in counted:
+            return 0
+        value = entry(filename, name)
+        shape = list(value["shape"])
+        if quantization is not None:
+            bits = quantization.get("bits")
+            word_bits = {"U8": 8, "U16": 16, "U32": 32, "U64": 64}.get(value.get("dtype"))
+            if (not isinstance(bits, int) or isinstance(bits, bool) or bits <= 0
+                    or word_bits is None or bits > word_bits or not shape
+                    or shape[-1] * word_bits % bits):
+                raise ValueError(f"Invalid packed quantized tensor: {name}")
+            shape[-1] = shape[-1] * word_bits // bits
+        counted.add(identity)
+        return math.prod(shape)
+
+    total = 0
+    for name, filename in index["weight_map"].items():
+        # Auxiliary shards contain copies of projections already counted at root.
+        # Even a previously published index may already contain the table keys.
+        if filename in auxiliary_files:
+            continue
+        entry(filename, name)
+        if any(name.endswith(suffix) and name[:-len(suffix)] in modules
+               for suffix in (".scales", ".biases", ".scale")):
+            continue
+        quantization = modules.get(name[:-7]) if name.endswith(".weight") else None
+        total += count(filename, name, quantization)
+    for module, table in tables.items():
+        quantization = table if table.get("bits") is not None else modules.get(module)
+        total += count(table["weight_file"], table["weight_key"], quantization)
+        if table.get("scale_file"):
+            entry(table["scale_file"], table["scale_key"])
+    return total
 
 
 def package_plan(checkpoint: Path, metadata_dir: Path) -> dict:
@@ -53,7 +127,7 @@ def package_plan(checkpoint: Path, metadata_dir: Path) -> dict:
     spec = config.get("omlx_deepseek_v41", {})
     if spec.get("version") != 1 or spec.get("preserve_mtp") is not True:
         raise ValueError("Require the full converted checkpoint with preserved native MTP")
-    mapping = index["weight_map"]
+    mapping = dict(index["weight_map"])
     weights = set(mapping.values())
     for table in spec.get("engram_tables", {}).values():
         for field in ("weight_file", "scale_file"):
@@ -61,6 +135,16 @@ def package_plan(checkpoint: Path, metadata_dir: Path) -> dict:
                 weights.add(table[field])
     if not spec.get("engram_tables"):
         raise ValueError("Require complete original SSD Engram tables")
+    for table in spec["engram_tables"].values():
+        for kind in ("weight", "scale"):
+            filename, key = table.get(kind + "_file"), table.get(kind + "_key")
+            if kind == "scale" and filename is None and key is None:
+                continue
+            if not isinstance(filename, str) or not isinstance(key, str) or not key:
+                raise ValueError(f"Incomplete Engram {kind} specification")
+            if key in mapping and mapping[key] != filename:
+                raise ValueError(f"Engram key conflicts with original index: {key}")
+            mapping[key] = filename
     proof_path = contained(metadata_dir, "metadata-proof.json")
     proof = json.loads(proof_path.read_text())
     original_sidecar = json.loads(contained(metadata_dir, SIDECAR).read_text())
@@ -121,14 +205,25 @@ def package_plan(checkpoint: Path, metadata_dir: Path) -> dict:
     if set(encoded_pins) != encoded_names:
         raise ValueError("Encoded file pins differ from verified projections")
     for name in MODEL_FILES:
+        if name in ("config.json", "model.safetensors.index.json"):
+            continue
         links[name] = contained(checkpoint, name)
+    # Only release JSON is regenerated; the serving checkpoint stays untouched.
+    config["quantization"] = dict(spec["quantized_modules"])
+    index["weight_map"] = mapping
+    index["metadata"] = {**index.get("metadata", {}),
+                         "total_parameters": logical_parameter_count(checkpoint, config, index)}
+    config_raw = (json.dumps(config, indent=2) + "\n").encode()
+    index_raw = (json.dumps(index, indent=2) + "\n").encode()
     portable_sidecar = dict(format_version=2, requantized=False,
-        source_config_sha256=original_sidecar["source_config_sha256"],
-        source_index_sha256=original_sidecar["source_index_sha256"], files=portable_pins)
+        source_config_sha256=hashlib.sha256(config_raw).hexdigest(),
+        source_index_sha256=hashlib.sha256(index_raw).hexdigest(), files=portable_pins)
     # Numeric proof is unchanged; remove historical machine-local index paths.
     portable_proof = {k: v for k, v in proof.items() if k not in ("original_index", "external_index")}
-    portable_proof["source_proof_sha256"] = sha256(proof_path)
+    portable_proof.setdefault("source_proof_sha256", sha256(proof_path))
     generated = {
+        "config.json": config_raw,
+        "model.safetensors.index.json": index_raw,
         "exact-metadata/" + SIDECAR: (json.dumps(portable_sidecar, indent=2) + "\n").encode(),
         "exact-metadata/metadata-proof.json": (json.dumps(portable_proof, indent=2) + "\n").encode(),
     }

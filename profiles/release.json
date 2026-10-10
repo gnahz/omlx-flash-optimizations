@@ -4,11 +4,11 @@
   "repository": "https://github.com/gnahz/omlx-flash-optimizations",
   "deepseek": {
     "repo_id": "junwzhang/DeepSeek-V4.1-Flash-LSQ3-G128-MLX",
-    "revision": "09bc1b6f5a74c888ffc20cad1c66a197cdec6065",
+    "revision": "9162be9dcd8763395ee1e19977e30abd28b18951",
     "verification_status": "passed",
     "files_verified": 262,
-    "total_bytes": 451545010970,
-    "checksum_manifest_sha256": "b0253435892a55823169ab44f503d1d3241f9df1574092864b320427f12690b4",
+    "total_bytes": 451545062577,
+    "checksum_manifest_sha256": "d7b8d1fa2c1a230e663568be01c0bc5c8300b6dc3f3c7a0ffbd1344051550344",
     "verification_report": "results/qualification/deepseek/hub-release-verification.json",
     "sources": "profiles/deepseek/sources.json"
   },

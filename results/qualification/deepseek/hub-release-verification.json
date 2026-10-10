@@ -1,10 +1,10 @@
 {
   "status": "passed",
   "repo_id": "junwzhang/DeepSeek-V4.1-Flash-LSQ3-G128-MLX",
-  "revision": "09bc1b6f5a74c888ffc20cad1c66a197cdec6065",
+  "revision": "9162be9dcd8763395ee1e19977e30abd28b18951",
   "files_verified": 262,
-  "total_bytes": 451545010970,
-  "checksum_manifest_sha256": "b0253435892a55823169ab44f503d1d3241f9df1574092864b320427f12690b4",
+  "total_bytes": 451545062577,
+  "checksum_manifest_sha256": "d7b8d1fa2c1a230e663568be01c0bc5c8300b6dc3f3c7a0ffbd1344051550344",
   "files": [
     {
       "path": "LICENSE",
@@ -14,20 +14,20 @@
     },
     {
       "path": "README.md",
-      "size": 6877,
-      "sha256": "bbcc3016ca2516020c60a364075b56c9aaf9fbc8281667584fe76ecd5e6aa579",
+      "size": 9421,
+      "sha256": "dfb267d56d0b7bb9eea616c5e2aedf3fc27237a097308dc5ff0b5360f3ba5c13",
       "verification": "downloaded_sha256"
     },
     {
       "path": "SHA256SUMS",
       "size": 27736,
-      "sha256": "b0253435892a55823169ab44f503d1d3241f9df1574092864b320427f12690b4",
+      "sha256": "d7b8d1fa2c1a230e663568be01c0bc5c8300b6dc3f3c7a0ffbd1344051550344",
       "verification": "downloaded_sha256"
     },
     {
       "path": "allowlist.json",
-      "size": 31928,
-      "sha256": "a2cf6217c1a68b9e43f43f8cd5fdf7afe8f30cc260871c98a812979e7a93f612",
+      "size": 31931,
+      "sha256": "0de5fc87b650369c7f24996fe3709f42cab2c80201ab5b7415e92f942e5ca3f9",
       "verification": "downloaded_sha256"
     },
     {
@@ -806,8 +806,8 @@
     },
     {
       "path": "config.json",
-      "size": 56714,
-      "sha256": "4b83ef14c5aff58f1a60b9c6fe872dabc4c0f484e68800ffb71db711a0f14209",
+      "size": 105400,
+      "sha256": "ee15b8265db33d6770a395f5dea8f30d7a097d6a743cb30e8ac6644216501c7f",
       "verification": "downloaded_sha256"
     },
     {
@@ -831,7 +831,7 @@
     {
       "path": "exact-metadata/DeepSeek-V4.1-LSQ3-G128-exact-metadata.json",
       "size": 52162,
-      "sha256": "073903f39311069690c0d15fa32296291c9b53319fc5610f0bb98866025d1ca8",
+      "sha256": "f40f8ec9743837f6bd11f854a1c7fe6a14b2679a5a6a0f069d6d249a0c155a61",
       "verification": "downloaded_sha256"
     },
     {
@@ -1562,8 +1562,8 @@
     },
     {
       "path": "model.safetensors.index.json",
-      "size": 185854,
-      "sha256": "ac23b22906e97f9864e48f811e8eeba39dc82ae3bac6bb31f537ca966d4ae89b",
+      "size": 186228,
+      "sha256": "c59e203c30f2c886fb4753ef40fa1f5dbb34182bd9dc051ee73e0c3e5b8bcc7d",
       "verification": "downloaded_sha256"
     },
     {
@@ -1579,8 +1579,8 @@
       "verification": "downloaded_sha256"
     }
   ],
+  "verified_at_utc": "2026-10-09T23:59:23.492818+00:00",
   "schema_version": 1,
-  "verified_at_utc": "2026-10-09T17:51:03.933192+00:00",
   "verification_scope": {
     "local_sources": "Full-content SHA256 of all original and overlay weight files, with unchanged file identity at final packaging",
     "remote_large_files": "LFS SHA256 and byte size compared with local full-content SHA256",
@@ -1591,5 +1591,10 @@
   "verification_counts": {
     "remote_lfs_sha256": 250,
     "downloaded_sha256": 12
+  },
+  "unchanged_tensor_payloads": {
+    "previous_revision": "09bc1b6f5a74c888ffc20cad1c66a197cdec6065",
+    "files": 250,
+    "all_sha256_unchanged": true
   }
 }

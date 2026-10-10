@@ -79,7 +79,7 @@ python3 scripts/repro.py download --model qwen --model-dir "$Q_MODEL"
 python3 scripts/repro.py verify --model qwen --model-dir "$Q_MODEL"
 ```
 
-DeepSeek 下载固定为 `profiles/release.json` 的已验证 revision，不跟随移动的 main；校验读取 `SHA256SUMS` 中的每个文件。`--revision` 可用于审查其他版本，但不属于当前固定复现。保留完整模型目录，包括 config、tokenizer/template、原始 index/张量分片、SSD Engram、LICENSE、`ds41-conversion.json` 与 `exact-metadata/` 中的 120 个字典投影、sidecar、proof。服务状态写入工作目录，不写进模型目录。
+DeepSeek 下载固定为 `profiles/release.json` 的已验证 revision，不跟随移动的 main；校验读取 `SHA256SUMS` 中的每个文件。`--revision` 可用于审查其他版本，但不属于当前固定复现。保留完整模型目录，包括发布版 config/index、tokenizer/template、原始张量分片、SSD Engram、LICENSE、`ds41-conversion.json` 与 `exact-metadata/` 中的 120 个字典投影、sidecar、proof。发布版 JSON 增加标准 MLX 量化描述及 Engram 索引，使 Hub 正确统计参数；sidecar 绑定这两个 JSON 的准确哈希。服务状态写入工作目录，不写进模型目录。
 
 Qwen 直接下载固定上游权重，使用 `hf cache verify ... --fail-on-missing-files` 完整校验；启动器另检查固定 config/index checksum 和全部索引分片。该 Git 仓库不重新分发 Qwen 权重。量化来源、发布结构及下载量/常驻内存的区别见 [DeepSeek 模型卡](HF-MODEL-CARD.md)。
 
