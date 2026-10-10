@@ -13,7 +13,7 @@ import subprocess
 import sys
 
 ROOT = Path(__file__).resolve().parents[1]
-DEEPSEEK_REPO = "junwzhang/DeepSeek-V4.1-Flash-LSQ3-G128-MLX"
+DEEPSEEK_REPO = "gnahzhang/DeepSeek-V4.1-Flash-LSQ3-G128-MLX"
 QWEN_REPO = "mlx-community/Qwen3.8-Flash-Next-oQ6e-mtp"
 QWEN_REVISION = "e171af86f499f1855b0fb71d781105e8dd609610"
 

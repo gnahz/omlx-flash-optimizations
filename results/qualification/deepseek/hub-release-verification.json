@@ -1,6 +1,6 @@
 {
   "status": "passed",
-  "repo_id": "junwzhang/DeepSeek-V4.1-Flash-LSQ3-G128-MLX",
+  "repo_id": "gnahzhang/DeepSeek-V4.1-Flash-LSQ3-G128-MLX",
   "revision": "9162be9dcd8763395ee1e19977e30abd28b18951",
   "files_verified": 262,
   "total_bytes": 451545062577,
@@ -1579,7 +1579,7 @@
       "verification": "downloaded_sha256"
     }
   ],
-  "verified_at_utc": "2026-10-09T23:59:23.492818+00:00",
+  "verified_at_utc": "2026-10-10T00:06:26.291094+00:00",
   "schema_version": 1,
   "verification_scope": {
     "local_sources": "Full-content SHA256 of all original and overlay weight files, with unchanged file identity at final packaging",

@@ -59,7 +59,7 @@ Qwen 测试程序自行管理临时的独立服务，回放无前缀复用的核
 
 ## 权重与来源
 
-- DeepSeek：[junwzhang/DeepSeek-V4.1-Flash-LSQ3-G128-MLX](https://huggingface.co/junwzhang/DeepSeek-V4.1-Flash-LSQ3-G128-MLX)，固定版本见[发布清单](profiles/release.json)；[模型说明](docs/HF-MODEL-CARD.md)描述量化过程。复现直接下载权重，无需重新量化。
+- DeepSeek：[gnahzhang/DeepSeek-V4.1-Flash-LSQ3-G128-MLX](https://huggingface.co/gnahzhang/DeepSeek-V4.1-Flash-LSQ3-G128-MLX)，固定版本见[发布清单](profiles/release.json)；[模型说明](docs/HF-MODEL-CARD.md)描述量化过程。复现直接下载权重，无需重新量化。
 - Qwen：[mlx-community/Qwen3.8-Flash-Next-oQ6e-mtp](https://huggingface.co/mlx-community/Qwen3.8-Flash-Next-oQ6e-mtp/tree/e171af86f499f1855b0fb71d781105e8dd609610)，固定版本 `e171af86f499f1855b0fb71d781105e8dd609610`，使用上游权重。
 - DeepSeek 基线：[tacos8me/m5-ultra](https://github.com/tacos8me/m5-ultra/tree/4e4d5a81f8135249815a3f284c0ed5bbd1faee58)，版本 `4e4d5a81f8135249815a3f284c0ed5bbd1faee58`。
 - Qwen 基线：[社区方案](https://github.com/sethforprivacy/Qwen3.8-Flash-Next-M5-Ultra-oMLX/tree/050233efcd0a765de9963ab21a01df0723a50530)，版本 `050233efcd0a765de9963ab21a01df0723a50530`，及 [oMLX PR #4030](https://github.com/jundot/omlx/pull/4030)。

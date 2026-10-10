@@ -321,13 +321,13 @@
   },
   "hub_readback": {
     "status": "passed",
-    "repo_id": "junwzhang/DeepSeek-V4.1-Flash-LSQ3-G128-MLX",
+    "repo_id": "gnahzhang/DeepSeek-V4.1-Flash-LSQ3-G128-MLX",
     "revision": "9162be9dcd8763395ee1e19977e30abd28b18951",
-    "verified_at_utc": "2026-10-09T23:59:23.492818+00:00",
+    "verified_at_utc": "2026-10-10T00:06:26.291094+00:00",
     "safetensors_total_parameters": 763205315794,
     "method": "Authenticated model_info API readback of the Hub sidebar metadata after publication.",
     "public_model_page": {
-      "url": "https://huggingface.co/junwzhang/DeepSeek-V4.1-Flash-LSQ3-G128-MLX",
+      "url": "https://huggingface.co/gnahzhang/DeepSeek-V4.1-Flash-LSQ3-G128-MLX",
       "http_status": 200,
       "model_size_badge": "763B params",
       "16K_and_32K_measurements_present": true

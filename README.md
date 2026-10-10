@@ -59,7 +59,7 @@ The Qwen driver owns isolated temporary servers for its cold core and cache suit
 
 ## Weights and attribution
 
-- DeepSeek: [junwzhang/DeepSeek-V4.1-Flash-LSQ3-G128-MLX](https://huggingface.co/junwzhang/DeepSeek-V4.1-Flash-LSQ3-G128-MLX), pinned by [release metadata](profiles/release.json); [model card](docs/HF-MODEL-CARD.md). Quantization is described there; regeneration code is not required for reproduction.
+- DeepSeek: [gnahzhang/DeepSeek-V4.1-Flash-LSQ3-G128-MLX](https://huggingface.co/gnahzhang/DeepSeek-V4.1-Flash-LSQ3-G128-MLX), pinned by [release metadata](profiles/release.json); [model card](docs/HF-MODEL-CARD.md). Quantization is described there; regeneration code is not required for reproduction.
 - Qwen: [mlx-community/Qwen3.8-Flash-Next-oQ6e-mtp](https://huggingface.co/mlx-community/Qwen3.8-Flash-Next-oQ6e-mtp/tree/e171af86f499f1855b0fb71d781105e8dd609610), revision `e171af86f499f1855b0fb71d781105e8dd609610`. These are upstream weights.
 - DeepSeek baseline: [tacos8me/m5-ultra](https://github.com/tacos8me/m5-ultra/tree/4e4d5a81f8135249815a3f284c0ed5bbd1faee58), revision `4e4d5a81f8135249815a3f284c0ed5bbd1faee58`.
 - Qwen baseline: [community recipe](https://github.com/sethforprivacy/Qwen3.8-Flash-Next-M5-Ultra-oMLX/tree/050233efcd0a765de9963ab21a01df0723a50530), revision `050233efcd0a765de9963ab21a01df0723a50530`, and [oMLX PR #4030](https://github.com/jundot/omlx/pull/4030).
