@@ -51,8 +51,9 @@ DeepSeek layout is `work/source/{mlx,omlx}`, `work/venv`, `work/build/glm`, and 
 3. oMLX `0002-exact-metadata-and-direct-prefill.patch`.
 4. oMLX `0003-exact-prefix-cache-persistence.patch`.
 5. oMLX `0004-portable-release-identities.patch`.
+6. oMLX `0005-long-context-decode-and-prefill-fairness.patch`.
 
-The direct prefill patch contains both the native dictionary GEMM and its engine dispatch. The cache patch contains retention, identity checks and persistence; the portable identities patch allows the published relative-path metadata sidecar. The first dependency patch is attributed by [source and revision](https://github.com/tacos8me/m5-ultra/tree/4e4d5a81f8135249815a3f284c0ed5bbd1faee58).
+The direct prefill patch contains both the native dictionary GEMM and its engine dispatch. The cache patch contains retention, identity checks and persistence; the portable identities patch allows the published relative-path metadata sidecar. Patch `0005` adds prefill fairness and the terminal-response barrier, with their CPU regression tests; the launcher enables the existing packed-cache growth implementation for cached serving. All six patch SHA256 values, including the MLX patch, are pinned by `profiles/deepseek/sources.json`. The first dependency patch is attributed by [source and revision](https://github.com/tacos8me/m5-ultra/tree/4e4d5a81f8135249815a3f284c0ed5bbd1faee58).
 
 For a separately reviewable application/build sequence:
 
@@ -63,6 +64,8 @@ python3 scripts/prepare_deepseek.py --work-dir "$DS_WORK" --build-only --python 
 ```
 
 Use this sequence instead of the earlier generic `prepare` command on that work directory. The optional `--mlx-source` / `--omlx-source` arguments use a local clone as a read-only object source. Patch application is always to the new checkout. `source-receipt.json` pins all patched source files; `build-receipt.json` records the compiled binaries and build inputs.
+
+**Upgrading from `0004`: choose a new work directory and prepare the complete MLX + oMLX `0001`–`0005` sequence.** Replacing only `serve_deepseek.py` while reusing an old prepared source tree does not install these runtime fixes. The GET diagnostics report actual missing/disabled features, but are not a startup rejection gate. After the updated cached model is ready, verify `decode_runtime.packed_cache_growth=true`, `decode_runtime.packed_cache_growth_pingpong=true`, and, for its scheduler, `preserve_prefill_chunks=true`, `preserved_prefill_max_defer_seconds=8.0`, and `terminal_response_barrier=true`; the desired `profile` fields alone are not proof that the loaded source implements them.
 
 The DeepSeek build uses CMake 4.1.0, setuptools 84.0.0, wheel 0.48.0, C++20, `MLX_METAL_JIT=ON`, `CMAKE_OSX_DEPLOYMENT_TARGET=27.0`, and `BASELINE_RUNTIME_METAL=ON`. The extension uses the same fetched nanobind **3.0.1** CMake package as the patched MLX build. Python's separately installed nanobind package is not substituted for it. Metal source is expanded with the chosen build interpreter and loaded through the qualified JIT path with safe math. Build paths are derived from the work directory.
 
@@ -101,6 +104,8 @@ The server binds only `127.0.0.1`; the model alias is `deepseek-v41-lsq`. A fres
 
 The benchmark profile has prefix cache disabled, concurrency 1, prefill chunk 8192, 240 GiB process ceiling, full routed-expert/DSpark/vision residency, Engram SSD offload, native decode on, native verify off, sparse/MHC/gather on, gate/up pairing **off**, native metadata prefill **on**, and async DSpark **on**. MTP drafts four tokens; requests are greedy with thinking disabled. A temporarily disables only direct metadata prefill, expanding metadata for the existing dense bulk GEMM; B enables it. Both retain the same compressed checkpoint and decode implementation. Admission controls refuse mutation while an inference request, model load, engine lease, or scheduler work is active.
 
+For the historical prefill protocol, packed-cache growth stays **off** and `preserved_prefill_max_defer_seconds` is **0**. The ping-pong flag stays on but has no effect while growth is off. The terminal-response barrier is on by default in both release profiles. GET `/api/reproduction` exposes actual `decode_runtime` growth flags and per-scheduler defer/capability/terminal-barrier state. POST retains the existing authenticated, loopback, idle-only benchmark controls for metadata prefill and counter reset; it does not gain growth/fairness controls or become available in the cached profile.
+
 All output directories must be new. Default core protocol:
 
 | Context | Cases | Discarded warmups | Measured order | Measured requests |
@@ -121,6 +126,10 @@ For a CPU-only payload check or an 8K-only GPU replay:
 Success requires complete SSE termination, exact actual input/output counts, explicit `cached_tokens=0`, complete text/reasoning/finish identity, and equality of every DSpark non-timing counter with the baseline warmup (and archived golden at 8K). A must show dense bulk calls and zero direct calls; B must show direct bulk calls and zero dense bulk calls. Dense tail calls are permitted and reported. The driver checks gate/up off, async DSpark on, stable process ID and unchanged source/proof hashes, and restores the initial prefill setting in `finally`. Raw SSE, event timings, full outputs, log slices and reports survive failure. Native-symbol failures abort instead of measuring a fallback runtime.
 
 The first request and each arm's JIT warmup are excluded. Here “uncached” means no prefix reuse; it does not mean purged OS/Engram filesystem caches or process-cold model loading. These drivers do not certify physical-memory peaks; the archived sampled footprints and their scope are in [RESULTS](RESULTS.md).
+
+### Scope of the 2026-10-15 update
+
+The separate [decode acceptance archive](../results/qualification/deepseek/decode-20261015/README.md) records real-model measurements from the original production deployment, including the 1M growth-only and concurrent hot-A/cold-B ABBA comparisons. The commands above retain the historical metadata-prefill protocol; they do not recreate that diagnostic control harness. This release does not add a cached-profile mutation endpoint or claim that its relocated public checkout has repeated those full-model runs. Inspect [the manifest](../results/qualification/deepseek/decode-20261015/manifest.json), [measurement summary](../results/qualification/deepseek/decode-20261015/summary.json) and [public-package validation](VALIDATION.md) separately. Reviewing or checking patch application requires no model download or inference; use a new work directory with `--apply-only` and `--check` as shown in section 2.
 
 ## 5. Reproduce Qwen core and cache comparisons
 
@@ -166,7 +175,11 @@ In another terminal:
 "$DS_WORK/venv/bin/python" scripts/repro.py benchmark --model deepseek --work-dir "$DS_WORK" --model-dir "$DS_MODEL" --profile cached --output-dir "$DS_WORK/results/prefix-1" --port 8011
 ```
 
-The cached profile keeps native metadata prefill, gate/up off, async DSpark on and chunk 8192, but allows eight requests and a 3 GiB exact-prefix cap. It stores persistence in `work/cache/exact-prefix-v1`, reads SSD state only at startup, and saves when idle at 300-second intervals. Startup allows 900 seconds; orderly shutdown allows 120 seconds. Save generations are atomic and preserve the prior valid generation until the new one is complete. Restore fingerprints bind the model settings, tokenizer/config/index, patched runtime, metadata proof and draft signature.
+The cached profile keeps native metadata prefill, gate/up off, async DSpark on and chunk 8192, but allows eight requests and a 3 GiB exact-prefix cap. It explicitly enables packed-cache growth and ping-pong buffers (`DS41_GROWTH=1`, `DS41_GROWTH_PINGPONG=1`) before importing the model, sets `preserved_prefill_max_defer_seconds=8.0`, and keeps the terminal-response barrier on. The launcher clears inherited DS41 flags, so ambient exports do not replace these profile settings.
+
+Persistence uses the new `work/cache/exact-prefix-v2-decode-fixes` namespace. It reads SSD state only at startup and saves when idle at 300-second intervals. Startup allows 900 seconds; orderly shutdown allows 120 seconds. Save generations are atomic and preserve the prior valid generation until the new one is complete. Restore fingerprints bind the model settings, tokenizer/config/index, patched runtime, metadata proof and draft signature, plus the storage and scheduling policies. The new namespace separates this policy from prior snapshots; existing snapshot validation remains required.
+
+The 8-second setting adds decode priority before preserved cold prefill; it is not an absolute TTFT bound. A complete 8192-token prefill forward cannot be preempted, and the waiting cold request can incur extra TTFT. GET reports the actual loaded features; cached-profile POST controls remain unavailable. See [the dated results and limits](RESULTS.md#2026-10-15-long-context-decode-and-concurrent-prefill).
 
 The probe builds an exact 8242-token case-0 prompt, generates 64 tokens, primes then repeats it, and issues eight parallel copies. All complete outputs must equal the serial output; warm and parallel requests must report exactly 8192 reused tokens. The report includes observed scheduler concurrency. This checks bounded short-response prefix behavior, not eight simultaneous 32K/long-output capacity. The first request may use an already restored cache and is not labeled cold.
 

@@ -51,8 +51,9 @@ DeepSeek 目录结构为 `work/source/{mlx,omlx}`、`work/venv`、`work/build/gl
 3. oMLX：`0002-exact-metadata-and-direct-prefill.patch`。
 4. oMLX：`0003-exact-prefix-cache-persistence.patch`。
 5. oMLX：`0004-portable-release-identities.patch`。
+6. oMLX：`0005-long-context-decode-and-prefill-fairness.patch`。
 
-第二组新增补丁同时包含字典 GEMM 内核与引擎 dispatch；缓存补丁包含保留策略、身份检查与持久化；portable 补丁支持公开权重的相对路径 sidecar。依赖来源仅引用 [tacos8me 固定版本](https://github.com/tacos8me/m5-ultra/tree/4e4d5a81f8135249815a3f284c0ed5bbd1faee58)。
+第二组新增补丁同时包含字典 GEMM 内核与引擎 dispatch；缓存补丁包含保留策略、身份检查与持久化；portable 补丁支持公开权重的相对路径 sidecar。`0005` 增加 prefill 公平调度、终包屏障及其 CPU 回归测试；启动器为 cached 配置启用已有 packed-cache growth 实现。包括 MLX 补丁在内的六份补丁 SHA256 均由 `profiles/deepseek/sources.json` 固定。依赖来源仅引用 [tacos8me 固定版本](https://github.com/tacos8me/m5-ultra/tree/4e4d5a81f8135249815a3f284c0ed5bbd1faee58)。
 
 如需先审查补丁再编译，可用以下流程**代替**该工作目录的通用 `prepare`：
 
@@ -63,6 +64,8 @@ python3 scripts/prepare_deepseek.py --work-dir "$DS_WORK" --build-only --python 
 ```
 
 `--mlx-source` / `--omlx-source` 可把本地 clone 用作只读 Git 对象来源，补丁仍应用到新的 checkout。`source-receipt.json` 固定全部补丁后源码；`build-receipt.json` 记录二进制与构建输入。
+
+**从 `0004` 升级时，必须选择新工作目录，重新准备完整 MLX + oMLX `0001`–`0005` 序列。** 仅替换 `serve_deepseek.py` 并复用旧 prepared 源码不会安装这些 runtime 修复。GET 会如实报告缺失/未启用的功能，但不作为启动拒绝门。更新后的 cached 模型就绪后，核对 `decode_runtime.packed_cache_growth=true`、`decode_runtime.packed_cache_growth_pingpong=true`，以及该 scheduler 的 `preserve_prefill_chunks=true`、`preserved_prefill_max_defer_seconds=8.0`、`terminal_response_barrier=true`；仅有目标 `profile` 字段不足以证明已加载源码实现了这些功能。
 
 DeepSeek 使用 CMake 4.1.0、setuptools 84.0.0、wheel 0.48.0、C++20，以及 `MLX_METAL_JIT=ON`、`CMAKE_OSX_DEPLOYMENT_TARGET=27.0`、`BASELINE_RUNTIME_METAL=ON`。扩展使用与该 MLX 构建相同的 fetched **nanobind 3.0.1** CMake 包，不用另一版本的 Python nanobind 替换。Metal 源码由指定 Python 展开，通过经过验证的 safe-math JIT 路径加载。所有编译路径从工作目录派生。
 
@@ -101,6 +104,8 @@ Qwen 直接下载固定上游权重，使用 `hf cache verify ... --fail-on-miss
 
 benchmark 配置：关闭 prefix cache，并发 1，prefill chunk 8192，进程预算 240 GiB；路由专家、DSpark、vision 常驻，仅 Engram SSD offload。native decode 开，native verify 关，sparse/MHC/gather 开，gate/up pairing **关**，原生 metadata prefill **开**，async DSpark **开**。MTP 草拟 4 token；请求温度 0、思考关闭。A 仅关闭 direct metadata prefill，使用展开元数据的 dense bulk GEMM；B 开启 direct。同一压缩权重、同一进程、相同 decode。请求尚未结束、模型加载、engine lease 或 scheduler 工作期间拒绝切换控制项。
 
+历史 prefill 协议保持 packed-cache growth **关闭**、`preserved_prefill_max_defer_seconds` 为 **0**；ping-pong 开关保持开启，但在 growth 关闭时不生效。终包屏障在两个发布配置中均默认开启。GET `/api/reproduction` 从实际 runtime 的 `decode_runtime` 返回 growth 状态，并逐 scheduler 返回 defer、capability 与终包屏障状态。POST 仍只有 benchmark 配置下原有的鉴权、loopback、idle-only metadata prefill/计数重置控制，不新增 growth/调度切换，也不向 cached 配置开放。
+
 | Context | 场景 | 排除的完整预热 | 实测顺序 | 实测请求 |
 |---|---|---:|---|---:|
 | 8192 | 0、1、2 | 每场景 A/B，共 6 | 每场景两次 ABBA | 24 |
@@ -119,6 +124,10 @@ benchmark 配置：关闭 prefix cache，并发 1，prefill chunk 8192，进程�
 验收要求：完整 SSE 结束；精确 input/output 用量；明确 `cached_tokens=0`；完整文本/思考/结束原因一致；所有非计时 DSpark 计数与 A 预热一致，8K 还与存档参考一致。A 必须 dense bulk 调用大于零且 direct 为零；B 必须 direct bulk 大于零且 dense bulk 为零。dense 尾部回退允许且独立计数。检查真实 gate/up off、async on、进程 ID 与源码/proof 哈希不变；finally 恢复初始 prefill 开关。失败仍保存请求、原始 SSE、事件、完整输出、日志片段和报告。必需的 native symbol 缺失则直接中止。
 
 首请求和各 arm 的 JIT 预热不计入性能。这里的“冷”仅指没有前缀复用，不表示清除 OS/Engram 文件缓存，也不计模型冷启动加载。发布 HTTP 驱动不独立采样物理内存峰值，历史采样范围见[测试说明](RESULTS.zh-CN.md)。结果目录必须是新目录。
+
+### 2026-10-15 更新的复现范围
+
+独立的[decode 验收存档](../results/qualification/deepseek/decode-20261015/README.md)记录原生产部署真实模型的 1M growth 单项、热 A/冷 B 并发 ABBA 等测量。上方命令保留历史 metadata-prefill 协议，不复刻该诊断控制 harness。本次不新增 cached 配置的修改端点，也不声称已在重定位后的公开 checkout 再次运行这些完整模型测试。请分别查阅[证据清单](../results/qualification/deepseek/decode-20261015/manifest.json)、[测量汇总](../results/qualification/deepseek/decode-20261015/summary.json)与[发布验收](VALIDATION.zh-CN.md)。源码审查和补丁应用检查无需下载模型或推理；可在新工作目录使用第 2 节的 `--apply-only` 与 `--check`。
 
 ## 5. Qwen 核心吞吐与前缀回放
 
@@ -164,7 +173,11 @@ benchmark 选择 baseline/fixed3/并发 1，常规上游前缀 cache 仍可用�
 "$DS_WORK/venv/bin/python" scripts/repro.py benchmark --model deepseek --work-dir "$DS_WORK" --model-dir "$DS_MODEL" --profile cached --output-dir "$DS_WORK/results/prefix-1" --port 8011
 ```
 
-cached 保持 metadata prefill 开、gate/up 关、async DSpark 开和 chunk 8192，允许八请求、精确前缀容量 3 GiB。持久化写入 `work/cache/exact-prefix-v1`，仅启动时从 SSD 读取，空闲状态每 300 秒保存。启动允许 900 秒、有序关闭允许 120 秒。保存使用原子世代切换，保留上一个有效世代直到新世代完成；restore 身份绑定模型配置、tokenizer/config/index、补丁后 runtime、metadata proof 与 draft signature。
+cached 保持 metadata prefill 开、gate/up 关、async DSpark 开和 chunk 8192，允许八请求、精确前缀容量 3 GiB。导入模型前显式设定 `DS41_GROWTH=1`、`DS41_GROWTH_PINGPONG=1`，启用已有 growth 和双缓冲；`preserved_prefill_max_defer_seconds=8.0`，终包屏障开启。启动器清理继承的 DS41 环境，因此外部 export 不替代这些 profile 设置。
+
+持久化使用新 namespace `work/cache/exact-prefix-v2-decode-fixes`，仅启动时从 SSD 读取，空闲状态每 300 秒保存。启动允许 900 秒、有序关闭允许 120 秒。保存使用原子世代切换，保留上一个有效世代直到新世代完成；restore 身份绑定模型配置、tokenizer/config/index、补丁后 runtime、metadata proof、draft signature，以及存储和调度策略。新 namespace 隔离此前策略的快照，不绕过原有持久化身份校验。
+
+8 秒是保留 decode 状态的冷 prefill 前新增的 decode 优先窗口，不是绝对 TTFT 上限；完整 8192-token prefill forward 无法抢占，等待的冷请求可能增加 TTFT。GET 反映实际已加载功能，cached 的 POST 控制仍不开放。具体效果和边界见[独立结果章节](RESULTS.zh-CN.md#2026-10-15长上下文-decode-与并发-prefill)。
 
 探针构建精确 8242-token 的场景 0，生成 64 token：先 prime、再 warm，然后发八份并行相同请求。所有完整输出必须与串行一致，warm/并行必须复用精确 8192 token；报告记录观察到的 scheduler 并发。它只验证有限短输出的前缀行为，不代表八个同时 32K 或长输出的容量。首次请求可能使用已恢复 cache，不标为冷请求。
 

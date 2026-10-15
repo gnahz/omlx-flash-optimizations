@@ -1,0 +1,116 @@
+{
+  "status": "passed",
+  "verification_scope": "Original production-machine qualification before publication; not a portable-release full-model rerun.",
+  "production_source_head": "78a5a474c85d67e62b6d3d4575ed3a68f751de2e",
+  "runtime_pin_count": 601,
+  "cpu_tests": {
+    "passed": 791,
+    "scheduler": 663,
+    "engine_terminal": 52,
+    "growth": 44,
+    "local_launcher": 32,
+    "existing_async_tests_not_executed": 47,
+    "reason": "pytest-asyncio was unavailable; existing async tests were not counted as passed."
+  },
+  "feature_profile": {
+    "packed_cache_growth": true,
+    "packed_cache_growth_pingpong": true,
+    "preserved_prefill_max_defer_seconds": 8.0
+  },
+  "qualified_patch_files_sha256": {
+    "omlx/engine_core.py": "3d2d9d777592ae7ae74194204aae0d9dcefd6770cbc2b36a0731704394dfe521",
+    "omlx/scheduler.py": "2059efedbcc2f8005700c8805b90bd4642f26dd0b94a82dcecd8b34636a0fc54",
+    "tests/test_preserved_prefill_decode_priority.py": "3e1acf906c7a089516b04cfa27bb034654c5e4ccb02549454a54bf34bbad0029",
+    "tests/test_deepseek_v41_growth_lifecycle_cpu.py": "d67328b81899d78b612778635e8d8be3edb81e473b6b89c2e34b2b31381fa1a8",
+    "tests/test_engine_terminal_delivery_cpu.py": "af684c48be904a211e66e1dba001d2409e1e0c41d573236029abd6182dc33b0c",
+    "tests/test_engine_core.py": "49f84e17b22d0560658393e82ad25a0152b744a50ff8431e1298c3feee70efe2"
+  },
+  "concurrency_and_restart": [
+    {
+      "source": "concurrency8-before-restart.json",
+      "phase": "before_restart",
+      "status": "complete",
+      "passed": true,
+      "errors": [],
+      "run_count": 8,
+      "cache_budget": [
+        {
+          "bytes": 10420408,
+          "max_bytes": 3221225472,
+          "passed": true
+        }
+      ],
+      "maximum_observed_num_running": 8,
+      "all_eight_streams_generation_overlap_s": 6.098938958981307,
+      "normal_inference_prefix_disk_reads_unchanged": true,
+      "memory": {
+        "sample_interval_s": 0.5,
+        "sample_count": 49,
+        "peak_sampled_phys_bytes": 238985434376,
+        "errors": [],
+        "all_samples_under_240_gib": true,
+        "between_sample_peak_unverified": true
+      }
+    },
+    {
+      "source": "concurrency8-after-restart.json",
+      "phase": "after_restart",
+      "status": "complete",
+      "passed": true,
+      "errors": [],
+      "run_count": 1,
+      "cache_budget": [
+        {
+          "bytes": 10420408,
+          "max_bytes": 3221225472,
+          "passed": true
+        }
+      ],
+      "maximum_observed_num_running": null,
+      "all_eight_streams_generation_overlap_s": null,
+      "normal_inference_prefix_disk_reads_unchanged": true,
+      "memory": {
+        "sample_interval_s": 0.5,
+        "sample_count": 10,
+        "peak_sampled_phys_bytes": 233033274776,
+        "errors": [],
+        "all_samples_under_240_gib": true,
+        "between_sample_peak_unverified": true
+      }
+    },
+    {
+      "source": "concurrency8-production-replay.json",
+      "phase": "after_restart",
+      "status": "complete",
+      "passed": true,
+      "errors": [],
+      "run_count": 1,
+      "cache_budget": [
+        {
+          "bytes": 10420408,
+          "max_bytes": 3221225472,
+          "passed": true
+        }
+      ],
+      "maximum_observed_num_running": null,
+      "all_eight_streams_generation_overlap_s": null,
+      "normal_inference_prefix_disk_reads_unchanged": true,
+      "memory": {
+        "sample_interval_s": 0.5,
+        "sample_count": 11,
+        "peak_sampled_phys_bytes": 233127548072,
+        "errors": [],
+        "all_samples_under_240_gib": true,
+        "between_sample_peak_unverified": true
+      }
+    }
+  ],
+  "limits": [
+    "The preserved 8192-token GPU forward remains indivisible. The bounded decode priority changes when it is run.",
+    "The 8-second priority window is additive to existing fairness, memory and cross-engine gates; it is not an absolute request latency SLA."
+  ],
+  "restored_checkpoints": [
+    1
+  ],
+  "concurrency8_token_ids_sha256": "0ad7e5040e2f4ad24fc491e5e994757ccf07feb2fd1707a514b134bf0f183479"
+}

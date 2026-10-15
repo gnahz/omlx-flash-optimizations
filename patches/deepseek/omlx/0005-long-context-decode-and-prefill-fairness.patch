@@ -1,0 +1,1445 @@
+diff --git a/omlx/scheduler.py b/omlx/scheduler.py
+--- a/omlx/scheduler.py
++++ b/omlx/scheduler.py
+@@ -18,6 +18,7 @@
+ import importlib
+ import inspect
+ import logging
++import math
+ import os
+ import struct
+ import threading
+@@ -1638,6 +1639,14 @@
+     # any engine decodes, and each chunk accrues a decode time debt repaid
+     # before the next chunk. Inert while nothing is decoding.
+     decode_fairness: bool = True
++    # Models declaring _omlx_preserve_prefill_chunks cannot shrink a prefill
++    # forward without changing their numerical path. Give active decodes this
++    # many seconds before permitting the next expensive intact chunk. Small
++    # uncached tails bypass this wait. An expensive forward restarts the wait,
++    # so continuous decode or short-prefill arrivals cannot starve long prefill.
++    # Zero restores the existing time-debt policy, including chunk geometry.
++    # Read live from scheduler.config to permit same-process A/B comparisons.
++    preserved_prefill_max_defer_seconds: float = 8.0
+ 
+     # Paged cache settings (internal defaults)
+     paged_cache_block_size: int = 256  # Tokens per block
+@@ -1676,6 +1685,18 @@
+     # GC/cleanup settings (memory optimization)
+     gc_cleanup_interval: int = 0  # Steps between gc.collect() calls (0=disabled)
+     mlx_cache_cleanup_interval: int = 512  # Steps between mx.clear_cache() calls
++
++    def __post_init__(self) -> None:
++        value = self.preserved_prefill_max_defer_seconds
++        if (
++            isinstance(value, bool)
++            or not isinstance(value, (int, float))
++            or not math.isfinite(value)
++            or value < 0
++        ):
++            raise ValueError(
++                "preserved_prefill_max_defer_seconds must be finite and nonnegative"
++            )
+ 
+ 
+ @dataclass
+@@ -2042,6 +2063,8 @@
+         self._decode_time_owed_s: float = 0.0
+         self._prefill_hold_until: float = 0.0
+         self._admit_prefill_next: bool = False
++        self._preserved_prefill_wait_started_at: float | None = None
++        self._preserved_prefill_wait_request_ids: set[str] = set()
+         # Measured throughputs feeding the adaptive fairness constants.
+         # Best-observed prefill tok/s sizes the contended chunk (stall-time
+         # target): contended chunks only measure SLOWER, so a running max
+@@ -4018,7 +4041,11 @@
+             # Reclaim Metal intermediates between prefill chunks.
+             Scheduler._clear_cache(self)
+             if vlm_embeds is None:
+-                self._accrue_decode_debt(time.perf_counter() - _trace_chunk_start)
++                self._accrue_decode_debt(
++                    time.perf_counter() - _trace_chunk_start,
++                    request_id=request.request_id,
++                    forward_tokens=n_to_process,
++                )
+             if getattr(request, "benchmark_trace", False):
+                 _trace_total_ms = (
+                     time.perf_counter() - _trace_chunk_start
+@@ -4889,6 +4916,9 @@
+         _mtp_priming.release_request(getattr(self, "model", None), request_id)
+         self._cache_freshness_waits.pop(request_id, None)
+         self._prefix_cache_prepared.discard(request_id)
++        self._preserved_prefill_wait_request_ids.discard(request_id)
++        if not self._preserved_prefill_wait_request_ids:
++            self._preserved_prefill_wait_started_at = None
+         self._throttle_notified_requests.discard(request_id)
+         self._clear_memory_admission_blocker(request_id)
+         self._clear_store_cache_admission_blocker(request_id)
+@@ -5291,6 +5321,99 @@
+         with."""
+         return bool(self.running) or self._others_decoding()
+ 
++    def _preserves_prefill_chunks(self) -> bool:
++        """Only model-declared numerical geometry activates the extra gate."""
++        def model_attribute(host, name):
++            # MLX nn.Module subclasses dict, but capability and wrapper
++            # properties are descriptors, not dictionary entries. Resolve
++            # attributes first; retain plain-dict adapters and mock filtering.
++            try:
++                value = getattr(host, name)
++            except Exception:
++                value = host.get(name) if isinstance(host, dict) else None
++            if type(value).__module__.startswith("unittest.mock"):
++                return None
++            return value
++
++        return any(
++            model_attribute(host, "_omlx_preserve_prefill_chunks") is True
++            for host in (
++                self.model,
++                model_attribute(self.model, "_language_model"),
++                model_attribute(self.model, "language_model"),
++            )
++            if host is not None
++        )
++
++    def _preserved_prefill_must_defer(
++        self, request: Request | None = None, forward_tokens: int = 0
++    ) -> bool:
++        """Drain short decodes, but release one intact chunk after a bounded wait.
++
++        This clock belongs to pending prefill work, not to a decode cohort.
++        Newly arriving decodes therefore never restart it. Existing debt and
++        cross-engine holds still apply after this gate opens, and existing
++        admission/chunk queue rotation chooses which prefill gets the turn.
++        Call only with the next forward's uncached token count after prefix
++        restoration. Calling without a request only retires obsolete clocks.
++        """
++        limit = getattr(self.config, "preserved_prefill_max_defer_seconds", 8.0)
++        if (
++            isinstance(limit, bool)
++            or not isinstance(limit, (int, float))
++            or not math.isfinite(limit)
++            or limit < 0
++        ):
++            raise ValueError(
++                "preserved_prefill_max_defer_seconds must be finite and nonnegative"
++            )
++        pending_ids = {
++            pending.request_id for pending in (*self.waiting, *self.prefilling)
++        }
++        if request is not None:
++            # Admission has already popped this prepared request from waiting.
++            pending_ids.add(request.request_id)
++        previous_ids = getattr(self, "_preserved_prefill_wait_request_ids", set())
++        if (
++            limit == 0
++            or not self._decode_fairness
++            or not pending_ids
++            or not self._preserves_prefill_chunks()
++            or not self._decode_contention()
++            or (previous_ids and not pending_ids.intersection(previous_ids))
++        ):
++            self._preserved_prefill_wait_started_at = None
++            self._preserved_prefill_wait_request_ids = set()
++            previous_ids = set()
++        if (
++            limit == 0
++            or not self._decode_fairness
++            or request is None
++            or not self._preserves_prefill_chunks()
++            or not self._decode_contention()
++            or forward_tokens <= self._contended_prefill_token_budget()
++        ):
++            return False
++        now = time.perf_counter()
++        started = getattr(self, "_preserved_prefill_wait_started_at", None)
++        if started is None:
++            self._preserved_prefill_wait_started_at = now
++            started = now
++        self._preserved_prefill_wait_request_ids = previous_ids | {request.request_id}
++        return now - started < limit
++
++    def _contended_prefill_token_budget(self) -> int:
++        """Estimate a short forward; never changes preserved chunk geometry."""
++        tps = self._prefill_tps_best
++        if tps and tps > 0.0:
++            cap = int(_DECODE_STALL_TARGET_MS / 1000.0 * tps)
++            cap = (cap // _CONTENDED_CHUNK_GRID) * _CONTENDED_CHUNK_GRID
++            return max(
++                _CONTENDED_CHUNK_FLOOR,
++                min(cap, self.config.prefill_step_size),
++            )
++        return _CONTENDED_PREFILL_CHUNK
++
+     def _contended_prefill_cap(self) -> int:
+         """Chunk cap while decodes contend with this prefill (0 = no cap).
+ 
+@@ -5306,24 +5429,9 @@
+         # Some model prefills depend numerically on their chunk geometry.
+         # Preserve their configured chunks under load; fairness still repays
+         # decode debt between chunks, and memory guards remain independent.
+-        if any(
+-            getattr(host, "_omlx_preserve_prefill_chunks", False)
+-            for host in (
+-                self.model,
+-                getattr(self.model, "_language_model", None),
+-                getattr(self.model, "language_model", None),
+-            )
+-        ):
++        if self._preserves_prefill_chunks():
+             return 0
+-        tps = self._prefill_tps_best
+-        if tps and tps > 0.0:
+-            cap = int(_DECODE_STALL_TARGET_MS / 1000.0 * tps)
+-            cap = (cap // _CONTENDED_CHUNK_GRID) * _CONTENDED_CHUNK_GRID
+-            return max(
+-                _CONTENDED_CHUNK_FLOOR,
+-                min(cap, self.config.prefill_step_size),
+-            )
+-        return _CONTENDED_PREFILL_CHUNK
++        return self._contended_prefill_token_budget()
+ 
+     def _prefill_hold_deadline(self) -> float:
+         """Effective hold deadline: own deadline or the shared one.
+@@ -5351,14 +5459,35 @@
+         The debt resets whenever no decode is running anywhere.
+         """
+         if not self._decode_fairness:
++            self._preserved_prefill_wait_started_at = None
++            self._preserved_prefill_wait_request_ids = set()
+             return True
++        self._preserved_prefill_must_defer()
+         if self.running and self._decode_time_owed_s > 0.0:
+             return False
+         if not self.running:
+             self._decode_time_owed_s = 0.0
+         return time.perf_counter() >= self._prefill_hold_deadline()
+ 
+-    def _accrue_decode_debt(self, chunk_seconds: float) -> None:
++    def _accrue_decode_debt(
++        self,
++        chunk_seconds: float,
++        request_id: str | None = None,
++        forward_tokens: int | None = None,
++    ) -> None:
++        # Called after an actual prefill forward, including the first chunk
++        # admitted through _schedule_waiting. Do not reset on gate checks or
++        # new decode arrivals: those would postpone prefill indefinitely.
++        # A short tail from another request must not restart a long request's
++        # deadline. Only forwarding a request that waited earns a new window.
++        if (
++            request_id in getattr(self, "_preserved_prefill_wait_request_ids", set())
++            and (
++                forward_tokens is None
++                or forward_tokens > self._contended_prefill_token_budget()
++            )
++        ):
++            self._preserved_prefill_wait_started_at = time.perf_counter()
+         if not self._decode_fairness:
+             return
+         share = max(0.0, chunk_seconds) * _DECODE_FAIR_SHARE
+@@ -5874,7 +6003,9 @@
+             rate = n / chunk_dt
+             if self._prefill_tps_best is None or rate > self._prefill_tps_best:
+                 self._prefill_tps_best = rate
+-        self._accrue_decode_debt(chunk_dt)
++        self._accrue_decode_debt(
++            chunk_dt, request_id=state.request.request_id, forward_tokens=n
++        )
+         return state.tokens_remaining.shape[1] == 0
+ 
+     def _emit_final_boundary_if_needed(self, state: _PrefillState) -> None:
+@@ -6019,7 +6150,7 @@
+         self,
+         scheduled: "list[Request]",
+         rejected: "list[RequestOutput]",
+-    ) -> None:
++    ) -> bool:
+         """Advance in-flight prefills until decode fairness requires a yield.
+ 
+         Each request advances by at most one chunk per call. Deferred requests precede already-advanced requests in the next round.
+@@ -6033,10 +6164,11 @@
+                 here so the engine can surface the failure to the client.
+         """
+         if not self.prefilling:
+-            return
++            return False
+ 
+         pending_prefills = list(self.prefilling)
+         still_prefilling: deque[Request] = deque()
++        advanced = False
+ 
+         for index, request in enumerate(pending_prefills):
+             rid = request.request_id
+@@ -6051,7 +6183,23 @@
+                 still_prefilling.extendleft(reversed(pending_prefills[index:]))
+                 break
+ 
++            if (
++                self._decode_fairness
++                and self.config.preserved_prefill_max_defer_seconds
++                and self._preserves_prefill_chunks()
++            ):
++                next_tokens = self._next_prefill_chunk_len(state, 0)
++                cache_tokens = state.base_size + state.tokens_processed
++                if state.tail_at is not None and cache_tokens < state.tail_at:
++                    next_tokens = min(next_tokens, state.tail_at - cache_tokens)
++                if self._preserved_prefill_must_defer(request, next_tokens):
++                    # Keep checking: another in-flight request may only have a
++                    # short tail left and must not wait behind this long forward.
++                    still_prefilling.append(request)
++                    continue
++
+             try:
++                advanced = True
+                 done = self._step_prefill_chunk(state)
+             except _PrefillAbortedError:
+                 # Request aborted mid-chunk. Discard state; the abort will
+@@ -6139,6 +6287,7 @@
+             self._insert_prefilled_request(request, state, scheduled)
+ 
+         self.prefilling = still_prefilling
++        return advanced
+ 
+     def _build_state_machine(self, request: "Request") -> StopSequences:
+         """Build a StopSequences for per-request stop tokens.
+@@ -10993,11 +11142,16 @@
+         batch_vlm_status: bool | None = None
+         # Track SpecPrefill: these requests must be alone (RoPE patching affects whole model)
+         batch_specprefill_status: bool | None = None
++        deferred_preserved_ids: set[str] = set()
+ 
+         while (
+             self.waiting
+             and self._num_admitted_requests() < self._effective_max_num_seqs()
+         ):
++            if self.waiting[0].request_id in deferred_preserved_ids:
++                # Each queued request is inspected once per step. Long
++                # requests rotate past short cache-hit tails without spinning.
++                break
+             # Admission pause: set by ProcessMemoryEnforcer when phys
+             # crosses soft_threshold. New prefills wait; in-flight requests
+             # continue. First request always passes (no admitted work yet)
+@@ -11157,6 +11311,23 @@
+                 request.cache_reused_tokens = None
+                 request.remaining_tokens = request.prompt_token_ids
+                 tokens_to_process = request.prompt_token_ids
++
++            if (
++                self._decode_fairness
++                and self.config.preserved_prefill_max_defer_seconds
++                and self._preserves_prefill_chunks()
++            ):
++                next_tokens = min(
++                    max(0, len(tokens_to_process) - 1),
++                    self._prefill_step_size_for_progress(0, len(tokens_to_process)),
++                )
++                if self._preserved_prefill_must_defer(request, next_tokens):
++                    # Cache preparation is request-idempotent. Retain the verified
++                    # cache and residual so retries neither hash nor restore the
++                    # whole prompt again; cancellation uses the existing cleanup.
++                    deferred_preserved_ids.add(request.request_id)
++                    self.waiting.append(request)
++                    continue
+ 
+             # SpecPrefill requests must be alone in the batch (RoPE patching
+             # affects the entire model). Also block scheduling if another
+@@ -13055,6 +13226,7 @@
+         try:
+             # Alternate open prefill opportunities so neither admissions nor in-flight chunks starve.
+             admit_first = False
++            prefilling_before = {request.request_id for request in self.prefilling}
+             prefill_gate_open = self._prefill_gate_open() if self.prefilling else True
+             if (
+                 self._decode_fairness
+@@ -13070,8 +13242,11 @@
+ 
+             chunked_scheduled: list[Request] = []
+             chunked_rejected: list[RequestOutput] = []
++            chunked_advanced = False
+             if self.prefilling and prefill_gate_open:
+-                self._advance_chunked_prefills(chunked_scheduled, chunked_rejected)
++                chunked_advanced = self._advance_chunked_prefills(
++                    chunked_scheduled, chunked_rejected
++                )
+ 
+             if not admit_first:
+                 scheduled, rejected = self._schedule_waiting()
+@@ -13085,9 +13260,21 @@
+             # step_interval between chunks. A step that merely HELD a
+             # prefill for another engine's decode is deliberately not work
+             # — the engine-loop sleep is the hold.
+-            if scheduled or (
+-                self.prefilling and (prefill_gate_open or self.running)
++            prefill_work = bool(self.prefilling and (prefill_gate_open or self.running))
++            if (
++                self._decode_fairness
++                and self.config.preserved_prefill_max_defer_seconds
++                and self._preserves_prefill_chunks()
++                and not self.running
+             ):
++                # A hold for another engine must let the engine loop sleep.
++                # New admissions can have forwarded their first chunk without
++                # completing, independently of _advance_chunked_prefills.
++                prefill_work = chunked_advanced or any(
++                    request.request_id not in prefilling_before
++                    for request in self.prefilling
++                )
++            if scheduled or prefill_work:
+                 output.has_work = True
+             if chunked_rejected:
+                 output.outputs.extend(chunked_rejected)
+@@ -13371,6 +13558,8 @@
+         self._decode_time_owed_s = 0.0
+         self._prefill_hold_until = 0.0
+         self._admit_prefill_next = False
++        self._preserved_prefill_wait_started_at = None
++        self._preserved_prefill_wait_request_ids = set()
+         # A store_cache worker may still be loading request-local boundary
+         # snapshots or publishing blocks. reset() clears both namespaces, so
+         # use the same bounded teardown barrier as shutdown() before aborting
+diff --git a/omlx/engine_core.py b/omlx/engine_core.py
+--- a/omlx/engine_core.py
++++ b/omlx/engine_core.py
+@@ -307,8 +307,8 @@
+     # case) there is no concurrent request to stay responsive to, so we burst
+     # aggressively (decode_burst_budget_single_s). Once concurrent, we use the
+     # tight decode_burst_budget_s to keep admission/abort latency low.
+-    # A request's first generated chunk always ends the burst so buffering
+-    # later decode steps does not add to its time to first token.
++    # A request's first and terminal chunks always end the burst, keeping
++    # later decode or prefill steps out of first-token and completion delivery.
+     # max_steps is a safety cap (bounds the host-side output list), NOT a
+     # memory knob. Set both budgets <= 0, or max_steps <= 1, to disable.
+     decode_burst_max_steps: int = field(
+@@ -357,6 +357,9 @@
+         self.model = model
+         self.tokenizer = tokenizer
+         self.config = config or EngineConfig()
++        # Read live by _step_burst. Isolated controls can disable this while
++        # idle to compare the original completion hand-off in the same process.
++        self._terminal_response_barrier_enabled = True
+         self._engine_id = engine_id or str(uuid.uuid4())
+         self._owns_model = False
+         self._closed = False
+@@ -475,8 +478,8 @@
+         scheduler.step() services aborts/admission/finish every step, so
+         correctness is unchanged; the only cost is event-loop responsiveness,
+         bounded by decode_burst_budget_s. Stops early when no work remains, a
+-        request produces its first chunk, a prefill eviction needs the (async)
+-        callback, or the budget elapses —
++        request produces its first or terminal chunk, a prefill eviction needs
++        the (async) callback, or the budget elapses —
+         the budget also ends the burst when a slow prefill-chunk step lands.
+ 
+         Runs on the MLX executor thread. Returns the SchedulerOutputs in order.
+@@ -499,6 +502,15 @@
+         deadline = time.monotonic() + budget
+         while len(outputs) < max_steps:
+             last = outputs[-1]
++            # Deliver completions before another scheduler step can start an
++            # uncontented synchronous prefill. A burst's outputs do not reach
++            # HTTP collectors until this executor hand-off returns; the last
++            # decode disappearing must not strand its final packet behind a
++            # queued long prompt. Empty-token and error completions count too.
++            if getattr(self, "_terminal_response_barrier_enabled", True) and (
++                last.finished_request_ids or any(item.finished for item in last.outputs)
++            ):
++                break
+             # Also release the first chunk of a request admitted mid-burst.
+             # Comparing cumulative and new tokens covers multi-token steps
+             # without per-request tracking. Later chunks retain normal bursts.
+diff --git a/tests/test_engine_core.py b/tests/test_engine_core.py
+--- a/tests/test_engine_core.py
++++ b/tests/test_engine_core.py
+@@ -1815,13 +1815,13 @@
+             engine.close()
+ 
+     def test_empty_token_output_does_not_end_burst(self, mock_model, mock_tokenizer):
+-        """A terminal/control output with zero tokens is not a first chunk."""
++        """A nonterminal control output with zero tokens keeps ordinary bursts."""
+         engine = self._make_engine(mock_model, mock_tokenizer, max_steps=4)
+         try:
+             engine.scheduler.step = MagicMock(
+                 return_value=SchedulerOutput(
+                     has_work=True,
+-                    outputs=[RequestOutput(request_id="a", finished=True)],
++                    outputs=[RequestOutput(request_id="a", finished=False)],
+                 )
+             )
+             engine.scheduler.has_requests = MagicMock(return_value=True)
+diff --git a/tests/test_deepseek_v41_growth_lifecycle_cpu.py b/tests/test_deepseek_v41_growth_lifecycle_cpu.py
+new file mode 100644
+--- /dev/null
++++ b/tests/test_deepseek_v41_growth_lifecycle_cpu.py
+@@ -0,0 +1,290 @@
++"""CPU-only correctness of growth across rollback, batching and checkpoint I/O.
++
++These tests use the real storage/rollback/persistence implementations with small
++arrays. They never load a model or invoke a target backbone/Metal kernel. The
++checkpoint seed is an already-owned live prefix, so the test exercises actual
++stage/checksum/load/restore without calling the GPU-only compact-copy kernel.
++"""
++from types import SimpleNamespace
++import hashlib
++import struct
++import time
++
++import mlx.core as mx
++import numpy as np
++import pytest
++
++from omlx.patches.deepseek_v41 import growth
++from omlx.patches.deepseek_v41.cache import DeepseekV41Cache
++from omlx.patches.deepseek_v41.mtp import DSparkMixin
++from omlx.patches.deepseek_v41.prefix_cache import (
++    CHUNK, Entry, ExactPrefixCache, cache_arrays, clone_cache,
++)
++from omlx.patches.mlx_lm_mtp.deepseek_v4_dspark import (
++    DSparkContextCache, _DSparkPrimeContext,
++)
++
++
++@pytest.fixture(autouse=True)
++def cpu_growth(monkeypatch):
++    previous = mx.default_device()
++    mx.set_default_device(mx.cpu)
++    monkeypatch.setattr(growth, "ENABLED", True)
++    monkeypatch.setattr(growth, "PINGPONG", True)
++
++    def reject_metal(*args, **kwargs):
++        raise AssertionError("CPU lifecycle tests must not construct Metal kernels")
++
++    monkeypatch.setattr(mx.fast, "metal_kernel", reject_metal)
++    yield
++    mx.synchronize()
++    mx.set_default_device(previous)
++
++
++def rows(count, width, seed):
++    return np.random.default_rng(seed).integers(0, 256, (1, count, width), dtype=np.uint8)
++
++
++def raw(array):
++    return None if array is None else np.asarray(array.view(mx.uint8)).copy()
++
++
++def assert_bits(actual, expected):
++    if actual is None or expected is None:
++        assert actual is expected
++    else:
++        assert actual.shape == expected.shape and actual.dtype == expected.dtype
++        np.testing.assert_array_equal(raw(actual), raw(expected))
++
++
++def seed_slot(cache, slot, values):
++    cache[slot] = mx.zeros((1, 0, values.shape[-1]), mx.uint8)
++    # Build a real idle/current registry rather than only testing first append.
++    split = [max(0, values.shape[1] - 64), max(0, values.shape[1] - 32), values.shape[1]]
++    start = 0
++    for end in split:
++        if end > start:
++            cache[slot] = growth.append(cache, slot, cache[slot], mx.array(values[:, start:end]), start)
++            start = end
++
++
++def cache_at(tokens, ratio, seed=0):
++    cache = DeepseekV41Cache(ratio)
++    cache[0] = mx.array([tokens], mx.int32)
++    cache[1] = mx.array(rows(min(tokens, 8), 528, seed + 1))
++    seed_slot(cache, 2, rows(tokens // ratio, 288, seed + 2))
++    seed_slot(cache, 3, rows(tokens // ratio, 68, seed + 3))
++    cache[4] = mx.array(rows(tokens % ratio, 512, seed + 4)).astype(mx.float32)
++    cache[5] = mx.array(rows(tokens % ratio, 512, seed + 5)).astype(mx.float32)
++    cache[6] = mx.array([[7, 8, 9]], mx.int64)
++    return cache
++
++
++class History:
++    def __call__(self, ids, history):
++        joined = np.concatenate([np.asarray(history), np.asarray(ids)], axis=1)
++        return None, joined[:, -3:]
++
++
++@pytest.mark.parametrize("enabled", [False, True])
++@pytest.mark.parametrize("ratio", [1, 2, 4])
++@pytest.mark.parametrize("before", [17, 18])
++@pytest.mark.parametrize("accepted", [0, 1, 3])
++def test_real_mtp_rollback_and_following_append_match_committed_prefix(
++    monkeypatch, enabled, ratio, before, accepted,
++):
++    """Exercise actual rollback at compression boundaries, including full accept."""
++    monkeypatch.setattr(growth, "ENABLED", enabled)
++    cache = cache_at(before, ratio, seed=31)
++    cache.left_padding, cache.lengths = mx.array([12], mx.int32), mx.array([40], mx.int32)
++    snapshot = (list(cache.cache), cache.left_padding, cache.lengths)
++    old_bits = [raw(value) for value in snapshot[0]]
++    inputs = mx.array([[21, 22, 23, 24]], mx.int32)
++    count = accepted + 1
++    end = before + count
++    verified_end = before + inputs.shape[1]
++    new_count = verified_end // ratio - before // ratio
++    values = {slot: rows(new_count, width, slot + 99) for slot, width in ((2, 288), (3, 68))}
++    for slot in (2, 3):
++        cache[slot] = growth.append(cache, slot, cache[slot], mx.array(values[slot]), before // ratio)
++    window = mx.concatenate([snapshot[0][1], mx.array(rows(4, 528, 90))], axis=1)
++    compressor = tuple(mx.concatenate([snapshot[0][slot],
++        mx.array(rows(4, 512, slot + 91)).astype(mx.float32)], axis=1) for slot in (4, 5))
++    projected_end = before % ratio + 4
++    cutoff = projected_end // ratio * ratio
++    cache[0] = mx.array([verified_end], mx.int32)
++    cache[1] = window[:, -8:]
++    if ratio > 1:
++        cache[4], cache[5] = (value[:, cutoff:] for value in compressor)
++    cache[6] = mx.array([[22, 23, 24]], mx.int64)
++    cache.left_padding, cache.lengths = snapshot[1] - 4, snapshot[2] - 4
++    cache._mtp_draft_stash = (inputs, [snapshot], before,
++        [{"window": window, "compressor": compressor}])
++    owner = SimpleNamespace(_config=SimpleNamespace(window_size=8), _hasher=History())
++
++    assert DSparkMixin.mtp_partial_rollback(owner, [cache], accepted, 3)
++    assert cache._mtp_draft_stash is None
++    assert cache.size() == end
++    np.testing.assert_array_equal(np.asarray(cache.left_padding), [12 - count])
++    np.testing.assert_array_equal(np.asarray(cache.lengths), [40 - count])
++    committed_rows = end // ratio - before // ratio
++    for slot in (2, 3):
++        expected = np.concatenate([np.asarray(snapshot[0][slot]), values[slot][:, :committed_rows]], axis=1)
++        np.testing.assert_array_equal(np.asarray(cache[slot]), expected)
++    expected_window_end = min(before, 8) + count
++    assert_bits(cache[1], window[:, max(0, expected_window_end - 8):expected_window_end])
++    if ratio > 1:
++        projected_end = before % ratio + count
++        cutoff = projected_end // ratio * ratio
++        for slot, value in zip((4, 5), compressor):
++            assert_bits(cache[slot], value[:, cutoff:projected_end])
++    np.testing.assert_array_equal(np.asarray(cache[6]), np.concatenate(
++        [np.asarray(snapshot[0][6]), np.asarray(inputs)[:, :count]], axis=1)[:, -3:])
++
++    # A new verify/decode append must not revive rejected rows from the idle bank.
++    for slot, width in ((2, 288), (3, 68)):
++        committed = np.asarray(cache[slot]).copy()
++        addition = rows(2, width, slot + 111)
++        cache[slot] = growth.append(cache, slot, cache[slot], mx.array(addition), end // ratio)
++        np.testing.assert_array_equal(np.asarray(cache[slot]), np.concatenate([committed, addition], axis=1))
++    # Retained causal snapshots keep their bytes despite registry reuse/COW.
++    for value, original in zip(snapshot[0], old_bits):
++        np.testing.assert_array_equal(raw(value), original)
++
++
++def test_ragged_batch_filter_reorder_and_interleaved_growth_keep_requests_separate():
++    originals = {name: cache_at(tokens, 2, seed) for name, tokens, seed in
++                 (("a", 14, 1), ("b", 22, 11), ("c", 18, 21))}
++    expected = {name: {slot: np.asarray(cache[slot]).copy() for slot in (2, 3)}
++                for name, cache in originals.items()}
++    tokens = {name: cache.size() for name, cache in originals.items()}
++    order = ["a", "b"]
++    batch = DeepseekV41Cache.merge([originals[name] for name in order])
++    for step in range(18):
++        extracted = []
++        for row, name in enumerate(order):
++            cache = batch.extract(row, offset=tokens[name])
++            add = 1 + (step + row) % 5
++            start = tokens[name] // 2
++            keep = start + add - (1 if step % 3 == 0 else 0)
++            for slot, width in ((2, 288), (3, 68)):
++                addition = rows(add, width, 1000 + step * 10 + row + slot)
++                cache[slot] = growth.append(cache, slot, cache[slot][:, :start], mx.array(addition), start)
++                growth.truncate(cache, slot, keep)
++                expected[name][slot] = np.concatenate([expected[name][slot], addition], axis=1)[:, :keep]
++                np.testing.assert_array_equal(np.asarray(cache[slot]), expected[name][slot])
++            tokens[name] = keep * 2
++            cache[0] = mx.array([tokens[name]], mx.int32)
++            extracted.append(cache)
++        batch = DeepseekV41Cache.merge(extracted)
++        if step == 3:
++            batch.filter([1, 0])
++            order.reverse()
++            batch.extend(originals["c"])
++            order.append("c")
++        elif step == 10:
++            batch.filter([2, 0])
++            order = [order[2], order[0]]
++        elif step == 14:
++            batch.filter([1])
++            order = [order[1]]
++        for row, name in enumerate(order):
++            restored = batch.extract(row, offset=tokens[name])
++            for slot in (2, 3):
++                np.testing.assert_array_equal(np.asarray(restored[slot]), expected[name][slot])
++        if batch.batch_size == 1:
++            assert batch.extract(0)._ds41_buffers is batch._ds41_buffers
++
++
++def add_prime_context(cache, offset):
++    stages = []
++    for seed in (41, 42, 43):
++        stage = DSparkContextCache(128)
++        stage.offset = offset
++        stage.keys = mx.array(rows(8, 16, seed).reshape(1, 1, 8, 16))
++        stages.append(stage)
++    cache._omlx_mtp_prime_ctx = _DSparkPrimeContext(stages, offset)
++
++
++def seeded_manager(directory, ratio):
++    live = cache_at(CHUNK, ratio, seed=51)
++    live.left_padding = mx.array([0], mx.int32)
++    live.lengths = mx.array([CHUNK], mx.int32)
++    add_prime_context(live, CHUNK)
++    live._mtp_verify_state = {"private": "must not serialize"}
++    live._mtp_draft_stash = object()
++    snapshot = clone_cache([live])
++    assert not hasattr(snapshot[0], "_ds41_buffers")
++    assert not hasattr(snapshot[0], "_mtp_verify_state")
++    assert not hasattr(snapshot[0], "_mtp_draft_stash")
++    tokens = list(range(CHUNK + 17))
++    packed = struct.pack(f"<{CHUNK}I", *tokens[:CHUNK])
++    key = hashlib.sha256(b"ds41-ced-8192-v1" + packed).digest()
++    entry = Entry(packed, snapshot, sum(value.nbytes for value in cache_arrays(snapshot)) + len(packed))
++    manager = ExactPrefixCache(16 << 20)
++    manager.entries[key], manager.bytes = entry, entry.size
++    manager._revision += 1
++    fingerprint = {"runtime": "growth-lifecycle-cpu-v1", "storage_policy": {"growth": True, "pingpong": True}}
++    manager.configure_persistence(directory, fingerprint, interval_seconds=300)
++    return manager, tokens, fingerprint
++
++
++def assert_independent_readers(manager, tokens):
++    first, reused, _ = manager.prepare(tokens)
++    second, other_reused, _ = manager.prepare(tokens)
++    assert reused == other_reused == CHUNK
++    snapshot = next(iter(manager.entries.values())).cache
++    before = [raw(value) for value in cache_arrays(second)]
++    for cache in (first, second):
++        assert not hasattr(cache[0], "_ds41_buffers")
++        assert not hasattr(cache[0], "_mtp_verify_state")
++        assert cache[0]._omlx_mtp_prime_ctx is not snapshot[0]._omlx_mtp_prime_ctx
++    for slot, width in ((2, 288), (3, 68)):
++        a = first[0]
++        original = np.asarray(a[slot]).copy()
++        start = original.shape[1]
++        a[slot] = growth.append(a, slot, a[slot], mx.array(rows(3, width, slot + 81)), start)
++        growth.truncate(a, slot, start + 1)
++        a[slot] = growth.append(a, slot, a[slot], mx.array(rows(2, width, slot + 82)), start + 1)
++        assert a[slot].shape[1] == start + 3
++        np.testing.assert_array_equal(np.asarray(a[slot])[:, :start], original)
++    first[0]._omlx_mtp_prime_ctx.caches[0].keys[:] = 0
++    first[0]._omlx_mtp_prime_ctx.caches[0].offset += 1
++    for value, original in zip(cache_arrays(second), before):
++        np.testing.assert_array_equal(raw(value), original)
++    for value, original in zip(cache_arrays(snapshot), before):
++        np.testing.assert_array_equal(raw(value), original)
++    assert second[0]._omlx_mtp_prime_ctx.caches[0].offset == CHUNK
++
++
++@pytest.mark.parametrize("ratio", [1, 2])
++def test_exact_prefix_clone_and_disk_restore_reseed_growth_without_shared_mutable_state(tmp_path, ratio, monkeypatch):
++    manager, tokens, fingerprint = seeded_manager(tmp_path, ratio)
++    loaded, mismatched = ExactPrefixCache(16 << 20), ExactPrefixCache(16 << 20)
++    try:
++        assert_independent_readers(manager, tokens)
++        deadline = time.monotonic() + 10
++        while manager.persistence_step(force=True):
++            assert time.monotonic() < deadline
++            time.sleep(.001)
++        assert manager.snapshot_stats()["persistence"]["saves"] == 1
++        current = (tmp_path / "current.json").read_bytes()
++        # A storage-policy version must participate in deployment identity;
++        # rejection happens before mx.load and does not mutate the old manifest.
++        mismatched.configure_persistence(tmp_path,
++            {**fingerprint, "storage_policy": {"growth": False, "pingpong": True}}, 300)
++        with monkeypatch.context() as patch:
++            patch.setattr(mx, "load", lambda *a, **kw: (_ for _ in ()).throw(AssertionError("loaded wrong identity")))
++            assert mismatched.restore_persisted() == 0
++        assert mismatched.snapshot_stats()["persistence"]["restore_loads"] == 0
++        assert (tmp_path / "current.json").read_bytes() == current
++
++        loaded.configure_persistence(tmp_path, fingerprint, 300)
++        assert loaded.restore_persisted() == 1
++        assert_independent_readers(loaded, tokens)
++        for value, expected in zip(cache_arrays(next(iter(loaded.entries.values())).cache),
++                                   cache_arrays(next(iter(manager.entries.values())).cache)):
++            assert_bits(value, expected)
++    finally:
++        for item in (manager, loaded, mismatched):
++            item.close_persistence()
+diff --git a/tests/test_engine_terminal_delivery_cpu.py b/tests/test_engine_terminal_delivery_cpu.py
+new file mode 100644
+--- /dev/null
++++ b/tests/test_engine_terminal_delivery_cpu.py
+@@ -0,0 +1,144 @@
++"""Terminal delivery across the actual executor/collector boundary; no forwards."""
++
++import asyncio
++from collections import deque
++from types import SimpleNamespace
++from unittest.mock import patch
++
++import pytest
++
++from omlx.engine_core import EngineConfig, EngineCore
++from omlx.output_collector import RequestOutputCollector
++from omlx.request import RequestOutput
++from omlx.scheduler import SchedulerOutput
++
++
++def bare_engine(step, pending=None):
++    engine = EngineCore.__new__(EngineCore)
++    engine.config = EngineConfig(
++        decode_burst_max_steps=4,
++        decode_burst_budget_s=10,
++        decode_burst_budget_single_s=10,
++    )
++    engine.scheduler = SimpleNamespace(
++        step=step, running={}, waiting=pending or deque(), has_requests=lambda: True
++    )
++    return engine
++
++
++@pytest.mark.parametrize("finished_ids,finished", [(True, False), (False, True), (True, True)])
++@pytest.mark.parametrize("tokens", [[], [71]])
++def test_terminal_fields_end_burst_without_starting_pending_prefill(finished_ids, finished, tokens):
++    terminal = SchedulerOutput(
++        has_work=True,
++        finished_request_ids={"A"} if finished_ids else set(),
++        outputs=[RequestOutput(request_id="A", new_token_ids=tokens,
++                               completion_tokens=380, finished=finished)],
++    )
++    events = []
++
++    def step():
++        events.append("A-terminal")
++        assert len(events) == 1, "Pending B prefill ran before terminal delivery"
++        return terminal
++
++    pending = deque(["B", "C"])
++    engine = bare_engine(step, pending)
++    assert engine._step_burst() == [terminal]
++    assert events == ["A-terminal"]
++    assert list(engine.scheduler.waiting) == ["B", "C"]
++
++
++def test_nonterminal_later_chunks_continue_burst_in_order():
++    steps = [SchedulerOutput(
++        has_work=True, outputs=[RequestOutput(request_id="A", new_token_ids=[i],
++                                              completion_tokens=i)])
++        for i in range(2, 6)]
++    pending = deque(steps)
++    engine = bare_engine(pending.popleft)
++    assert engine._step_burst() == steps
++    assert not pending
++
++
++def test_nonterminal_empty_control_output_keeps_burst():
++    step = SchedulerOutput(has_work=True, outputs=[RequestOutput(request_id="A")])
++    assert bare_engine(lambda: step)._step_burst() == [step] * 4
++
++
++def test_completion_keeps_other_decode_outputs_and_pending_requests():
++    other = RequestOutput(request_id="C", new_token_ids=[31], completion_tokens=12)
++    terminal = SchedulerOutput(has_work=True, finished_request_ids={"A"}, outputs=[
++        RequestOutput(request_id="A", completion_tokens=380, finished=True), other])
++    following = SchedulerOutput(has_work=False, outputs=[
++        RequestOutput(request_id="C", new_token_ids=[32], completion_tokens=13)])
++    steps = deque([terminal, following])
++    pending = deque(["B"])
++    engine = bare_engine(steps.popleft, pending)
++    engine.scheduler.running = {"C": object()}
++    assert engine._step_burst() == [terminal]
++    assert terminal.outputs[1] is other
++    assert list(pending) == ["B"]
++    assert engine._step_burst() == [following]
++
++
++def test_finished_id_without_token_outputs_is_a_delivery_barrier():
++    terminal = SchedulerOutput(has_work=True, finished_request_ids={"A"})
++    assert bare_engine(lambda: terminal)._step_burst() == [terminal]
++
++
++@pytest.mark.parametrize("finished_ids,finished", [(True, False), (False, True), (True, True)])
++def test_live_disabled_barrier_restores_original_burst(finished_ids, finished):
++    terminal = SchedulerOutput(
++        has_work=True, finished_request_ids={"A"} if finished_ids else set(),
++        outputs=[RequestOutput(request_id="A", completion_tokens=380, finished=finished)])
++    pending = deque(["B"])
++    engine = bare_engine(lambda: terminal, pending)
++    engine._terminal_response_barrier_enabled = False
++    assert engine._step_burst() == [terminal] * 4
++    assert list(pending) == ["B"]
++    engine._terminal_response_barrier_enabled = True
++    assert engine._step_burst() == [terminal]
++    assert list(pending) == ["B"]
++
++
++def test_terminal_reaches_collector_before_next_prefill_handoff(mock_model, mock_tokenizer):
++    """Use the real async engine loop and executor, with prefill replaced by a marker."""
++    async def scenario():
++        loop = asyncio.get_running_loop()
++        with patch("omlx.engine_core.get_registry") as registry:
++            registry.return_value.acquire.return_value = True
++            engine = EngineCore(model=mock_model, tokenizer=mock_tokenizer,
++                config=EngineConfig(decode_burst_max_steps=4,
++                                    decode_burst_budget_s=10,
++                                    decode_burst_budget_single_s=10))
++        assert engine._terminal_response_barrier_enabled is True
++        collector = engine._output_collectors["A"] = RequestOutputCollector()
++        finished = engine._finished_events["A"] = asyncio.Event()
++        prefill_entered = asyncio.Event()
++        pending = deque(["A-finish", "B-prefill"])
++        observed = []
++        terminal = RequestOutput(request_id="A", new_text="done",
++                                 completion_tokens=380, finished=True, finish_reason="stop")
++
++        def step():
++            phase = pending.popleft()
++            if phase == "A-finish":
++                return SchedulerOutput(has_work=True, outputs=[terminal], finished_request_ids={"A"})
++            observed.append(collector.output is terminal and finished.is_set())
++            loop.call_soon_threadsafe(prefill_entered.set)
++            return SchedulerOutput(has_work=False)
++
++        try:
++            with patch.object(engine.scheduler, "step", side_effect=step), \
++                 patch.object(engine.scheduler, "has_requests", side_effect=lambda: bool(pending)):
++                await engine.start()
++                await asyncio.wait_for(finished.wait(), timeout=2)
++                await asyncio.wait_for(prefill_entered.wait(), timeout=2)
++                assert observed == [True]
++                assert collector.get_nowait() is terminal
++                assert not pending
++        finally:
++            await engine.stop()
++            engine.close()
++
++    asyncio.run(scenario())
+diff --git a/tests/test_preserved_prefill_decode_priority.py b/tests/test_preserved_prefill_decode_priority.py
+new file mode 100644
+--- /dev/null
++++ b/tests/test_preserved_prefill_decode_priority.py
+@@ -0,0 +1,525 @@
++"""Bounded scheduling for models whose prefill chunk geometry is numerical state.
++
++No model forward is evaluated. Existing scheduler doubles run on CPU in the
++test runner; the policy clock is deterministic rather than wall-clock sleeps.
++"""
++from types import SimpleNamespace
++from unittest.mock import MagicMock, patch
++
++import mlx.core as mx
++import mlx.nn as nn
++import pytest
++
++from omlx.decode_activity import get_decode_activity
++from omlx.prefill_progress import get_prefill_tracker
++from omlx.scheduler import SchedulerConfig
++from test_prefill_fairness_budget import (
++    add_prefill,
++    make_request,
++    make_scheduler,
++    prefill_ids,
++)
++
++
++@pytest.fixture(autouse=True)
++def isolated_activity():
++    get_decode_activity().clear()
++    get_prefill_tracker().clear()
++    with patch("omlx.scheduler._sync_and_clear_cache"):
++        yield
++    get_decode_activity().clear()
++    get_prefill_tracker().clear()
++
++
++@pytest.fixture
++def clock(monkeypatch):
++    current = SimpleNamespace(now=100.0)
++    monkeypatch.setattr("omlx.scheduler.time.perf_counter", lambda: current.now)
++    return current
++
++
++def preserved_scheduler(**settings):
++    scheduler = make_scheduler(prefill_step_size=8192, **settings)
++    scheduler.model._omlx_preserve_prefill_chunks = True
++    return scheduler
++
++
++def long_request(request_id="waiting"):
++    return make_request(request_id, 20000)
++
++
++def must_defer(scheduler, request=None, tokens=8192):
++    if request is None:
++        request = scheduler.waiting[0]
++    return scheduler._preserved_prefill_must_defer(request, tokens)
++
++
++def add_long_prefill(scheduler, request_id):
++    request = add_prefill(scheduler, request_id)
++    state = scheduler._prefill_states[request_id]
++    state.tokens_remaining = mx.zeros((1, 20000), dtype=mx.int32)
++    return request
++
++
++def add_decode(scheduler, request_id="decode"):
++    scheduler.running[request_id] = make_request(request_id)
++
++
++def test_default_is_eight_and_only_real_model_marker_enables_policy(clock):
++    assert SchedulerConfig().preserved_prefill_max_defer_seconds == 8.0
++    scheduler = make_scheduler(prefill_step_size=8192)
++    add_decode(scheduler)
++    scheduler.add_request(long_request("waiting"))
++    assert not scheduler._preserves_prefill_chunks()  # auto-created MagicMock attrs
++    assert not must_defer(scheduler)
++    for attribute in ("_language_model", "language_model"):
++        scheduler.model = SimpleNamespace(
++            **{attribute: SimpleNamespace(_omlx_preserve_prefill_chunks=True)}
++        )
++        assert scheduler._preserves_prefill_chunks()
++    scheduler.model = SimpleNamespace(_omlx_preserve_prefill_chunks=1)
++    assert not scheduler._preserves_prefill_chunks()
++
++
++@pytest.mark.parametrize("wrapper", [None, "_language_model", "language_model"])
++def test_mlx_module_capability_and_wrapper_properties_are_read(clock, wrapper):
++    class PreservedModule(nn.Module):
++        @property
++        def _omlx_preserve_prefill_chunks(self):
++            return True
++
++    model = PreservedModule()
++    assert isinstance(model, dict)
++    assert model.get("_omlx_preserve_prefill_chunks") is None
++    if wrapper is not None:
++        # The wrapper itself is also a descriptor absent from dictionary keys.
++        Wrapped = type("Wrapped", (nn.Module,), {
++            wrapper: property(lambda self: self["inner"])
++        })
++        wrapped = Wrapped()
++        wrapped["inner"] = model
++        assert wrapped.get(wrapper) is None
++        model = wrapped
++    scheduler = preserved_scheduler()
++    scheduler.model = model
++    add_decode(scheduler)
++    scheduler.add_request(long_request())
++    assert scheduler._preserves_prefill_chunks()
++    assert scheduler._contended_prefill_cap() == 0
++    assert scheduler._prefill_step_size_for_progress(0, 20000) == 8192
++    assert must_defer(scheduler)
++    clock.now = 108
++    assert not must_defer(scheduler)
++
++
++def test_real_ds41_language_property_keeps_geometry_and_priority(clock):
++    from omlx.patches.deepseek_v41.language import LanguageModel
++    from test_deepseek_v41 import tiny_ced
++
++    scheduler = preserved_scheduler()
++    scheduler.model = LanguageModel(tiny_ced(ced_prefill=True))
++    add_decode(scheduler)
++    scheduler.add_request(long_request())
++    assert scheduler.model._omlx_preserve_prefill_chunks is True
++    assert scheduler._preserves_prefill_chunks()
++    assert scheduler._contended_prefill_cap() == 0
++    assert scheduler._prefill_step_size_for_progress(0, 20000) == 8192
++    assert must_defer(scheduler)
++    scheduler.config.preserved_prefill_max_defer_seconds = 0
++    assert not must_defer(scheduler)
++    assert scheduler._prefill_step_size_for_progress(0, 20000) == 8192
++
++
++def test_plain_dict_explicit_bool_capability_still_works(clock):
++    scheduler = preserved_scheduler()
++    scheduler.model = {"language_model": {"_omlx_preserve_prefill_chunks": True}}
++    assert scheduler._preserves_prefill_chunks()
++
++
++@pytest.mark.parametrize("value", [-1, float("inf"), float("nan"), True, "8", None])
++def test_invalid_defer_config_is_rejected(value):
++    with pytest.raises(ValueError, match="finite and nonnegative"):
++        SchedulerConfig(preserved_prefill_max_defer_seconds=value)
++
++
++def test_waiting_prefill_drains_short_decode_without_changing_chunks(clock):
++    scheduler = preserved_scheduler()
++    add_decode(scheduler)
++    waiting = long_request("waiting")
++    scheduler.add_request(waiting)
++    assert must_defer(scheduler)
++    assert scheduler._prefill_step_size_for_progress(0, 100000) == 8192
++    clock.now = 105.5
++    scheduled, rejected = scheduler._schedule_waiting()
++    assert scheduled == rejected == []
++    assert list(scheduler.waiting) == [waiting]
++    scheduler.running.clear()
++    assert not must_defer(scheduler)
++    assert scheduler._preserved_prefill_wait_started_at is None
++    assert scheduler._prefill_step_size_for_progress(0, 100000) == 8192
++
++
++def test_live_zero_restores_existing_debt_gate_and_eight_restarts_wait(clock):
++    scheduler = preserved_scheduler()
++    add_decode(scheduler)
++    scheduler.add_request(long_request("waiting"))
++    assert must_defer(scheduler)
++    clock.now = 102
++    scheduler.config.preserved_prefill_max_defer_seconds = 0
++    assert not must_defer(scheduler)
++    assert scheduler._preserved_prefill_wait_started_at is None
++    scheduler._decode_time_owed_s = .5
++    assert not scheduler._prefill_gate_open()
++    scheduler._repay_decode_debt(.5)
++    assert not must_defer(scheduler)
++    scheduler.config.preserved_prefill_max_defer_seconds = 8
++    assert must_defer(scheduler)
++    assert scheduler._preserved_prefill_wait_started_at == 102
++
++
++def test_new_decodes_and_prefills_do_not_refresh_existing_deadline(clock):
++    scheduler = preserved_scheduler()
++    add_decode(scheduler)
++    scheduler.add_request(long_request("old-waiting"))
++    assert must_defer(scheduler)
++    for turn in range(1, 8):
++        clock.now = 100+turn
++        add_decode(scheduler, f"new-decode-{turn}")
++        scheduler.add_request(long_request(f"new-waiting-{turn}"))
++        assert must_defer(scheduler)
++        assert scheduler._preserved_prefill_wait_started_at == 100
++    clock.now = 108
++    assert not must_defer(scheduler)
++
++
++def test_expired_deadline_advances_one_full_chunk_then_rotates_fairly(clock):
++    scheduler = preserved_scheduler()
++    add_decode(scheduler)
++    ids = ["prefill-a", "prefill-b", "prefill-c"]
++    for request_id in ids:
++        add_long_prefill(scheduler, request_id)
++    forwarded = []
++
++    def advance(state):
++        forwarded.append(state.request.request_id)
++        assert scheduler._prefill_step_size_for_progress(0, 100000) == 8192
++        clock.now += 4
++        scheduler._accrue_decode_debt(4, request_id=state.request.request_id)
++        return False
++
++    with patch.object(scheduler, "_step_prefill_chunk", side_effect=advance):
++        scheduler._advance_chunked_prefills([], [])
++        assert forwarded == []
++        for turn, request_id in enumerate(ids*2):
++            clock.now += 8
++            scheduler._repay_decode_debt(scheduler._decode_time_owed_s)
++            scheduler._advance_chunked_prefills([], [])
++            assert forwarded == (ids*2)[:turn+1]
++            assert prefill_ids(scheduler)[-1] == request_id
++            scheduler._advance_chunked_prefills([], [])
++            assert len(forwarded) == turn+1
++    assert prefill_ids(scheduler) == ids
++
++
++def test_disabled_fairness_and_no_decode_remain_immediate(clock):
++    scheduler = preserved_scheduler(decode_fairness=False)
++    add_decode(scheduler)
++    scheduler.add_request(long_request("waiting"))
++    assert not must_defer(scheduler)
++    scheduler._decode_fairness = True
++    scheduler.running.clear()
++    assert not must_defer(scheduler)
++    assert scheduler._preserved_prefill_wait_started_at is None
++
++
++def test_own_debt_and_other_engine_hold_still_apply_after_deadline(clock):
++    scheduler = preserved_scheduler()
++    add_decode(scheduler)
++    scheduler.add_request(long_request("waiting"))
++    assert must_defer(scheduler)
++    clock.now = 108
++    scheduler._decode_time_owed_s = 1
++    assert not scheduler._prefill_gate_open()
++    scheduler._repay_decode_debt(1)
++    get_decode_activity().extend_hold(110)
++    assert not scheduler._prefill_gate_open()
++    clock.now = 110
++    assert not must_defer(scheduler)
++
++
++def test_other_engine_decode_gets_bounded_priority_too(clock):
++    scheduler = preserved_scheduler()
++    scheduler.add_request(long_request("waiting"))
++    get_decode_activity().publish("other-decoder", 1)
++    assert must_defer(scheduler)
++    clock.now = 108
++    assert not must_defer(scheduler)
++    get_decode_activity().publish("other-decoder", 0)
++    assert not must_defer(scheduler)
++    assert scheduler._preserved_prefill_wait_started_at is None
++
++
++def test_cancelled_wait_does_not_expire_new_request_priority(clock):
++    scheduler = preserved_scheduler()
++    add_decode(scheduler)
++    scheduler.add_request(long_request("cancelled"))
++    assert must_defer(scheduler)
++    scheduler.waiting.clear()  # cancellation can replace queue before another step
++    clock.now = 120
++    scheduler.add_request(long_request("new-waiting"))
++    assert must_defer(scheduler)
++    assert scheduler._preserved_prefill_wait_started_at == 120
++    scheduler.waiting.clear()
++    assert scheduler._prefill_gate_open()
++    assert scheduler._preserved_prefill_wait_request_ids == set()
++
++
++def test_step_services_decode_while_both_prefill_entrypoints_are_held(clock):
++    scheduler = preserved_scheduler()
++    add_decode(scheduler)
++    add_long_prefill(scheduler, "inflight")
++    scheduler.add_request(long_request("new-waiting"))
++    scheduler.batch_generator.next_generated.return_value = iter([])
++    with (
++        patch.object(scheduler, "_step_prefill_chunk") as advance,
++        patch.object(scheduler, "_begin_prefill") as begin,
++        patch.object(scheduler, "_do_external_prefill") as external,
++    ):
++        result = scheduler.step()
++    advance.assert_not_called()
++    begin.assert_not_called()
++    external.assert_not_called()
++    scheduler.batch_generator.next_generated.assert_called_once()
++    assert result.has_work
++
++
++def test_reset_clears_pending_decode_priority(clock):
++    scheduler = preserved_scheduler()
++    add_decode(scheduler)
++    scheduler.add_request(long_request("waiting"))
++    assert must_defer(scheduler)
++    scheduler.reset()
++    assert scheduler._preserved_prefill_wait_started_at is None
++    assert scheduler._preserved_prefill_wait_request_ids == set()
++
++
++def test_prepared_long_request_is_restored_once_while_waiting(clock):
++    scheduler = preserved_scheduler()
++    add_decode(scheduler)
++    request = make_request("partial-long", 30000)
++    scheduler.add_request(request)
++    cache = []
++    exact = SimpleNamespace(prepare=MagicMock(return_value=(cache, 8192, object())))
++    with (
++        patch.object(scheduler, "_configure_exact_prefix_cache", return_value=exact),
++        patch.object(scheduler, "_validate_cache", return_value=True),
++    ):
++        for now in (100, 101, 107.999):
++            clock.now = now
++            scheduled, rejected = scheduler._schedule_waiting()
++            assert scheduled == rejected == []
++            assert list(scheduler.waiting) == [request]
++            assert request.prompt_cache is cache
++            assert request.remaining_tokens == request.prompt_token_ids[8192:]
++    exact.prepare.assert_called_once_with(request.prompt_token_ids, 8192)
++    assert scheduler._preserved_prefill_wait_started_at == 100
++
++
++@pytest.mark.parametrize("cached,total", [(8192, 8242), (0, 257)])
++def test_hot_cache_tail_and_partial_short_prompt_do_not_wait(clock, cached, total):
++    scheduler = preserved_scheduler()
++    add_decode(scheduler)
++    request = make_request("short", total)
++    scheduler.add_request(request)
++    exact = SimpleNamespace(prepare=MagicMock(return_value=([], cached, object())))
++    with (
++        patch.object(scheduler, "_configure_exact_prefix_cache", return_value=exact),
++        patch.object(scheduler, "_validate_cache", return_value=True),
++        patch.object(scheduler, "_do_external_prefill", return_value=([], [total-1])) as forward,
++    ):
++        scheduled, rejected = scheduler._schedule_waiting()
++    assert scheduled == [request]
++    assert rejected == []
++    assert len(forward.call_args.args[1]) == total-cached
++    assert scheduler._preserved_prefill_wait_started_at is None
++
++
++def test_long_head_does_not_block_eight_hot_tails_or_lose_its_deadline(clock):
++    scheduler = preserved_scheduler(max_num_seqs=16)
++    add_decode(scheduler)
++    long = long_request("long")
++    scheduler.add_request(long)
++    short = [make_request(f"hot-{index}", 8242) for index in range(8)]
++    for request in short:
++        scheduler.add_request(request)
++    exact = SimpleNamespace(
++        prepare=MagicMock(side_effect=lambda tokens, step: (
++            [], 8192 if len(tokens) == 8242 else 0, object()
++        ))
++    )
++
++    def forward(request, tokens, cache, **kwargs):
++        scheduler._accrue_decode_debt(.02, request_id=request.request_id)
++        return [], tokens[-1:]
++
++    with (
++        patch.object(scheduler, "_configure_exact_prefix_cache", return_value=exact),
++        patch.object(scheduler, "_validate_cache", return_value=True),
++        patch.object(scheduler, "_do_external_prefill", side_effect=forward),
++    ):
++        admitted = []
++        for now in (100, 101, 102, 103, 104, 105, 106, 107):
++            clock.now = now
++            scheduler._repay_decode_debt(scheduler._decode_time_owed_s)
++            scheduled, rejected = scheduler._schedule_waiting()
++            admitted.extend(scheduled)
++            assert rejected == []
++            assert scheduler._preserved_prefill_wait_started_at == 100
++        assert admitted == short
++        assert list(scheduler.waiting) == [long]
++        assert exact.prepare.call_count == 9
++        clock.now = 108
++        scheduler._repay_decode_debt(scheduler._decode_time_owed_s)
++        assert not must_defer(scheduler)
++
++
++def test_short_inflight_tail_bypasses_long_chunk_without_refreshing_timer(clock):
++    scheduler = preserved_scheduler()
++    add_decode(scheduler)
++    long = add_long_prefill(scheduler, "long")
++    tail = add_prefill(scheduler, "tail")
++    assert must_defer(scheduler, long)
++    clock.now = 107
++    forwarded = []
++
++    def advance(state):
++        forwarded.append(state.request.request_id)
++        scheduler._accrue_decode_debt(.01, request_id=state.request.request_id)
++        return False
++
++    with patch.object(scheduler, "_step_prefill_chunk", side_effect=advance):
++        scheduler._advance_chunked_prefills([], [])
++    assert forwarded == [tail.request_id]
++    assert scheduler._preserved_prefill_wait_started_at == 100
++    clock.now = 108
++    scheduler._repay_decode_debt(.01)
++    assert not must_defer(scheduler, long)
++
++
++def test_cancel_prepared_wait_cleans_cache_marker_and_priority(clock):
++    scheduler = preserved_scheduler()
++    add_decode(scheduler)
++    request = long_request("cancelled")
++    scheduler.add_request(request)
++    exact = SimpleNamespace(prepare=MagicMock(return_value=([], 8192, object())))
++    with patch.object(scheduler, "_configure_exact_prefix_cache", return_value=exact):
++        scheduler._schedule_waiting()
++    assert request.request_id in scheduler._prefix_cache_prepared
++    assert scheduler._preserved_prefill_wait_started_at == 100
++    scheduler.abort_request(request.request_id)
++    scheduler._process_pending_aborts()
++    assert not scheduler.waiting
++    assert request.request_id not in scheduler._prefix_cache_prepared
++    assert scheduler._preserved_prefill_wait_request_ids == set()
++    assert scheduler._preserved_prefill_wait_started_at is None
++
++
++def test_other_engine_hold_sleeps_but_released_chunk_reports_work(clock):
++    scheduler = preserved_scheduler()
++    add_long_prefill(scheduler, "long")
++    get_decode_activity().publish("other-decoder", 1)
++
++    def advance(state):
++        scheduler._accrue_decode_debt(4, request_id=state.request.request_id)
++        return False
++
++    with patch.object(scheduler, "_step_prefill_chunk", side_effect=advance) as forward:
++        result = scheduler.step()
++        assert not result.has_work
++        forward.assert_not_called()
++        clock.now = 108
++        result = scheduler.step()
++        assert result.has_work
++        forward.assert_called_once()
++
++
++def test_measured_budget_classifies_cost_without_resizing_chunk(clock):
++    scheduler = preserved_scheduler()
++    add_decode(scheduler)
++    request = long_request()
++    scheduler.add_request(request)
++    scheduler._prefill_tps_best = 2000
++    assert scheduler._contended_prefill_token_budget() == 960
++    assert not must_defer(scheduler, request, 960)
++    assert must_defer(scheduler, request, 961)
++    assert scheduler._prefill_step_size_for_progress(0, 20000) == 8192
++
++
++def test_invalid_short_cache_uses_full_prompt_cost(clock):
++    scheduler = preserved_scheduler()
++    add_decode(scheduler)
++    request = make_request("invalid-hit", 8242)
++    scheduler.add_request(request)
++    exact = SimpleNamespace(prepare=MagicMock(return_value=([], 8192, object())))
++    with (
++        patch.object(scheduler, "_configure_exact_prefix_cache", return_value=exact),
++        patch.object(scheduler, "_validate_cache", return_value=False),
++        patch.object(scheduler, "_do_external_prefill") as forward,
++    ):
++        scheduled, rejected = scheduler._schedule_waiting()
++    assert scheduled == rejected == []
++    assert list(scheduler.waiting) == [request]
++    assert request.remaining_tokens == request.prompt_token_ids
++    assert request.cached_tokens == 0
++    forward.assert_not_called()
++    assert scheduler._preserved_prefill_wait_started_at == 100
++
++
++def test_live_zero_admits_original_full_first_chunk_in_same_process(clock):
++    scheduler = preserved_scheduler()
++    add_decode(scheduler)
++    request = long_request()
++    scheduler.add_request(request)
++    with patch.object(scheduler, "_step_prefill_chunk", return_value=False) as forward:
++        scheduler._schedule_waiting()
++        forward.assert_not_called()
++        scheduler.config.preserved_prefill_max_defer_seconds = 0
++        scheduler._schedule_waiting()
++    forward.assert_called_once()
++    state = forward.call_args.args[0]
++    assert state.request is request
++    assert state.tokens_remaining.shape[1] == 19999
++    assert scheduler._prefill_step_size_for_progress(0, 19999) == 8192
++    assert scheduler._preserved_prefill_wait_started_at is None
++
++
++@pytest.mark.parametrize("chunked", [False, True])
++def test_formerly_expensive_request_short_tail_keeps_other_deadline(clock, chunked):
++    scheduler = preserved_scheduler()
++    add_decode(scheduler)
++    b = add_long_prefill(scheduler, "B")
++    c = add_long_prefill(scheduler, "C")
++    assert must_defer(scheduler, b)
++    assert must_defer(scheduler, c)
++    clock.now = 112
++    scheduler._accrue_decode_debt(4, request_id="B", forward_tokens=8192)
++    scheduler._repay_decode_debt(scheduler._decode_time_owed_s)
++    clock.now = 119
++    assert must_defer(scheduler, c)
++    assert not must_defer(scheduler, b, 43)
++    assert "B" in scheduler._preserved_prefill_wait_request_ids
++    scheduler.model.side_effect = lambda *args, **kwargs: None
++    with (
++        patch("omlx.scheduler.make_prompt_cache", return_value=[]),
++        patch.object(scheduler, "_announce_first_prefill_chunk"),
++        patch.object(scheduler, "_reserve_qsa_index_capacity"),
++    ):
++        if chunked:
++            state = scheduler._prefill_states["B"]
++            state.tokens_remaining = mx.zeros((1, 43), dtype=mx.int32)
++            scheduler._step_prefill_chunk(state)
++        else:
++            scheduler._do_external_prefill(b, list(range(44)), [])
++    assert scheduler._preserved_prefill_wait_started_at == 112
++    clock.now = 120
++    assert not must_defer(scheduler, c)

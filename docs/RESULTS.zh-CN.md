@@ -2,9 +2,36 @@
 
 [English](RESULTS.md) · [复现](REPRODUCE.zh-CN.md)
 
-这里汇总本人 2026-10-07 的本机存档测试与后续缓存验收。硬件为 Apple M5 Ultra，30 CPU / 64 GPU 核、256 GiB，macOS 27.0.1。公开源码迁移后的新验收单独记在[发布验收](VALIDATION.zh-CN.md)，不覆盖历史性能结果。
+这里汇总本人的本机测试，硬件为 Apple M5 Ultra，30 CPU / 64 GPU 核、256 GiB，macOS 27.0.1。2026-10-15 验收在原生产实机上、使用相同模型和 runtime 于隔离端口完成，随后恢复 8011 并回放；较早章节保留 2026-10-07 存档与后续缓存验收。公开包的移植检查单独记在[发布验收](VALIDATION.zh-CN.md)，不替代存档计时。
 
 版本基线：DeepSeek 使用 oMLX `0.7.0.dev4`，Qwen 使用 oMLX `0.7.0`。
+
+## 2026-10-15：长上下文 decode 与并发 prefill
+
+本次验收在原生产实机的隔离服务上运行，使用相同模型和 runtime，固定权重、原生二进制与量化不变，之后恢复生产 8011 并通过回放。`0005-long-context-decode-and-prefill-fairness.patch` 在 `0004` 后移植这些 runtime 改动；发布不表示已从公开 checkout 再跑完整模型。发布准备期间，已恢复的生产 8011 服务继续运行。
+
+| 负载 / 指标 | 基线均值 | 修复后均值 | 变化 |
+|---|---:|---:|---:|
+| 1M 上下文，API generation token/s | 47.485 | **50.840** | **+7.0654%（7.1%）** |
+| 同一 1M 负载，API generation duration | 5.455 s | **5.095 s** | — |
+| 64K 热缓存 A 与 262K 冷 B 并发，A API generation token/s | 16.27 | **54.89** | **3.3737×** |
+| 同一并发负载，A API generation duration | 23.355 s | **6.920 s** | — |
+| 同一并发负载，A 客户端 SSE DONE 时间 | 24.030475 s | **7.560659 s** | **−68.54%** |
+| 同一并发负载，B 客户端首个输出用时 | 142.212814 s | 141.839588 s | 描述性数据；本次未观察到增加 |
+
+两组负载分别采用四轮 ABBA、每个 arm 两轮。同一负载的完整发送输入、完整生成输出、生成 token SHA256、结束原因及非计时 usage 在两种设置下完全一致。1M 请求虽设置更高上限，实际均为 **259 token、EOS 结束**；并发 A/B 实际输出分别为 **380/128 token**。相同实际长度与完整身份使对照可比，不混作 512-token 测试。每个 arm 两次观察只支持本机这组比较，不用于宣称总体统计置信度。表格为显示用舍入值，收益按汇总中的原始实测值计算。
+
+**growth 单项对照**的实际 prompt 为 **1,040,040 token，复用 1,032,192 token，记录的剩余 prefill chunk 为 7,847 token**；它测前缀复用后的 decode，不是 1M-token 冷 prefill。仅切换 growth，两种设置均固定 `preserved_prefill_max_defer_seconds=0`、诊断终包屏障关闭；开启 growth 时使用已有 ping-pong 双缓冲，没有引入新 attention 数学或重写 growth 实现。
+
+**并发对照**中 A 为 **65,580 prompt token / 65,536 reused token**，B 为 **262,190 prompt token / 零复用**；仅在 A 第一个真实非空输出到达后才提交 B。该对照同时切换 growth、新增 decode 优先窗口和终包屏障，结果只能归因于三项联合修复，不能拆算各项收益。这些诊断控制设置与公开启动器不同，后者两种 profile 均默认启用终包修复。
+
+调度改动是在下一次保留 decode 状态的冷 prefill 开始前，为已运行的 decode 增加 **8 秒优先窗口**。它不是绝对延迟 SLA，也不是逐 token 的 GPU 抢占：完整 **8192-token forward 仍不可抢占**，此前的调度与内存条件仍然适用。引擎还在终包边界结束 step burst，让已完成请求的 SSE DONE 先到客户端，再开始下一次冷 prefill。推迟 B 可能增加其首 token 排队，但本次 B 的客户端首个输出平均用时未增加；这点小差异只作描述，不另作因果收益。B 的 reported prefill duration 与 TTFT 均含排队，不能当成纯 GPU prefill 时间。[逐轮汇总](../results/qualification/deepseek/decode-20261015/summary.json)保留请求时间。API generation 吞吐和客户端 SSE DONE 用时覆盖不同区间，都不是独立 GPU kernel 计时。
+
+另一次 **实际输出 2048 token** 的运行验证固定策略下等待中的 prefill 最终能够执行；它使用不同 prompt，只作功能性防饥饿覆盖，不纳入同输入性能 A/B。热缓存验收观察到 **八个 running 请求、共同重叠 6.0989 秒**，完整输出/token 一致，并完成有序重启持久化与原生产 8011 恢复后的回放。这组有限验收不证明八个最大上下文请求的容量或持续聚合吞吐。
+
+原部署 **791 项 CPU 测试通过：scheduler 663 + 终包交付 52 + growth 生命周期 44 + launcher/gate 32**。终包 52 项由 14 项新增与 38 项既有同步测试组成。因缺少 `pytest-asyncio`，**47 项既有异步测试未运行**，不声称完整 engine 套件全过。CPU 字节一致性和逻辑 capacity 检查不测 GPU buffer donation 或真实物理访存；端到端速度来自上方独立的真实模型运行。本次修复未改原生二进制、权重张量或量化。
+
+[脱敏测量汇总](../results/qualification/deepseek/decode-20261015/summary.json)与[清单](../results/qualification/deepseek/decode-20261015/manifest.json)记录逐轮指标、输入/输出/token 身份和原证据 SHA。公开包的源码/CPU 移植检查另见[发布验收](VALIDATION.zh-CN.md)，不把原生产验收改称新的公开包 GPU 回放。
 
 ## 精确元数据压缩
 

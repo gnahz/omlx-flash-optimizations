@@ -4,6 +4,20 @@
 
 历史性能数据位于 `results/published/`；本页只记录公开复现包已实际完成的检查，不把未运行的工作流标为已验证。
 
+## 2026-10-15 decode/调度更新
+
+原生产实机使用相同模型和 runtime，在隔离端口完成真实模型验收，随后恢复 8011 并成功回放。1M growth 与热 A/冷 B 并发对照各为四轮 ABBA、每个 arm 两轮，完整发送输入/输出/token 身份与非计时 usage 一致；实际输出分别为 1M 的 259/EOS、并发 A/B 的 380/128 token。独立 2048-token 输出只作功能性防饥饿覆盖。八路热缓存达到八个 running 请求、共同重叠 6.0989 秒，并通过持久化、重启及恢复后的 8011 回放。详见[证据说明](../results/qualification/deepseek/decode-20261015/README.md)、[汇总](../results/qualification/deepseek/decode-20261015/summary.json)和[清单](../results/qualification/deepseek/decode-20261015/manifest.json)。
+
+原 runtime **791 项主 CPU 测试通过：scheduler 663、终包交付 52、growth 生命周期 44、launcher/gate 32**。终包组包括 14 项新增与 38 项既有同步测试。因缺少 `pytest-asyncio`，**47 项既有异步测试未运行**。CPU 字节一致性/逻辑容量检查与端到端 GPU 实测属于不同证据，CPU 测试不测物理 GPU 访存，也不代表完整异步 engine 套件通过。
+
+<!-- DECODE_20261015_PORTABLE_VALIDATION -->
+**本次公开包移植检查：285 项主测试通过**，包括 **100 项发布仓库测试 + 185 项干净补丁源码测试**。仓库运行另有 **55 个 subtest 通过**，不计入主测试数，**0 skipped**。干净源码覆盖为 **180 项相关回归通过 / 47 项既有异步测试 deselected**，另有 **5 项既有 growth 测试通过 / 72 项不相关测试 deselected**。这不是新增 285 个测试，也不与原 runtime 的 791 相加。`QWEN_TEST_SOURCE` 使用现有 prepared optimized 源码，连带检查历史补丁集成，不表示新跑了 Qwen 模型。MLX 补丁后，完整 DeepSeek `0001`–`0005` 顺序应用成功，**六份补丁 SHA256 全部一致**；新增 `0005` 的**六个目标文件也与原验收 runtime 版本逐字节一致**。实际命令、范围与源码身份见 [`release-validation.json`](../results/qualification/deepseek/decode-20261015/release-validation.json)。
+<!-- /DECODE_20261015_PORTABLE_VALIDATION -->
+
+本次公开包更新新增源码/CPU 集成证据，**没有声称从重定位后的公开 checkout 再跑完整模型**。发布准备与检查期间，恢复后的生产 8011 服务保持运行；decode/调度修复未修改原生二进制、模型张量或量化。下方历史验收仍属于各自版本与负载。
+
+## 较早发布版本的验收
+
 - DeepSeek 驱动/启动器 **17 项 CPU 测试通过**：完整 SSE 与失败证据、固定样本 checksum、精确输入构建、ABBA/预热计数、bulk/tail 路径区分、完整输出与草稿计数身份、localhost 鉴权、活跃请求控制保护、独立缓存配置、每次新 key、清理继承的引擎/auth 环境、cluster shim/reaper 状态限定于工作目录，以及有期限的启动连接重试且 auth/HTTP 错误立即失败。两个 `--help` 均不导入 MLX。
 - 使用真实固定 CPU tokenizer/formatter，三个存档请求均得到精确 8192 token；场景 0 确定性构建的 16384、32768、8242 token 输入也全部验证，无模型或 HTTP 请求。
 - DeepSeek 实际权重切片 GPU 组件检查：**1,218 case 与 40 control 全通过，BF16 mismatch 为零**，覆盖第 0/19/39 层的选定专家、元数据解码与字典 prefill，并对照原始 NAX oracle。峰值 MLX 分配为 301,542,446 bytes；仅加载选定切片，不加载完整模型、不测模型吞吐。证据为 [`actual-metadata-prefill.json`](../results/qualification/deepseek/actual-metadata-prefill.json)、[`validator-provenance.json`](../results/qualification/deepseek/validator-provenance.json)。

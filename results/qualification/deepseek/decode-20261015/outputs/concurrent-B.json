@@ -1,0 +1,13 @@
+{
+  "choices": [
+    {
+      "index": 0,
+      "content": "Based on the provided code and documentation, here is a summary in five bullet points:\n\n*   **oMLX is a macOS-native LLM inference server** optimized for Apple Silicon, featuring continuous batching, tiered KV caching (hot RAM + cold SSD), and a menu bar app for management. It supports text LLMs, vision-language models, embeddings, and rerankers via an OpenAI-compatible API.\n*   **The project includes extensive benchmarking and experimental features**, such as multi-Mac distributed inference, MoE expert offloading for models larger than memory, and custom Metal kernels for specific model families (e.g., GL",
+      "reasoning": "",
+      "tool_calls": [],
+      "finish_reason": "length"
+    }
+  ],
+  "done": true,
+  "server_error": false
+}

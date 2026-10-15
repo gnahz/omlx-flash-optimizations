@@ -70,7 +70,87 @@ def profile_settings(name):
     return dict(profile=name, max_concurrent_requests=1 if name == "benchmark" else 8,
                 prefix_cache_enabled=name == "cached", process_limit_gib=240,
                 wired_limit_mib=245760, prefill_step_size=8192, gate_up=False,
-                dspark_async=True, metadata_prefill=True)
+                dspark_async=True, metadata_prefill=True,
+                packed_cache_growth=name == "cached", packed_cache_growth_pingpong=True,
+                preserved_prefill_max_defer_seconds=8.0 if name == "cached" else 0.0,
+                terminal_response_barrier=True)
+
+
+def profile_flags(profile):
+    # growth.py reads these at import. Preserve the historical benchmark's
+    # disabled growth and the original PINGPONG=1 default explicitly.
+    return {**FLAGS, "DS41_GROWTH": "1" if profile["packed_cache_growth"] else "0",
+            "DS41_GROWTH_PINGPONG": "1" if profile["packed_cache_growth_pingpong"] else "0"}
+
+
+def runtime_environment(environment, profile, work, proof):
+    result = isolated_environment(environment)
+    result.update(profile_flags(profile), DS41_NATIVE_METADATA=str(proof),
+                  DS41_PREFIX_CACHE_GIB="3" if profile["prefix_cache_enabled"] else "0",
+                  HF_HUB_OFFLINE="1", TRANSFORMERS_OFFLINE="1",
+                  XDG_CACHE_HOME=str(work / "cache/xdg"), HF_HOME=str(work / "cache/huggingface"))
+    return result
+
+
+def configure_scheduler(scheduler, profile):
+    scheduler.prefill_step_size = profile["prefill_step_size"]
+    scheduler.max_num_seqs = profile["max_concurrent_requests"]
+    scheduler.preserved_prefill_max_defer_seconds = profile["preserved_prefill_max_defer_seconds"]
+    scheduler.prefill_speed_priority = False
+    scheduler.paged_ssd_cache_dir = None
+    scheduler.hot_cache_only, scheduler.hot_cache_max_size = False, 0
+    return scheduler
+
+
+def decode_policy(profile):
+    return {"version": 1, "packed_cache_growth": profile["packed_cache_growth"],
+            "packed_cache_growth_pingpong": profile["packed_cache_growth_pingpong"],
+            "preserved_prefill_max_defer_seconds": profile["preserved_prefill_max_defer_seconds"],
+            "terminal_response_barrier": profile["terminal_response_barrier"],
+            "prefill_step_size": profile["prefill_step_size"]}
+
+
+def cache_fingerprint(source, proof, model, config, profile):
+    return dict(runtime=runtime_hash(source),
+                metadata_proof=sha(proof), chunk_tokens=8192, dspark_async=True,
+                decode_policy=decode_policy(profile),
+                model_settings=sha(config / "model_settings.json"),
+                model_files={name: sha(model / name) for name in
+                    ("config.json", "tokenizer.json", "tokenizer_config.json", "model.safetensors.index.json")
+                    if (model / name).exists()})
+
+
+def cache_settings(work, profile):
+    return dict(enabled=profile["prefix_cache_enabled"], persistence_enabled=profile["prefix_cache_enabled"],
+                directory=str(work / "cache/exact-prefix-v2-decode-fixes"), capacity_gib=3,
+                save_interval_seconds=300, startup_timeout_seconds=900, shutdown_timeout_seconds=120)
+
+
+def scheduler_snapshot(state):
+    rows = {}
+    pool = getattr(state, "engine_pool", None)
+    if pool is None:
+        return rows
+    for name, entry in pool._entries.items():
+        core = getattr(getattr(getattr(entry, "engine", None), "_engine", None), "engine", None)
+        scheduler = getattr(core, "scheduler", None)
+        if scheduler is None:
+            continue
+        config = getattr(scheduler, "config", None)
+        preserves = getattr(scheduler, "_preserves_prefill_chunks", None)
+        row = {"max_num_seqs": getattr(config, "max_num_seqs", None),
+               "prefill_step_size": getattr(config, "prefill_step_size", None),
+               "preserve_prefill_chunks": False,
+               "preserved_prefill_max_defer_seconds":
+                   getattr(config, "preserved_prefill_max_defer_seconds", None),
+               "terminal_response_barrier": getattr(core, "_terminal_response_barrier_enabled", None) is True}
+        if callable(preserves):
+            try:
+                row["preserve_prefill_chunks"] = preserves() is True
+            except Exception as error:
+                row["preserve_prefill_chunks_error"] = type(error).__name__
+        rows[name] = row
+    return rows
 
 
 def prepare_config(work, model, name, host, port):
@@ -141,10 +221,10 @@ def idle_snapshot(state, inflight):
 
 class Controller:
     def __init__(self, server, prefill, metadata, dspark, profile, cache, fingerprint,
-                 gate=None, source=None, proof=None):
+                 gate=None, source=None, proof=None, growth=None):
         self.server, self.prefill, self.dspark = server, prefill, dspark
         self.profile, self.cache, self.fingerprint = profile, cache, fingerprint
-        self.gate, self.source, self.proof = gate, source, proof
+        self.gate, self.source, self.proof, self.growth = gate, source, proof, growth
         self.inflight = 0
         self.admission = asyncio.Lock()
         self.stat_lock = threading.Lock()
@@ -172,6 +252,9 @@ class Controller:
                     profile=self.profile, controls={"metadata_prefill": self.prefill.ENABLED},
                     runtime_flags={"gate_up": bool(self.gate and self.gate.ENABLED),
                                    "dspark_async": self.dspark.DRAFT_ASYNC},
+                    decode_runtime={"packed_cache_growth": getattr(self.growth, "ENABLED", None) is True,
+                                    "packed_cache_growth_pingpong": getattr(self.growth, "PINGPONG", None) is True},
+                    schedulers=scheduler_snapshot(self.server._server_state),
                     idle=idle_snapshot(self.server._server_state, self.inflight), stats=stats,
                     fingerprint=self.fingerprint, cache=self.cache.snapshot())
         if check_sources:
@@ -297,13 +380,9 @@ def main():
     logfile = log_path.open("a", buffering=1)
     log_path.chmod(0o600)
     sys.stdout, sys.stderr = Tee(sys.stdout, logfile), Tee(sys.stderr, logfile)
-    clean = isolated_environment(os.environ)
+    clean = runtime_environment(os.environ, profile, work, proof)
     os.environ.clear()
     os.environ.update(clean)
-    os.environ.update(FLAGS, DS41_NATIVE_METADATA=str(proof),
-                      DS41_PREFIX_CACHE_GIB="3" if args.profile == "cached" else "0",
-                      HF_HUB_OFFLINE="1", TRANSFORMERS_OFFLINE="1",
-                      XDG_CACHE_HOME=str(work / "cache/xdg"), HF_HOME=str(work / "cache/huggingface"))
     sys.path.insert(0, str(source))
     import omlx
     if Path(omlx.__file__).resolve().parent != source / "omlx":
@@ -313,7 +392,7 @@ def main():
     from omlx.cluster import worker_shim, launch as cluster_launch
     from omlx.scheduler import SchedulerConfig
     from omlx.custom_kernels.glm_moe_dsa import fast
-    from omlx.patches.deepseek_v41 import dspark, native_gate_up, native_metadata, native_metadata_prefill
+    from omlx.patches.deepseek_v41 import dspark, growth, native_gate_up, native_metadata, native_metadata_prefill
     from deepseek_helpers.cache_runtime import CacheRuntime
     required = ("deepseek_v41_grouped_expert", "deepseek_v41_packed_attention",
                 "deepseek_mxfp4_gather_qmm_pair_concat_blocks", "deepseek_affine_gather_qmm_pair_concat_blocks",
@@ -327,27 +406,16 @@ def main():
     initialize = server.init_server
     def init(*a, **kw):
         scheduler = kw.get("scheduler_config") or SchedulerConfig()
-        scheduler.prefill_step_size, scheduler.max_num_seqs = 8192, profile["max_concurrent_requests"]
-        scheduler.prefill_speed_priority = False
-        scheduler.paged_ssd_cache_dir = None
-        scheduler.hot_cache_only, scheduler.hot_cache_max_size = False, 0
-        kw["scheduler_config"] = scheduler
+        kw["scheduler_config"] = configure_scheduler(scheduler, profile)
         return initialize(*a, **kw)
     server.init_server = init
-    fingerprint = dict(runtime=runtime_hash(source),
-                       metadata_proof=sha(proof), chunk_tokens=8192, dspark_async=True,
-                       model_settings=sha(config / "model_settings.json"),
-                       model_files={name: sha(model / name) for name in
-                           ("config.json", "tokenizer.json", "tokenizer_config.json", "model.safetensors.index.json")
-                           if (model / name).exists()})
-    cache_config = dict(enabled=args.profile == "cached", persistence_enabled=args.profile == "cached",
-                        directory=str(work / "cache/exact-prefix-v1"), capacity_gib=3,
-                        save_interval_seconds=300, startup_timeout_seconds=900, shutdown_timeout_seconds=120)
+    fingerprint = cache_fingerprint(source, proof, model, config, profile)
+    cache_config = cache_settings(work, profile)
     cache = CacheRuntime(server, cache_config, fingerprint, logs / "cache-shutdown.json").install()
     controller = Controller(server, native_metadata_prefill, native_metadata, dspark, profile, cache, fingerprint,
-                            gate=native_gate_up, source=source, proof=proof)
+                            gate=native_gate_up, source=source, proof=proof, growth=growth)
     server.app.add_middleware(ControlMiddleware, controller=controller, key=key)
-    (config / "launch.json").write_text(json.dumps(dict(profile=profile, flags=FLAGS,
+    (config / "launch.json").write_text(json.dumps(dict(profile=profile, flags=profile_flags(profile),
         fingerprint=fingerprint, host=args.host, port=args.port, log=str(log_path)), indent=2) + "\n")
     print(json.dumps(dict(url=f"http://{args.host}:{args.port}/v1", model=MODEL_ID,
                          key_file=str(config / "api-key.txt"), profile=profile, log=str(log_path))), flush=True)

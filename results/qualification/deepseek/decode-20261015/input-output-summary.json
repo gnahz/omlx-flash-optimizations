@@ -1,0 +1,118 @@
+{
+  "canonical_json_sha256": "SHA256 of UTF-8 json.dumps(sort_keys=True, separators=(comma,colon), ensure_ascii=False), no trailing newline.",
+  "payload_sha256_scope": "Exact original payload.json bytes, including full captured input; no regenerated fixture is asserted identical.",
+  "token_ids_sha256_scope": "Original server completion diagnostic token-ID SHA256, independently matched per completed request. Raw token-ID arrays are not included.",
+  "cases": [
+    {
+      "label": "growth-1m",
+      "input": {
+        "description": "Fixed captured oMLX source-code fixture; summarize the code above in five bullet points.",
+        "payload_sha256": "25c277ceaae2fc8c219e6a2f385a8c3cf7da634e2b31c2a523a1dcbc1ab3bca5",
+        "payload_bytes": 4314792,
+        "message_summaries": [
+          {
+            "role": "user",
+            "content_characters": 4162736,
+            "content_utf8_sha256": "9b63e05df636f133112429bbb6fc064115c2eb82c4f2b2b12cb24199d79a178a"
+          }
+        ],
+        "parameters": {
+          "model": "deepseek-v41-lsq",
+          "temperature": 0,
+          "max_tokens": 512,
+          "stream": true,
+          "stream_options": {
+            "include_usage": true
+          },
+          "enable_thinking": false,
+          "chat_template_kwargs": {
+            "enable_thinking": false
+          }
+        },
+        "full_input_released": false
+      },
+      "output": {
+        "path": "outputs/growth-1m.json",
+        "canonical_sha256": "bcf92e0e92ead6dac3bf932589dd63627dee144f30eb7812873abed5d52dabf3",
+        "token_ids_sha256": "561384867531a03e9cb76f0920453292737ea4f9c9d2cdc8e6bbef55bb0dc1c1",
+        "actual_completion_tokens": 259,
+        "finish_reason": "stop",
+        "done": true
+      }
+    },
+    {
+      "label": "concurrent-A",
+      "input": {
+        "description": "Fixed captured oMLX source-code fixture; summarize the code above in five bullet points.",
+        "payload_sha256": "28be38164334eaa614ab7a78eef7033848579c6c1f95091e1a5675be6fe06509",
+        "payload_bytes": 230461,
+        "message_summaries": [
+          {
+            "role": "user",
+            "content_characters": 223474,
+            "content_utf8_sha256": "f5248ce96f18f28e8755734d319111af7841db052e54f104383a06ad09bfdbde"
+          }
+        ],
+        "parameters": {
+          "model": "deepseek-v41-lsq",
+          "temperature": 0,
+          "max_tokens": 512,
+          "stream": true,
+          "stream_options": {
+            "include_usage": true
+          },
+          "enable_thinking": false,
+          "chat_template_kwargs": {
+            "enable_thinking": false
+          }
+        },
+        "full_input_released": false
+      },
+      "output": {
+        "path": "outputs/concurrent-A.json",
+        "canonical_sha256": "3e7b0dcdb54f450d5fb8283d7861d050cc1f3e0b1e1f6478c58da301f1dc984d",
+        "token_ids_sha256": "42f3c1ce30b740c510b928a5d989350d762bade05f7ce384e132a9200189715d",
+        "actual_completion_tokens": 380,
+        "finish_reason": "stop",
+        "done": true
+      }
+    },
+    {
+      "label": "concurrent-B",
+      "input": {
+        "description": "Fixed captured oMLX source-code fixture; summarize the code above in five bullet points.",
+        "payload_sha256": "cf151ed0ab72b52ae47d0128c869692bb66a7fac23c7ac9625da84b09797d268",
+        "payload_bytes": 918300,
+        "message_summaries": [
+          {
+            "role": "user",
+            "content_characters": 894651,
+            "content_utf8_sha256": "2aa1ade22f0be9011f57ca20456dccf40ac99800fc8bff7a5d5e7ba9e7c8ee70"
+          }
+        ],
+        "parameters": {
+          "model": "deepseek-v41-lsq",
+          "temperature": 0,
+          "max_tokens": 128,
+          "stream": true,
+          "stream_options": {
+            "include_usage": true
+          },
+          "enable_thinking": false,
+          "chat_template_kwargs": {
+            "enable_thinking": false
+          }
+        },
+        "full_input_released": false
+      },
+      "output": {
+        "path": "outputs/concurrent-B.json",
+        "canonical_sha256": "270a9cf3232aae7f9928ce9db4c1c736ded8f5daedca010dfb026faa7b159553",
+        "token_ids_sha256": "deec8c2d244fff0157b7bdbe900f6b93ff71b98856f28b5dddabd84ac6e8db8d",
+        "actual_completion_tokens": 128,
+        "finish_reason": "length",
+        "done": true
+      }
+    }
+  ]
+}

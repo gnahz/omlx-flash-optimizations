@@ -10,7 +10,25 @@ Pinned, ordered kernel and engine patches for **DeepSeek V4.1 Flash LSQ3-G128** 
 - **Direct dictionary prefill.** A native tiled GEMM reads that representation directly during qualified bulk prefill, removing full metadata expansion from that path. The engine retains checked dense fallback for tails and unsupported shapes. Prefill improves **4.21% / 3.79% / 3.75%** at 8K / 16K / 32K in the same-process A/B test; decode is unchanged within that comparison.
 - **Engine integration.** DeepSeek adds bounded exact-prefix retention and restart persistence. Qwen adds safe lookup-policy handling and public-prefix tail retention, with the qualified startup hooks moved into engine/scheduler patches. Benchmark and cached serving use separate profiles.
 
-## Published results
+## 2026-10-15: long-context decode and concurrent prefill
+
+The original production machine ran acceptance on isolated ports with the same model/runtime, then restored port 8011 and passed a replay. These results are separate from the earlier 512-token benchmark below.
+
+| Workload / metric | Baseline | Fixed | Change |
+|---|---:|---:|---:|
+| 1M context, API generation tokens/s | 47.485 | **50.840** | **+7.0654% (7.1%)** |
+| Cached 64K request A alongside cold 262K request B, A generation tokens/s | 16.27 | **54.89** | **3.3737×** |
+| Same concurrent workload, A client SSE DONE time | 24.030475 s | **7.560659 s** | **−68.54%** |
+
+Each comparison uses four measured ABBA rounds, two per arm. Within each workload, the complete sent input, complete output, generated-token SHA256 and non-timing usage match. The 1M requests actually generate **259 tokens and finish at EOS**; concurrent requests A/B generate **380/128 tokens**. These are not 512-token measurements.
+
+Two problems required three changes: enable the existing packed-cache growth implementation with ping-pong buffers; add an **8-second decode-priority window** before the next preserved cold prefill; and deliver a finished response before starting another scheduler step. The 1M comparison isolates growth. The concurrent comparison measures the three changes together. The additional window is not a latency SLA: a complete 8192-token prefill forward remains unpreemptible, and prioritizing A can delay B's first token. B's mean client first-output time did not increase in this run (142.213 → 141.840 s).
+
+A separate 2048-token output run checks that waiting prefill eventually proceeds; it is a functional non-starvation check, not a performance A/B. Eight hot-cache streams reached eight observed running requests with **6.0989 seconds of common overlap**; restart and the restored production service's replay also passed. Original-deployment CPU checks passed **791 tests (663 + 52 + 44 + 32)**; **47 existing asynchronous tests were not run** because `pytest-asyncio` was unavailable.
+
+Patch `0005` follows `0004`. The cached profile enables growth/ping-pong and the 8-second window, uses the default terminal-response barrier, and starts a new `exact-prefix-v2-decode-fixes` cache namespace. The benchmark profile retains growth off and defer 0; the terminal-response fix applies to both profiles. GET reports actual runtime state; POST permissions are unchanged. Upgrade in a **new work directory and prepare the complete patch series**; replacing only the launcher does not upgrade an old `0004` source tree. The public-package source/CPU checks are recorded separately from these production measurements; this update does not claim a new full-model replay of the relocated public package. See [methods and limits](docs/RESULTS.md), [evidence README](results/qualification/deepseek/decode-20261015/README.md), [summary](results/qualification/deepseek/decode-20261015/summary.json), [manifest](results/qualification/deepseek/decode-20261015/manifest.json) and [release validation](docs/VALIDATION.md).
+
+## Previously published 512-token results
 
 My machine: **Apple M5 Ultra, 30 CPU / 64 GPU cores, 256 GiB, macOS 27.0.1**. Greedy, thinking disabled, concurrency 1, zero reused prefix tokens, 512 actual output tokens. DeepSeek uses geometric means: three scenarios at 8K, case 0 only at 16K/32K. Qwen is the median of five full-length requests with fixed MTP depth 3 and lookup disabled.
 

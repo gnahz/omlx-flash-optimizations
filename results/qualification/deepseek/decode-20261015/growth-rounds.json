@@ -1,0 +1,193 @@
+{
+  "status": "passed",
+  "order": [
+    "baseline",
+    "fixed",
+    "fixed",
+    "baseline"
+  ],
+  "parity": {
+    "payload_sha256": true,
+    "payload_file_sha256": true,
+    "output": true,
+    "output_token_ids_sha256": true,
+    "output_tokens": true,
+    "prompt_tokens": true,
+    "reused_tokens": true,
+    "prefill_chunks": true,
+    "non_timing_usage": true,
+    "cycles": true,
+    "accepted": true,
+    "drafted": true
+  },
+  "rounds": [
+    {
+      "label": "003-growth-a1",
+      "arm": "baseline",
+      "payload_sha256": "25c277ceaae2fc8c219e6a2f385a8c3cf7da634e2b31c2a523a1dcbc1ab3bca5",
+      "payload_file_sha256": "25c277ceaae2fc8c219e6a2f385a8c3cf7da634e2b31c2a523a1dcbc1ab3bca5",
+      "output_token_ids_sha256": "561384867531a03e9cb76f0920453292737ea4f9c9d2cdc8e6bbef55bb0dc1c1",
+      "output_tokens": 259,
+      "prompt_tokens": 1040040,
+      "reused_tokens": 1032192,
+      "prefill_chunks": [
+        7847
+      ],
+      "non_timing_usage": {
+        "prompt_tokens": 1040040,
+        "completion_tokens": 259,
+        "total_tokens": 1040299,
+        "input_tokens": 1040040,
+        "output_tokens": 259,
+        "prompt_tokens_details": {
+          "cached_tokens": 1032192
+        }
+      },
+      "cycles": 129,
+      "accepted": 129,
+      "drafted": 205,
+      "generation_tps": 47.34,
+      "generation_seconds": 5.47,
+      "prefill_seconds": 9.73,
+      "backbone_ms_per_cycle": 39.9031007751938,
+      "output_sha256": "bcf92e0e92ead6dac3bf932589dd63627dee144f30eb7812873abed5d52dabf3",
+      "source_result": "requests/003-growth-a1-ctx1040000-r01/result.json",
+      "client_full_response_seconds": 17.204377250018297,
+      "client_first_output_seconds": 11.733740249997936,
+      "sse_done": true,
+      "diagnostic_valid": true,
+      "controls": {
+        "packed_cache_growth": false,
+        "packed_cache_growth_pingpong": true,
+        "preserved_prefill_max_defer_seconds": 0,
+        "terminal_response_barrier": false
+      }
+    },
+    {
+      "label": "004-growth-b1",
+      "arm": "fixed",
+      "payload_sha256": "25c277ceaae2fc8c219e6a2f385a8c3cf7da634e2b31c2a523a1dcbc1ab3bca5",
+      "payload_file_sha256": "25c277ceaae2fc8c219e6a2f385a8c3cf7da634e2b31c2a523a1dcbc1ab3bca5",
+      "output_token_ids_sha256": "561384867531a03e9cb76f0920453292737ea4f9c9d2cdc8e6bbef55bb0dc1c1",
+      "output_tokens": 259,
+      "prompt_tokens": 1040040,
+      "reused_tokens": 1032192,
+      "prefill_chunks": [
+        7847
+      ],
+      "non_timing_usage": {
+        "prompt_tokens": 1040040,
+        "completion_tokens": 259,
+        "total_tokens": 1040299,
+        "input_tokens": 1040040,
+        "output_tokens": 259,
+        "prompt_tokens_details": {
+          "cached_tokens": 1032192
+        }
+      },
+      "cycles": 129,
+      "accepted": 129,
+      "drafted": 205,
+      "generation_tps": 50.81,
+      "generation_seconds": 5.1,
+      "prefill_seconds": 9.75,
+      "backbone_ms_per_cycle": 37.14108527131783,
+      "output_sha256": "bcf92e0e92ead6dac3bf932589dd63627dee144f30eb7812873abed5d52dabf3",
+      "source_result": "requests/004-growth-b1-ctx1040000-r01/result.json",
+      "client_full_response_seconds": 16.79806433300837,
+      "client_first_output_seconds": 11.701662541017868,
+      "sse_done": true,
+      "diagnostic_valid": true,
+      "controls": {
+        "packed_cache_growth": true,
+        "packed_cache_growth_pingpong": true,
+        "preserved_prefill_max_defer_seconds": 0,
+        "terminal_response_barrier": false
+      }
+    },
+    {
+      "label": "005-growth-b2",
+      "arm": "fixed",
+      "payload_sha256": "25c277ceaae2fc8c219e6a2f385a8c3cf7da634e2b31c2a523a1dcbc1ab3bca5",
+      "payload_file_sha256": "25c277ceaae2fc8c219e6a2f385a8c3cf7da634e2b31c2a523a1dcbc1ab3bca5",
+      "output_token_ids_sha256": "561384867531a03e9cb76f0920453292737ea4f9c9d2cdc8e6bbef55bb0dc1c1",
+      "output_tokens": 259,
+      "prompt_tokens": 1040040,
+      "reused_tokens": 1032192,
+      "prefill_chunks": [
+        7847
+      ],
+      "non_timing_usage": {
+        "prompt_tokens": 1040040,
+        "completion_tokens": 259,
+        "total_tokens": 1040299,
+        "input_tokens": 1040040,
+        "output_tokens": 259,
+        "prompt_tokens_details": {
+          "cached_tokens": 1032192
+        }
+      },
+      "cycles": 129,
+      "accepted": 129,
+      "drafted": 205,
+      "generation_tps": 50.87,
+      "generation_seconds": 5.09,
+      "prefill_seconds": 9.32,
+      "backbone_ms_per_cycle": 37.08682170542635,
+      "output_sha256": "bcf92e0e92ead6dac3bf932589dd63627dee144f30eb7812873abed5d52dabf3",
+      "source_result": "requests/005-growth-b2-ctx1040000-r01/result.json",
+      "client_full_response_seconds": 16.377147582999896,
+      "client_first_output_seconds": 11.286263624991989,
+      "sse_done": true,
+      "diagnostic_valid": true,
+      "controls": {
+        "packed_cache_growth": true,
+        "packed_cache_growth_pingpong": true,
+        "preserved_prefill_max_defer_seconds": 0,
+        "terminal_response_barrier": false
+      }
+    },
+    {
+      "label": "006-growth-a2",
+      "arm": "baseline",
+      "payload_sha256": "25c277ceaae2fc8c219e6a2f385a8c3cf7da634e2b31c2a523a1dcbc1ab3bca5",
+      "payload_file_sha256": "25c277ceaae2fc8c219e6a2f385a8c3cf7da634e2b31c2a523a1dcbc1ab3bca5",
+      "output_token_ids_sha256": "561384867531a03e9cb76f0920453292737ea4f9c9d2cdc8e6bbef55bb0dc1c1",
+      "output_tokens": 259,
+      "prompt_tokens": 1040040,
+      "reused_tokens": 1032192,
+      "prefill_chunks": [
+        7847
+      ],
+      "non_timing_usage": {
+        "prompt_tokens": 1040040,
+        "completion_tokens": 259,
+        "total_tokens": 1040299,
+        "input_tokens": 1040040,
+        "output_tokens": 259,
+        "prompt_tokens_details": {
+          "cached_tokens": 1032192
+        }
+      },
+      "cycles": 129,
+      "accepted": 129,
+      "drafted": 205,
+      "generation_tps": 47.63,
+      "generation_seconds": 5.44,
+      "prefill_seconds": 9.48,
+      "backbone_ms_per_cycle": 39.666666666666664,
+      "output_sha256": "bcf92e0e92ead6dac3bf932589dd63627dee144f30eb7812873abed5d52dabf3",
+      "source_result": "requests/006-growth-a2-ctx1040000-r01/result.json",
+      "client_full_response_seconds": 16.876449375005905,
+      "client_first_output_seconds": 11.439157749991864,
+      "sse_done": true,
+      "diagnostic_valid": true,
+      "controls": {
+        "packed_cache_growth": false,
+        "packed_cache_growth_pingpong": true,
+        "preserved_prefill_max_defer_seconds": 0,
+        "terminal_response_barrier": false
+      }
+    }
+  ]
+}

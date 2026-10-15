@@ -4,6 +4,20 @@
 
 Historical performance figures are in `results/published/`; this file describes checks of the portable package and does not label an unrun workload as validated.
 
+## 2026-10-15 decode/fairness update
+
+The original production machine completed the real-model acceptance on isolated ports with the same model/runtime, followed by restoration of port 8011 and a successful replay. The 1M growth comparison and hot-A/cold-B comparison each use four ABBA rounds, two per arm, with complete sent-input/output/token identities and non-timing usage equal. Actual output lengths are 259/EOS at 1M and 380/128 for concurrent A/B. The separate 2048-output-token case is functional non-starvation coverage. Eight hot-cache streams reached eight observed running requests with 6.0989 seconds of common overlap; persistence, restart and the restored 8011 replay passed. See [the evidence README](../results/qualification/deepseek/decode-20261015/README.md), [summary](../results/qualification/deepseek/decode-20261015/summary.json) and [manifest](../results/qualification/deepseek/decode-20261015/manifest.json).
+
+Original-runtime CPU checks passed **791 main tests: scheduler 663, terminal delivery 52, growth lifecycle 44 and launcher/gates 32**. The terminal group includes 14 new cases and 38 existing synchronous tests. **47 existing asynchronous tests were not run because `pytest-asyncio` was unavailable**. CPU byte-identity/logical-capacity checks and end-to-end GPU measurements are different evidence; the CPU tests do not measure physical GPU memory traffic or qualify the entire asynchronous engine suite.
+
+<!-- DECODE_20261015_PORTABLE_VALIDATION -->
+**Public-package integration checks for this update:** **285 main tests passed**, comprising **100 release-repository tests** and **185 clean patched-source tests**. The repository run also passed **55 subtests**, counted separately from main tests, with **0 skipped**. Patched-source coverage is **180 related regressions passed / 47 existing asynchronous cases deselected**, plus **5 existing growth tests passed / 72 unrelated cases deselected**. These are not 285 new tests and are not added to the original-runtime total of 791. The existing prepared optimized source was used for `QWEN_TEST_SOURCE`, also checking historical patch integration; no new Qwen model run is claimed. The complete DeepSeek `0001`–`0005` sequence applied cleanly after the MLX patch, and all **six patch SHA256 values** matched. All **six target files of the new `0005` patch** also matched the accepted original-runtime versions byte for byte. See [`release-validation.json`](../results/qualification/deepseek/decode-20261015/release-validation.json) for the actual commands, scope and source identities.
+<!-- /DECODE_20261015_PORTABLE_VALIDATION -->
+
+This public-package update adds source/CPU integration evidence; it does **not** claim a new full-model run from the relocated public checkout. Preparation and validation left the restored production service on port 8011 running. Native binaries, model tensors and quantization were not modified for the decode/fairness fixes. The historical validation below remains tied to its own release and workload.
+
+## Earlier release validation
+
 Completed component checks:
 
 - DeepSeek driver/launcher: **17 CPU tests passed**, including complete SSE/error evidence, frozen payload checksums, exact geometry construction, full ABBA/warmup accounting, bulk-versus-tail counter checks, output/counter identity, localhost authorization and active-request control guards, separate cache profiles, fresh config keys, removal of ambient engine/auth flags, service-owned cluster shim/reaper state, and bounded startup connection retries that leave auth/HTTP failures immediate. Both `--help` paths require no MLX import.

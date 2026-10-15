@@ -1,0 +1,138 @@
+{
+  "status": "passed",
+  "date": "2026-10-15",
+  "scope": "New portable-release CPU and clean-source integration checks, separate from the original 791-test production-machine qualification and its GPU measurements.",
+  "publication_base_commit": "ad18713f71291cc26784242064f782663529b374",
+  "source_preparation": {
+    "commands": [
+      "python scripts/prepare_deepseek.py --work-dir <new-work> --mlx-source <readonly-local-clone> --omlx-source <readonly-local-clone> --apply-only",
+      "python scripts/prepare_deepseek.py --work-dir <new-work> --check"
+    ],
+    "upstream_revisions": {
+      "mlx": "59d600b5e64c238427d0f8d897ab7c682ef4d3d2",
+      "omlx": "d4298ad1811bdd1b565660263380b52fc4ff71f0"
+    },
+    "ordered_patches": {
+      "mlx": [
+        "patches/deepseek/mlx/0001-tacos8me-mlx-and-portable-jit.patch"
+      ],
+      "omlx": [
+        "patches/deepseek/omlx/0001-tacos8me-qualified-baseline.patch",
+        "patches/deepseek/omlx/0002-exact-metadata-and-direct-prefill.patch",
+        "patches/deepseek/omlx/0003-exact-prefix-cache-persistence.patch",
+        "patches/deepseek/omlx/0004-portable-release-identities.patch",
+        "patches/deepseek/omlx/0005-long-context-decode-and-prefill-fairness.patch"
+      ]
+    },
+    "patch_sha256": {
+      "patches/deepseek/omlx/0001-tacos8me-qualified-baseline.patch": "fdc353777d03da0637437f53960046f190f80a1607428cb4804d26e526a2c84e",
+      "patches/deepseek/omlx/0002-exact-metadata-and-direct-prefill.patch": "a3bf5923598725a818f0660e4c7a64eaccb4db2271714d7d051edf5d54ed569e",
+      "patches/deepseek/omlx/0003-exact-prefix-cache-persistence.patch": "bb8f09c401d352382e712c92394571dacc4d6911dc8182f68e99cf97e6477135",
+      "patches/deepseek/omlx/0004-portable-release-identities.patch": "12afd95f236e3f38bcec483527f593b247ffef15aed18ae71ff16fa87ff03d84",
+      "patches/deepseek/mlx/0001-tacos8me-mlx-and-portable-jit.patch": "d5e947abe8eecaebd2f0301c2ff75cb2ffe306e25e2ed8bb9b286623d601e4a6",
+      "patches/deepseek/omlx/0005-long-context-decode-and-prefill-fairness.patch": "20b9045f0a6c0e3bf7a2ab5f0b2cd763a9428846d8b92bda24c7d5ce1975a8fe"
+    },
+    "all_patches_checked_and_applied_from_clean_fixed_upstream": true,
+    "source_receipt_verified": true,
+    "six_files_byte_equal_to_original_qualified_version": true,
+    "qualified_files_sha256": {
+      "omlx/engine_core.py": "3d2d9d777592ae7ae74194204aae0d9dcefd6770cbc2b36a0731704394dfe521",
+      "omlx/scheduler.py": "2059efedbcc2f8005700c8805b90bd4642f26dd0b94a82dcecd8b34636a0fc54",
+      "tests/test_preserved_prefill_decode_priority.py": "3e1acf906c7a089516b04cfa27bb034654c5e4ccb02549454a54bf34bbad0029",
+      "tests/test_deepseek_v41_growth_lifecycle_cpu.py": "d67328b81899d78b612778635e8d8be3edb81e473b6b89c2e34b2b31381fa1a8",
+      "tests/test_engine_terminal_delivery_cpu.py": "af684c48be904a211e66e1dba001d2409e1e0c41d573236029abd6182dc33b0c",
+      "tests/test_engine_core.py": "49f84e17b22d0560658393e82ad25a0152b744a50ff8431e1298c3feee70efe2"
+    }
+  },
+  "cpu_tests": {
+    "passed": 285,
+    "repository_main_tests": 100,
+    "repository_subtests_separately_passed": 55,
+    "repository_junit_entries_including_subtests": 155,
+    "related_patched_source_tests": 180,
+    "existing_growth_tests": 5,
+    "failed": 0,
+    "errors": 0,
+    "skipped_selected_tests": 0,
+    "existing_async_tests_deselected": 47,
+    "existing_growth_unrelated_tests_deselected": 72,
+    "deselection_reason": "pytest-asyncio unavailable for the 47 existing async-marked engine cases; the existing growth suite selected only five relevant growth tests. Neither group is counted as passed.",
+    "commands": [
+      "QWEN_TEST_SOURCE=<prepared-optimized-source> python -B -m pytest -q tests"
+    ],
+    "patched_source_pytest_arguments": [
+      "-q",
+      "tests/test_preserved_prefill_decode_priority.py",
+      "tests/test_engine_terminal_delivery_cpu.py",
+      "tests/test_deepseek_v41_growth_lifecycle_cpu.py",
+      "tests/test_decode_fairness.py",
+      "tests/test_prefill_fairness_budget.py",
+      "tests/test_engine_core.py",
+      "-m",
+      "not asyncio and not slow and not integration",
+      "--junitxml=<private>/patched-cpu-tests.xml"
+    ],
+    "existing_growth_pytest_arguments": [
+      "-q",
+      "tests/test_deepseek_v41_depth.py",
+      "-k",
+      "pingpong_append or replaced_slot or batch_one_extract or batched_rows_keep or replaced_batched_slot",
+      "--junitxml=<private>/existing-growth-cpu-tests.xml"
+    ],
+    "patched_source_invocation": "Python -B - invokes pytest.main(arguments) after installing the CPU guards; paths are relative to the clean patched oMLX checkout.",
+    "environment": "Python 3.13; patched-source tests set mx.cpu before collection and prohibit Metal kernel construction. Repository tests use mocks and offline local patch application.",
+    "no_large_model_loads": true,
+    "no_gpu_inference": true,
+    "note": "JUnit records subtest entries as tests. The 55 subtests are reported separately, not added to the 285 main-test total."
+  },
+  "launcher_policy": {
+    "cached": {
+      "packed_cache_growth": true,
+      "packed_cache_growth_pingpong": true,
+      "preserved_prefill_max_defer_seconds": 8.0,
+      "terminal_response_barrier": true,
+      "prefix_cache_capacity_gib": 3,
+      "max_concurrent_requests": 8,
+      "cache_directory": "work/cache/exact-prefix-v2-decode-fixes"
+    },
+    "benchmark": {
+      "packed_cache_growth": false,
+      "packed_cache_growth_pingpong": true,
+      "preserved_prefill_max_defer_seconds": 0.0,
+      "terminal_response_barrier": true
+    },
+    "control_post_permissions_unchanged": true,
+    "flags_installed_before_first_omlx_import": true,
+    "decode_policy_in_cache_fingerprint": true,
+    "actual_diagnostics_missing_values_do_not_report_enabled": true
+  },
+  "publication_file_sha256": {
+    "scripts/serve_deepseek.py": "d240d75332399779b8c14256bdac8998276cfeed0e3130110091f7c8d64a03ce",
+    "profiles/deepseek/sources.json": "ceeb2f29a574faa099eff148b5ce8c25ca89b392c247e613b8e1dc4f34784f56",
+    "tests/test_deepseek_decode_profile.py": "4aef1c82f7bc0a9b66306b0e160a01cb4ee8becdecbde87e3e3311c87cf5a2a8",
+    "tests/test_deepseek_decode_patch.py": "2d0e04fbccb9ebc6be499a6e2ae701cebc32ab9c875b7f71c4dd89db201b3056",
+    "tests/test_deepseek_decode_evidence.py": "0184ad480cea90764713094c7e06810bcec6f700fbc4bcb8cff56bd51757c17e"
+  },
+  "production_protection": {
+    "production_source_head": "78a5a474c85d67e62b6d3d4575ed3a68f751de2e",
+    "all_601_accepted_source_pins_unchanged": true,
+    "port_8011_health": "healthy",
+    "original_service_listener_unchanged": true,
+    "publication_performed_service_restart": false
+  },
+  "limits": [
+    "This publication did not rerun full-model GPU inference or rebuild native binaries.",
+    "CPU and byte-identity checks do not establish portable full-model performance; timings retain original production-machine provenance.",
+    "A single preserved 8192-token prefill forward remains non-preemptible."
+  ],
+  "private_validation_artifact_sha256": {
+    "publishing-cpu-tests.xml": "7edb02325b0d406168b1a163158e00a763ba94fd9377d9bb32444e3fe8e3b3e4",
+    "portable-apply.log": "66febf1b60366b4f22478c9bf2f1f4c564a75ec6f8376cf84113441232e1b498",
+    "portable-check.log": "ff5dfde4f14057c5d3920a63f3bcfca313502f2ec82692f77949cdae5acda286",
+    "portable-apply/source-receipt.json": "983dccf47d61622ca0715813f292de200be5527548a20045e7d3ed8f13537ad7",
+    "patch-agent/validation-summary.json": "db342f203938d775e3e92923f87d9384831a6114b73d58dd238cfefcec40380a",
+    "patch-agent/patched-cpu-tests.xml": "0fb3dbd14159a16b0250a465d86e68533581e0e9f8055f05716455e978497c2e",
+    "patch-agent/existing-growth-cpu-tests.xml": "2ebee3c72a4dd287f81003cc9ed3afcfa25f32ac5492ec5a92b7871f706b62ef",
+    "publishing-cpu-tests.log": "c79c5ddb72d1ef83cc0f7a216e43546c4a716a23f68eb2f4896a59481f94dd5f"
+  }
+}

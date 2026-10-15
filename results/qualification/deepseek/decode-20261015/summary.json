@@ -1,0 +1,137 @@
+{
+  "status": "passed",
+  "qualification_date": "2026-10-15",
+  "scope": "Original production-machine ABBA experiments, final accepted build. This evidence is separate from historical cold 512-token benchmarks and portable-release CPU validation.",
+  "growth_1m": {
+    "order": [
+      "baseline",
+      "fixed",
+      "fixed",
+      "baseline"
+    ],
+    "generation_tps": {
+      "baseline": {
+        "generation_tps": {
+          "samples": [
+            47.34,
+            47.63
+          ],
+          "mean": 47.485
+        },
+        "generation_seconds": {
+          "samples": [
+            5.47,
+            5.44
+          ],
+          "mean": 5.455
+        },
+        "prefill_seconds": {
+          "samples": [
+            9.73,
+            9.48
+          ],
+          "mean": 9.605
+        },
+        "backbone_ms_per_cycle": {
+          "samples": [
+            39.9031007751938,
+            39.666666666666664
+          ],
+          "mean": 39.78488372093023
+        }
+      },
+      "fixed": {
+        "generation_tps": {
+          "samples": [
+            50.81,
+            50.87
+          ],
+          "mean": 50.84
+        },
+        "generation_seconds": {
+          "samples": [
+            5.1,
+            5.09
+          ],
+          "mean": 5.095
+        },
+        "prefill_seconds": {
+          "samples": [
+            9.75,
+            9.32
+          ],
+          "mean": 9.535
+        },
+        "backbone_ms_per_cycle": {
+          "samples": [
+            37.14108527131783,
+            37.08682170542635
+          ],
+          "mean": 37.11395348837209
+        }
+      }
+    },
+    "generation_tps_increase_percent": 7.065389070232708,
+    "actual_prompt_tokens": 1040040,
+    "reused_tokens": 1032192,
+    "requested_max_tokens": 512,
+    "actual_output_tokens": 259,
+    "parity": {
+      "payload_sha256": true,
+      "payload_file_sha256": true,
+      "output": true,
+      "output_token_ids_sha256": true,
+      "output_tokens": true,
+      "prompt_tokens": true,
+      "reused_tokens": true,
+      "prefill_chunks": true,
+      "non_timing_usage": true,
+      "cycles": true,
+      "accepted": true,
+      "drafted": true
+    },
+    "rounds": "growth-rounds.json"
+  },
+  "concurrent_decode": {
+    "baseline_A_tps": 16.270000000000003,
+    "fixed_A_tps": 54.89,
+    "A_tps_ratio": 3.3736939151813146,
+    "baseline_A_generation_seconds": 23.355,
+    "fixed_A_generation_seconds": 6.92,
+    "baseline_B_prefill_seconds": 141.765,
+    "fixed_B_prefill_seconds": 141.39499999999998,
+    "A_and_B_full_output_and_token_parity": true,
+    "baseline_A_full_response_seconds": 24.03047504198912,
+    "fixed_A_full_response_seconds": 7.560659145514364,
+    "baseline_B_client_first_output_seconds": 142.21281416650163,
+    "fixed_B_client_first_output_seconds": 141.8395881040051,
+    "A_actual_prompt_tokens": 65580,
+    "A_reused_tokens": 65536,
+    "A_requested_max_tokens": 512,
+    "A_actual_output_tokens": 380,
+    "B_actual_prompt_tokens": 262190,
+    "B_actual_output_tokens": 128,
+    "attribution": "Joint scheduler priority, terminal delivery barrier and growth policy. This experiment does not isolate each switch.",
+    "B_prefill_seconds_scope": "Reported wall duration includes queueing; not isolated GPU prefill time.",
+    "rounds": "concurrency-rounds.json"
+  },
+  "long_decode_fairness": {
+    "status": "passed",
+    "evidence": "long-decode-fairness.json",
+    "scope": "Functionality only; 2048-token A uses a different prompt and is not an ABBA performance comparison."
+  },
+  "original_cpu_validation": {
+    "passed": 791,
+    "scheduler": 663,
+    "engine_terminal": 52,
+    "growth": 44,
+    "local_launcher": 32,
+    "existing_async_tests_not_executed": 47,
+    "reason": "pytest-asyncio was unavailable; existing async tests were not counted as passed."
+  },
+  "limits": [
+    "The preserved 8192-token GPU forward remains indivisible. The bounded decode priority changes when it is run.",
+    "The 8-second priority window is additive to existing fairness, memory and cross-engine gates; it is not an absolute request latency SLA."
+  ],
+  "portable_release_full_model_rerun": false
+}

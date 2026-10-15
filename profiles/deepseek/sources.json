@@ -7,7 +7,8 @@
       "patches/deepseek/omlx/0001-tacos8me-qualified-baseline.patch",
       "patches/deepseek/omlx/0002-exact-metadata-and-direct-prefill.patch",
       "patches/deepseek/omlx/0003-exact-prefix-cache-persistence.patch",
-      "patches/deepseek/omlx/0004-portable-release-identities.patch"
+      "patches/deepseek/omlx/0004-portable-release-identities.patch",
+      "patches/deepseek/omlx/0005-long-context-decode-and-prefill-fairness.patch"
     ]
   },
   "mlx": {
@@ -34,6 +35,7 @@
     "patches/deepseek/omlx/0002-exact-metadata-and-direct-prefill.patch": "a3bf5923598725a818f0660e4c7a64eaccb4db2271714d7d051edf5d54ed569e",
     "patches/deepseek/omlx/0003-exact-prefix-cache-persistence.patch": "bb8f09c401d352382e712c92394571dacc4d6911dc8182f68e99cf97e6477135",
     "patches/deepseek/omlx/0004-portable-release-identities.patch": "12afd95f236e3f38bcec483527f593b247ffef15aed18ae71ff16fa87ff03d84",
-    "patches/deepseek/mlx/0001-tacos8me-mlx-and-portable-jit.patch": "d5e947abe8eecaebd2f0301c2ff75cb2ffe306e25e2ed8bb9b286623d601e4a6"
+    "patches/deepseek/mlx/0001-tacos8me-mlx-and-portable-jit.patch": "d5e947abe8eecaebd2f0301c2ff75cb2ffe306e25e2ed8bb9b286623d601e4a6",
+    "patches/deepseek/omlx/0005-long-context-decode-and-prefill-fairness.patch": "20b9045f0a6c0e3bf7a2ab5f0b2cd763a9428846d8b92bda24c7d5ce1975a8fe"
   }
 }

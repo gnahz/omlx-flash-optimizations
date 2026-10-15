@@ -2,9 +2,36 @@
 
 [中文](RESULTS.zh-CN.md) · [Reproduce](REPRODUCE.md)
 
-These are the author's archived local measurements from 2026-10-07 and the later qualified cache smoke, on Apple M5 Ultra (30 CPU / 64 GPU cores, 256 GiB, macOS 27.0.1). The portable release's new validation is recorded separately in [VALIDATION](VALIDATION.md). The archived numbers are not overwritten by a new release run.
+These are the author's local measurements on Apple M5 Ultra (30 CPU / 64 GPU cores, 256 GiB, macOS 27.0.1). The dated 2026-10-15 acceptance used the original production machine with the same model/runtime on isolated ports, followed by restoration and replay of port 8011. The older sections retain the 2026-10-07 archive and later cache smoke. Public-package validation is recorded separately in [VALIDATION](VALIDATION.md); packaging checks do not replace the archived timings.
 
 Version baselines: DeepSeek oMLX `0.7.0.dev4`; Qwen oMLX `0.7.0`.
+
+## 2026-10-15: long-context decode and concurrent prefill
+
+This acceptance used isolated servers on the original production machine, with the same model/runtime and fixed weights, native binaries and quantization. It then restored the production service on port 8011 and passed a replay. Patch `0005-long-context-decode-and-prefill-fairness.patch` ports the runtime changes after `0004`; publication does not imply a new full-model replay from the portable checkout. Release preparation leaves the restored production service on port 8011 running.
+
+| Workload / metric | Baseline mean | Fixed mean | Change |
+|---|---:|---:|---:|
+| 1M context, API generation tokens/s | 47.485 | **50.840** | **+7.0654% (7.1%)** |
+| Same 1M workload, API generation duration | 5.455 s | **5.095 s** | — |
+| Cached 64K A alongside cold 262K B, A API generation tokens/s | 16.27 | **54.89** | **3.3737×** |
+| Same concurrent workload, A API generation duration | 23.355 s | **6.920 s** | — |
+| Same concurrent workload, A client SSE DONE time | 24.030475 s | **7.560659 s** | **−68.54%** |
+| Same concurrent workload, B client first-output time | 142.212814 s | 141.839588 s | Descriptive; no observed increase |
+
+Each workload has four measured rounds in ABBA order, two per arm. Within that workload, the complete sent input, complete generated output, generated-token SHA256, finish reason and non-timing usage agree across arms. The 1M requests actually emit **259 tokens, ending at EOS**, despite requesting a higher limit; the concurrent A/B requests emit **380/128 tokens**. Equal actual output lengths and full identities make the compared requests equivalent; they are not treated as 512-token runs. Two observations per arm support this local comparison, not a population-level confidence claim. Rounded table values are for display; the summary retains the measured values used for ratios.
+
+The **growth-only** comparison uses **1,040,040 actual prompt tokens, with 1,032,192 reused tokens and a recorded remaining prefill chunk of 7,847 tokens**. It measures decode after prefix reuse, not a 1M-token cold prefill. Only growth is switched: `preserved_prefill_max_defer_seconds=0` and the diagnostic terminal-response barrier is disabled in both arms; the existing ping-pong implementation is used when growth is enabled. No new attention math or growth implementation is introduced.
+
+The **concurrent** comparison uses A with **65,580 prompt tokens / 65,536 reused tokens**, and B with **262,190 prompt tokens / zero reused tokens**. B is submitted only after A's first real nonempty output. This comparison switches growth, the additional decode-priority window and the terminal-response barrier together. Its speedup is a joint effect and cannot identify a separate gain for each component. These diagnostic control settings are distinct from the public launcher, where the terminal-response fix remains on by default in both profiles.
+
+The scheduling change grants already-running decode an additional **8-second priority window** before starting a preserved cold prefill. It is not an absolute latency SLA or token-level GPU preemption: a complete **8192-token forward remains unpreemptible**, and earlier scheduler/memory conditions still apply. The engine also stops its step burst at a terminal-response boundary, allowing the finished request's SSE DONE to reach the client before another cold prefill begins. Deferring B can add first-token queueing, but B's mean client first-output time did not increase in this run; the small difference is descriptive, not a separate causal speedup. B's reported prefill duration and TTFT include queueing, so they are not isolated GPU prefill timers. Per-round request times are retained in the [summary](../results/qualification/deepseek/decode-20261015/summary.json). API generation throughput and client SSE DONE elapsed time measure different intervals; neither is an isolated GPU-kernel timer.
+
+A separate run with **2048 actual output tokens** checks that waiting prefill eventually proceeds under the fixed policy. Its different prompt is functional non-starvation coverage, not another same-input performance A/B. The hot-cache acceptance observed **eight running requests and 6.0989 seconds of common overlap**, complete output/token parity, orderly restart persistence, and a replay after restoring the production service on port 8011. This bounded acceptance does not establish eight maximum-context requests or sustained aggregate capacity.
+
+The original-deployment CPU checks passed **791 tests: 663 scheduler + 52 terminal-delivery + 44 growth-lifecycle + 32 launcher/gate tests**. The 52 terminal-delivery checks comprise 14 new cases and 38 existing synchronous cases. **47 existing asynchronous tests were not run because `pytest-asyncio` was unavailable**; this is not a claim that the full engine suite passed. CPU byte-identity and logical-capacity tests do not measure GPU buffer donation or physical memory traffic. End-to-end timing comes from the separate real-model runs above. Native binaries, weight tensors and quantization were unchanged for these fixes.
+
+The [sanitized measurement summary](../results/qualification/deepseek/decode-20261015/summary.json) and [manifest](../results/qualification/deepseek/decode-20261015/manifest.json) retain per-round measurements, input/output/token identities and source evidence hashes. Public-port source/CPU integration checks have their own scope in [VALIDATION](VALIDATION.md); the original production acceptance is not relabeled as a fresh portable-package GPU replay.
 
 ## Exact metadata compression
 
@@ -64,6 +91,7 @@ This is a bounded short-output smoke. It did not saturate the 3 GiB store, certi
 
 | Released evidence | Provenance |
 |---|---|
+| [`decode-20261015/summary.json`](../results/qualification/deepseek/decode-20261015/summary.json), [`manifest.json`](../results/qualification/deepseek/decode-20261015/manifest.json) | Separate 2026-10-15 original-production decode/concurrency acceptance; sanitized per-round identities, timings and source hashes |
 | [`deepseek.json`](../results/published/deepseek.json) | Curated resident/dictionary proof and final prefill summaries; original source filenames and SHA256 retained |
 | [`deepseek-prefill.csv`](../results/published/deepseek-prefill.csv) | Per-case final A/B figures and each report's SHA256 |
 | [`deepseek-cache.json`](../results/published/deepseek-cache.json) | Sanitized archived concurrency-8 acceptance summary, original report SHA256 |

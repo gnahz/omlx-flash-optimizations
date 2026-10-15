@@ -10,7 +10,25 @@
 - **直接读取字典的 prefill 内核。** 原生分块 GEMM 在满足条件的大批量 prefill 中直接读压缩格式，避免该路径整体展开元数据；尾部及不支持的形状保留经过检查的 dense 回退。同进程 A/B 测试中，8K / 16K / 32K prefill 提升 **4.21% / 3.79% / 3.75%**，这组比较的 decode 基本不变。
 - **引擎集成。** DeepSeek 增加有容量限制的精确前缀保留和重启持久化；Qwen 增加 lookup 策略安全处理、公共前缀尾块保留，并把已验证的启动挂钩落实为引擎与调度器补丁。测试与缓存服务分别使用独立配置。
 
-## 已公布测试结果
+## 2026-10-15：长上下文 decode 与并发 prefill
+
+这组验收在原生产 M5 Ultra 实机上、使用相同模型和 runtime 于隔离端口完成，随后恢复 8011 并通过回放，与下方较早的 512-token 测试独立记录。
+
+| 负载 / 指标 | 基线 | 修复后 | 变化 |
+|---|---:|---:|---:|
+| 1M 上下文，API generation token/s | 47.485 | **50.840** | **+7.0654%（7.1%）** |
+| 64K 热缓存请求 A 与 262K 冷请求 B 并发，A generation token/s | 16.27 | **54.89** | **3.3737×** |
+| 同一并发负载，A 客户端 SSE DONE 时间 | 24.030475 s | **7.560659 s** | **−68.54%** |
+
+每组比较均为四轮 ABBA、每个 arm 两轮。同一负载的完整发送输入、完整输出、生成 token SHA256 与非计时 usage 一致。1M 请求实际生成 **259 token，以 EOS 结束**；并发请求 A/B 分别生成 **380/128 token**，不混作 512-token 成绩。
+
+两个问题对应三项改动：启用已有 packed-cache growth 实现及 ping-pong 双缓冲；在下一次保留 decode 状态的冷 prefill 前增加 **8 秒 decode 优先窗口**；完成响应后先交付终包，再进入下一次 scheduler step。1M 对照只隔离 growth；并发对照测量三项联合效果。新增窗口不是延迟 SLA：完整 8192-token prefill forward 仍不可抢占，优先 A 可能延后 B 的首 token；但本次 B 的客户端首个输出平均用时未增加（142.213 → 141.840 秒）。
+
+另有实际输出 2048 token 的运行，功能性确认等待中的 prefill 最终能够执行，不作为性能 A/B。八路热缓存达到实际八个 running 请求，**共同重叠 6.0989 秒**；重启恢复与生产服务恢复后的回放也通过。原部署 **791 项 CPU 测试通过（663 + 52 + 44 + 32）**；因缺少 `pytest-asyncio`，**47 项既有异步测试未运行**。
+
+新补丁 `0005` 接在 `0004` 后。cached 配置开启 growth/ping-pong 与 8 秒窗口，使用默认终包屏障，缓存改用新 namespace `exact-prefix-v2-decode-fixes`；benchmark 保持 growth 关闭、defer 0，终包修复适用于两种配置。GET 反映实际运行状态，POST 权限不扩展。升级须在**新工作目录准备完整补丁序列**，仅替换 launcher 不能升级旧 `0004` 源码树。公开包的源码/CPU 移植检查与原生产实测分开记录，本次不声称已对重定位后的公开包重新完成完整模型回放。详见[方法与限制](docs/RESULTS.zh-CN.md)、[证据说明](results/qualification/deepseek/decode-20261015/README.md)、[汇总](results/qualification/deepseek/decode-20261015/summary.json)、[清单](results/qualification/deepseek/decode-20261015/manifest.json)和[发布验收](docs/VALIDATION.zh-CN.md)。
+
+## 此前已公布的 512-token 成绩
 
 本机：**Apple M5 Ultra，30 CPU / 64 GPU 核，256 GiB，macOS 27.0.1**。贪心采样、关闭思考、并发 1、前缀复用为零、实际生成 512 token。DeepSeek 使用几何均值：8K 汇总三个场景，16K/32K 仅场景 0。Qwen 为五次完整请求的中位数，MTP 深度固定为 3、关闭 lookup。
 

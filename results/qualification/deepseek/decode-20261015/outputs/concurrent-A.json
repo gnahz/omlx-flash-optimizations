@@ -1,0 +1,13 @@
+{
+  "choices": [
+    {
+      "index": 0,
+      "content": "Based on the provided files, here is a summary in five bullet points:\n\n- **Project Overview & Installation:** oMLX is an LLM inference server optimized for Apple Silicon Macs, featuring continuous batching and tiered KV caching managed from a menu bar app. It can be installed via a macOS `.dmg`, Homebrew, or from source, and supports text LLMs, VLMs, OCR, embeddings, and rerankers.\n\n- **Core Features:** The server provides an admin dashboard for monitoring and model management, a tiered KV cache (hot RAM + cold SSD), continuous batching, multi-model serving with LRU eviction and pinning, per-model settings, built-in chat, a HuggingFace model downloader, and one-click integrations for tools like OpenClaw, OpenCode, and Codex.\n\n- **API & Model Support:** It offers OpenAI- and Anthropic-compatible API endpoints (`/v1/chat/completions`, `/v1/messages`, etc.), tool calling with structured output for many model families, and supports any model compatible with `mlx-lm` and `mlx-vlm`, including specialized OCR and embedding models.\n\n- **Benchmarks & Performance:** The repository includes numerous benchmark scripts for MoE expert offload, attention kernels, decode performance, and distributed inference across multiple Macs. These benchmarks measure prefill/decode throughput, memory usage, and validate bitwise exactness for custom kernels.\n\n- **Security & Development:** The security policy outlines trust assumptions (local users trusted, API key required for network exposure) and a private vulnerability reporting process. Development requires Python 3.11–3.13, macOS 15+, and Apple Silicon; the macOS app is built with SwiftUI and venvstacks, with optional native custom kernels for GLM-5.2/MiniMax M3.",
+      "reasoning": "",
+      "tool_calls": [],
+      "finish_reason": "stop"
+    }
+  ],
+  "done": true,
+  "server_error": false
+}

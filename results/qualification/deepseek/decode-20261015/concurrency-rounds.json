@@ -1,0 +1,1179 @@
+{
+  "status": "passed",
+  "order": [
+    "baseline",
+    "fixed",
+    "fixed",
+    "baseline"
+  ],
+  "rounds": [
+    {
+      "label": "01-baseline",
+      "arm": "baseline",
+      "controls": {
+        "packed_cache_growth": false,
+        "packed_cache_growth_pingpong": true,
+        "preserved_prefill_max_defer_seconds": 0,
+        "terminal_response_barrier": false
+      },
+      "seed": {
+        "label": "01-baseline-seed",
+        "metadata": {
+          "status": "ok",
+          "diagnostic_valid": true,
+          "context_target": 65536,
+          "prompt_tokens": 65580,
+          "completion_tokens": 380,
+          "generation_tokens_per_second": 58.78,
+          "generation_seconds": 6.46,
+          "prefill_seconds": 36.43,
+          "elapsed_seconds": 43.0323,
+          "cached_tokens": 0,
+          "cycles": 173,
+          "acceptance_fraction": 0.6866666666666666,
+          "backbone_ms_per_cycle": 34.858381502890175,
+          "timing_ms": {
+            "backbone": 6030.5,
+            "mtp": 284.8,
+            "sampling": 4.6,
+            "cache": 36.7
+          },
+          "error_type": null
+        },
+        "identity": {
+          "payload_sha256": "28be38164334eaa614ab7a78eef7033848579c6c1f95091e1a5675be6fe06509",
+          "output_sha256": "3e7b0dcdb54f450d5fb8283d7861d050cc1f3e0b1e1f6478c58da301f1dc984d",
+          "non_timing_usage": {
+            "prompt_tokens": 65580,
+            "completion_tokens": 380,
+            "total_tokens": 65960,
+            "input_tokens": 65580,
+            "output_tokens": 380,
+            "prompt_tokens_details": {
+              "cached_tokens": 0
+            }
+          },
+          "non_timing_usage_sha256": "afc5e5b4c10582f3bb6d3328e564df90c20feb253441ebaacf8c85bdf011575a",
+          "token_ids_sha256": "42f3c1ce30b740c510b928a5d989350d762bade05f7ce384e132a9200189715d",
+          "actual_completion_tokens": 380
+        },
+        "client_full_response_seconds": 43.03227041699574,
+        "client_first_output_seconds": 36.62617208401207,
+        "sse_done": true,
+        "prefill_chunks": [
+          8192,
+          8192,
+          8192,
+          8192,
+          8192,
+          8192,
+          8192,
+          8192,
+          43
+        ],
+        "token_match_count": 1,
+        "known_concurrent_validation": false,
+        "errors": [],
+        "source_result": "concurrency-controls-r1/requests/01-baseline-seed/result.json"
+      },
+      "reference": {
+        "label": "01-baseline-reference",
+        "metadata": {
+          "status": "ok",
+          "diagnostic_valid": true,
+          "context_target": 65536,
+          "prompt_tokens": 65580,
+          "completion_tokens": 380,
+          "generation_tokens_per_second": 60.95,
+          "generation_seconds": 6.24,
+          "prefill_seconds": 0.47,
+          "elapsed_seconds": 6.8397,
+          "cached_tokens": 65536,
+          "cycles": 173,
+          "acceptance_fraction": 0.6866666666666666,
+          "backbone_ms_per_cycle": 33.89306358381503,
+          "timing_ms": {
+            "backbone": 5863.5,
+            "mtp": 280.2,
+            "sampling": 4.8,
+            "cache": 35.7
+          },
+          "error_type": null
+        },
+        "identity": {
+          "payload_sha256": "28be38164334eaa614ab7a78eef7033848579c6c1f95091e1a5675be6fe06509",
+          "output_sha256": "3e7b0dcdb54f450d5fb8283d7861d050cc1f3e0b1e1f6478c58da301f1dc984d",
+          "non_timing_usage": {
+            "prompt_tokens": 65580,
+            "completion_tokens": 380,
+            "total_tokens": 65960,
+            "input_tokens": 65580,
+            "output_tokens": 380,
+            "prompt_tokens_details": {
+              "cached_tokens": 65536
+            }
+          },
+          "non_timing_usage_sha256": "a25be54e60c58408b6d7f76444f161b1bd11483090d50752930ba68c4f71c59a",
+          "token_ids_sha256": "42f3c1ce30b740c510b928a5d989350d762bade05f7ce384e132a9200189715d",
+          "actual_completion_tokens": 380
+        },
+        "client_full_response_seconds": 6.839676000003237,
+        "client_first_output_seconds": 0.6049564580025617,
+        "sse_done": true,
+        "prefill_chunks": [
+          43
+        ],
+        "token_match_count": 1,
+        "known_concurrent_validation": false,
+        "errors": [],
+        "source_result": "concurrency-controls-r1/requests/01-baseline-reference/result.json"
+      },
+      "A": {
+        "label": "01-baseline-a",
+        "metadata": {
+          "status": "ok",
+          "diagnostic_valid": true,
+          "context_target": 65536,
+          "prompt_tokens": 65580,
+          "completion_tokens": 380,
+          "generation_tokens_per_second": 16.28,
+          "generation_seconds": 23.34,
+          "prefill_seconds": 0.56,
+          "elapsed_seconds": 24.0316,
+          "cached_tokens": 65536,
+          "cycles": 173,
+          "acceptance_fraction": 0.6866666666666666,
+          "backbone_ms_per_cycle": 34.6757225433526,
+          "timing_ms": {
+            "backbone": 5998.9,
+            "mtp": 292.1,
+            "sampling": 4.7,
+            "cache": 38.0
+          },
+          "error_type": null
+        },
+        "identity": {
+          "payload_sha256": "28be38164334eaa614ab7a78eef7033848579c6c1f95091e1a5675be6fe06509",
+          "output_sha256": "3e7b0dcdb54f450d5fb8283d7861d050cc1f3e0b1e1f6478c58da301f1dc984d",
+          "non_timing_usage": {
+            "prompt_tokens": 65580,
+            "completion_tokens": 380,
+            "total_tokens": 65960,
+            "input_tokens": 65580,
+            "output_tokens": 380,
+            "prompt_tokens_details": {
+              "cached_tokens": 65536
+            }
+          },
+          "non_timing_usage_sha256": "a25be54e60c58408b6d7f76444f161b1bd11483090d50752930ba68c4f71c59a",
+          "token_ids_sha256": "42f3c1ce30b740c510b928a5d989350d762bade05f7ce384e132a9200189715d",
+          "actual_completion_tokens": 380
+        },
+        "client_full_response_seconds": 24.03156333399238,
+        "client_first_output_seconds": 0.6910315839922987,
+        "sse_done": true,
+        "prefill_chunks": [
+          43
+        ],
+        "token_match_count": 1,
+        "known_concurrent_validation": true,
+        "errors": [],
+        "source_result": "concurrency-controls-r1/requests/01-baseline-a/result.json"
+      },
+      "B": {
+        "label": "01-baseline-b",
+        "metadata": {
+          "status": "ok",
+          "diagnostic_valid": false,
+          "context_target": 262144,
+          "prompt_tokens": 262190,
+          "completion_tokens": 128,
+          "generation_tokens_per_second": 51.65,
+          "generation_seconds": 2.48,
+          "prefill_seconds": 141.73,
+          "elapsed_seconds": 144.6541,
+          "cached_tokens": 0,
+          "cycles": 61,
+          "acceptance_fraction": 0.6435643564356436,
+          "backbone_ms_per_cycle": 38.04754098360656,
+          "timing_ms": {
+            "backbone": 2320.9,
+            "mtp": 116.5,
+            "sampling": 1.8,
+            "cache": 16.9
+          },
+          "error_type": null
+        },
+        "identity": {
+          "payload_sha256": "cf151ed0ab72b52ae47d0128c869692bb66a7fac23c7ac9625da84b09797d268",
+          "output_sha256": "270a9cf3232aae7f9928ce9db4c1c736ded8f5daedca010dfb026faa7b159553",
+          "non_timing_usage": {
+            "prompt_tokens": 262190,
+            "completion_tokens": 128,
+            "total_tokens": 262318,
+            "input_tokens": 262190,
+            "output_tokens": 128,
+            "prompt_tokens_details": {
+              "cached_tokens": 0
+            }
+          },
+          "non_timing_usage_sha256": "6a4a66daa30c6ffe4e78160e6652ee83af5e8568f817a74e76bbb67d26f9d156",
+          "token_ids_sha256": "deec8c2d244fff0157b7bdbe900f6b93ff71b98856f28b5dddabd84ac6e8db8d",
+          "actual_completion_tokens": 128
+        },
+        "client_full_response_seconds": 144.65407058398705,
+        "client_first_output_seconds": 142.1761386670114,
+        "sse_done": true,
+        "prefill_chunks": [
+          8192,
+          8192,
+          8192,
+          8192,
+          8192,
+          8192,
+          8192,
+          8192,
+          8192,
+          8192,
+          8192,
+          8192,
+          8192,
+          8192,
+          8192,
+          8192,
+          8192,
+          8192,
+          8192,
+          8192,
+          8192,
+          8192,
+          8192,
+          8192,
+          8192,
+          8192,
+          8192,
+          8192,
+          8192,
+          8192,
+          8192,
+          8192,
+          45
+        ],
+        "token_match_count": 1,
+        "known_concurrent_validation": true,
+        "errors": [],
+        "source_result": "concurrency-controls-r1/requests/01-baseline-b/result.json"
+      },
+      "overlap_observed": true
+    },
+    {
+      "label": "02-fixed",
+      "arm": "fixed",
+      "controls": {
+        "packed_cache_growth": true,
+        "packed_cache_growth_pingpong": true,
+        "preserved_prefill_max_defer_seconds": 8,
+        "terminal_response_barrier": true
+      },
+      "seed": {
+        "label": "02-fixed-seed",
+        "metadata": {
+          "status": "ok",
+          "diagnostic_valid": true,
+          "context_target": 65536,
+          "prompt_tokens": 65580,
+          "completion_tokens": 380,
+          "generation_tokens_per_second": 60.9,
+          "generation_seconds": 6.24,
+          "prefill_seconds": 32.36,
+          "elapsed_seconds": 38.7508,
+          "cached_tokens": 0,
+          "cycles": 173,
+          "acceptance_fraction": 0.6866666666666666,
+          "backbone_ms_per_cycle": 33.879768786127165,
+          "timing_ms": {
+            "backbone": 5861.2,
+            "mtp": 282.4,
+            "sampling": 4.4,
+            "cache": 36.8
+          },
+          "error_type": null
+        },
+        "identity": {
+          "payload_sha256": "28be38164334eaa614ab7a78eef7033848579c6c1f95091e1a5675be6fe06509",
+          "output_sha256": "3e7b0dcdb54f450d5fb8283d7861d050cc1f3e0b1e1f6478c58da301f1dc984d",
+          "non_timing_usage": {
+            "prompt_tokens": 65580,
+            "completion_tokens": 380,
+            "total_tokens": 65960,
+            "input_tokens": 65580,
+            "output_tokens": 380,
+            "prompt_tokens_details": {
+              "cached_tokens": 0
+            }
+          },
+          "non_timing_usage_sha256": "afc5e5b4c10582f3bb6d3328e564df90c20feb253441ebaacf8c85bdf011575a",
+          "token_ids_sha256": "42f3c1ce30b740c510b928a5d989350d762bade05f7ce384e132a9200189715d",
+          "actual_completion_tokens": 380
+        },
+        "client_full_response_seconds": 38.75078608302283,
+        "client_first_output_seconds": 32.51201408301131,
+        "sse_done": true,
+        "prefill_chunks": [
+          8192,
+          8192,
+          8192,
+          8192,
+          8192,
+          8192,
+          8192,
+          8192,
+          43
+        ],
+        "token_match_count": 1,
+        "known_concurrent_validation": false,
+        "errors": [],
+        "source_result": "concurrency-controls-r1/requests/02-fixed-seed/result.json"
+      },
+      "reference": {
+        "label": "02-fixed-reference",
+        "metadata": {
+          "status": "ok",
+          "diagnostic_valid": true,
+          "context_target": 65536,
+          "prompt_tokens": 65580,
+          "completion_tokens": 380,
+          "generation_tokens_per_second": 60.91,
+          "generation_seconds": 6.24,
+          "prefill_seconds": 0.55,
+          "elapsed_seconds": 6.9377,
+          "cached_tokens": 65536,
+          "cycles": 173,
+          "acceptance_fraction": 0.6866666666666666,
+          "backbone_ms_per_cycle": 33.813872832369945,
+          "timing_ms": {
+            "backbone": 5849.8,
+            "mtp": 294.1,
+            "sampling": 5.0,
+            "cache": 38.1
+          },
+          "error_type": null
+        },
+        "identity": {
+          "payload_sha256": "28be38164334eaa614ab7a78eef7033848579c6c1f95091e1a5675be6fe06509",
+          "output_sha256": "3e7b0dcdb54f450d5fb8283d7861d050cc1f3e0b1e1f6478c58da301f1dc984d",
+          "non_timing_usage": {
+            "prompt_tokens": 65580,
+            "completion_tokens": 380,
+            "total_tokens": 65960,
+            "input_tokens": 65580,
+            "output_tokens": 380,
+            "prompt_tokens_details": {
+              "cached_tokens": 65536
+            }
+          },
+          "non_timing_usage_sha256": "a25be54e60c58408b6d7f76444f161b1bd11483090d50752930ba68c4f71c59a",
+          "token_ids_sha256": "42f3c1ce30b740c510b928a5d989350d762bade05f7ce384e132a9200189715d",
+          "actual_completion_tokens": 380
+        },
+        "client_full_response_seconds": 6.937687666999409,
+        "client_first_output_seconds": 0.6995463750208728,
+        "sse_done": true,
+        "prefill_chunks": [
+          43
+        ],
+        "token_match_count": 1,
+        "known_concurrent_validation": false,
+        "errors": [],
+        "source_result": "concurrency-controls-r1/requests/02-fixed-reference/result.json"
+      },
+      "A": {
+        "label": "02-fixed-a",
+        "metadata": {
+          "status": "ok",
+          "diagnostic_valid": true,
+          "context_target": 65536,
+          "prompt_tokens": 65580,
+          "completion_tokens": 380,
+          "generation_tokens_per_second": 54.8,
+          "generation_seconds": 6.93,
+          "prefill_seconds": 0.54,
+          "elapsed_seconds": 7.6127,
+          "cached_tokens": 65536,
+          "cycles": 173,
+          "acceptance_fraction": 0.6866666666666666,
+          "backbone_ms_per_cycle": 33.96763005780347,
+          "timing_ms": {
+            "backbone": 5876.4,
+            "mtp": 286.4,
+            "sampling": 4.6,
+            "cache": 37.8
+          },
+          "error_type": null
+        },
+        "identity": {
+          "payload_sha256": "28be38164334eaa614ab7a78eef7033848579c6c1f95091e1a5675be6fe06509",
+          "output_sha256": "3e7b0dcdb54f450d5fb8283d7861d050cc1f3e0b1e1f6478c58da301f1dc984d",
+          "non_timing_usage": {
+            "prompt_tokens": 65580,
+            "completion_tokens": 380,
+            "total_tokens": 65960,
+            "input_tokens": 65580,
+            "output_tokens": 380,
+            "prompt_tokens_details": {
+              "cached_tokens": 65536
+            }
+          },
+          "non_timing_usage_sha256": "a25be54e60c58408b6d7f76444f161b1bd11483090d50752930ba68c4f71c59a",
+          "token_ids_sha256": "42f3c1ce30b740c510b928a5d989350d762bade05f7ce384e132a9200189715d",
+          "actual_completion_tokens": 380
+        },
+        "client_full_response_seconds": 7.612679041019874,
+        "client_first_output_seconds": 0.6789067909994628,
+        "sse_done": true,
+        "prefill_chunks": [
+          43
+        ],
+        "token_match_count": 1,
+        "known_concurrent_validation": true,
+        "errors": [],
+        "source_result": "concurrency-controls-r1/requests/02-fixed-a/result.json"
+      },
+      "B": {
+        "label": "02-fixed-b",
+        "metadata": {
+          "status": "ok",
+          "diagnostic_valid": false,
+          "context_target": 262144,
+          "prompt_tokens": 262190,
+          "completion_tokens": 128,
+          "generation_tokens_per_second": 48.47,
+          "generation_seconds": 2.64,
+          "prefill_seconds": 140.7,
+          "elapsed_seconds": 143.7938,
+          "cached_tokens": 0,
+          "cycles": 61,
+          "acceptance_fraction": 0.6435643564356436,
+          "backbone_ms_per_cycle": 40.74918032786885,
+          "timing_ms": {
+            "backbone": 2485.7,
+            "mtp": 110.4,
+            "sampling": 1.7,
+            "cache": 17.1
+          },
+          "error_type": null
+        },
+        "identity": {
+          "payload_sha256": "cf151ed0ab72b52ae47d0128c869692bb66a7fac23c7ac9625da84b09797d268",
+          "output_sha256": "270a9cf3232aae7f9928ce9db4c1c736ded8f5daedca010dfb026faa7b159553",
+          "non_timing_usage": {
+            "prompt_tokens": 262190,
+            "completion_tokens": 128,
+            "total_tokens": 262318,
+            "input_tokens": 262190,
+            "output_tokens": 128,
+            "prompt_tokens_details": {
+              "cached_tokens": 0
+            }
+          },
+          "non_timing_usage_sha256": "6a4a66daa30c6ffe4e78160e6652ee83af5e8568f817a74e76bbb67d26f9d156",
+          "token_ids_sha256": "deec8c2d244fff0157b7bdbe900f6b93ff71b98856f28b5dddabd84ac6e8db8d",
+          "actual_completion_tokens": 128
+        },
+        "client_full_response_seconds": 143.79382587500731,
+        "client_first_output_seconds": 141.14889733301243,
+        "sse_done": true,
+        "prefill_chunks": [
+          8192,
+          8192,
+          8192,
+          8192,
+          8192,
+          8192,
+          8192,
+          8192,
+          8192,
+          8192,
+          8192,
+          8192,
+          8192,
+          8192,
+          8192,
+          8192,
+          8192,
+          8192,
+          8192,
+          8192,
+          8192,
+          8192,
+          8192,
+          8192,
+          8192,
+          8192,
+          8192,
+          8192,
+          8192,
+          8192,
+          8192,
+          8192,
+          45
+        ],
+        "token_match_count": 1,
+        "known_concurrent_validation": true,
+        "errors": [],
+        "source_result": "concurrency-controls-r1/requests/02-fixed-b/result.json"
+      },
+      "overlap_observed": true
+    },
+    {
+      "label": "03-fixed",
+      "arm": "fixed",
+      "controls": {
+        "packed_cache_growth": true,
+        "packed_cache_growth_pingpong": true,
+        "preserved_prefill_max_defer_seconds": 8,
+        "terminal_response_barrier": true
+      },
+      "seed": {
+        "label": "03-fixed-seed",
+        "metadata": {
+          "status": "ok",
+          "diagnostic_valid": true,
+          "context_target": 65536,
+          "prompt_tokens": 65580,
+          "completion_tokens": 380,
+          "generation_tokens_per_second": 60.75,
+          "generation_seconds": 6.26,
+          "prefill_seconds": 33.05,
+          "elapsed_seconds": 39.4629,
+          "cached_tokens": 0,
+          "cycles": 173,
+          "acceptance_fraction": 0.6866666666666666,
+          "backbone_ms_per_cycle": 33.89942196531792,
+          "timing_ms": {
+            "backbone": 5864.6,
+            "mtp": 291.4,
+            "sampling": 4.9,
+            "cache": 39.0
+          },
+          "error_type": null
+        },
+        "identity": {
+          "payload_sha256": "28be38164334eaa614ab7a78eef7033848579c6c1f95091e1a5675be6fe06509",
+          "output_sha256": "3e7b0dcdb54f450d5fb8283d7861d050cc1f3e0b1e1f6478c58da301f1dc984d",
+          "non_timing_usage": {
+            "prompt_tokens": 65580,
+            "completion_tokens": 380,
+            "total_tokens": 65960,
+            "input_tokens": 65580,
+            "output_tokens": 380,
+            "prompt_tokens_details": {
+              "cached_tokens": 0
+            }
+          },
+          "non_timing_usage_sha256": "afc5e5b4c10582f3bb6d3328e564df90c20feb253441ebaacf8c85bdf011575a",
+          "token_ids_sha256": "42f3c1ce30b740c510b928a5d989350d762bade05f7ce384e132a9200189715d",
+          "actual_completion_tokens": 380
+        },
+        "client_full_response_seconds": 39.462884875014424,
+        "client_first_output_seconds": 33.20812812499935,
+        "sse_done": true,
+        "prefill_chunks": [
+          8192,
+          8192,
+          8192,
+          8192,
+          8192,
+          8192,
+          8192,
+          8192,
+          43
+        ],
+        "token_match_count": 1,
+        "known_concurrent_validation": false,
+        "errors": [],
+        "source_result": "concurrency-controls-r1/requests/03-fixed-seed/result.json"
+      },
+      "reference": {
+        "label": "03-fixed-reference",
+        "metadata": {
+          "status": "ok",
+          "diagnostic_valid": true,
+          "context_target": 65536,
+          "prompt_tokens": 65580,
+          "completion_tokens": 380,
+          "generation_tokens_per_second": 61.03,
+          "generation_seconds": 6.23,
+          "prefill_seconds": 0.54,
+          "elapsed_seconds": 6.9052,
+          "cached_tokens": 65536,
+          "cycles": 173,
+          "acceptance_fraction": 0.6866666666666666,
+          "backbone_ms_per_cycle": 33.769942196531794,
+          "timing_ms": {
+            "backbone": 5842.2,
+            "mtp": 288.8,
+            "sampling": 4.2,
+            "cache": 37.6
+          },
+          "error_type": null
+        },
+        "identity": {
+          "payload_sha256": "28be38164334eaa614ab7a78eef7033848579c6c1f95091e1a5675be6fe06509",
+          "output_sha256": "3e7b0dcdb54f450d5fb8283d7861d050cc1f3e0b1e1f6478c58da301f1dc984d",
+          "non_timing_usage": {
+            "prompt_tokens": 65580,
+            "completion_tokens": 380,
+            "total_tokens": 65960,
+            "input_tokens": 65580,
+            "output_tokens": 380,
+            "prompt_tokens_details": {
+              "cached_tokens": 65536
+            }
+          },
+          "non_timing_usage_sha256": "a25be54e60c58408b6d7f76444f161b1bd11483090d50752930ba68c4f71c59a",
+          "token_ids_sha256": "42f3c1ce30b740c510b928a5d989350d762bade05f7ce384e132a9200189715d",
+          "actual_completion_tokens": 380
+        },
+        "client_full_response_seconds": 6.905162375012878,
+        "client_first_output_seconds": 0.6788708750100341,
+        "sse_done": true,
+        "prefill_chunks": [
+          43
+        ],
+        "token_match_count": 1,
+        "known_concurrent_validation": false,
+        "errors": [],
+        "source_result": "concurrency-controls-r1/requests/03-fixed-reference/result.json"
+      },
+      "A": {
+        "label": "03-fixed-a",
+        "metadata": {
+          "status": "ok",
+          "diagnostic_valid": true,
+          "context_target": 65536,
+          "prompt_tokens": 65580,
+          "completion_tokens": 380,
+          "generation_tokens_per_second": 54.98,
+          "generation_seconds": 6.91,
+          "prefill_seconds": 0.46,
+          "elapsed_seconds": 7.5086,
+          "cached_tokens": 65536,
+          "cycles": 173,
+          "acceptance_fraction": 0.6866666666666666,
+          "backbone_ms_per_cycle": 33.95260115606936,
+          "timing_ms": {
+            "backbone": 5873.8,
+            "mtp": 288.7,
+            "sampling": 4.6,
+            "cache": 37.6
+          },
+          "error_type": null
+        },
+        "identity": {
+          "payload_sha256": "28be38164334eaa614ab7a78eef7033848579c6c1f95091e1a5675be6fe06509",
+          "output_sha256": "3e7b0dcdb54f450d5fb8283d7861d050cc1f3e0b1e1f6478c58da301f1dc984d",
+          "non_timing_usage": {
+            "prompt_tokens": 65580,
+            "completion_tokens": 380,
+            "total_tokens": 65960,
+            "input_tokens": 65580,
+            "output_tokens": 380,
+            "prompt_tokens_details": {
+              "cached_tokens": 65536
+            }
+          },
+          "non_timing_usage_sha256": "a25be54e60c58408b6d7f76444f161b1bd11483090d50752930ba68c4f71c59a",
+          "token_ids_sha256": "42f3c1ce30b740c510b928a5d989350d762bade05f7ce384e132a9200189715d",
+          "actual_completion_tokens": 380
+        },
+        "client_full_response_seconds": 7.508639250008855,
+        "client_first_output_seconds": 0.5974691250012256,
+        "sse_done": true,
+        "prefill_chunks": [
+          43
+        ],
+        "token_match_count": 1,
+        "known_concurrent_validation": true,
+        "errors": [],
+        "source_result": "concurrency-controls-r1/requests/03-fixed-a/result.json"
+      },
+      "B": {
+        "label": "03-fixed-b",
+        "metadata": {
+          "status": "ok",
+          "diagnostic_valid": false,
+          "context_target": 262144,
+          "prompt_tokens": 262190,
+          "completion_tokens": 128,
+          "generation_tokens_per_second": 54.02,
+          "generation_seconds": 2.37,
+          "prefill_seconds": 142.09,
+          "elapsed_seconds": 144.8992,
+          "cached_tokens": 0,
+          "cycles": 61,
+          "acceptance_fraction": 0.6435643564356436,
+          "backbone_ms_per_cycle": 36.377049180327866,
+          "timing_ms": {
+            "backbone": 2219.0,
+            "mtp": 106.6,
+            "sampling": 1.9,
+            "cache": 15.4
+          },
+          "error_type": null
+        },
+        "identity": {
+          "payload_sha256": "cf151ed0ab72b52ae47d0128c869692bb66a7fac23c7ac9625da84b09797d268",
+          "output_sha256": "270a9cf3232aae7f9928ce9db4c1c736ded8f5daedca010dfb026faa7b159553",
+          "non_timing_usage": {
+            "prompt_tokens": 262190,
+            "completion_tokens": 128,
+            "total_tokens": 262318,
+            "input_tokens": 262190,
+            "output_tokens": 128,
+            "prompt_tokens_details": {
+              "cached_tokens": 0
+            }
+          },
+          "non_timing_usage_sha256": "6a4a66daa30c6ffe4e78160e6652ee83af5e8568f817a74e76bbb67d26f9d156",
+          "token_ids_sha256": "deec8c2d244fff0157b7bdbe900f6b93ff71b98856f28b5dddabd84ac6e8db8d",
+          "actual_completion_tokens": 128
+        },
+        "client_full_response_seconds": 144.89921029200195,
+        "client_first_output_seconds": 142.53027887499775,
+        "sse_done": true,
+        "prefill_chunks": [
+          8192,
+          8192,
+          8192,
+          8192,
+          8192,
+          8192,
+          8192,
+          8192,
+          8192,
+          8192,
+          8192,
+          8192,
+          8192,
+          8192,
+          8192,
+          8192,
+          8192,
+          8192,
+          8192,
+          8192,
+          8192,
+          8192,
+          8192,
+          8192,
+          8192,
+          8192,
+          8192,
+          8192,
+          8192,
+          8192,
+          8192,
+          8192,
+          45
+        ],
+        "token_match_count": 1,
+        "known_concurrent_validation": true,
+        "errors": [],
+        "source_result": "concurrency-controls-r1/requests/03-fixed-b/result.json"
+      },
+      "overlap_observed": true
+    },
+    {
+      "label": "04-baseline",
+      "arm": "baseline",
+      "controls": {
+        "packed_cache_growth": false,
+        "packed_cache_growth_pingpong": true,
+        "preserved_prefill_max_defer_seconds": 0,
+        "terminal_response_barrier": false
+      },
+      "seed": {
+        "label": "04-baseline-seed",
+        "metadata": {
+          "status": "ok",
+          "diagnostic_valid": true,
+          "context_target": 65536,
+          "prompt_tokens": 65580,
+          "completion_tokens": 380,
+          "generation_tokens_per_second": 60.72,
+          "generation_seconds": 6.26,
+          "prefill_seconds": 31.47,
+          "elapsed_seconds": 37.8788,
+          "cached_tokens": 0,
+          "cycles": 173,
+          "acceptance_fraction": 0.6866666666666666,
+          "backbone_ms_per_cycle": 33.992485549132944,
+          "timing_ms": {
+            "backbone": 5880.7,
+            "mtp": 281.3,
+            "sampling": 4.3,
+            "cache": 37.8
+          },
+          "error_type": null
+        },
+        "identity": {
+          "payload_sha256": "28be38164334eaa614ab7a78eef7033848579c6c1f95091e1a5675be6fe06509",
+          "output_sha256": "3e7b0dcdb54f450d5fb8283d7861d050cc1f3e0b1e1f6478c58da301f1dc984d",
+          "non_timing_usage": {
+            "prompt_tokens": 65580,
+            "completion_tokens": 380,
+            "total_tokens": 65960,
+            "input_tokens": 65580,
+            "output_tokens": 380,
+            "prompt_tokens_details": {
+              "cached_tokens": 0
+            }
+          },
+          "non_timing_usage_sha256": "afc5e5b4c10582f3bb6d3328e564df90c20feb253441ebaacf8c85bdf011575a",
+          "token_ids_sha256": "42f3c1ce30b740c510b928a5d989350d762bade05f7ce384e132a9200189715d",
+          "actual_completion_tokens": 380
+        },
+        "client_full_response_seconds": 37.87881366701913,
+        "client_first_output_seconds": 31.62107950000791,
+        "sse_done": true,
+        "prefill_chunks": [
+          8192,
+          8192,
+          8192,
+          8192,
+          8192,
+          8192,
+          8192,
+          8192,
+          43
+        ],
+        "token_match_count": 1,
+        "known_concurrent_validation": false,
+        "errors": [],
+        "source_result": "concurrency-controls-r1/requests/04-baseline-seed/result.json"
+      },
+      "reference": {
+        "label": "04-baseline-reference",
+        "metadata": {
+          "status": "ok",
+          "diagnostic_valid": true,
+          "context_target": 65536,
+          "prompt_tokens": 65580,
+          "completion_tokens": 380,
+          "generation_tokens_per_second": 60.74,
+          "generation_seconds": 6.26,
+          "prefill_seconds": 0.52,
+          "elapsed_seconds": 6.9005,
+          "cached_tokens": 65536,
+          "cycles": 173,
+          "acceptance_fraction": 0.6866666666666666,
+          "backbone_ms_per_cycle": 34.01445086705202,
+          "timing_ms": {
+            "backbone": 5884.5,
+            "mtp": 281.0,
+            "sampling": 4.3,
+            "cache": 37.7
+          },
+          "error_type": null
+        },
+        "identity": {
+          "payload_sha256": "28be38164334eaa614ab7a78eef7033848579c6c1f95091e1a5675be6fe06509",
+          "output_sha256": "3e7b0dcdb54f450d5fb8283d7861d050cc1f3e0b1e1f6478c58da301f1dc984d",
+          "non_timing_usage": {
+            "prompt_tokens": 65580,
+            "completion_tokens": 380,
+            "total_tokens": 65960,
+            "input_tokens": 65580,
+            "output_tokens": 380,
+            "prompt_tokens_details": {
+              "cached_tokens": 65536
+            }
+          },
+          "non_timing_usage_sha256": "a25be54e60c58408b6d7f76444f161b1bd11483090d50752930ba68c4f71c59a",
+          "token_ids_sha256": "42f3c1ce30b740c510b928a5d989350d762bade05f7ce384e132a9200189715d",
+          "actual_completion_tokens": 380
+        },
+        "client_full_response_seconds": 6.9004766670113895,
+        "client_first_output_seconds": 0.6446123750065453,
+        "sse_done": true,
+        "prefill_chunks": [
+          43
+        ],
+        "token_match_count": 1,
+        "known_concurrent_validation": false,
+        "errors": [],
+        "source_result": "concurrency-controls-r1/requests/04-baseline-reference/result.json"
+      },
+      "A": {
+        "label": "04-baseline-a",
+        "metadata": {
+          "status": "ok",
+          "diagnostic_valid": true,
+          "context_target": 65536,
+          "prompt_tokens": 65580,
+          "completion_tokens": 380,
+          "generation_tokens_per_second": 16.26,
+          "generation_seconds": 23.37,
+          "prefill_seconds": 0.54,
+          "elapsed_seconds": 24.0294,
+          "cached_tokens": 65536,
+          "cycles": 173,
+          "acceptance_fraction": 0.6866666666666666,
+          "backbone_ms_per_cycle": 34.5635838150289,
+          "timing_ms": {
+            "backbone": 5979.5,
+            "mtp": 296.2,
+            "sampling": 4.6,
+            "cache": 39.4
+          },
+          "error_type": null
+        },
+        "identity": {
+          "payload_sha256": "28be38164334eaa614ab7a78eef7033848579c6c1f95091e1a5675be6fe06509",
+          "output_sha256": "3e7b0dcdb54f450d5fb8283d7861d050cc1f3e0b1e1f6478c58da301f1dc984d",
+          "non_timing_usage": {
+            "prompt_tokens": 65580,
+            "completion_tokens": 380,
+            "total_tokens": 65960,
+            "input_tokens": 65580,
+            "output_tokens": 380,
+            "prompt_tokens_details": {
+              "cached_tokens": 65536
+            }
+          },
+          "non_timing_usage_sha256": "a25be54e60c58408b6d7f76444f161b1bd11483090d50752930ba68c4f71c59a",
+          "token_ids_sha256": "42f3c1ce30b740c510b928a5d989350d762bade05f7ce384e132a9200189715d",
+          "actual_completion_tokens": 380
+        },
+        "client_full_response_seconds": 24.02938674998586,
+        "client_first_output_seconds": 0.6604549170006067,
+        "sse_done": true,
+        "prefill_chunks": [
+          43
+        ],
+        "token_match_count": 1,
+        "known_concurrent_validation": true,
+        "errors": [],
+        "source_result": "concurrency-controls-r1/requests/04-baseline-a/result.json"
+      },
+      "B": {
+        "label": "04-baseline-b",
+        "metadata": {
+          "status": "ok",
+          "diagnostic_valid": false,
+          "context_target": 262144,
+          "prompt_tokens": 262190,
+          "completion_tokens": 128,
+          "generation_tokens_per_second": 52.31,
+          "generation_seconds": 2.45,
+          "prefill_seconds": 141.8,
+          "elapsed_seconds": 144.6966,
+          "cached_tokens": 0,
+          "cycles": 61,
+          "acceptance_fraction": 0.6435643564356436,
+          "backbone_ms_per_cycle": 37.63934426229508,
+          "timing_ms": {
+            "backbone": 2296.0,
+            "mtp": 110.3,
+            "sampling": 1.7,
+            "cache": 16.8
+          },
+          "error_type": null
+        },
+        "identity": {
+          "payload_sha256": "cf151ed0ab72b52ae47d0128c869692bb66a7fac23c7ac9625da84b09797d268",
+          "output_sha256": "270a9cf3232aae7f9928ce9db4c1c736ded8f5daedca010dfb026faa7b159553",
+          "non_timing_usage": {
+            "prompt_tokens": 262190,
+            "completion_tokens": 128,
+            "total_tokens": 262318,
+            "input_tokens": 262190,
+            "output_tokens": 128,
+            "prompt_tokens_details": {
+              "cached_tokens": 0
+            }
+          },
+          "non_timing_usage_sha256": "6a4a66daa30c6ffe4e78160e6652ee83af5e8568f817a74e76bbb67d26f9d156",
+          "token_ids_sha256": "deec8c2d244fff0157b7bdbe900f6b93ff71b98856f28b5dddabd84ac6e8db8d",
+          "actual_completion_tokens": 128
+        },
+        "client_full_response_seconds": 144.6966150829976,
+        "client_first_output_seconds": 142.24948966599186,
+        "sse_done": true,
+        "prefill_chunks": [
+          8192,
+          8192,
+          8192,
+          8192,
+          8192,
+          8192,
+          8192,
+          8192,
+          8192,
+          8192,
+          8192,
+          8192,
+          8192,
+          8192,
+          8192,
+          8192,
+          8192,
+          8192,
+          8192,
+          8192,
+          8192,
+          8192,
+          8192,
+          8192,
+          8192,
+          8192,
+          8192,
+          8192,
+          8192,
+          8192,
+          8192,
+          8192,
+          45
+        ],
+        "token_match_count": 1,
+        "known_concurrent_validation": true,
+        "errors": [],
+        "source_result": "concurrency-controls-r1/requests/04-baseline-b/result.json"
+      },
+      "overlap_observed": true
+    }
+  ],
+  "comparisons": [
+    {
+      "left_round": "01-baseline",
+      "right_round": "02-fixed",
+      "passed": true,
+      "checks": {
+        "seed": {
+          "passed": true,
+          "payload_sha256_equal": true,
+          "output_sha256_equal": true,
+          "non_timing_usage_equal": true,
+          "token_ids_sha256_equal": true,
+          "actual_completion_tokens_equal": true,
+          "complete_output_equal": true
+        },
+        "reference": {
+          "passed": true,
+          "payload_sha256_equal": true,
+          "output_sha256_equal": true,
+          "non_timing_usage_equal": true,
+          "token_ids_sha256_equal": true,
+          "actual_completion_tokens_equal": true,
+          "complete_output_equal": true
+        },
+        "A": {
+          "passed": true,
+          "payload_sha256_equal": true,
+          "output_sha256_equal": true,
+          "non_timing_usage_equal": true,
+          "token_ids_sha256_equal": true,
+          "actual_completion_tokens_equal": true,
+          "complete_output_equal": true
+        },
+        "B": {
+          "passed": true,
+          "payload_sha256_equal": true,
+          "output_sha256_equal": true,
+          "non_timing_usage_equal": true,
+          "token_ids_sha256_equal": true,
+          "actual_completion_tokens_equal": true,
+          "complete_output_equal": true
+        }
+      }
+    },
+    {
+      "left_round": "01-baseline",
+      "right_round": "03-fixed",
+      "passed": true,
+      "checks": {
+        "seed": {
+          "passed": true,
+          "payload_sha256_equal": true,
+          "output_sha256_equal": true,
+          "non_timing_usage_equal": true,
+          "token_ids_sha256_equal": true,
+          "actual_completion_tokens_equal": true,
+          "complete_output_equal": true
+        },
+        "reference": {
+          "passed": true,
+          "payload_sha256_equal": true,
+          "output_sha256_equal": true,
+          "non_timing_usage_equal": true,
+          "token_ids_sha256_equal": true,
+          "actual_completion_tokens_equal": true,
+          "complete_output_equal": true
+        },
+        "A": {
+          "passed": true,
+          "payload_sha256_equal": true,
+          "output_sha256_equal": true,
+          "non_timing_usage_equal": true,
+          "token_ids_sha256_equal": true,
+          "actual_completion_tokens_equal": true,
+          "complete_output_equal": true
+        },
+        "B": {
+          "passed": true,
+          "payload_sha256_equal": true,
+          "output_sha256_equal": true,
+          "non_timing_usage_equal": true,
+          "token_ids_sha256_equal": true,
+          "actual_completion_tokens_equal": true,
+          "complete_output_equal": true
+        }
+      }
+    },
+    {
+      "left_round": "01-baseline",
+      "right_round": "04-baseline",
+      "passed": true,
+      "checks": {
+        "seed": {
+          "passed": true,
+          "payload_sha256_equal": true,
+          "output_sha256_equal": true,
+          "non_timing_usage_equal": true,
+          "token_ids_sha256_equal": true,
+          "actual_completion_tokens_equal": true,
+          "complete_output_equal": true
+        },
+        "reference": {
+          "passed": true,
+          "payload_sha256_equal": true,
+          "output_sha256_equal": true,
+          "non_timing_usage_equal": true,
+          "token_ids_sha256_equal": true,
+          "actual_completion_tokens_equal": true,
+          "complete_output_equal": true
+        },
+        "A": {
+          "passed": true,
+          "payload_sha256_equal": true,
+          "output_sha256_equal": true,
+          "non_timing_usage_equal": true,
+          "token_ids_sha256_equal": true,
+          "actual_completion_tokens_equal": true,
+          "complete_output_equal": true
+        },
+        "B": {
+          "passed": true,
+          "payload_sha256_equal": true,
+          "output_sha256_equal": true,
+          "non_timing_usage_equal": true,
+          "token_ids_sha256_equal": true,
+          "actual_completion_tokens_equal": true,
+          "complete_output_equal": true
+        }
+      }
+    }
+  ],
+  "diagnostic_scope": "B diagnostic_valid=false is the retained single-request probe limitation under concurrency. The concurrent runner independently matched one completed token record, full outputs, input hashes and non-timing usage; known_concurrent_validation=true and errors=[] apply."
+}
